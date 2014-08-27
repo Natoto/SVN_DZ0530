@@ -51,7 +51,7 @@ static NSString *const ID_KEY = @"id";
 //    [FaceBoard getImageTextRange:@":)fasffafksfaf:handshakesdg:(" :array];
 //    NSString *str=@"<strong><font size='5'>为什么说广州是中国最特别的城市呢? </font></strong><br />by何建晔，资深财经媒体人。<br /><br /><strong>";
 //    [str isallHtmlMark];
-    
+    NSLog(@"hello dz");
 	[UIApplication sharedApplication].statusBarHidden = NO;
 	bee.ui.config.ASR = YES;
     if (IOS7_OR_LATER) {
