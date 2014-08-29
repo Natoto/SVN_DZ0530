@@ -13,12 +13,12 @@ DEF_SINGLETON(newTopicModel)
 @synthesize fid=_fid,subject=_subject, sortid=_sortid,typedid=_typedid,authorid=_authorid,author=_author,contents=_contents;
 
 //将编辑内容保存到数据库
--(void)savedraft:(NSArray *)array
+- (void)savedraft:(NSArray *)array
 {
     [newtopicContent saveObject:array forKey:DRAFTS];
 }
 
--(NSMutableArray *)loaddratfs
+- (NSMutableArray *)loaddratfs
 {
     NSMutableArray *array=[[NSMutableArray alloc] init];
     [array addUniqueObjectsFromArray:[newtopicContent readObjectForKey:DRAFTS]
@@ -27,7 +27,8 @@ DEF_SINGLETON(newTopicModel)
                                   }];
     return array;
 }
--(void)clearDrafts
+
+- (void)clearDrafts
 {
     [newtopicContent removeObjectForKey:DRAFTS];
 }

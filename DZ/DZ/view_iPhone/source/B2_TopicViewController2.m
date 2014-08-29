@@ -24,10 +24,11 @@ DEF_SIGNAL(selectpost)
     return self;
 }
 
--(void)dealloc
+- (void)dealloc
 {
     [self.tpclistModel removeObserver:self];
 }
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -49,19 +50,23 @@ ON_SIGNAL3(TopiclistModel, RELOADED, signal)
     [self.tableViewList reloadData];
     [self FinishedLoadData];
 }
+
 ON_SIGNAL3(TopiclistModel, FAILED, signal)
 {
      [self FinishedLoadData];
 }
--(void)viewWillAppear:(BOOL)animated
+
+- (void)viewWillAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
 }
--(void)viewWillLayoutSubviews//重新layout界面 针对越狱手机
+
+- (void)viewWillLayoutSubviews//重新layout界面 针对越狱手机
 {
     self.tableViewList.frame=CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-bee.ui.config.baseInsets.top);
     [self relayoutSubviews];
 }
+
 - (void)viewDidCurrentView
 {
     if (!self.tpclistModel.loaded)
@@ -80,7 +85,7 @@ ON_SIGNAL3(TopiclistModel, FAILED, signal)
 }
  
 //数据加载完成
--(void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if([indexPath row] == (self.tpclistModel.shots.count-1)){
         [self setFooterView];
@@ -109,7 +114,7 @@ ON_SIGNAL3(TopiclistModel, FAILED, signal)
     return  cell;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {    
     topics *atopic = [self.tpclistModel.shots objectAtIndex:indexPath.row];
     if (_topicvcdelegate != nil && [_topicvcdelegate respondsToSelector:@selector(topicViewControllerCellSelectedWithTid:)])
@@ -122,12 +127,14 @@ ON_SIGNAL3(TopiclistModel, FAILED, signal)
 }
 
 //刷新调用的方法
--(void)refreshView{
+- (void)refreshView
+{
     [self.tpclistModel firstPage];
 }
 
 //加载调用的方法
--(void)getNextPageView{
+- (void)getNextPageView
+{
     if (!self.tpclistModel.end) {
         [self removeFooterView];
         [self.tpclistModel nextPage];
@@ -140,6 +147,5 @@ ON_SIGNAL3(TopiclistModel, FAILED, signal)
     }
     [self FinishedLoadData];
 }
-
 
 @end

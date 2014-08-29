@@ -66,6 +66,8 @@ DEF_SINGLETON(DZ_SystemSetting)
         self.feedbackurl =[NSString stringWithFormat:@"%@feedback.php",self.idourl];
         //@"http://192.168.7.70:8080/web/
         self.logurl =[NSString stringWithFormat:@"%@log.php",self.idourl];
+
+        self.mode = [[diction valueForKey:@"mode"] valueForKey:@"text"];
         
         self.appid =[[diction valueForKey:@"appid"] valueForKey:@"text"];
         self.appname =[[diction valueForKey:@"appname"] valueForKey:@"text"];
@@ -134,6 +136,7 @@ DEF_SINGLETON(DZ_SystemSetting)
     }
     return _tabBarColor;
 }
+
 //获得一个类中的所有变量和函数名
 //传递一个变量名称stringxing和类名称string型 得到其对应的值
 - (NSString *)nameWithInstance:(id)instance target:(id)target
@@ -162,7 +165,6 @@ DEF_SINGLETON(DZ_SystemSetting)
     }
     free(ivars);
     return myvalue;
-    
 }
 
 +(NSMutableArray *)classtoarray:(id)cls
@@ -306,13 +308,13 @@ DEF_SINGLETON(DZ_SystemSetting)
     [DZ_SYS_SAVESCR  saveObject:ignore forKey:key];
 }
 
-+(BOOL)saveUserSecret
++ (BOOL)saveUserSecret
 {
     DZ_SystemSetting *setting=[DZ_SystemSetting sharedInstance];
     return [setting saveUserSecret];
 }
 
-+(void)saveUserSecret:(BOOL)save
++ (void)saveUserSecret:(BOOL)save
 {
      DZ_SystemSetting *setting=[DZ_SystemSetting sharedInstance];
     [setting saveUserSecret:save];
@@ -320,7 +322,7 @@ DEF_SINGLETON(DZ_SystemSetting)
 
 #pragma mark - 忽略系统消息
 
--(void)saveIgnoreSetting:(MSG_TYPE_FILTE) msg_type ignore:(BOOL)isignore
+- (void)saveIgnoreSetting:(MSG_TYPE_FILTE) msg_type ignore:(BOOL)isignore
 {
     DZ_SYS_IGNORE *ignore=[[DZ_SYS_IGNORE alloc] init];
     ignore.ignore=[NSNumber numberWithBool:isignore];
@@ -329,14 +331,14 @@ DEF_SINGLETON(DZ_SystemSetting)
     [DZ_SYS_IGNORE  saveObject:ignore forKey:key];
 }
 
--(BOOL)readIgnoreSetting:(MSG_TYPE_FILTE) msg_type
+- (BOOL)readIgnoreSetting:(MSG_TYPE_FILTE) msg_type
 {
-     NSString *key=MODELOBJECTKEY([UserModel sharedInstance].session.uid,[NSString stringWithFormat:@"%d",msg_type]);
+    NSString *key=MODELOBJECTKEY([UserModel sharedInstance].session.uid,[NSString stringWithFormat:@"%d",msg_type]);
     DZ_SYS_IGNORE *ignore=[DZ_SYS_IGNORE readObjectForKey:key];
     return ignore.ignore.boolValue;
 }
 
-+(void)saveIgnoreSetting:(MSG_TYPE_FILTE)msg_type ignore:(BOOL)isignore
++ (void)saveIgnoreSetting:(MSG_TYPE_FILTE)msg_type ignore:(BOOL)isignore
 {
     DZ_SystemSetting *setting=[DZ_SystemSetting sharedInstance];
     [setting saveIgnoreSetting:msg_type ignore:isignore];

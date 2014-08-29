@@ -81,7 +81,7 @@ ON_SIGNAL2(BeeUIBoard, signal)
             [_selectedFiddic setObject:MARK forKey:item.fid];
         }
         [self observeNotification:@"notify.A0_HomePage1_iphone.homepageItemChanged"];
-        
+
         [BeeUINavigationBar setButtonSize:CGSizeMake(30, 30)];
         [self showBarButton:BeeUINavigationBar.RIGHT image:[UIImage bundleImageNamed:@"sousuo.jpg"]];
     }

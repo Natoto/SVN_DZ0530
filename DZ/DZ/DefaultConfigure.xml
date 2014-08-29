@@ -12,6 +12,7 @@
 <appname>满满</appname>
 <appversion>V1.0.1</appversion>
 <launchImage>defaultLaunchImage</launchImage>
+<mode>2</mode>
 <navigationbar>
         <backgroundColor>0X00AAF5</backgroundColor>
         <backgroundImage></backgroundImage>

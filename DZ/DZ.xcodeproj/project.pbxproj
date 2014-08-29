@@ -17,6 +17,7 @@
 		CE035B521980DCE900A44A4D /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = CE035B4A1980DCE900A44A4D /* UIView+Extension.m */; };
 		CE035B551980FF9900A44A4D /* D0_CheckinsView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE035B541980FF9800A44A4D /* D0_CheckinsView.m */; };
 		CE041621191CD6E6008A70FD /* B2_SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE041620191CD6E6008A70FD /* B2_SearchViewController.m */; };
+		CE04D6FE19AD80EC00A58895 /* HomeTopicSlideModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE04D6FD19AD80EC00A58895 /* HomeTopicSlideModel.m */; };
 		CE04EC1719454B7400AE729A /* PostpmModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE04EC1619454B7400AE729A /* PostpmModel.m */; };
 		CE04EC1A19454E8D00AE729A /* postpm.m in Sources */ = {isa = PBXBuildFile; fileRef = CE04EC1919454E8D00AE729A /* postpm.m */; };
 		CE04EC1D19457E4600AE729A /* pm.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE04EC1C19457E4600AE729A /* pm.mm */; };
@@ -140,6 +141,9 @@
 		CE3CF26F1917AD51009037E2 /* FaceBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3CF1AA1917AD51009037E2 /* FaceBoard.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CE3CF2701917AD51009037E2 /* FaceButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3CF1AC1917AD51009037E2 /* FaceButton.m */; };
 		CE3CF2711917AD51009037E2 /* GrayPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3CF1AE1917AD51009037E2 /* GrayPageControl.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CE3E7A0919AB1B3C001B5EAA /* PFAutomaticScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3E79FE19AB1B3C001B5EAA /* PFAutomaticScrollView.m */; };
+		CE3E7A0B19AB1B3C001B5EAA /* PFSlideSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3E7A0519AB1B3C001B5EAA /* PFSlideSwitchView.m */; };
+		CE3E7A0F19AB1B6C001B5EAA /* A0_HomePage2_iphone.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3E7A0E19AB1B6C001B5EAA /* A0_HomePage2_iphone.m */; };
 		CE407F701941B14C0041AAB5 /* D2_MsgLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE407F6F1941B14C0041AAB5 /* D2_MsgLoadingView.m */; };
 		CE40F946194942BC00255FF1 /* B3_PostReplyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE40F945194942BC00255FF1 /* B3_PostReplyViewController.m */; };
 		CE40F9491949A9BF00255FF1 /* HBImagePickerControllerEx.m in Sources */ = {isa = PBXBuildFile; fileRef = CE40F9481949A9BF00255FF1 /* HBImagePickerControllerEx.m */; };
@@ -699,6 +703,7 @@
 		CEB370131932EF5700E9ADA8 /* icon_rightarrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEB370101932EF5700E9ADA8 /* icon_rightarrow@2x.png */; };
 		CEB370141932EF5700E9ADA8 /* red_line_and_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEB370111932EF5700E9ADA8 /* red_line_and_shadow@2x.png */; };
 		CEB8459C19A439A5000E2022 /* B3_Post_IWantApply.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB8459B19A439A5000E2022 /* B3_Post_IWantApply.m */; };
+		CEBAB4A019AC2FB0005A78DA /* A0_TopicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBAB49F19AC2FB0005A78DA /* A0_TopicViewController.m */; };
 		CEBFEAEC193EB87D00CBDF8D /* RemindModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBFEAEB193EB87D00CBDF8D /* RemindModel.m */; };
 		CEBFEAEF193EEA1500CBDF8D /* AllpmModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBFEAEE193EEA1500CBDF8D /* AllpmModel.m */; };
 		CEBFEAF8193EF84F00CBDF8D /* D1_MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBFEAF7193EF84F00CBDF8D /* D1_MessageViewController.m */; };
@@ -734,6 +739,9 @@
 		CEDDE0D018FE7B0A00D18576 /* D2_Setting_VisionsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDDE0CF18FE7B0A00D18576 /* D2_Setting_VisionsCell.m */; };
 		CEDEBDCF1976992F007ADCC5 /* DZ_UITextField.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDEBDCE1976992F007ADCC5 /* DZ_UITextField.m */; };
 		CEE0446E1940116F0074F828 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE0446D1940116F0074F828 /* libWeChatSDK.a */; };
+		CEEACADE19AC67A400FCF085 /* hometopiclist.mm in Sources */ = {isa = PBXBuildFile; fileRef = CEEACADD19AC67A400FCF085 /* hometopiclist.mm */; };
+		CEEACAE119AC6C3700FCF085 /* HomeTopicListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEACAE019AC6C3700FCF085 /* HomeTopicListModel.m */; };
+		CEEACB2919ACB94100FCF085 /* hometopicslide.mm in Sources */ = {isa = PBXBuildFile; fileRef = CEEACB2819ACB94100FCF085 /* hometopicslide.mm */; };
 		CEEEF3E41994BA01002EA6D0 /* zh-Hans.xml in Resources */ = {isa = PBXBuildFile; fileRef = CEEEF3E21994BA01002EA6D0 /* zh-Hans.xml */; };
 		CEF918031957C03E00B91B6C /* feedback.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF918021957C03E00B91B6C /* feedback.m */; };
 		CEF918061957C04F00B91B6C /* FeedbackModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF918051957C04F00B91B6C /* FeedbackModel.m */; };
@@ -778,6 +786,8 @@
 		CE035B541980FF9800A44A4D /* D0_CheckinsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = D0_CheckinsView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		CE04161F191CD6E6008A70FD /* B2_SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = B2_SearchViewController.h; sourceTree = "<group>"; };
 		CE041620191CD6E6008A70FD /* B2_SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = B2_SearchViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		CE04D6FC19AD80EC00A58895 /* HomeTopicSlideModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeTopicSlideModel.h; sourceTree = "<group>"; };
+		CE04D6FD19AD80EC00A58895 /* HomeTopicSlideModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeTopicSlideModel.m; sourceTree = "<group>"; };
 		CE04EC1519454B7400AE729A /* PostpmModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostpmModel.h; sourceTree = "<group>"; };
 		CE04EC1619454B7400AE729A /* PostpmModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostpmModel.m; sourceTree = "<group>"; };
 		CE04EC1819454E8D00AE729A /* postpm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = postpm.h; sourceTree = "<group>"; };
@@ -1004,6 +1014,12 @@
 		CE3CF1AC1917AD51009037E2 /* FaceButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceButton.m; sourceTree = "<group>"; };
 		CE3CF1AD1917AD51009037E2 /* GrayPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrayPageControl.h; sourceTree = "<group>"; };
 		CE3CF1AE1917AD51009037E2 /* GrayPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GrayPageControl.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		CE3E79FD19AB1B3C001B5EAA /* PFAutomaticScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFAutomaticScrollView.h; sourceTree = "<group>"; };
+		CE3E79FE19AB1B3C001B5EAA /* PFAutomaticScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFAutomaticScrollView.m; sourceTree = "<group>"; };
+		CE3E7A0419AB1B3C001B5EAA /* PFSlideSwitchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFSlideSwitchView.h; sourceTree = "<group>"; };
+		CE3E7A0519AB1B3C001B5EAA /* PFSlideSwitchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFSlideSwitchView.m; sourceTree = "<group>"; };
+		CE3E7A0D19AB1B6C001B5EAA /* A0_HomePage2_iphone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A0_HomePage2_iphone.h; sourceTree = "<group>"; };
+		CE3E7A0E19AB1B6C001B5EAA /* A0_HomePage2_iphone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A0_HomePage2_iphone.m; sourceTree = "<group>"; };
 		CE407F6E1941B14C0041AAB5 /* D2_MsgLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = D2_MsgLoadingView.h; sourceTree = "<group>"; };
 		CE407F6F1941B14C0041AAB5 /* D2_MsgLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = D2_MsgLoadingView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		CE40F944194942BC00255FF1 /* B3_PostReplyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = B3_PostReplyViewController.h; sourceTree = "<group>"; };
@@ -2063,6 +2079,8 @@
 		CEB370111932EF5700E9ADA8 /* red_line_and_shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red_line_and_shadow@2x.png"; sourceTree = "<group>"; };
 		CEB8459A19A439A5000E2022 /* B3_Post_IWantApply.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = B3_Post_IWantApply.h; sourceTree = "<group>"; };
 		CEB8459B19A439A5000E2022 /* B3_Post_IWantApply.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = B3_Post_IWantApply.m; sourceTree = "<group>"; };
+		CEBAB49E19AC2FB0005A78DA /* A0_TopicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A0_TopicViewController.h; sourceTree = "<group>"; };
+		CEBAB49F19AC2FB0005A78DA /* A0_TopicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A0_TopicViewController.m; sourceTree = "<group>"; };
 		CEBFEAEA193EB87D00CBDF8D /* RemindModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemindModel.h; sourceTree = "<group>"; };
 		CEBFEAEB193EB87D00CBDF8D /* RemindModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemindModel.m; sourceTree = "<group>"; };
 		CEBFEAED193EEA1500CBDF8D /* AllpmModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllpmModel.h; sourceTree = "<group>"; };
@@ -2135,6 +2153,12 @@
 		CEDEBDCD1976992E007ADCC5 /* DZ_UITextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DZ_UITextField.h; sourceTree = "<group>"; };
 		CEDEBDCE1976992F007ADCC5 /* DZ_UITextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DZ_UITextField.m; sourceTree = "<group>"; };
 		CEE0446D1940116F0074F828 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		CEEACADC19AC67A400FCF085 /* hometopiclist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hometopiclist.h; sourceTree = "<group>"; };
+		CEEACADD19AC67A400FCF085 /* hometopiclist.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = hometopiclist.mm; sourceTree = "<group>"; };
+		CEEACADF19AC6C3700FCF085 /* HomeTopicListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeTopicListModel.h; sourceTree = "<group>"; };
+		CEEACAE019AC6C3700FCF085 /* HomeTopicListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeTopicListModel.m; sourceTree = "<group>"; };
+		CEEACB2719ACB94100FCF085 /* hometopicslide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hometopicslide.h; sourceTree = "<group>"; };
+		CEEACB2819ACB94100FCF085 /* hometopicslide.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = hometopicslide.mm; sourceTree = "<group>"; };
 		CEEEF3E31994BA01002EA6D0 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "zh-Hant"; path = "zh-Hant.lproj/zh-Hans.xml"; sourceTree = "<group>"; };
 		CEEEF3E51994BA21002EA6D0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "zh-Hans"; path = "zh-Hans.lproj/zh-Hans.xml"; sourceTree = "<group>"; };
 		CEF918011957C03E00B91B6C /* feedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = feedback.h; sourceTree = "<group>"; };
@@ -2253,6 +2277,10 @@
 				CE2C0A471922FE85005441F1 /* friends.mm */,
 				CE7788F71909FE1B00DE4E1A /* home.h */,
 				CE7788F81909FE1B00DE4E1A /* home.mm */,
+				CEEACB2719ACB94100FCF085 /* hometopicslide.h */,
+				CEEACB2819ACB94100FCF085 /* hometopicslide.mm */,
+				CEEACADC19AC67A400FCF085 /* hometopiclist.h */,
+				CEEACADD19AC67A400FCF085 /* hometopiclist.mm */,
 				CE2EC5651921C3720015FC35 /* logout.h */,
 				CE2EC5661921C3720015FC35 /* logout.m */,
 				CE4BDDB019299B72009861E3 /* modavatar.h */,
@@ -2347,6 +2375,7 @@
 				CE84FC3219484ADE002DAA89 /* PFWaterFall */,
 				CE5B5B041975018800EF4793 /* pinyin */,
 				CED1935E199A142F00FD9EF4 /* libqrencode */,
+				CE3E79FB19AB1B3C001B5EAA /* pf */,
 				CE288C1618ECEB8B0046A26A /* MyRect.h */,
 				CE288C1718ECEB8B0046A26A /* MyRect.m */,
 			);
@@ -2409,6 +2438,10 @@
 				CEAE7A3E1925E48D00B8C400 /* DistrictsModel.m */,
 				CE6352FD196C05D900317EF3 /* DZ_Timer.h */,
 				CE6352FE196C05D900317EF3 /* DZ_Timer.m */,
+				CEEACADF19AC6C3700FCF085 /* HomeTopicListModel.h */,
+				CEEACAE019AC6C3700FCF085 /* HomeTopicListModel.m */,
+				CE04D6FC19AD80EC00A58895 /* HomeTopicSlideModel.h */,
+				CE04D6FD19AD80EC00A58895 /* HomeTopicSlideModel.m */,
 				CE154A581929F0C100A706CD /* extensions */,
 				CEF918041957C04F00B91B6C /* FeedbackModel.h */,
 				CEF918051957C04F00B91B6C /* FeedbackModel.m */,
@@ -2591,6 +2624,33 @@
 				CE7D586B19873D0C0031525F /* image.bundle */,
 			);
 			path = FaceBoard;
+			sourceTree = "<group>";
+		};
+		CE3E79FB19AB1B3C001B5EAA /* pf */ = {
+			isa = PBXGroup;
+			children = (
+				CE3E79FC19AB1B3C001B5EAA /* PFAutomaticScrollView */,
+				CE3E7A0319AB1B3C001B5EAA /* PFSlideSwitchView */,
+			);
+			path = pf;
+			sourceTree = "<group>";
+		};
+		CE3E79FC19AB1B3C001B5EAA /* PFAutomaticScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				CE3E79FD19AB1B3C001B5EAA /* PFAutomaticScrollView.h */,
+				CE3E79FE19AB1B3C001B5EAA /* PFAutomaticScrollView.m */,
+			);
+			path = PFAutomaticScrollView;
+			sourceTree = "<group>";
+		};
+		CE3E7A0319AB1B3C001B5EAA /* PFSlideSwitchView */ = {
+			isa = PBXGroup;
+			children = (
+				CE3E7A0419AB1B3C001B5EAA /* PFSlideSwitchView.h */,
+				CE3E7A0519AB1B3C001B5EAA /* PFSlideSwitchView.m */,
+			);
+			path = PFSlideSwitchView;
 			sourceTree = "<group>";
 		};
 		CE47BB3B191624F300094C02 /* LXActionSheet */ = {
@@ -4464,6 +4524,10 @@
 				CE0A3043195A9C53001FBB11 /* D2_Setting_AboutUsCellViewController.m */,
 				CE9EA99D18ED0D670055BA70 /* A0_HomePage1_iphone.h */,
 				CE9EA99E18ED0D680055BA70 /* A0_HomePage1_iphone.m */,
+				CE3E7A0D19AB1B6C001B5EAA /* A0_HomePage2_iphone.h */,
+				CE3E7A0E19AB1B6C001B5EAA /* A0_HomePage2_iphone.m */,
+				CEBAB49E19AC2FB0005A78DA /* A0_TopicViewController.h */,
+				CEBAB49F19AC2FB0005A78DA /* A0_TopicViewController.m */,
 				CECF3639198B67E900596DC0 /* A1_ActivityViewController.h */,
 				CECF363A198B67E900596DC0 /* A1_ActivityViewController.m */,
 				CECEA1C119A19AAD00114DB1 /* A1_Activity_TypeViewController.h */,
@@ -4859,6 +4923,7 @@
 				CE035B521980DCE900A44A4D /* UIView+Extension.m in Sources */,
 				CEDDE0CA18FE72B500D18576 /* D2_Setting_2G3GNotLoadImgCell.m in Sources */,
 				CEB324B118E95324004134D4 /* UIButton+BeeUILayout.m in Sources */,
+				CE3E7A0F19AB1B6C001B5EAA /* A0_HomePage2_iphone.m in Sources */,
 				CE28CEED1985E07A0005B11A /* DZ_UIDevice_IOKit_Extensions.m in Sources */,
 				CE35D71A1977F0A60030BFEF /* D2_Setting_AboutUsCtr_Cell.m in Sources */,
 				CEC016351904C18100371B86 /* A1_WebmasterRecommend_Cell.m in Sources */,
@@ -4868,6 +4933,7 @@
 				CEB324B618E95324004134D4 /* UITextView+BeeUILayout.m in Sources */,
 				CEB3246C18E95324004134D4 /* Bee_UIAccelerometer.m in Sources */,
 				CE12A85E198A2B4100844B5E /* postmine.mm in Sources */,
+				CEEACAE119AC6C3700FCF085 /* HomeTopicListModel.m in Sources */,
 				CEB3254018E95324004134D4 /* ASIAuthenticationDialog.m in Sources */,
 				CE6DC4CC193DD4CC00C0820F /* ToolsFunc.m in Sources */,
 				CE4D8327190DE44B00506AD2 /* neworhotlist.mm in Sources */,
@@ -5035,6 +5101,7 @@
 				CE25CE7C190512880064DE51 /* A1_Newest_iphone.m in Sources */,
 				CEB329FC18E95C4E004134D4 /* bee.services.share.tencentweibo.m in Sources */,
 				CEB324BB18E95324004134D4 /* UILabel+LayoutParser.m in Sources */,
+				CEEACB2919ACB94100FCF085 /* hometopicslide.mm in Sources */,
 				CE4C22FD18EABEA90060256C /* ServiceInspector_Window.m in Sources */,
 				CE09C897197FCD8600BAAE08 /* E0_AlbumBoard_iphone.m in Sources */,
 				CEB3251818E95324004134D4 /* NSObject+BeeJSON.mm in Sources */,
@@ -5101,6 +5168,7 @@
 				CEB3241C18E95324004134D4 /* Bee_Message.mm in Sources */,
 				CEB3242218E95324004134D4 /* BeeMessage+BeeJSON.mm in Sources */,
 				CEB3244618E95324004134D4 /* BeeUIStyle+Builder.m in Sources */,
+				CEEACADE19AC67A400FCF085 /* hometopiclist.mm in Sources */,
 				CE5A7B3C19065070005FCBC6 /* Base_TableviewController.m in Sources */,
 				CE735D1219500AF3003B985F /* D1_FriendsInfo_HeaderCell.m in Sources */,
 				CEB324BE18E95324004134D4 /* UITextView+LayoutParser.m in Sources */,
@@ -5147,6 +5215,7 @@
 				CEDDE0CD18FE79CA00D18576 /* D2_Setting_ClearCashCell.m in Sources */,
 				CEB324A918E95324004134D4 /* UIViewController+BeeUISignal.m in Sources */,
 				CEB324DA18E95324004134D4 /* Bee_StreamViewModel.mm in Sources */,
+				CE04D6FE19AD80EC00A58895 /* HomeTopicSlideModel.m in Sources */,
 				CE4D8332190DFFCC00506AD2 /* newTopicModel.m in Sources */,
 				CEB3252418E95324004134D4 /* Bee_HTTP.mm in Sources */,
 				CE37C64419400D6800D70B8E /* D1_Msg_InstationViewController.m in Sources */,
@@ -5266,6 +5335,7 @@
 				CE3CF19D191770AA009037E2 /* SETextGeometry.m in Sources */,
 				CEB324C118E95324004134D4 /* Bee_UIQuery.m in Sources */,
 				CE12A85B1989E9D700844B5E /* D1_Reply_OtherViewController.m in Sources */,
+				CE3E7A0919AB1B3C001B5EAA /* PFAutomaticScrollView.m in Sources */,
 				CEB324E218E95324004134D4 /* Bee_UITemplateParserAndroid.m in Sources */,
 				CE2C0A5D19233BE4005441F1 /* myPostModel.m in Sources */,
 				CEB3241818E95324004134D4 /* Bee_Version.mm in Sources */,
@@ -5407,6 +5477,7 @@
 				CE6DC4BA193DC2BA00C0820F /* remind.mm in Sources */,
 				CEB324EE18E95324004134D4 /* Bee_System.mm in Sources */,
 				CEB3242918E95324004134D4 /* Bee_ViewPackage.mm in Sources */,
+				CEBAB4A019AC2FB0005A78DA /* A0_TopicViewController.m in Sources */,
 				CEB324D418E95324004134D4 /* Bee_ViewModel.mm in Sources */,
 				CE4C232E18EAD63C0060256C /* ServiceDebugger_DashBoard.m in Sources */,
 				CE50B21119079C7A00557C25 /* B3_PostViewController.m in Sources */,
@@ -5459,6 +5530,7 @@
 				CE25CE7F190518180064DE51 /* B2_TopicTableViewCell.m in Sources */,
 				CEB3252B18E95324004134D4 /* Bee_HTTPConnection2.m in Sources */,
 				CED15E521990D2B90066221A /* UIImage+Alpha.m in Sources */,
+				CE3E7A0B19AB1B3C001B5EAA /* PFSlideSwitchView.m in Sources */,
 				CEB329EC18E95C4E004134D4 /* ServicePush.m in Sources */,
 				CE1822301946D37B004F7C8A /* CommandModel.m in Sources */,
 				CE4C233E18EAD63C0060256C /* ServiceDebugger_Unit.m in Sources */,

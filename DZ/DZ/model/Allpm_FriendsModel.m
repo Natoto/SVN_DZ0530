@@ -130,7 +130,7 @@ DEF_SINGLETON(Allpm_FriendsModel)
         if (!array.count) {
             continue;
         }
-        NSString  *frienduid = MODELOBJECTKEY(KEY_CLS_UID_TYPE,key,KEY_NEWMESSAGE_NAME);
+        NSString *frienduid = MODELOBJECTKEY(KEY_CLS_UID_TYPE,key,KEY_NEWMESSAGE_NAME);
         [friendms saveObject:array forKey:frienduid];
     }
     if (namelist.count) {

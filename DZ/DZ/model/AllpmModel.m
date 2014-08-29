@@ -263,7 +263,6 @@ DEF_SINGLETON(AllpmModel)
     if (self.systemms.count) {
         [allpm_public saveObject:self.systemms forKey:KEY_CLS_UID_TYPE];
     }
-    
 }
 
 -(BOOL)arraycontainsObject:(NSArray *)array obj2:(ALLPMMODEFRIENDSLIST *)obj2

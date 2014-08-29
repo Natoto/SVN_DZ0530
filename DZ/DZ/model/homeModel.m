@@ -136,7 +136,7 @@ DEF_SINGLETON(homeModel)
 	[api send];
 }
 
--(NSString *)fidsstr
+- (NSString *)fidsstr
 {
     NSString *res=[[NSString alloc] init];
     NSArray * fidary=[self arrangedPositions];
@@ -155,9 +155,7 @@ DEF_SINGLETON(homeModel)
     return res;
 }
 
-
-
--(NSMutableArray *)arrangedPositions
+- (NSMutableArray *)arrangedPositions
 {
     if (!_arrangedPositions) {
         _arrangedPositions = [HOME2TOPICSPOSITIONITEM readObjectForKey:ARRAYPOSITIONKEY];

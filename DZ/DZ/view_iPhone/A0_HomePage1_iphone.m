@@ -1,4 +1,4 @@
- //
+//
 //  A0_HomePage1_iphone.m
 //  DZ
 //
@@ -12,10 +12,12 @@
 #import "D1_CollectionViewController_iphone.h"
 #import "MJRefresh.h"
 #import "A1_ActivityViewController.h"
+
 @interface A0_HomePage1_iphone ()
 {
 //    UIImageView *bgimgview;
 }
+
 @property(nonatomic,retain)UserModel *usermodel;
 @end
 
@@ -24,7 +26,7 @@ DEF_NOTIFICATION(homepageItemChanged)
 -(void)load
 {
     self.usermodel = [UserModel modelWithObserver:self]; 
-    self.homeModel	= [homeModel  modelWithObserver:self];
+    self.homeModel	= [homeModel modelWithObserver:self];
 }
 
 - (void)unload
@@ -78,18 +80,19 @@ ON_SIGNAL3(A0_TileView,CLOSTBTNTAPPED, signal)
     [self ReArrangTileViews:tileView];
 }
 
--(void)viewWillDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [self.homeModel saveArrangedPosition:self.ModeleBlocks];
     self.EDITMODE = NO;
 }
--(void)viewDidDisappear:(BOOL)animated
+
+- (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
 }
 
--(void)viewDidAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     if ( NO == self.homeModel.loaded )
@@ -99,7 +102,6 @@ ON_SIGNAL3(A0_TileView,CLOSTBTNTAPPED, signal)
     [self ReArrangTileViews:nil];
     [bee.ui.appBoard showTabbar];
 }
-
 
 ON_SIGNAL2( BeeUIBoard, signal )
 {

@@ -137,6 +137,5 @@ CONVERT_PROPERTY_CLASS( collection, collection );
 		// TODO:
 	}
 }
+
 @end
-
-

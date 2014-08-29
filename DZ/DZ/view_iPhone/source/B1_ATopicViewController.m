@@ -181,7 +181,6 @@ ON_RIGHT_BUTTON_TOUCHED(signal)
 
 - (void)slideSwitchView:(QCSlideSwitchView *)view didselectTab:(NSUInteger)number
 {
-   
     if (number == 0) {
         B2_TopicViewController2 *vc = nil;
         vc = self.vc1;

@@ -17,6 +17,8 @@
 #import "A0_HomePage1_iphone.h"
 #import "A2_PlatesSelectBoard_iphone.h"
 #import "E0_AlbumBoard_iphone.h"
+#import "DZ_SystemSetting.h"
+#import "A0_HomePage2_iphone.h"
 
 DEF_UI( AppBoard_iPhone, appBoard )
 
@@ -28,7 +30,6 @@ DEF_UI( AppBoard_iPhone, appBoard )
 {
 	NSInteger	_selectedIndex;
     CGFloat _tabbarOriginY;
-
 }
  
 DEF_SINGLETON( AppBoard_iPhone )
@@ -50,7 +51,14 @@ ON_SIGNAL2( BeeUIBoard, signal )
 	{
         [UIApplication sharedApplication].statusBarHidden = NO;
         self.view.backgroundColor = [UIColor whiteColor];
-		bee.ui.router[self.TAB_HOME]	= [A0_HomePage1_iphone class];
+
+        DZ_SystemSetting *setting = [[DZ_SystemSetting alloc] init];
+        if ([setting.mode isEqualToString:@"2"]) {
+            bee.ui.router[self.TAB_HOME] = [A0_HomePage2_iphone class];
+        } else {
+            bee.ui.router[self.TAB_HOME] = [A0_HomePage1_iphone class];
+        }
+
 		bee.ui.router[self.TAB_FORUM]	= [B0_ForumPlates_iphone class];
 		bee.ui.router[self.TAB_SENDHTM]	= [C0_HairPost_iphone class];
 		bee.ui.router[self.TAB_MINE]	= [D0_Mine_iphone class];
@@ -223,9 +231,9 @@ ON_NOTIFICATION3( BeeNetworkReachability, UNREACHABLE, notification )
 //        
 //    }];
 	[self presentModalStack:[BeeUIStack stackWithFirstBoard:(BeeUIBoard *)board] animated:YES];
-   
 }
--(void)hideSendhtm
+
+- (void)hideSendhtm
 {
     if ( nil == self.modalStack )
 	{

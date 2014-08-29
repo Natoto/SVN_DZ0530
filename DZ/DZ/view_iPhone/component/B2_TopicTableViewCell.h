@@ -11,6 +11,7 @@
 #import "bee.h"
 #import "Topiclist.h"
 #import "DZ_BASETableViewCell.h"
+#import "hometopiclist.h"
 
 @interface B2_TopicTableViewCell : UITableViewCell
 {
@@ -29,4 +30,6 @@
 //-(void)layoutSubviews:(topics *)atopic;
 -(void)layoutSubviews:(BOOL)havePhote;
 -(void)datachanges:(topics *)atopics;
+- (void)loadHomeTopicList:(hometopiclist *)ahometopiclist;
+
 @end

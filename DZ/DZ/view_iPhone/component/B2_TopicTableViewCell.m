@@ -128,7 +128,7 @@
         self.lbllandlord.text = @"匿名";
     }
 }
--(void)datachanges:(topics *)atopic
+- (void)datachanges:(topics *)atopic
 {
     if (atopic.authorname.length) {
         self.lbllandlord.text = atopic.authorname;
@@ -148,7 +148,24 @@
     {
         [self layoutSubviews:NO];
     }
-    
+}
+
+- (void)loadHomeTopicList:(hometopiclist *)ahometopiclist
+{
+    if (ahometopiclist.authorname.length)
+        self.lbllandlord.text = ahometopiclist.authorname;
+    self.message.text = ahometopiclist.message;
+    self.lblreadl.text = ahometopiclist.views;
+    self.lblreply.text = ahometopiclist.replies;
+    ahometopiclist.subject = [ahometopiclist.subject stringByReplacingOccurrencesOfString:@"&quot;" withString:@""];
+    self.lbltitle.text = ahometopiclist.subject;
+    self.lbltime.text = [NSString stringWithFormat:@"%@", [ToolsFunc datefromstring:ahometopiclist.dateline]];
+    if (ahometopiclist.img.length) {
+        self.cellicon.data = ahometopiclist.img;
+        [self layoutSubviews:ahometopiclist.img.length];
+    } else {
+        [self layoutSubviews:NO];
+    }
 }
 
 -(void)layoutSubviews:(BOOL)havePhote

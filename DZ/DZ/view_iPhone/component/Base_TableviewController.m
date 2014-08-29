@@ -94,7 +94,8 @@
 
 
 
--(void)setFooterView{
+-(void)setFooterView
+{
 //    UIEdgeInsets test = self.tableViewList.contentInset;
     // if the footerView is nil, then create it, reset the position of the footer
   
@@ -182,6 +183,7 @@
 {
     
 }
+
 -(void)FinishedLoadData
 {
     [self.tableViewList headerEndRefreshing];
@@ -192,6 +194,7 @@
 {
     [self.tableViewList removeFooter];
 }
+
 -(void)finishReloadingData
 {
     [self.tableViewList headerEndRefreshing];

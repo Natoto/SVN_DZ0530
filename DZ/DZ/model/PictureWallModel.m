@@ -5,11 +5,16 @@
 //  Created by Nonato on 14-7-23.
 //
 //
-#define KEY_PICTUREWALL @"PICTUREWALL"
+
 #import "PictureWallModel.h"
 //#import "Constants.h"
+
+#define KEY_PICTUREWALL @"PICTUREWALL"
+
 @implementation PictureWallModel
+
 @synthesize  shots=_shots;
+
 - (void)load
 {
 	self.autoSave = YES;
@@ -38,7 +43,7 @@
 - (void)clearCache
 {
     [self.shots removeAllObjects];
-    self.loaded=NO;
+    self.loaded = NO;
 }
 
 #pragma mark -

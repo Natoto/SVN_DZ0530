@@ -65,6 +65,7 @@ AS_SINGLETON(DZ_SystemSetting)
 @property (nonatomic, strong) NSString * weixinappid;
 @property (nonatomic, strong) NSString * sinaweiboappkey;
 @property (nonatomic, strong) NSString * downloadurl;
+@property (nonatomic, strong) NSString * mode;
 
 //读取颜色配置
 @property (nonatomic, strong) UIColor * navigationBarColor;
