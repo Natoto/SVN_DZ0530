@@ -69,17 +69,17 @@ typedef enum : NSInteger {
         self.downloadurl = [[diction valueForKey:@"downloadurl"] valueForKey:@"text"];
         self.appid =[[diction valueForKey:@"appid"] valueForKey:@"text"];
         self.appname =[[diction valueForKey:@"appname"] valueForKey:@"text"];
-        NSString *color =[NSString stringWithFormat:@"%@",[[diction valueForKey:@"navigationbarcolor"] valueForKey:@"text"]];
-        if (color) {
-            unsigned long red = strtoul([color UTF8String],0,16);
-            self.navigationbarcolor = KT_HEXCOLOR(red);
-        }
+        self.navigationbarcolor =[NSString stringWithFormat:@"%@",[[diction valueForKey:@"navigationbarcolor"] valueForKey:@"text"]];
+//        if (color) {
+//            unsigned long red = strtoul([color UTF8String],0,16);
+//            self.navigationbarcolor = KT_HEXCOLOR(red);
+//        }
         
-        NSString *backcolor = [NSString stringWithFormat:@"%@",[[diction valueForKey:@"backgroundcolor"] valueForKey:@"text"]];
-        if (backcolor) {
-            unsigned long red = strtoul([backcolor UTF8String],0,16);
-            self.backgroundcolor = KT_HEXCOLOR(red);
-        }
+        self.backgroundcolor = [NSString stringWithFormat:@"%@",[[diction valueForKey:@"backgroundcolor"] valueForKey:@"text"]];
+//        if (backcolor) {
+//            unsigned long red = strtoul([backcolor UTF8String],0,16);
+//            self.backgroundcolor = KT_HEXCOLOR(red);
+//        }
 
     }
     return self;

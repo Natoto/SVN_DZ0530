@@ -83,9 +83,7 @@
     label.center = CGPointMake(320./2, 20);
     [self.webView insertSubview:label atIndex:0];
     self.webView.backgroundColor = [UIColor colorWithRed:35./255. green:37./255. blue:38./255. alpha:1];
-    if (self.zm_syssetting.backgroundcolor) {
-        self.webView.backgroundColor = self.self.zm_syssetting.backgroundcolor;
-    }
+  
     UISwipeGestureRecognizer *swipeGestureRecognizer = [[UISwipeGestureRecognizer alloc] init];
     [swipeGestureRecognizer addTarget:self action:@selector(gestureRecognizerHandle:)];
     [swipeGestureRecognizer setNumberOfTouchesRequired:1];
@@ -152,11 +150,27 @@
     [self.indicatorview hide:NO];
     [self showAlert:@"网络错误!"];
 }
+
+-(NSString *)changeHomeHeaderJavascript:(NSString *)colorstr
+{
+    NSString *javascript=[NSString stringWithFormat:@"var homehead = document.getElementById('home_head');\
+                          homehead.style.background=\"%@\";",colorstr];
+    return javascript;
+}
+
 - (void)webViewDidFinishLoad:(UIWebView*)theWebView
 {
     [self.indicatorview hide:YES];
     // Black base color for background matches the native apps
-
+//    NSString *lJs = @"document.documentElement.innerHTML";
+    /*NSString *lJs1 = @"document.documentElement.innerHTML";
+    NSString *lJs2 = @"document.title";
+    NSString *lHtml1 = [theWebView stringByEvaluatingJavaScriptFromString:lJs];
+    NSString *lHtml2 = [theWebView stringByEvaluatingJavaScriptFromString:lJs2];
+    */
+    
+    NSString *JS=[self changeHomeHeaderJavascript:self.zm_syssetting.navigationbarcolor];
+    [theWebView stringByEvaluatingJavaScriptFromString:JS];
     return [super webViewDidFinishLoad:theWebView];
 }
 -(void)showAlert:(NSString *)message

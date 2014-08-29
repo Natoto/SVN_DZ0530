@@ -7,8 +7,8 @@
 <idourl>http://iquapp.com/web/</idourl>
 <appid>ABCDAFAFASGASG</appid>
 <appname>织梦</appname>
-<navigationbarcolor>0XF63726</navigationbarcolor>
-<backgroundcolor>0x232526</backgroundcolor>
+<navigationbarcolor>#F63726</navigationbarcolor>
+<backgroundcolor>#232526</backgroundcolor>
 <appversion>V1.0.1</appversion>
 
 </configuration>

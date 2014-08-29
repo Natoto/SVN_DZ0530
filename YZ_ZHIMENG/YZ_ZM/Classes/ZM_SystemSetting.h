@@ -28,8 +28,8 @@
 @property (nonatomic, strong) NSString * appname;
 @property (nonatomic, strong) NSString * forumurl;
 @property (nonatomic, strong) NSString * downloadurl;
-@property (nonatomic, strong) UIColor  * navigationbarcolor;
-@property (nonatomic, strong) UIColor  * backgroundcolor;
+@property (nonatomic, strong) NSString  * navigationbarcolor;
+@property (nonatomic, strong) NSString  * backgroundcolor;
 //忽略消息
 
 +(NSMutableArray *)classtoarray:(id)cls;
