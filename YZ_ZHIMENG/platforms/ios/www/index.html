@@ -21,10 +21,8 @@
     <head>
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
-        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <meta name="msapplication-tap-highlight" content="no" />
         <title>Hello World</title>
     </head>
     <body>
@@ -38,16 +36,7 @@
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
-<!--            app.initialize();-->
-            function test4(event)
-            {
-             var message = {
-                text: "Image test",
-                image: "http://cordova.apache.org/images/cordova_bot.png"
-             };
-             window.socialmessage.send(message);
-            }
+            app.initialize();
         </script>
-         <input type="button" value="黑色" onclick="test4(this)" style="top:100px; width:200px; height:150px; background-color:red;" />
     </body>
 </html>

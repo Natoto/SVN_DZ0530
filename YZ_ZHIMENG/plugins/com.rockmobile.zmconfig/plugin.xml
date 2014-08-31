@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="" id="com.rockmobile.zmconfig" version="0.0.1">
+    <name>zmconfig</name>
+    <author>huangbo</author>
+    <description>Cordova zmconfig by huangbo</description>
+    <keywords>cordova, zmconfig</keywords>
+    <engines>
+        <engine name="cordova" version=">=3.0.0" />
+    </engines>
+    <js-module src="www/zmconfig.js" name="ZMConfig">
+        <clobbers target="zmconfig" />
+    </js-module>
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="ZMConfig">
+                <param name="ios-package" value="ZMConfig" />
+            </feature>
+        </config-file>
+        <header-file src="src/ios/ZMConfig.h" />
+        <source-file src="src/ios/ZMConfig.m" />
+    </platform>
+</plugin>
