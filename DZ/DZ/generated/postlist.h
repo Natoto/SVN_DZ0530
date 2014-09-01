@@ -78,6 +78,7 @@ typedef enum : NSUInteger {
  "applied": "",
  "applyid": ""
  */
+@property (nonatomic, retain) NSString * smileurl;
 @property (nonatomic, retain) NSString * starttimefrom;
 @property (nonatomic, retain) NSString * starttimeto;
 @property (nonatomic, retain) NSString * avty_class;

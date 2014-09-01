@@ -1,0 +1,26 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {
+            "config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"MyConfig\"><param name=\"ios-package\" value=\"MyConfig\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "installed_plugins": {
+        "com.rockmobile.myconfig": {
+            "PACKAGE_NAME": "com.rockmobile.zm"
+        }
+    },
+    "dependent_plugins": {}
+}

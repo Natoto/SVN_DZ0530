@@ -427,6 +427,10 @@ DEF_SINGLETON(SUPPORT)
     else if (acont.type.intValue == CONTENTTYPE_FACIAL)
     {
         NSString *faceimg= [faceMap objectForKey:acont.msg];
+        if(!faceimg)
+        {
+            
+        }
         NSString *htmlcode=[NSString stringWithFormat:@"<img src='image.bundle/expressions/%@.png'></img>",faceimg];
         rtlabelText=[rtlabelText stringByAppendingString:htmlcode];
     }
@@ -494,17 +498,17 @@ DEF_SINGLETON(SUPPORT)
         stopapplytime = nil;
     }
     stopapplytime = stopapplytime?[ToolsFunc datefromstring2:stopapplytime]:@"";
-    NSArray * values = [NSArray arrayWithObjects:avty_class,starttimefrom,place,gender,cos,applynumber,starttimeto,stopapplytime, nil];
+    NSMutableArray * values = [NSMutableArray arrayWithObjects:avty_class,starttimefrom,place,gender,cos,applynumber,starttimeto,stopapplytime, nil];
+    if (!starttimeto.length) {
+        [values removeObject:starttimeto];
+    }
+    if (!stopapplytime.length) {
+        [values removeObject:stopapplytime];
+    }
     NSMutableDictionary *diction=[[NSMutableDictionary  alloc] initWithCapacity:0];
-    [diction setObject:values[0] forKey:activitykeys[0]];
-    [diction setObject:values[1] forKey:activitykeys[1]];
-    [diction setObject:values[2] forKey:activitykeys[2]];
-    [diction setObject:values[3] forKey:activitykeys[3]];
-    [diction setObject:values[4] forKey:activitykeys[4]];
-    [diction setObject:values[5] forKey:activitykeys[5]];
-    [diction setObject:values[6] forKey:activitykeys[6]];
-    [diction setObject:values[7] forKey:activitykeys[7]];
-    
+    for (int index = 0; index < values.count; index ++) {
+        [diction setObject:values[index] forKey:activitykeys[index]];
+    }
     rect.size.height = [B3_PostView_Activity heightOfView:values.count];
     activityView.frame = rect;
     [activityView loadDatas:diction];
@@ -578,6 +582,9 @@ DEF_SINGLETON(SUPPORT)
     float imgwith = MIN(imgview.image.size.width, 320 - IMG_MARGIN_LEFT - IMG_MARGIN_RIGHT);
     if (imgwith) {
         imgwith = 320 - IMG_MARGIN_LEFT - IMG_MARGIN_RIGHT;  //
+        if (acont.smileurl) {
+            imgwith = SMILEFACAIL_WIDTH;
+        }
         float scale =  height / width ;
         float imgheight = imgwith * scale;  //imgview.image.size.height ;
         imgview.size = CGSizeMake(imgwith, imgheight);
@@ -617,10 +624,18 @@ DEF_SINGLETON(SUPPORT)
     }
     
     NSMutableArray *subContentAry=[[NSMutableArray alloc] initWithCapacity:0];
+    
+    for (int index=0; index<contents.count; index++)
+    {
+        content *acont=[contents objectAtIndex:index];
+        [B3_PostBaseTableViewCell checkContent:acont faceMap:faceMap];
+    }
     float OriginY=0.0;
     for (int index=0; index<contents.count; index++)
     {
         content *acont=[contents objectAtIndex:index];
+        
+        
         if (acont.type.intValue == CONTENTTYPE_TEXT ||acont.type.intValue == CONTENTTYPE_FACIAL) {//如果内容是网页文字
             NSString *resstring = [self loadTextOrFacial:acont index:index OriginY:OriginY subContentAry:subContentAry contents:contents];
             NSArray *compants = [resstring componentsSeparatedByString:@":"];
@@ -754,6 +769,20 @@ DEF_SINGLETON(SUPPORT)
     }
     return NO;
 }
+
++(content *)checkContent:(content *)acont faceMap:(NSDictionary *)faceMap
+{
+    content * tempcontent = acont;
+    if (acont.type.intValue == CONTENTTYPE_FACIAL && acont.smileurl) {
+        NSString *faceimg= [faceMap objectForKey:acont.msg];
+        if (!faceimg) {
+            acont.type = [NSNumber numberWithInt:CONTENTTYPE_IMG];
+            acont.msg = acont.smileurl;
+            acont.originimg= acont.smileurl;
+        }
+    }
+    return tempcontent;
+}
 //cell的高度
 + (float)heightOfSelfdefinecontents:(NSArray *)contents celltype:(CELL_TYPE)celltype
 {
@@ -772,7 +801,11 @@ DEF_SINGLETON(SUPPORT)
     {
         MARGIN_LEFT = 20;
     }
-    
+    for (int index=0; index<contents.count; index++)
+    {
+        content *acont=[contents objectAtIndex:index];
+        [B3_PostBaseTableViewCell checkContent:acont faceMap:faceMap];
+    }
     for (int index=0; index<contents.count; index++)
     {
         content *acont=[contents objectAtIndex:index];
@@ -865,6 +898,9 @@ DEF_SINGLETON(SUPPORT)
             float imgwith= MIN(imgview.image.size.width, 320 - MARGIN_RIGHT - MARGIN_LEFT);
             if (imgwith) {
                 imgwith = 320 - MARGIN_RIGHT - MARGIN_LEFT; //
+                if (acont.smileurl) {
+                    imgwith = SMILEFACAIL_WIDTH;
+                }
                 float scale =  height / width ;
                 float imgheight = imgwith * scale;  //imgview.image.size.height;
                 imgview.size=CGSizeMake(imgwith, imgheight);

@@ -28,6 +28,7 @@
 #define FRAME_REPLYBTN(Y) CGRectMake(self.width - 35, Y, 35, 35)
 #define FRAME_SUPPORTBTN(Y) CGRectMake(self.width - 35 - 20, Y, 100, 30)
 
+#define SMILEFACAIL_WIDTH 40
 typedef enum : NSUInteger {
     CELL_MAINTOPIC = 110,
     CELL_REPLYTOPIC = 111,

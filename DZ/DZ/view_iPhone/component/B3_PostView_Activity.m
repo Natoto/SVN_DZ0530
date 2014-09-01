@@ -157,9 +157,9 @@
 {
     scrollview = [self scrollview];
 //    NSArray * allkeys = diction.allKeys;
-    NSArray * allkeys =[NSArray arrayWithObjects:@"活动类型",@"活动时间",@"活动地点",@"性别",@"每人花销",@"已报名人数",@"活动截止",@"报名截止", nil];
+//    NSArray * allkeys =[NSArray arrayWithObjects:@"活动类型",@"活动时间",@"活动地点",@"性别",@"每人花销",@"已报名人数",@"活动截止",@"报名截止", nil];
     int  index =0;
-    for ( NSString *key in allkeys) {
+    for ( NSString *key in diction.allKeys) {
         NSString *value =[diction valueForKey:key];
         if ([key isEqualToString:@"性别"]) {
             if (!value || [value isEqualToString:@"0"]) {
@@ -176,7 +176,7 @@
         index ++;
     }
     if (self.applyButton) {
-        _applyButton.center = CGPointMake(320.0/2, (allkeys.count)*40.+ APPLYBTN_HEIGHT/2 + 5);
+        _applyButton.center = CGPointMake(320.0/2, (diction.allKeys.count)*40.+ APPLYBTN_HEIGHT/2 + 5);
         scrollview.contentSize = CGSizeMake(320, CGRectGetMaxY(_applyButton.frame));
     }
 }

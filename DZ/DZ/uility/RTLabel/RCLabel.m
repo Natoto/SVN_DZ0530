@@ -1698,7 +1698,6 @@ CGFloat MyGetWidthCallback( void* refCon ){
             if (runStartAfterLink || runStartBeforeLink) {
                 tempComponent = component;
             }
-
             
            
         }
