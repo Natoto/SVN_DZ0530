@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @class DZ_PopupBox;
+
 @protocol DZ_PopupBoxDelegate <NSObject>
+
 - (void)DZ_PopupBox:(DZ_PopupBox *)view MaskViewDidTaped:(id)object;
+
 @end
 
 @interface DZ_PopupBox : UIView
@@ -22,8 +25,10 @@
 @property(nonatomic,retain) UIView * contentView;
 //@property(nonatomic,retain) UIView * contentBGView;
 @property(nonatomic,retain) NSString *title;
--(void)show;
--(void)hide;
 
--(void)loadDatas:(NSMutableDictionary *)diction;
+- (void)show;
+- (void)hide;
+
+- (void)loadDatas:(NSMutableDictionary *)diction;
+
 @end

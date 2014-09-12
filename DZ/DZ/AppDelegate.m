@@ -21,6 +21,8 @@
 #import "IDO_LogModel.h"
 //#import "XHBaseNavigationController.h"
 #import "UIImage+Bundle.h"
+#import "MobClick.h"
+
 //最大号文字 34 导航
 //30 导航右 文章标题
 //22 灰
@@ -33,24 +35,38 @@ static NSString *const ID_KEY = @"id";
 #pragma mark Category 1
 @interface AppDelegate()
 {
-    
+    NSString  * UMENG_APPKEY;
 }
-@property(nonatomic,retain)IDO_LogModel *logmodel;
 @end
 @implementation AppDelegate 
 
 
+- (void)umengTrack {
+    [MobClick setCrashReportEnabled:NO]; // 如果不需要捕捉异常，注释掉此行
+    [MobClick setLogEnabled:YES];  // 打开友盟sdk调试，注意Release发布时需要注释掉此行,减少io消耗
+    [MobClick setAppVersion:XcodeAppVersion]; //参数为NSString * 类型,自定义app版本信息，如果不设置，默认从CFBundleVersion里取
+    [MobClick startWithAppkey:UMENG_APPKEY reportPolicy:(ReportPolicy) REALTIME channelId:@"AppStore"];
+    //   reportPolicy为枚举类型,可以为 REALTIME, BATCH,SENDDAILY,SENDWIFIONLY几种
+    //   channelId 为NSString * 类型，channelId 为nil或@""时,默认会被被当作@"App Store"渠道
+    //      [MobClick checkUpdate];   //自动更新检查, 如果需要自定义更新请使用下面的方法,需要接收一个(NSDictionary *)appInfo的参数
+    //    [MobClick checkUpdateWithDelegate:self selector:@selector(updateMethod:)];    
+    [MobClick updateOnlineConfig];  //在线参数配置
+    
+    //    1.6.8之前的初始化方法
+    //    [MobClick setDelegate:self reportPolicy:REALTIME];  //建议使用新方法
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onlineConfigCallBack:) name:UMOnlineConfigDidFinishedNotification object:nil];
+    
+}
+
+- (void)onlineConfigCallBack:(NSNotification *)note {
+    
+    NSLog(@"online config has fininshed and note = %@", note.userInfo);
+}
+
 #pragma mark -
 
 - (void)load
-{ 
-    
-    //    NSMutableArray *array =[[NSMutableArray alloc] init];
-    /*<strong><font size='5'>为什么说广州是中国最特别的城市呢? </font></strong><br />by何建晔，资深财经媒体人。<br /><br /><strong>    
-    <font size='3'>爱的理由是相对的</font>*/
-//    [FaceBoard getImageTextRange:@":)fasffafksfaf:handshakesdg:(" :array];
-//    NSString *str=@"<strong><font size='5'>为什么说广州是中国最特别的城市呢? </font></strong><br />by何建晔，资深财经媒体人。<br /><br /><strong>";
-//    [str isallHtmlMark];
+{
     NSLog(@"hello dz");
 	[UIApplication sharedApplication].statusBarHidden = NO;
 	bee.ui.config.ASR = YES;
@@ -91,7 +107,8 @@ static NSString *const ID_KEY = @"id";
     [BeeUINavigationBar setTitleColor:[UIColor whiteColor]];
     [BeeUINavigationBar setBackgroundImage:imgnavigationbar];
     [[UIBarButtonItem appearance] setTitleTextAttributes: @{ UITextAttributeFont: [UIFont systemFontOfSize:18.0], UITextAttributeTextShadowOffset: [NSValue valueWithUIOffset:UIOffsetZero]} forState:UIControlStateHighlighted];
-	
+    
+	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     //隐藏边框
     /*[[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];*/
@@ -108,14 +125,52 @@ static NSString *const ID_KEY = @"id";
     [WXApi registerApp:setting.weixinappid];
     //新浪微博注册 
     [WeiboSDK registerApp:setting.sinaweiboappkey];
-
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        //统计数据
-         _logmodel =[IDO_LogModel modelWithObserver:self];
-        [_logmodel firstPage];
-    });
-    
     self.window.rootViewController = [AppBoard_iPhone sharedInstance];
+    
+    UMENG_APPKEY = setting.umappkey;
+    [self umengTrack];
+}
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    [super application:application didFinishLaunchingWithOptions:launchOptions];    
+    
+    if ([launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] != nil) {
+        //获取应用程序消息通知标记数（即小红圈中的数字）
+        int badge = [UIApplication sharedApplication].applicationIconBadgeNumber;
+        if (badge>0) {
+            //如果应用程序消息通知标记数（即小红圈中的数字）大于0，清除标记。
+            badge--;
+            //清除标记。清除小红圈中数字，小红圈中数字为0，小红圈才会消除。
+            [UIApplication sharedApplication].applicationIconBadgeNumber = badge;
+        }
+    }
+    //消息推送注册
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+     (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    return YES;
+}
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+{
+	NSLog(@"My token is: %@", deviceToken);
+}
+
+- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
+{
+	NSLog(@"Failed to get token, error: %@", error);
+}
+
+- (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    if ( application.applicationState == UIApplicationStateActive ) {
+        // 程序在运行过程中受到推送通知
+        NSLog(@"%@", [[userInfo objectForKey: @"aps"] objectForKey: @"alert"]);
+        NSString *msg= [[userInfo objectForKey: @"aps"] objectForKey: @"alert"];
+        UIAlertView *alertview = [[UIAlertView alloc] initWithTitle:@"推送" message:msg delegate:self cancelButtonTitle:@"查看" otherButtonTitles:@"关闭", nil];
+        [alertview show ];
+    } else {
+        //程序为在运行状态受到推送通知
+    }
 }
 
 -(void)configwizard
@@ -143,16 +198,7 @@ static NSString *const ID_KEY = @"id";
 //		[BeeUITipsCenter setDefaultFailureIcon:[UIImage imageNamed:@"icon.png"]];
 //	}
 }
-
-ON_SIGNAL3(IDO_LogModel, RELOADED, signal)
-{
-    NSLog(@"统计数据完成...");
-}
-
-ON_SIGNAL3(IDO_LogModel, FAILED, signal)
-{
-    NSLog(@"统计数据失败...");
-}
+ 
 
 -(void)showalert:(NSString *)message
 {
@@ -163,7 +209,6 @@ ON_SIGNAL3(IDO_LogModel, FAILED, signal)
 - (void)unload
 {
 	[self unobserveAllNotifications];
-    [self.logmodel removeAllObservers];
 }
 
 ON_NOTIFICATION3(BeeReachability, CHANGED, notify)
@@ -230,5 +275,6 @@ ON_NOTIFICATION3(BeeReachability, UNREACHABLE, notify)
 {
     return [WeiboSDK isWeiboAppInstalled];
 }
+
 
 @end

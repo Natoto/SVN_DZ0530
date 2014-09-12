@@ -35,7 +35,7 @@ NSInteger support;
     NSArray         *shareArray;
 //    UIButton        * titleBtn;
 }
-
+@property (nonatomic, strong) NSString * selectString;
 @property (nonatomic, strong) NSString *fid;
 @property (nonatomic, strong) NSString *tid;
 @property (nonatomic, strong) NSString *pid;

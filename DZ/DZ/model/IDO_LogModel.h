@@ -5,7 +5,7 @@
 //  Created by Nonato on 14-7-28.
 //
 //
-
+#import "bee.h"
 #import "Bee_StreamViewModel.h"
 #import "ido_log.h"
 @interface IDO_LogModel : BeeStreamViewModel

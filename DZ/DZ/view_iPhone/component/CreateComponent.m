@@ -77,7 +77,7 @@
 +(UIButton *)CreateButtonWithFrame:(CGRect)frame andImage:(NSString *)image tag:(int)tag
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIImage *img=[UIImage imageNamed:[NSString stringWithFormat:@"images.bundle/%@",image]];
+    UIImage *img=[UIImage imageNamed:[NSString stringWithFormat:@"dzimages.bundle/%@",image]];
     [button setImage:img forState:UIControlStateNormal];
     button.frame = frame;
     button.tag = tag;

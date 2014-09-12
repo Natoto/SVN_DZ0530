@@ -15,7 +15,9 @@
 
 - (void)load
 {
-    self.shots = [NSMutableArray array];
+    self.shots = nil;
+    self.autoSave = YES;
+    self.autoLoad = YES;
 }
 
 - (void)unload
@@ -25,19 +27,17 @@
 
 - (void)saveCache
 {
-    [slide saveObject:self.shots forKey:KEY_HOMETOPICSLIDE];
+    [slide saveObject:self.shots.slide forKey:KEY_HOMETOPICSLIDE];
 }
 
 - (void)loadCache
 {
-    [self.shots removeAllObjects];
-    NSString  *key= KEY_HOMETOPICSLIDE;
-    self.shots=[NSMutableArray arrayWithArray:[slide readObjectForKey:key]];
+    self.shots = [[hometopicslide alloc] init];
+    self.shots.slide = [slide readObjectForKey:KEY_HOMETOPICSLIDE];
 }
 
 - (void)clearCache
 {
-    [self.shots removeAllObjects];
     self.loaded = NO;
 }
 
@@ -68,10 +68,9 @@
                 }
                 else
                 {
-                    [self.shots removeAllObjects];
-                    [self.shots addObjectsFromArray:api.resp.hometopicslide.slide];
-                    [self saveCache];
+                    self.shots = api.resp.hometopicslide;
                     self.loaded = YES;
+                    [self saveCache];
                     [self sendUISignal:self.RELOADED];
                 }
             }

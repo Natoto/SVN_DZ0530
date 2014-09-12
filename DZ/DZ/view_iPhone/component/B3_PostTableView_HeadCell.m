@@ -117,6 +117,19 @@
     }
 }
 
+
+-(void)B3_PostBaseTableViewCell:(B3_PostBaseTableViewCell *)cell rtlabel:(RCLabel *)rtlabel LongPress:(UIGestureRecognizer *)recognizer
+
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(B3_HeadCell:rtlabel:LongPress:)]) {
+        [self.delegate B3_HeadCell:self rtlabel:rtlabel LongPress:recognizer];
+    }
+}
+-(BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
+
 -(void)B3_PostBaseTableViewCell:(B3_PostBaseTableViewCell *)view applyButtonTaped:(id)object
 {
     if (self.delegate && [self.delegate respondsToSelector:@selector(B3_HeadCell:applyButtonTaped:)])
@@ -124,6 +137,7 @@
         [self.delegate B3_HeadCell:self applyButtonTaped:object];
     }
 }
+
 - (post *)cellpost:(B3_PostBaseTableViewCell *)cell
 {
     post *apost = (post *)self.celltopic;

@@ -118,8 +118,9 @@ DEF_SINGLETON(shareImage)
 //    [buttonLabel sizeToFit];
     [buttonView addSubview:buttonLabel];
 
+    UIImage *fengexian=[UIImage bundleImageNamed:@"fengexian02"];
     UIImageView *line = [[UIImageView alloc] initWithFrame:CGRectMake(10, 35, buttonView.frame.size.width - 20, 0.5)];
-    line.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"images.bundle/fengexian02@2x" ofType:@"png"]];
+    line.image = fengexian;
     [buttonView addSubview:line];
 
 //    //二维码

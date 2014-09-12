@@ -157,10 +157,13 @@
 {
     scrollview = [self scrollview];
 //    NSArray * allkeys = diction.allKeys;
-//    NSArray * allkeys =[NSArray arrayWithObjects:@"活动类型",@"活动时间",@"活动地点",@"性别",@"每人花销",@"已报名人数",@"活动截止",@"报名截止", nil];
+    NSArray * allKeys =[NSArray arrayWithObjects:@"活动类型",@"活动时间",@"活动截止",@"活动地点",@"性别",@"每人花销",@"已报名人数",@"报名截止", nil];
     int  index =0;
-    for ( NSString *key in diction.allKeys) {
+    for ( NSString *key in allKeys) {
         NSString *value =[diction valueForKey:key];
+        if (!value) {
+            continue;
+        }
         if ([key isEqualToString:@"性别"]) {
             if (!value || [value isEqualToString:@"0"]) {
                 value = @"不限";

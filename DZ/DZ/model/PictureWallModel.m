@@ -33,11 +33,13 @@
     [self.shots removeAllObjects];
     NSString  *key= KEY_PICTUREWALL; //MYFRIENDOBJECTKEY(@"PICTUREWALL");
     self.shots=[NSMutableArray arrayWithArray:[pcms readObjectForKey:key]];
+    NSLog(@"%@", self.shots);
 }
 
 - (void)saveCache
 {
     [pcms saveObject:self.shots forKey:KEY_PICTUREWALL];
+    NSLog(@"%@", self.shots);
 }
 
 - (void)clearCache

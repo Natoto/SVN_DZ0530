@@ -7,16 +7,17 @@
 <weixinappid>wx5b05f60fb5c5defc</weixinappid>
 <sinaweiboappkey>3145388585</sinaweiboappkey>
 <downloadurl>我下载了APP地址http://114.215.178.111/amanmanceshi/forum.php</downloadurl>
-<idourl>http://iquapp.com/web/</idourl>
+<idourl>http://192.168.7.70:8080/web/</idourl>
 <appid>ABCDAFAFASGASG</appid>
 <appname>满满</appname>
 <appversion>V1.0.1</appversion>
 <launchImage>defaultLaunchImage</launchImage>
-<mode>2</mode>
+<apptemplate>Slide</apptemplate>
 <navigationbar>
         <backgroundColor>0X00AAF5</backgroundColor>
         <backgroundImage></backgroundImage>
 </navigationbar>
+<umappkey>540ea365fd98c516f5004f8b</umappkey>
 
 <tabbar>
         <iconcolor>0x3f3f3f</iconcolor>
@@ -82,7 +83,7 @@
      http://www.iquapp.com
 </website>
 <clientversion>
-    V 1.0.813
+    V 1.1.2
 </clientversion>
 </aboutus>
 </configuration>

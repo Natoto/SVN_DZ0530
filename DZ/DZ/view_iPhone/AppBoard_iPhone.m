@@ -19,11 +19,13 @@
 #import "E0_AlbumBoard_iphone.h"
 #import "DZ_SystemSetting.h"
 #import "A0_HomePage2_iphone.h"
-
+#import "IDO_LogModel.h"
 DEF_UI( AppBoard_iPhone, appBoard )
 
 @interface AppBoard_iPhone ()
 @property(nonatomic,assign)BOOL firsLoad;
+
+@property(nonatomic,retain)IDO_LogModel *logmodel;
 @end
 
 @implementation AppBoard_iPhone
@@ -73,6 +75,13 @@ ON_SIGNAL2( BeeUIBoard, signal )
 //         self.navigationBarShown = YES;
 //        [self.tabbar selectHomepage];
         [self.view bringSubviewToFront:bee.ui.tabbar];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            //统计数据
+            _logmodel =[IDO_LogModel modelWithObserver:self];
+            [_logmodel firstPage];
+        });
+        
 	}
 	else if ( [signal is:BeeUIBoard.DELETE_VIEWS] )
 	{
@@ -122,6 +131,28 @@ ON_SIGNAL2( BeeUIBoard, signal )
     {
         
     }
+}
+
+
+
+ON_SIGNAL3(IDO_LogModel, RELOADED, signal)
+{
+    NSLog(@"统计数据完成...");
+    if (!self.logmodel.shots.online.integerValue) {//下线了
+        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"警告" message:@"该APP已下线,无法继续使用" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert.tag = 155348;
+        [alert show];
+    }
+}
+
+ON_SIGNAL3(IDO_LogModel, FAILED, signal)
+{
+    NSLog(@"统计数据失败...");
+}
+
+-(void)dealloc
+{    
+    [self.logmodel removeAllObservers];
 }
 
 #pragma mark - 切换选项卡
@@ -210,6 +241,10 @@ ON_NOTIFICATION3( BeeNetworkReachability, UNREACHABLE, notification )
         if (buttonIndex==1) {
             [self showLogin];
         }
+    }
+    else if(alertView.tag == 155348)
+    {
+        [self exitApplication];
     }
 }
 
@@ -322,6 +357,43 @@ ON_NOTIFICATION3( BeeNetworkReachability, UNREACHABLE, notification )
 	}
 	[self dismissModalStackAnimated:YES];
     [self transitionCube:BeeUITransitionDirectionLeft];
+}
+
+
+//-------------------------------- 退出程序 -----------------------------------------//
+
+- (void)exitApplication {
+    
+    [UIView beginAnimations:@"exitApplication" context:nil];
+    
+    [UIView setAnimationDuration:0.5];
+    
+    [UIView setAnimationDelegate:self];
+    
+    // [UIView setAnimationTransition:UIViewAnimationCurveEaseOut forView:self.view.window cache:NO];
+    
+    [UIView setAnimationTransition:UIViewAnimationTransitionCurlDown forView:self.view.window cache:NO];
+    
+    [UIView setAnimationDidStopSelector:@selector(animationFinished:finished:context:)];
+    
+    //self.view.window.bounds = CGRectMake(0, 0, 0, 0);
+    
+    self.view.window.bounds = CGRectMake(0, 0, 0, 0);
+    
+    [UIView commitAnimations];
+    
+}
+
+
+
+- (void)animationFinished:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
+    
+    if ([animationID compare:@"exitApplication"] == 0) {
+        
+        exit(0);
+        
+    }
+    
 }
 
 @end

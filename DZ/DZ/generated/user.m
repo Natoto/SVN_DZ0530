@@ -78,7 +78,7 @@
         
         NSString * requestURI =[NSString stringWithFormat:@"%@?action=login%@", [ServerConfig sharedInstance].url,[ServerConfig sharedInstance].urlpostfix];
         self.username=[NSData base64encode:self.username];
-//        self.password=[NSData base64encode:self.password];
+        self.password=[NSData base64encode:self.password];
         self.HTTP_POST(requestURI).PARAM([self.req objectToDictionary]).PARAM(@"username",self.username).PARAM(@"password",self.password);
 	}
 	else if ( self.succeed )

@@ -44,7 +44,7 @@ DEF_SINGLETON(homeModel)
 - (void)loadCache
 {
 	self.shots =nil;
-    self.shots=[home readObjectForKey:self.player_id];
+    self.shots = [home readObjectForKey:self.player_id];
     self.onoff = [onoff readObjectForKey:KEY_ONOFF];
 }
 

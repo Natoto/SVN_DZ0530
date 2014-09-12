@@ -117,13 +117,24 @@
         [self.delegate  B3_Cell:self rtLabel:rtLabel didSelectLinkWithURL:url];
     }
 }
+
+-(void)B3_PostBaseTableViewCell:(B3_PostBaseTableViewCell *)cell rtlabel:(RCLabel *)rtlabel LongPress:(UIGestureRecognizer *)recognizer
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(B3_Cell:rtlabel:LongPress:)]) {
+        [self.delegate B3_Cell:self rtlabel:rtlabel LongPress:recognizer];
+    }
+}
+
 -(void)B3_PostBaseTableViewCell:(B3_PostBaseTableViewCell *)cell tappedheaderview:(BOOL)selected
 {
     if (self.delegate && [self.delegate respondsToSelector:@selector(B3_CellHeaderViewTapped:)]) {
         [self.delegate B3_CellHeaderViewTapped:self];
     }
 }
-
+-(BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
 
 -(post *)cellpost:(B3_PostBaseTableViewCell *)cell
 {
@@ -139,7 +150,6 @@
 {
     return self.lblfloortext;
 }
-
 
 - (void)awakeFromNib
 {

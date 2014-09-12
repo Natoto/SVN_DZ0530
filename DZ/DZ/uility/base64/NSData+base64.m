@@ -12,7 +12,7 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
 
 @implementation NSData (MBBase64)
 
-+ (NSString*)base64encode:(NSString*)str
++ (NSString *)base64encode:(NSString *)str
 {
     if ([str length] == 0)
         return @"";

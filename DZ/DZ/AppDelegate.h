@@ -11,7 +11,7 @@
 #import "WeiboSDK.h"
 #import "bee.h"
 //#import "WeiboApi.h"
-
+//#define UMENG_APPKEY @"540e93a8fd98c510fd01873d"
 @interface AppDelegate :  BeeUIApplication <WXApiDelegate,WeiboSDKDelegate>
 
 //@property  (nonatomic , retain) WeiboApi *wbapi;

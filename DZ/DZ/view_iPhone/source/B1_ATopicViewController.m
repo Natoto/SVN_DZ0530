@@ -31,6 +31,7 @@
 
 ON_RIGHT_BUTTON_TOUCHED(signal)
 {
+#warning 需要添加主题分类筛选
     BeeLog(@"搜索------");
     B2_SearchViewController *searchctr=[[B2_SearchViewController alloc] init];
     [self.navigationController pushViewController:searchctr animated:YES];
@@ -107,8 +108,8 @@ ON_RIGHT_BUTTON_TOUCHED(signal)
     [super viewDidLoad];
     [self initSVscrollview];
     [BeeUINavigationBar setButtonSize:CGSizeMake(30, 30)];
-//    [self showBarButton:BeeUINavigationBar.LEFT image:[UIImage imageNamed:@"navigation-back"]];
     [self showBarButton:BeeUINavigationBar.RIGHT image:[UIImage bundleImageNamed:@"sousuo.jpg"]];
+//    [self showBarButton:BeeUINavigationBar.RIGHT image:[UIImage bundleImageNamed:@"fenglei"]];
     self.navigationBarShown=YES;
     self.view.backgroundColor=[UIColor whiteColor];
 }

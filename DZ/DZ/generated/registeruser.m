@@ -55,6 +55,7 @@
 			return;
 		}
         self.account=[NSData base64encode:self.account];
+        self.passwd = [NSData base64encode:self.passwd];
         NSString * requestURI =[NSString stringWithFormat:@"%@?action=register%@", [ServerConfig sharedInstance].url,[ServerConfig sharedInstance].urlpostfix];
         self.HTTP_POST(requestURI).PARAM(@"account",self.account).PARAM(@"email",self.email).PARAM(@"passwd",self.passwd);
 	}

@@ -64,6 +64,17 @@ static NSMutableDictionary *imgSizeDict = NULL;
 @synthesize isClosure = _isClosure;
 @synthesize img = img_;
 
+
+-(id)init
+{
+    self = [super init];
+    if (self) {
+    }
+    return self;
+}
+
+
+
 - (id)initWithString:(NSString*)aText tag:(NSString*)aTagLabel attributes:(NSMutableDictionary*)theAttributes;
 {
     self = [super init];
@@ -237,9 +248,25 @@ static NSInteger totalCount = 0;
 		_thisFont = CTFontCreateWithName ((CFStringRef)[self.font fontName], [self.font pointSize], NULL);
 
 		[self setMultipleTouchEnabled:YES];
+        UILongPressGestureRecognizer * longPressGesture = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(cellLongPress:)];
+        [self addGestureRecognizer:longPressGesture];
+        
+        UITapGestureRecognizer *tapGesture =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cellLongPress:)];
+        tapGesture.numberOfTapsRequired = 2;
+        [self addGestureRecognizer:tapGesture];
+        
     }
     return self;
 }
+
+
+-(void)cellLongPress:(UIGestureRecognizer *)recognizer
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(rtlabel:LongPress:)]) {
+        [self.delegate rtlabel:self LongPress:recognizer];
+    }
+}
+
 - (void)setFrame:(CGRect)frame {
     if (frame.origin.x == self.frame.origin.y &&
         frame.origin.y == self.frame.origin.y &&
@@ -399,7 +426,6 @@ CGSize MyGetSize(void* refCon) {
             nsv = [NSValue valueWithBytes:&size objCType:@encode(CGSize)];
             [imgSizeDict setObject:nsv forKey:src];
             return size;
-            
         }
     }
     return size;

@@ -326,11 +326,6 @@ ON_SIGNAL3(PostpmModel, FAILED, signal)
 {
 }
 
-- (void)handleCopyCell:(id)sender
-{//复制cell
-    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-    pasteboard.string =self.selectString;
-}
 
 -(void)cellDidLongPress:(D2_ChatMessageCell *)cell recoginzer:(UIGestureRecognizer *)recognizer
 {
@@ -348,6 +343,12 @@ ON_SIGNAL3(PostpmModel, FAILED, signal)
     }
 }
 
+
+- (void)handleCopyCell:(id)sender
+{//复制cell
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    pasteboard.string =self.selectString;
+}
 
 - (void)handleDeleteCell:(id)sender{//删除cell
     NSLog(@"handle delete cell");

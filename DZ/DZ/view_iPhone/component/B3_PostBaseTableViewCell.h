@@ -64,6 +64,8 @@ typedef enum : NSUInteger {
 - (void)B3_PostBaseTableViewCell:(B3_PostBaseTableViewCell *)cell ReplyButtonTap:(id)sender;
 - (void)B3_PostBaseTableViewCell:(B3_PostBaseTableViewCell *)cell ProfileBtnTapped:(id)sender;
 - (void)B3_PostBaseTableViewCell:(B3_PostBaseTableViewCell *)cell rtLabel:(id)rtLabel didSelectLinkWithURL:(NSString *)url;
+- (void)B3_PostBaseTableViewCell:(B3_PostBaseTableViewCell *)cell  rtlabel:(RCLabel *)rtlabel LongPress:(UIGestureRecognizer *)recognizer;
+
 - (void)B3_PostBaseTableViewCell:(B3_PostBaseTableViewCell *)cell supportBtnTapped:(id)sender;
 //-(UIView *)ActivityViewOfB3_PostBaseTableViewCell:(B3_PostBaseTableViewCell *)cell withContent:(content *)acontent;
 -(void)B3_PostBaseTableViewCell:(B3_PostBaseTableViewCell *)view applyButtonTaped:(id)object;

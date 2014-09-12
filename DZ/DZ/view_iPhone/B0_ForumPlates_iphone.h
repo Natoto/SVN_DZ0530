@@ -16,17 +16,25 @@
 //#import "EGOViewCommon.h"
 #import "UIImage+Tint.h"
 #import "Board_BaseTableViewCTR.h"
+
 #define MARK @"1"
 #define UNMARK @"0"
+
 @class A0_HomePage1_iphone;
-@interface B0_ForumPlates_iphone : Board_BaseTableViewCTR<UITableViewDataSource,UITableViewDelegate>
+
+@interface B0_ForumPlates_iphone : Board_BaseTableViewCTR <UITableViewDataSource, UITableViewDelegate>
 {
 //    EGORefreshTableHeaderView * _refreshHeaderView;
 	BOOL _reloading;
 }
-@property(nonatomic,retain)NSMutableDictionary * selectedFiddic;
+
+@property (nonatomic,retain) NSMutableDictionary * selectedFiddic;
+@property (nonatomic, assign) BOOL isModeOne;
 //@property(nonatomic,strong)NSMutableArray * ModeleBlocks;
+
 AS_MODEL(ForumlistModel, fmModel)
 AS_NOTIFICATION(FORUMADDTOHOME)
 AS_NOTIFICATION(FORUMREMOVEFROMEHOME)
+AS_SINGLETON(isModeOne)
+
 @end

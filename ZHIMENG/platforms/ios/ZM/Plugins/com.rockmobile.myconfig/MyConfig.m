@@ -7,7 +7,7 @@
 //
 
 #import "MyConfig.h"
-
+#define IOSTYPE @"2"
 @implementation MyConfig
 
 -(void)config:(CDVInvokedUrlCommand *)command
@@ -20,13 +20,15 @@
         
 //        NSMutableString *stringToReturn =[NSMutableString stringWithString:@"{\"appcolor\":\"#00ff00\"}"];
         NSMutableString *stringToReturn =[NSMutableString stringWithFormat:@"{\
+                          \"ostype\":\"%@\",\
                           \"appid\":\"%@\",\
                           \"apname\":\"%@\",\
                           \"appversion\":\"%@\",\
                           \"apptemplate\":\"%@\",\
                           \"appcolor\":\"%@\",\
                           \"clientVersion\":\"%@\"}"\
-                          ,setting.appid,\
+                          ,IOSTYPE,\
+                          setting.appid,\
                           setting.appname,\
                           setting.appversion,\
                           setting.apptemplate,\

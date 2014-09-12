@@ -66,7 +66,7 @@ AS_SINGLETON(DZ_SystemSetting)
 @property (nonatomic, strong) NSString * sinaweiboappkey;
 @property (nonatomic, strong) NSString * downloadurl;
 @property (nonatomic, strong) NSString * mode;
-
+@property (nonatomic, strong) NSString * umappkey;
 //读取颜色配置
 @property (nonatomic, strong) UIColor * navigationBarColor;
 @property (nonatomic, strong) UIColor * tabBarColor;

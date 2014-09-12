@@ -38,6 +38,7 @@ const float below_margin_v = 10.0;
 {
     B3_PostView_Activity * activityView;
 }
+@property(nonatomic,strong)NSString * selectString ;
 @end
 @implementation B3_PostBaseTableViewCell
 
@@ -280,6 +281,7 @@ DEF_SINGLETON(SUPPORT)
     }
     if (!rtLabel) {
         rtLabel=[[RCLabel alloc] initWithFrame:CGRectMake(VOTE_MARGIN_LEFT, OriginY, 320 - VOTE_MARGIN_LEFT -VOTE_MARGIN_RIGHT, 50)];
+        rtLabel.delegate = self;
         [rtLabel setFont:[UIFont systemFontOfSize:tempfontsize]];
         rtLabel.tag=currentIndex + HEADCONTENTVIEWSTARTTAG;
         [_belowcontentView addSubview:rtLabel];
@@ -293,7 +295,7 @@ DEF_SINGLETON(SUPPORT)
         rtlabelText=[rtlabelText stringByAppendingString:acont.msg];
         if (acont.signmod.length) {
             if (![B3_PostBaseTableViewCell HideSignMode:index content:acont]) {
-                NSString *htmlcode=[NSString stringWithFormat:@"<br /><img src='images.bundle/%@.gif'></img>",acont.signmod];
+                NSString *htmlcode=[NSString stringWithFormat:@"<br /><img src='dzimages.bundle/%@.gif'></img>",acont.signmod];
                 rtlabelText=[rtlabelText stringByAppendingString:htmlcode];
             }            
         }        
@@ -477,33 +479,37 @@ DEF_SINGLETON(SUPPORT)
         activityView.ppboxdelegate = self;
     }
 //    content  * acontent=[contents objectAtIndex:index];
-    NSArray * activitykeys =[NSArray arrayWithObjects:@"活动类型",@"活动时间",@"活动地点",@"性别",@"每人花销",@"已报名人数",@"活动截止",@"报名截止", nil];
+    NSMutableArray * activitykeys =[NSMutableArray arrayWithObjects:@"活动类型",@"活动时间",@"活动截止",@"活动地点",@"性别",@"每人花销",@"已报名人数",@"报名截止", nil];
 //   [NSArray arrayWithObjects:@"活动类型",@"活动内容",@"活动时间",@"活动地点",@"性别",@"每人花销",@"已报名人数",@"剩余名额",@"报名截止", nil];
+    if (!acont.avty_class) {
+        acont.avty_class = @"活动";
+    }
     NSString * avty_class= [NSString stringWithFormat:@"%@",acont.avty_class];//类型
     NSString * starttimefrom= [NSString stringWithFormat:@"%@",acont.starttimefrom];//活动开始时间
     starttimefrom = [ToolsFunc datefromstring2:starttimefrom];
     NSString * place= [NSString stringWithFormat:@"%@",acont.place];//地点
-//    NSString * applied= [NSString stringWithFormat:@"%@",acont.applied];//是否参加
-//    NSString * isclose= [NSString stringWithFormat:@"%@",acont.isclose];//是否已关闭
+ 
     NSString * cos= [NSString stringWithFormat:@"%@",acont.cos];//花费
     NSString * applynumber = [NSString stringWithFormat:@"%@",acont.applynumber];
     NSString * gender= [NSString stringWithFormat:@"%@",acont.gender];//性别
     NSString * starttimeto= [NSString stringWithFormat:@"%@",acont.starttimeto];//活动结束时间
-    if ([starttimeto rangeOfString:@"0"].location !=NSNotFound) {
+    if (!starttimeto.integerValue) {
         starttimeto = nil;
     }
     starttimeto = starttimeto?[ToolsFunc datefromstring2:starttimeto]:@"";
     NSString * stopapplytime= [NSString stringWithFormat:@"%@",acont.stopapplytime];
-    if ([stopapplytime rangeOfString:@"0"].location !=NSNotFound) {
+    if (!stopapplytime.integerValue) {
         stopapplytime = nil;
     }
     stopapplytime = stopapplytime?[ToolsFunc datefromstring2:stopapplytime]:@"";
-    NSMutableArray * values = [NSMutableArray arrayWithObjects:avty_class,starttimefrom,place,gender,cos,applynumber,starttimeto,stopapplytime, nil];
+    NSMutableArray * values = [NSMutableArray arrayWithObjects:avty_class,starttimefrom,starttimeto,place,gender,cos,applynumber,stopapplytime, nil];
     if (!starttimeto.length) {
         [values removeObject:starttimeto];
+        [activitykeys removeObject:@"活动截止"];
     }
     if (!stopapplytime.length) {
         [values removeObject:stopapplytime];
+        [activitykeys removeObject:@"报名截止"];
     }
     NSMutableDictionary *diction=[[NSMutableDictionary  alloc] initWithCapacity:0];
     for (int index = 0; index < values.count; index ++) {
@@ -725,11 +731,18 @@ DEF_SINGLETON(SUPPORT)
             }
         }
 }
-
--(void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSString *)url
+#pragma mark - rtlabel delegate
+-(void)rtLabel:(RCLabel *)rtLabel didSelectLinkWithURL:(NSString *)url
 {
     if (self.delegate && [self.delegate respondsToSelector:@selector(B3_PostBaseTableViewCell:rtLabel:didSelectLinkWithURL:)]) {
         [self.delegate B3_PostBaseTableViewCell:self rtLabel:rtLabel didSelectLinkWithURL:url];
+    }
+}
+
+-(void)rtlabel:(RCLabel *)rtlabel LongPress:(UIGestureRecognizer *)recognizer
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(B3_PostBaseTableViewCell:rtlabel:LongPress:)]) {
+        [self.delegate B3_PostBaseTableViewCell:self rtlabel:rtlabel LongPress:recognizer];
     }
 }
 
@@ -861,7 +874,7 @@ DEF_SINGLETON(SUPPORT)
             rtlabelText=[rtlabelText stringByAppendingString:message];
             if (acont.signmod.length) {
                 if (![B3_PostBaseTableViewCell HideSignMode:index content:acont]) {
-                    NSString *htmlcode=[NSString stringWithFormat:@"<br /><img src='images.bundle/%@.gif'></img>",acont.signmod];
+                    NSString *htmlcode=[NSString stringWithFormat:@"<br /><img src='dzimages.bundle/%@.gif'></img>",acont.signmod];
                     rtlabelText=[rtlabelText stringByAppendingString:htmlcode];
                 }
              }
@@ -1194,9 +1207,14 @@ ON_SIGNAL3(BeeUIImageView, LOAD_COMPLETED, signal)
     _status = status;
     if (status != nil) {
         if (status.integerValue == 1) {
-            self.isHeader ? [_btnsupport setImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"images.bundle/weidingtie(01)@2x" ofType:@"png"]] forState:UIControlStateNormal] : [_btnsupport setImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"images.bundle/weidingtie@2x" ofType:@"png"]] forState:UIControlStateNormal];
+            UIImage *weidingtieimage01=[UIImage bundleImageNamed:@"weidingtie(01)"];
+            UIImage *weidingtieimage = [UIImage bundleImageNamed:@"weidingtie"];
+            self.isHeader ? [_btnsupport setImage:weidingtieimage01 forState:UIControlStateNormal] : [_btnsupport setImage:weidingtieimage forState:UIControlStateNormal];
         } else {
-            self.isHeader ? [_btnsupport setImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"images.bundle/weidingtie(02)@2x" ofType:@"png"]] forState:UIControlStateNormal] : [_btnsupport setImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"images.bundle/dingtie@2x" ofType:@"png"]] forState:UIControlStateNormal];
+            UIImage *weidingtieimage02=[UIImage bundleImageNamed:@"weidingtie(02)"];
+            UIImage *weidingtieimage = [UIImage bundleImageNamed:@"weidingtie"];
+            
+            self.isHeader ? [_btnsupport setImage:weidingtieimage02 forState:UIControlStateNormal] : [_btnsupport setImage:weidingtieimage forState:UIControlStateNormal];
         }
     }
 }

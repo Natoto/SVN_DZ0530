@@ -24,7 +24,7 @@
 #import "D2_ChatInputView.h"
 #import "B3_Post_IWantApply.h"
 #import "Deal_ActivityModel.h"
-
+#import "B4_MoreOperationViewController.h"
 #define REPLYAREAHEIGHT 40
 
 //extern BOOL isHeader;
@@ -112,6 +112,19 @@ ON_NOTIFICATION3(B3_PostMenuView, share, signal)
     [self.navigationController pushViewController:share animated:YES];
 }
 
+ON_NOTIFICATION3(B3_PostMenuView, daoxu, notify)
+{
+    if (!self.postmodel.ordertype.integerValue) {
+        self.postmodel.ordertype = @"1";
+        [menuView reloadButton:@"倒序看帖" title:@"顺序看帖"];
+    }
+    else
+    {
+        self.postmodel.ordertype = @"0";
+       [menuView reloadButton:@"倒序看帖" title:@"倒序看帖"];
+    }
+    [self refreshView];
+}
 #pragma mark - 收藏与取消收藏
 ON_NOTIFICATION3(B3_PostMenuView, collect, signal)
 {
@@ -138,7 +151,6 @@ ON_NOTIFICATION3(B3_PostMenuView, collect, signal)
 ON_NOTIFICATION3(B3_PostMenuView, delcollection, signal)
 {
     NSString *username = [UserModel sharedInstance].session.username;
-
     if (!username) {
         [self showAlertView];
         return;
@@ -219,13 +231,15 @@ ON_SIGNAL3(SupportModel, RELOADED, signal)
 
     if (isHeader)
     {
-        [[B3_PostBaseTableViewCell sharedInstance].btnsupport setImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"images.bundle/weidingtie(02)@2x" ofType:@"png"]] forState:UIControlStateNormal];
+        UIImage *weidingtieimage02=[UIImage bundleImageNamed:@"weidingtie(02)"];
+        [[B3_PostBaseTableViewCell sharedInstance].btnsupport setImage:weidingtieimage02 forState:UIControlStateNormal];
         self.postmodel.maintopic.status = @0;
         self.postmodel.maintopic.support = @(self.postmodel.maintopic.support.integerValue + 1);
     }
     else
     {
-        [[B3_PostBaseTableViewCell sharedInstance].btnsupport setImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"images.bundle/dingtie@2x" ofType:@"png"]] forState:UIControlStateNormal];
+        UIImage *weidingtieimage = [UIImage bundleImageNamed:@"weidingtie"];
+        [[B3_PostBaseTableViewCell sharedInstance].btnsupport setImage:weidingtieimage forState:UIControlStateNormal];
         post *post = self.postmodel.shots[index];
         post.support = @(post.support.integerValue + 1);
         post.status = @0;
@@ -321,9 +335,10 @@ ON_SIGNAL3(SupportModel, FAILED, signal)
     [self observeNotification:[B3_PostMenuView sharedInstance].collect];
     [self observeNotification:[B3_PostMenuView sharedInstance].delcollection];
     [self observeNotification:[B3_PostMenuView sharedInstance].allRead];
+    [self observeNotification:[B3_PostMenuView sharedInstance].daoxu];
+    
 //    self.astatus = [[B3_PostBaseTableViewCell alloc] init];
 //    [self observeNotification:self.astatus.SUPPORT];
-
     toTopbtn=[UIButton buttonWithType:UIButtonTypeCustom];
     toTopbtn.frame=CGRectMake(280,self.view.bounds.size.height-REPLYAREAHEIGHT-70, 40, 40);
     [toTopbtn setImage:[UIImage bundleImageNamed:@"huidaoshouye-02"] forState:UIControlStateNormal];
@@ -385,6 +400,7 @@ ON_SIGNAL3(SupportModel, FAILED, signal)
     [self.usermodel removeObserver:self];
     [self.collectModel removeObserver:self];
     [self.delcollectionModel removeObserver:self];
+ 
 }
 
 -(void)keybordWillAppear:(NSNotification *)notify
@@ -533,6 +549,9 @@ ON_SIGNAL3(replyModel, RELOADED, signal)
     replyArea.replayField.text=@"";
     [self.postmodel firstPage];
     canscrollTableToFoot=YES;
+    if (self.postmodel.ordertype.integerValue) {
+        canscrollTableToFoot = NO;
+    }
     [[DZ_Timer sharedInstance] endReply];
 }
 
@@ -680,7 +699,8 @@ ON_SIGNAL3(PostlistModel, FAILED, signal)
          }
          cell.cellIndex=[NSString stringWithFormat:@"%d",indexPath.row-1];
          cell.cellpost=[self.postmodel.shots objectAtIndex:indexPath.row - 1];
-         cell.lblfloortext = [NSString stringWithFormat:@"%d楼: ",indexPath.row+1];
+         
+         cell.lblfloortext = [NSString stringWithFormat:@"%@楼: ",cell.cellpost.position];
          dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [cell reloadsubviews];
             });
@@ -692,6 +712,8 @@ ON_SIGNAL3(PostlistModel, FAILED, signal)
          return cell;
      }
  }
+
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -920,6 +942,7 @@ ON_SIGNAL3(Deal_ActivityModel, FAILED, signal)
 
     [self.supportModel firstPage];
 }
+
 #pragma mark - 输入框隐藏和显示
 - (void)B3_HeadCellHeaderViewTapped:(B3_PostTableView_HeadCell *)object
 {
@@ -985,6 +1008,8 @@ ON_SIGNAL3(Deal_ActivityModel, FAILED, signal)
         previewView =[[B4_PreviewImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height) withurl:url target:self andSEL:@selector(handleSingleViewTap:) contentAry:contentArray];
         [self.view addSubview:previewView];
         [self.view bringSubviewToFront:previewView];
+        
+        [[UIApplication sharedApplication]setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
         [self.navigationController setNavigationBarHidden:YES animated:YES];
          [UIView animateWithDuration:0.5f animations:^{
             previewView.frame =CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame));
@@ -1061,7 +1086,58 @@ ON_SIGNAL3(Deal_ActivityModel, FAILED, signal)
     [self.navigationController pushViewController:ctr animated:YES];
     
 }
- 
+#pragma mark - 复制
+
+/*此处是弹起菜单方式展现
+ [cell becomeFirstResponder];
+ //给sel 传递多个参数
+ UIMenuItem *itCopy = [[UIMenuItem alloc] initWithTitle:@"拷贝" action:@selector(handleCopyCell:)];
+ UIMenuItem *itMore = [[UIMenuItem alloc] initWithTitle:@"更多" action:@selector(handleMoreCell:)];
+ UIMenuController *menu = [UIMenuController sharedMenuController];
+ self.selectString = rtlabel.visibleText;
+ [menu setMenuItems:[NSArray arrayWithObjects:itCopy,itMore,nil]];
+ CGRect rect = rtlabel.frame;
+ if([[cell class] isSubclassOfClass:[B3_PostTableView_Cell class]])
+ {
+ rect.origin.y = rect.origin.y + 70;
+ }
+ else
+ {
+ rect.origin.y = rect.origin.y + 100;
+ }
+ [menu setTargetRect:rect inView:cell];
+ [menu setMenuVisible:YES animated:YES];
+ */
+
+-(void)B3_Cell:(B3_PostTableView_Cell *)cell rtlabel:(RCLabel *)rtlabel LongPress:(UIGestureRecognizer *)recognizer
+{
+    //双击结束 和长按开始状态
+    if (([[recognizer class] isSubclassOfClass:[UILongPressGestureRecognizer class]] && recognizer.state == UIGestureRecognizerStateBegan) || ([[recognizer class] isSubclassOfClass:[UITapGestureRecognizer class]] && recognizer.state == UIGestureRecognizerStateEnded))
+    {
+         self.selectString = rtlabel.visibleText;
+        [self handleMoreCell:nil];
+    }
+}
+
+- (void)handleMoreCell:(id)sender
+{
+    [[UIApplication  sharedApplication] setStatusBarHidden:YES];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    B4_MoreOperationViewController *b4ctr=[[B4_MoreOperationViewController alloc] init];
+    b4ctr.contentstring =  self.selectString; 
+    [self.navigationController  pushViewController:b4ctr animated:NO];
+}
+- (void)handleCopyCell:(id)sender
+{//复制cell
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    pasteboard.string =self.selectString;
+}
+
+
+-(void)B3_HeadCell:(B3_PostTableView_HeadCell *)cell rtlabel:(RCLabel *)rtlabel LongPress:(UIGestureRecognizer *)recognizer
+{
+    [self B3_Cell:cell rtlabel:rtlabel LongPress:recognizer];
+}
 
 - (void)MaskViewDidTaped:(id)object
 {
@@ -1073,6 +1149,7 @@ ON_SIGNAL3(Deal_ActivityModel, FAILED, signal)
 {
     replyArea.hidden = NO;
     [previewView removeFromSuperview];
+     [[UIApplication sharedApplication]setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 

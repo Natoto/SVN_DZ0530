@@ -44,6 +44,16 @@
     // Do any additional setup after loading the view.
 }
 
+
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleBlackTranslucent;
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

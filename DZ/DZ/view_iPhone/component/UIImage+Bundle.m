@@ -19,7 +19,7 @@
      NSString *resource=@"images";
      NSString *bundle=@"bundle";
      */
-    NSString *bundlePath = @"images.bundle";
+    NSString *bundlePath = @"dzimages.bundle";
     /*
      [[ NSBundle mainBundle] pathForResource: resource ofType :bundle];
      */

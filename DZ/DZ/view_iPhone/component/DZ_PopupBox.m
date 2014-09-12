@@ -40,7 +40,7 @@
     return self;
 }
 
--(IBAction)gestureTap:(id)sender
+- (IBAction)gestureTap:(id)sender
 {
     if (self.ppboxdelegate &&[self.ppboxdelegate respondsToSelector:@selector(DZ_PopupBox:MaskViewDidTaped:)])
     {
@@ -48,13 +48,13 @@
     }
 }
 
--(void)setTitle:(NSString *)title
+- (void)setTitle:(NSString *)title
 {
     _title = title;
     titlelabel.text =title;
 }
 
--(UIView *)checkinView:(CGRect )frame
+- (UIView *)checkinView:(CGRect )frame
 {
     if (!_contentView) {
         UIView *view=[[UIView alloc] initWithFrame:frame];
@@ -92,7 +92,7 @@
 }
 
 
--(void)closebtnTap:(id)sender
+- (void)closebtnTap:(id)sender
 {
     if (self.ppboxdelegate &&[self.ppboxdelegate respondsToSelector:@selector(DZ_PopupBox:MaskViewDidTaped:)])
     {
@@ -100,7 +100,7 @@
     }
 }
 
--(UIView *)line:(CGRect)frame
+- (UIView *)line:(CGRect)frame
 {
     UIView *view =[[UIView alloc] init];
     view.backgroundColor = LINE_LAYERBOARD_NOTCGCOLOR;
@@ -108,7 +108,7 @@
     return view;
 }
 
--(void)loadDatas:(NSMutableDictionary *)diction
+- (void)loadDatas:(NSMutableDictionary *)diction
 {
     scrollview = [self scrollview];
     NSArray * allkeys = diction.allKeys;
@@ -120,7 +120,7 @@
     }
 }
 
--(void)createCell:(NSString *)key value:(NSString *)value index:(int)index
+- (void)createCell:(NSString *)key value:(NSString *)value index:(int)index
 {
     float HEIGHT =40;
     float WIDTH = _contentView.frame.size.width - 20;
@@ -148,7 +148,7 @@
     label.attributedText = attriString;
 }
 
--(UIScrollView *)scrollview
+- (UIScrollView *)scrollview
 {
     if (!scrollview) {
         UIScrollView *scrview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(titlelabel.frame), CGRectGetWidth(_contentView.frame), CGRectGetHeight(_contentView.frame) - CGRectGetMaxY(titlelabel.frame))];
@@ -157,13 +157,16 @@
     }
     return scrollview;
 }
+
 - (void)show
 {
     [[UIApplication sharedApplication].delegate.window.rootViewController.view addSubview:self];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
 }
 
--(void)hide
+- (void)hide
 {
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:YES];
     [self removeFromSuperview];
 }
 

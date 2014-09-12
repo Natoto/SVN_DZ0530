@@ -190,7 +190,7 @@ CONVERT_PROPERTY_CLASS( content, content );
         [self setCached:NO];
         [self setUseCache:NO];
 //         self.DELETE(requestURI).PARAM( [self.req objectToDictionary]).PARAM(@"onlyauthorid",_onlyauthorid).PARAM(@"uid",self.uid).TIMEOUT(300);
-       self.POST(requestURI).PARAM([self.req objectToDictionary]).PARAM(@"onlyauthorid",_onlyauthorid).PARAM(@"uid",self.uid).TIMEOUT(300);
+       self.POST(requestURI).PARAM([self.req objectToDictionary]).PARAM(@"onlyauthorid",_onlyauthorid).PARAM(@"uid",self.uid).PARAM(@"ordertype",self.ordertype).TIMEOUT(300);
 	}
 	else if ( self.succeed )
 	{

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration namespace="DefaultConfigure">
-    
 <appicon></appicon>
-<websiteurl>http://192.168.7.155:8080/mydede/dedewap/index.php?hy=1</websiteurl>
+<websiteurl>http://192.168.7.155:8080/mydede/dedewap/</websiteurl>
+    
 <downloadurl>我下载了APP地址http://114.215.178.111/amanmanceshi/forum.php</downloadurl>
-<idourl>http://iquapp.com/web/</idourl>
+<idourl>http://192.168.7.70:8080/web/</idourl>
 <appid>ABCDAFAFASGASG</appid>
 <appname>织梦</appname>
 <appversion>V1.0.1</appversion>
@@ -12,3 +12,4 @@
 <appcolor>#00ff00</appcolor>
 <clientVersion>V1.1.1</clientVersion>
 </configuration>
+  

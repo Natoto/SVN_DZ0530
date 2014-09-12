@@ -255,6 +255,7 @@ ON_SIGNAL3(BeeUITipsView, WILL_DISAPPEAR, signal)
 -(BeeUITextField *)createTextFieldWithFrame:(CGRect)frame placeholder:(NSString *)placeholder tag:(int)tag border:(BOOL)border
 {
     BeeUITextField *textfield=[[BeeUITextField alloc] initWithFrame:frame];
+    textfield.TEXT_INSET_LEFT = 10;
     textfield.clearButtonMode=UITextFieldViewModeWhileEditing;
     textfield.placeholder=placeholder;
     textfield.tag=tag;

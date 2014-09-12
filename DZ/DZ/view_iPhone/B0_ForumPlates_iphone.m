@@ -13,11 +13,11 @@
 #import "PullLoader.h"
 #import "homeModel.h"
 #import "B2_SearchViewController.h"
+#import "B0_ForumPlates_iphone.h"
+@interface B0_ForumPlates_iphone () <B0_FormPlatesCell_iPhoneDelegate>
 
-@interface B0_ForumPlates_iphone ()<B0_FormPlatesCell_iPhoneDelegate>
-
-@property(nonatomic,retain)UITableView *list;
-@property(nonatomic,retain)homeModel * homemodel;
+@property (nonatomic, retain) UITableView   *list;
+@property (nonatomic, retain) homeModel     *homemodel;
 
 @end
 
@@ -26,6 +26,7 @@
 DEF_MODEL(ForumsModel, fmModel);
 DEF_NOTIFICATION(FORUMREMOVEFROMEHOME)
 DEF_NOTIFICATION(FORUMADDTOHOME)
+DEF_SINGLETON(isModeOne)
 
 #pragma mark - BeeFramework
 
@@ -34,6 +35,7 @@ DEF_NOTIFICATION(FORUMADDTOHOME)
     self.noFooterView = YES;
     self.fmModel = [ForumlistModel modelWithObserver:self];
 }
+
 - (void)unload
 {
 	self.fmModel = nil;
@@ -69,7 +71,7 @@ ON_SIGNAL2(BeeUIBoard, signal)
         
         self.view.backgroundColor = [UIColor whiteColor];
         self.navigationBarTitle = __TEXT(@"FORUM");//版块
-        self.navigationBarShown=NO;
+       
         [self showNavigationBarAnimated:NO];
         _selectedFiddic=[[NSMutableDictionary alloc] init]; 
         
@@ -88,12 +90,8 @@ ON_SIGNAL2(BeeUIBoard, signal)
     else if ([signal is:BeeUIBoard.LAYOUT_VIEWS])
     {
          self.list.frame = CGRectMake(0, 0, self.bounds.size.width, self.frame.size.height - TAB_HEIGHT);
-        self.navigationBarShown=YES;
-        
     }
-    
 }
-
 
 ON_SIGNAL3(BeeUINavigationBar, RIGHT_TOUCHED, signal)
 {
@@ -106,6 +104,7 @@ ON_SIGNAL3(ForumlistModel, RELOADED, signal)
     [self FinishedLoadData];
     [self.list reloadData];
 }
+
 ON_SIGNAL3(ForumlistModel, FAILED, signal)
 {
     [self presentMessageTips:[NSString stringWithFormat:@"%@",signal.object]];
@@ -122,25 +121,26 @@ ON_SIGNAL3(ForumlistModel, FAILED, signal)
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *identifier= @"cell";
-    B0_FormPlatesCell_iPhone *cell=[tableView dequeueReusableCellWithIdentifier:identifier];
+    static NSString *identifier = @"cell";
+    B0_FormPlatesCell_iPhone *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell=[[B0_FormPlatesCell_iPhone alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-        cell.delegate=self;
+        cell = [[B0_FormPlatesCell_iPhone alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell.delegate = self;
     }
+    if ([B0_ForumPlates_iphone sharedInstance].isModeOne == YES) cell.isModeOne = YES;
     cell.indexPath = indexPath;
-    forums *aforums=[self.fmModel.shots objectAtIndex:indexPath.section];
+    forums *aforums = [self.fmModel.shots objectAtIndex:indexPath.section];
     if (aforums.child) {
-        child *achild=[aforums.child objectAtIndex:indexPath.row];
-        NSString *mark=[self.selectedFiddic valueForKey:achild.fid];
+        child *achild = [aforums.child objectAtIndex:indexPath.row];
+        NSString *mark = [self.selectedFiddic valueForKey:achild.fid];
         if (mark) {
-            cell.mark=mark;
+            cell.mark = mark;
         }
         else
         {
             cell.mark = UNMARK;
         }
-        cell.achild=achild;
+        cell.achild = achild;
     }
     return cell;
 }
@@ -182,7 +182,7 @@ ON_SIGNAL3(ForumlistModel, FAILED, signal)
     return headerView;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     forums *aforums=[self.fmModel.shots objectAtIndex:indexPath.section];
     child  *achild=[aforums.child objectAtIndex:indexPath.row];
@@ -201,7 +201,7 @@ ON_SIGNAL3(ForumlistModel, FAILED, signal)
 
 #pragma mark - Event
 
--(void)buttonPressedTap:(id)obj indexPath:(NSIndexPath *)indexPath mark:(BOOL)mark
+- (void)buttonPressedTap:(id)obj indexPath:(NSIndexPath *)indexPath mark:(BOOL)mark
 {
     B0_FormPlatesCell_iPhone *cell=(B0_FormPlatesCell_iPhone *)obj;
     [self.selectedFiddic setObject:[NSString stringWithFormat:@"%d",mark] forKey:cell.achild.fid];

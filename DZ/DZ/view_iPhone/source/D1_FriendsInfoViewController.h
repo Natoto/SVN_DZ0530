@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "Base_TableviewController.h"
 
-@interface D1_FriendsInfoViewController : Base_TableviewController
+@interface D1_FriendsInfoViewController : Base_TableviewController <UITextViewDelegate>
+
 @property(nonatomic,strong)NSString  * uid;
+
 @end

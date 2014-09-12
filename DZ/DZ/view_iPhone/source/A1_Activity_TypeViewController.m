@@ -109,6 +109,8 @@ ON_SIGNAL3(ActivityModel, FAILED, signal)
         aitem.img = atopic.img;
         aitem.replies = atopic.replies;
         aitem.subject = atopic.subject;
+        aitem.message = atopic.message;
+        aitem.authorname = atopic.author;
         aitem.tid = atopic.tid;
         aitem.views = atopic.views;
         [cell datachanges:aitem];

@@ -12,7 +12,7 @@
 #import "D1_CollectionViewController_iphone.h"
 #import "MJRefresh.h"
 #import "A1_ActivityViewController.h"
-
+#import "MobClick.h"
 @interface A0_HomePage1_iphone ()
 {
 //    UIImageView *bgimgview;
@@ -23,7 +23,7 @@
 
 @implementation A0_HomePage1_iphone
 DEF_NOTIFICATION(homepageItemChanged)
--(void)load
+- (void)load
 {
     self.usermodel = [UserModel modelWithObserver:self]; 
     self.homeModel	= [homeModel modelWithObserver:self];
@@ -85,11 +85,14 @@ ON_SIGNAL3(A0_TileView,CLOSTBTNTAPPED, signal)
     [super viewWillDisappear:animated];
     [self.homeModel saveArrangedPosition:self.ModeleBlocks];
     self.EDITMODE = NO;
+
+    [B0_ForumPlates_iphone sharedInstance].isModeOne = YES;
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
+    [MobClick endLogPageView:@"homePage1"];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -101,6 +104,7 @@ ON_SIGNAL3(A0_TileView,CLOSTBTNTAPPED, signal)
     }
     [self ReArrangTileViews:nil];
     [bee.ui.appBoard showTabbar];
+    [MobClick beginLogPageView:@"homePage1"];
 }
 
 ON_SIGNAL2( BeeUIBoard, signal )
@@ -173,7 +177,20 @@ ON_SIGNAL2( BeeUIBoard, signal )
             item4.enableDelete = [NSString stringWithFormat:@"0"];
             [tempModeleBlocks insertObject:item4 atIndex:0];
         }
-        
+        /* self.homeModel.onoff.isactivity = [NSNumber numberWithInt:0];
+         暂时屏蔽活动主题
+         */
+        if (self.homeModel.onoff.isactivity.integerValue) {
+            HOME2TOPICSPOSITIONITEM *item4 = [[HOME2TOPICSPOSITIONITEM alloc] init];
+            home_activity *activity = self.homeModel.shots.activity;
+            item4.title = activity.title ? activity.title : @"活动主题";
+            item4.subject = activity.subject ? activity.subject : @"活动推荐";
+            item4.icon = activity.img;
+            item4.fid = HOME_FID_ACTIVITY;
+            item4.count = @"0";
+            item4.enableDelete = [NSString stringWithFormat:@"0"];
+            [tempModeleBlocks insertObject:item4 atIndex:0];
+        }
         newest *new = self.homeModel.shots.newest;
         HOME2TOPICSPOSITIONITEM *item2 = [[HOME2TOPICSPOSITIONITEM alloc] init];
         item2.title = new.title;
@@ -227,20 +244,7 @@ ON_SIGNAL2( BeeUIBoard, signal )
         item.enableDelete = [NSString stringWithFormat:@"0"];
         [tempModeleBlocks addObject:item];
  
-        /* self.homeModel.onoff.isactivity = [NSNumber numberWithInt:0];
-         暂时屏蔽活动主题
-        */
-         if (self.homeModel.onoff.isactivity.integerValue) {
-            HOME2TOPICSPOSITIONITEM *item4 = [[HOME2TOPICSPOSITIONITEM alloc] init];
-            home_activity *activity = self.homeModel.shots.activity;
-            item4.title = activity.title ? activity.title : @"活动主题";
-            item4.subject = activity.subject ? activity.subject : @"活动推荐";
-            item4.icon = activity.img;
-            item4.fid = HOME_FID_ACTIVITY;
-            item4.count = @"0";
-            item4.enableDelete = [NSString stringWithFormat:@"0"];
-            [tempModeleBlocks insertObject:item4 atIndex:0];
-        }
+
         
         HOME2TOPICSPOSITIONITEM *item7=[[HOME2TOPICSPOSITIONITEM alloc] init];
         item7.subject=@"";
@@ -388,6 +392,7 @@ ON_SIGNAL2( BeeUIBoard, signal )
     }
     [self reloadActiveItem:blocks];
 }
+
 -(void)reloadActiveItem:(NSMutableArray *)blocks
 {
    if (!self.homeModel.onoff.isactivity.integerValue)
@@ -403,8 +408,39 @@ ON_SIGNAL2( BeeUIBoard, signal )
             }
         }        
     }
+    else
+    {
+         int index = 0;
+        HOME2TOPICSPOSITIONITEM *item = blocks[2];
+        if (![item.fid isEqualToString:HOME_FID_ACTIVITY])
+        {
+            item = nil;
+            for (index = blocks.count-1; index >=0; index--) {
+                HOME2TOPICSPOSITIONITEM *tempitem=[blocks objectAtIndex:index];
+                if ([tempitem.fid isEqualToString:HOME_FID_ACTIVITY]) {
+                    item = tempitem;
+                    break;
+                }
+            }
+            if (index ) {
+                for (int j=index-1; j>=1; j--) {
+                    HOME2TOPICSPOSITIONITEM *tempitem2=[blocks objectAtIndex:j];
+                    if ((j+1) > blocks.count) {
+                        [blocks addObject:tempitem2];
+                    }
+                    else
+                        blocks[j+1] = tempitem2;
+                    
+                }
+            }
+            if (item) {
+                blocks[1]=item;
+            }
+        }
+    }
 }
 #pragma mark - 添加版块
+
 ON_NOTIFICATION3(B0_ForumPlates_iphone, FORUMADDTOHOME, notify)
 {
     HOME2TOPICSPOSITIONITEM *item=notify.object;

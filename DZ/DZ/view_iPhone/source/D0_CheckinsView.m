@@ -44,7 +44,7 @@
         [self addSubview:_contentView];
         
         selectbgview = [[UIImageView alloc] initWithFrame:CGRectZero];
-        selectbgview.image = [UIImage imageNamed:[NSString stringWithFormat:@"images.bundle/qdselect"]];
+        selectbgview.image = [UIImage imageNamed:[NSString stringWithFormat:@"dzimages.bundle/qdselect"]];
         selectbgview.hidden = YES;
         [_contentView addSubview:selectbgview];
         [_contentView sendSubviewToBack:selectbgview];
@@ -233,7 +233,7 @@ ON_SIGNAL3(SignModel, FAILED, signal)
 - (UIButton *)CreateButtonWithFrame:(CGRect)frame andImage:(NSString *)image tag:(int)tag
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIImage *img=[UIImage imageNamed:[NSString stringWithFormat:@"images.bundle/%@",image]];
+    UIImage *img=[UIImage imageNamed:[NSString stringWithFormat:@"dzimages.bundle/%@",image]];
     [button setImage:img forState:UIControlStateNormal];
     button.frame = frame;
     button.tag = tag;
@@ -243,11 +243,13 @@ ON_SIGNAL3(SignModel, FAILED, signal)
 
 - (void)show
 {
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
     [[UIApplication sharedApplication].delegate.window.rootViewController.view addSubview:self];
 }
 
 -(void)hide
 {
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:YES];
     [textview resignFirstResponder];
     [self removeFromSuperview];
 }

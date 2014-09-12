@@ -180,6 +180,7 @@ typedef enum : NSUInteger {
 @interface API_POSTLIST_SHOTS : BeeAPI
 @property (nonatomic, retain) NSString *    uid;
 @property (nonatomic, retain) NSString *    onlyauthorid;
+@property (nonatomic, retain) NSString *    ordertype;
 @property (nonatomic, retain) NSString *	tid;
 @property (nonatomic, retain) REQ_POSTLIST_SHOTS *	req;
 @property (nonatomic, retain) POSTLIST2 *	posts;

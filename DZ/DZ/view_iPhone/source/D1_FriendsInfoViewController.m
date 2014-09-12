@@ -22,18 +22,33 @@
 #import "D1_CollectionViewController_iphone.h"
 #import "DZ_PopupBox.h"
 #import "UIImage+Tint.h"
+#import "PFRadioButton.h"
+#import "NSData+base64.h"
+#import "InformModel.h"
+#import "PFPopupBox.h"
+#import "PFTextView.h"
+
 @interface D1_FriendsInfoViewController ()<D1_FriendsInfo_HeaderCellDelegate,DZ_PopupBoxDelegate,UIAlertViewDelegate>
-@property(nonatomic,strong)UserModel *profilemodel;
-@property(nonatomic,strong)NSMutableArray *items;
-@property(nonatomic,strong)UIButton  * addfriendBtn;
-@property(nonatomic,strong)UIButton  * delfriendBtn;
-@property(nonatomic,strong)UIButton  * sendMessageBtn;
+{
+    NSString *informString;
+}
 
-@property(nonatomic,strong)DelfriendModel *delfrdModel;
-@property(nonatomic,strong)AddfriendModel *addfrdModel;
-@property(nonatomic,strong)friends *myfriends;
+@property (nonatomic, strong) UserModel         *profilemodel;
+@property (nonatomic, strong) NSMutableArray    *items;
+@property (nonatomic, strong) UIButton          *addfriendBtn;
+@property (nonatomic, strong) UIButton          *delfriendBtn;
+@property (nonatomic, strong) UIButton          *informBtn;
+@property (nonatomic, strong) UIButton          *sendMessageBtn;
 
-@property(nonatomic,strong)DZ_PopupBox * wealthBox;
+@property (nonatomic, strong) DelfriendModel    *delfrdModel;
+@property (nonatomic, strong) AddfriendModel    *addfrdModel;
+@property (nonatomic, strong) friends           *myfriends;
+@property (nonatomic, strong) InformModel       *informModel;
+
+@property (nonatomic, strong) DZ_PopupBox       *wealthBox;
+@property (nonatomic, strong) PFPopupBox        *informBox;
+@property (nonatomic, strong) PFTextView        *textView;
+
 @end
 
 @implementation D1_FriendsInfoViewController
@@ -46,7 +61,7 @@
     }
     return self;
 }
--(void)dealloc
+- (void)dealloc
 {
     [self.delfrdModel removeObserver:self];
     [self.profilemodel removeObserver:self];
@@ -66,8 +81,9 @@
     [self.profilemodel updateFriendProfile:self.uid];
     self.items=[[NSMutableArray alloc] initWithCapacity:0];
     
-    self.addfrdModel=[AddfriendModel modelWithObserver:self];
+    self.addfrdModel = [AddfriendModel modelWithObserver:self];
     self.delfrdModel = [DelfriendModel modelWithObserver:self];
+    self.informModel = [InformModel modelWithObserver:self];
 }
 
 #pragma mark - 个人资料加载成功
@@ -148,7 +164,7 @@ ON_SIGNAL3(UserModel, PROFILE_FAILED, signal)
     [self FinishedLoadData];
 }
 
--(void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
 //    [bee.ui.appBoard hideTabbar];
 }
@@ -157,7 +173,7 @@ ON_SIGNAL3(UserModel, PROFILE_FAILED, signal)
     [super didReceiveMemoryWarning];
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row==0) {
         return 240;
@@ -179,7 +195,6 @@ ON_SIGNAL3(UserModel, PROFILE_FAILED, signal)
     }
     else
         return self.items.count + 1;
-
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -220,20 +235,30 @@ ON_SIGNAL3(UserModel, PROFILE_FAILED, signal)
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             _addfriendBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             _addfriendBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-            
+
+            //加好友
               btnimge = [btnimge imageWithTintColor:color];
             [_addfriendBtn setBackgroundImage:btnimge forState:UIControlStateNormal];
              [_addfriendBtn setTitleColor:fontcolor forState:UIControlStateNormal];
              _addfriendBtn.frame = CGRectMake(BTN_X, BTN_Y, BTN_WIDTH, BTN_HEIGHT);
             [cell.contentView addSubview:_addfriendBtn];
-            
+
+            //删好友
             _delfriendBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
             _delfriendBtn.frame = CGRectMake(BTN_X, BTN_Y, BTN_WIDTH + 10, BTN_HEIGHT);
             [_delfriendBtn setTitleColor:fontcolor forState:UIControlStateNormal];
             _delfriendBtn.titleLabel.font = [UIFont systemFontOfSize:15];
             [_delfriendBtn setBackgroundImage:btnimge forState:UIControlStateNormal];
             [cell.contentView addSubview:_delfriendBtn];
-            
+
+            //举报
+            _informBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+            _informBtn.frame = CGRectMake(cell.centerX - BTN_WIDTH / 2, BTN_Y, BTN_WIDTH, BTN_HEIGHT);
+            [_informBtn setBackgroundImage:btnimge forState:UIControlStateNormal];
+            _informBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+            [cell.contentView addSubview:_informBtn];
+
+            //发信息
             _sendMessageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             [_sendMessageBtn setBackgroundImage:btnimge forState:UIControlStateNormal];
             _sendMessageBtn.frame = CGRectMake(cell.width - BTN_WIDTH - MARGIN_RIGHT, BTN_Y, BTN_WIDTH, BTN_HEIGHT);
@@ -255,8 +280,11 @@ ON_SIGNAL3(UserModel, PROFILE_FAILED, signal)
             [_delfriendBtn setTitle:@"删除好友" forState:UIControlStateNormal];
             [_delfriendBtn setTitleColor:fontcolor forState:UIControlStateNormal];
             [_delfriendBtn addTarget:self action:@selector(delfriendBtnTap:) forControlEvents:UIControlEventTouchUpInside];
-            
         }
+        [_informBtn setTitle:@"举报" forState:UIControlStateNormal];
+        [_informBtn setTitleColor:fontcolor forState:UIControlStateNormal];
+        [_informBtn addTarget:self action:@selector(informBtnTap:) forControlEvents:UIControlEventTouchUpInside];
+
         [_sendMessageBtn setTitle:@"发信息" forState:UIControlStateNormal];
         [_sendMessageBtn setTitleColor:fontcolor forState:UIControlStateNormal];
         [_sendMessageBtn addTarget:self action:@selector(sendMessageBtnTap:) forControlEvents:UIControlEventTouchUpInside];
@@ -280,11 +308,13 @@ ON_SIGNAL3(UserModel, PROFILE_FAILED, signal)
         return cell;
     }
 }
+
 #pragma mark - 删除好友成功
+
 ON_SIGNAL3(DelfriendModel, FAILED, signal)
 {
     [self dismissTips];
-    [self presentMessageTips:[NSString stringWithFormat:@"%@",self.delfrdModel.shots.emsg]];
+    [self presentMessageTips:[NSString stringWithFormat:@"%@", self.delfrdModel.shots.emsg]];
 }
 
 ON_SIGNAL3(DelfriendModel, RELOADED, signal)
@@ -302,25 +332,34 @@ ON_SIGNAL3(AddfriendModel, RELOADED, signal)
 ON_SIGNAL3(AddfriendModel, FAILED, signal)
 {
     [self dismissTips];
-    [self presentMessageTips:[NSString stringWithFormat:@"%@",self.addfrdModel.shots.emsg]];
+    [self presentMessageTips:[NSString stringWithFormat:@"%@", self.addfrdModel.shots.emsg]];
 }
-#pragma mark -DZ_PopupBox delegate
--(void)DZ_PopupBox:(DZ_PopupBox *)view MaskViewDidTaped:(id)object
+
+ON_SIGNAL3(InformModel, RELOADED, signal)
 {
-    [self.wealthBox hide];
+    [self dismissTips];
+    [self presentMessageTips:@"举报成功"];
 }
+
+ON_SIGNAL3(InformModel, FAILED, signal)
+{
+    [self dismissTips];
+    [self presentMessageTips:[NSString stringWithFormat:@"%@", self.informModel.shots.emsg]];
+}
+
 #pragma mark - 功能列表
 
 
--(void)D1_FriendsInfo_HeaderCell_gotorwealth:(D1_FriendsInfo_HeaderCell *)cell
+- (void)D1_FriendsInfo_HeaderCell_gotorwealth:(D1_FriendsInfo_HeaderCell *)cell
 {
     CGRect rect = [UIScreen mainScreen].bounds;
-    DZ_PopupBox *PopupBox = [[DZ_PopupBox alloc] initWithFrame:rect];
-    PopupBox.ppboxdelegate = self;
-    PopupBox.title =[NSString stringWithFormat:@"%@的财富",self.profilemodel.friendProfile.username]; //@"我的财富";
-    [PopupBox show];
-    self.wealthBox = PopupBox;
-    
+    if (!self.wealthBox) {
+        DZ_PopupBox *PopupBox = [[DZ_PopupBox alloc] initWithFrame:rect];
+        PopupBox.ppboxdelegate = self;
+        PopupBox.title =[NSString stringWithFormat:@"%@的财富",self.profilemodel.friendProfile.username]; //@"我的财富";
+        self.wealthBox = PopupBox;
+    }
+    [self.wealthBox show];
     PROFILE *profile =self.profilemodel.friendProfile; //[UserModel sharedInstance].profile;
     NSArray * keys =[NSArray arrayWithObjects:@"积分",@"金钱",@"威望",@"贡献", nil];
     NSString * credits= [NSString stringWithFormat:@"%@",profile.credits];
@@ -334,9 +373,10 @@ ON_SIGNAL3(AddfriendModel, FAILED, signal)
     [diction setObject:values[1] forKey:keys[1]];
     [diction setObject:values[2] forKey:keys[2]];
     [diction setObject:values[3] forKey:keys[3]];
-    [PopupBox loadDatas:diction];
+    [self.wealthBox loadDatas:diction];
 }
--(void)D1_FriendsInfo_HeaderCell_gotosendhtml:(D1_FriendsInfo_HeaderCell *)cell
+
+- (void)D1_FriendsInfo_HeaderCell_gotosendhtml:(D1_FriendsInfo_HeaderCell *)cell
 {
     D1_MypostViewController_iphone *ctr=[[D1_MypostViewController_iphone alloc] init];
     ctr.uid = self.uid;
@@ -345,7 +385,7 @@ ON_SIGNAL3(AddfriendModel, FAILED, signal)
     [self.navigationController  pushViewController:ctr animated:YES];
 }
 
--(void)D1_FriendsInfo_HeaderCell_gotofriend:(D1_FriendsInfo_HeaderCell *)cell
+- (void)D1_FriendsInfo_HeaderCell_gotofriend:(D1_FriendsInfo_HeaderCell *)cell
 {
     D1_FriendsViewController_iphone *ctr=[[D1_FriendsViewController_iphone alloc] init];
     ctr.uid = self.uid;
@@ -353,7 +393,8 @@ ON_SIGNAL3(AddfriendModel, FAILED, signal)
     ctr.newtitle = [NSString stringWithFormat:@"%@的好友",ctr.username];
     [self.navigationController  pushViewController:ctr animated:YES];
 }
--(void)D1_FriendsInfo_HeaderCell_gotoreply:(D1_FriendsInfo_HeaderCell *)cell
+
+- (void)D1_FriendsInfo_HeaderCell_gotoreply:(D1_FriendsInfo_HeaderCell *)cell
 {
     D1_Reply_MyViewController *ctr=[[D1_Reply_MyViewController alloc] init];
     ctr.uid = self.uid;
@@ -363,7 +404,7 @@ ON_SIGNAL3(AddfriendModel, FAILED, signal)
     [self.navigationController  pushViewController:ctr animated:YES];
 }
 
--(void)D1_FriendsInfo_HeaderCell_gotocollect:(D1_FriendsInfo_HeaderCell *)cell
+- (void)D1_FriendsInfo_HeaderCell_gotocollect:(D1_FriendsInfo_HeaderCell *)cell
 {
     D1_CollectionViewController_iphone *collectctr=[[D1_CollectionViewController_iphone alloc] init];
     collectctr.uid = self.uid;
@@ -371,81 +412,163 @@ ON_SIGNAL3(AddfriendModel, FAILED, signal)
     collectctr.newtitle = [NSString stringWithFormat:@"%@的收藏",collectctr.username];
     [self.navigationController  pushViewController:collectctr animated:YES];
 }
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (alertView.tag ==1131) {
         if (buttonIndex == 0) {
             
-        }
-        else if (buttonIndex == 1)
-        {
+        } else if (buttonIndex == 1) {
             if (self.profilemodel.session.uid) {
                 self.delfrdModel.fid = self.uid;
                 self.delfrdModel.uid= [UserModel sharedInstance].session.uid;
                 [self.delfrdModel firstPage];
                 [self presentLoadingTips:@"发送删除请求..."];
-            }
-            else
-            {
+            } else {
                 [bee.ui.appBoard showLogin];
             }
         }
     }
 }
--(IBAction)delfriendBtnTap:(id)sender
+
+- (void)informText:(NSString *)string
+{
+    informString = string;
+    informString = [NSData base64encode:informString];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+//刷新调用的方法
+-(void)refreshView
+{
+    [self.profilemodel updateFriendProfile:self.uid];
+}
+
+//加载调用的方法
+-(void)getNextPageView
+{
+    [self FinishedLoadData];
+}
+
+#pragma mark - Events Methods
+
+- (IBAction)addfriendBtnTap:(id)sender
+{
+    if (self.profilemodel.session.uid) {
+        self.addfrdModel.fid = self.uid;
+        self.addfrdModel.uid = [UserModel sharedInstance].session.uid;
+        [self.addfrdModel firstPage];
+        [self presentLoadingTips:@"发送好友请求..."];
+    } else {
+        [bee.ui.appBoard showLogin];
+    }
+}
+
+- (IBAction)delfriendBtnTap:(id)sender
 {
     UIAlertView *alertview =[[UIAlertView alloc] initWithTitle:@"提示" message:@"您确定删除此好友？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     alertview.tag = 1131;
     [alertview show];
- 
 }
 
--(IBAction)sendMessageBtnTap:(id)sender
+//举报按钮点击
+- (void)informBtnTap:(UIButton *)button
+{
+    if (self.profilemodel.session.uid) {
+        if (!self.informBox) {
+            CGRect rect = [UIScreen mainScreen].bounds;
+            self.informBox = [[PFPopupBox alloc] initWithFrame:rect contentViewWidth:290 contentViewHeight:270];
+            self.informBox.title = [NSString stringWithFormat:@"举报"];
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 40, self.informBox.contentView.width - 20, 30)];
+            label.text = @"请点击举报理由";
+            label.font = [UIFont systemFontOfSize:15];
+            [self.informBox.contentView addSubview:label];
+        }
+        [self.informBox show];
+
+        if (!self.textView) {
+            self.textView = [[PFTextView alloc] initWithFrame:CGRectMake(10, 200, self.informBox.contentView.width - 20, 40)];
+            self.textView.delegate = self;
+            self.textView.font = [UIFont systemFontOfSize:15];
+            self.textView.placeholder = @"请填写举报内容（200字内）";
+            self.textView.userInteractionEnabled = NO;
+            self.textView.layer.borderColor = [UIColor grayColor].CGColor;
+            self.textView.layer.borderWidth = 0.5f;
+            self.textView.layer.cornerRadius = 5.0;
+            [self.informBox.contentView addSubview:self.textView];
+
+            PFRadioButton *radioButton = [[PFRadioButton alloc] initWithFrame:CGRectMake(10, 70, 80, 120) number:5 textArray:@[@"广告垃圾", @"违规内容", @"恶意灌水", @"重复发帖", @"其它"]];
+            [self.informBox.contentView addSubview:radioButton];
+            [radioButton didSelectItemAtIndexUsingBlock:^(NSString *title, NSUInteger index) {
+                if (![title isEqualToString:@"其它"]) {
+                    [self informText:title];
+                    self.textView.userInteractionEnabled = NO;
+                    self.textView.placeHolderLabel.hidden = YES;
+                } else {
+                    self.textView.userInteractionEnabled = YES;
+                    self.textView.placeHolderLabel.hidden = NO;
+                }
+            }];
+            informString = @"广告垃圾";
+            UIButton *confirm = [UIButton buttonWithType:UIButtonTypeSystem];
+            confirm.frame = CGRectMake(self.informBox.contentView.frame.size.width - 60, 240, 50, 30);
+            [confirm setTitle:@"确定" forState:UIControlStateNormal];
+            [confirm addTarget:self action:@selector(confirmTap:) forControlEvents:UIControlEventTouchUpInside];
+            [self.informBox.contentView addSubview:confirm];
+        }
+    } else {
+        [bee.ui.appBoard showLogin];
+    }
+}
+
+- (void)confirmTap:(UIButton *)button
+{
+    self.informModel.ruid = self.uid;
+    self.informModel.uid = [UserModel sharedInstance].session.uid;
+    self.informModel.message = informString;
+    [self.informModel inform];
+    [self.informBox hide];
+}
+
+- (IBAction)sendMessageBtnTap:(id)sender
 {
     if (self.profilemodel.session.uid) {
         D2_Chat_StrangerViewController *ctr=[[D2_Chat_StrangerViewController alloc] init];
         ctr.afriend = self.myfriends;
         if (self.profilemodel.friendProfile.relationship) {
             ctr.chattype =CHATTYPE_STRANGER;
-        }
-        else
-        {
+        } else {
             ctr.chattype =CHATTYPE_FRIEND;
         }
         [self.navigationController  pushViewController:ctr animated:YES];
-    }
-    else
-    {
+    } else {
         [bee.ui.appBoard showLogin];
     }
 }
--(IBAction)addfriendBtnTap:(id)sender
+
+#pragma mark - UITextViewDelegate
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
 {
-    if (self.profilemodel.session.uid) {
-        self.addfrdModel.fid = self.uid;
-        self.addfrdModel.uid= [UserModel sharedInstance].session.uid;
-        [self.addfrdModel firstPage];
-        [self presentLoadingTips:@"发送好友请求..."];
-    }
-    else
-    {
-        [bee.ui.appBoard showLogin];
-    }
+    self.informBox.contentView.center = CGPointMake([UIScreen mainScreen].bounds.size.width / 2, [UIScreen mainScreen].bounds.size.height / 2 - 80);
 }
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+
+- (void)textViewDidEndEditing:(UITextView *)textView
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    self.informBox.contentView.center = CGPointMake([UIScreen mainScreen].bounds.size.width / 2, [UIScreen mainScreen].bounds.size.height / 2);
+    if (textView.text != nil && textView.text.length != 0) [self informText:textView.text];
+    else [self informText:@"请填写举报内容"];
 }
 
-//刷新调用的方法
--(void)refreshView{
-    [self.profilemodel updateFriendProfile:self.uid];
-}
+#pragma mark - DZ_PopupBoxDelegate
 
-//加载调用的方法
--(void)getNextPageView{
-    [self FinishedLoadData];
+- (void)DZ_PopupBox:(DZ_PopupBox *)view MaskViewDidTaped:(id)object
+{
+    [self.wealthBox hide];
 }
-
 
 @end

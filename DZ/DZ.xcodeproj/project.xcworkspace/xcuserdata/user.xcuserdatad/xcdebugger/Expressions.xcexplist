@@ -3,7 +3,7 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "-[RCLabel applyImageAttributes:attributes:atPosition:withLength:]:RCLabel.m">
+         contextName = "-[DZ_SystemSetting aboutus:]:DZ_SystemSetting.m">
       </ContextState>
       <ContextState
          contextName = "-[A0_BaseHomeViewController resizeScrollView:]:A0_BaseHomeViewController.m">
@@ -17,7 +17,7 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[B3_PostViewController B3_Post_IWantApply:ConfirmButtonTaped:]:B3_PostViewController.m">
+         contextName = "-[RCLabel applyImageAttributes:attributes:atPosition:withLength:]:RCLabel.m">
       </ContextState>
       <ContextState
          contextName = "-[D0_Mine_iphone updateState]:D0_Mine_iphone.m">
@@ -52,12 +52,7 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[D1_Reply_OtherViewController tableView:cellForRowAtIndexPath:]:D1_Reply_OtherViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "text.length ">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "-[AppBoard_iPhone handleUISignal_IDO_LogModel_RELOADED:]:AppBoard_iPhone.m">
       </ContextState>
       <ContextState
          contextName = "-[D2_ChatMessageCell setMessageFrame:]:D2_ChatMessageCell.m">
@@ -69,6 +64,17 @@
       </ContextState>
       <ContextState
          contextName = "-[API_POSTLIST_SHOTS routine]:postlist.mm">
+      </ContextState>
+      <ContextState
+         contextName = "-[D1_Reply_OtherViewController tableView:cellForRowAtIndexPath:]:D1_Reply_OtherViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "text.length ">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[B3_PostBaseTableViewCell loadActivity:index:OriginY:subContentAry:contents:]:B3_PostBaseTableViewCell.m">
       </ContextState>
       <ContextState
          contextName = "__27-[AddfriendModel gotoPage:]_block_invoke:AddfriendModel.m">
@@ -90,6 +96,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[A1_Activity_TypeViewController tableView:cellForRowAtIndexPath:]:A1_Activity_TypeViewController.m">
+      </ContextState>
+      <ContextState
          contextName = "-[EGORefreshTableHeaderView egoRefreshScrollViewDidScroll:]:EGORefreshTableHeaderView.m">
          <PersistentStrings>
             <PersistentString
@@ -99,6 +108,25 @@
       </ContextState>
       <ContextState
          contextName = "-[B2_TopicTableViewCell datachanges:]:B2_TopicTableViewCell.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[B3_PostViewController B3_Cell:rtlabel:LongPress:]:B3_PostViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "recognizer.state">
+            </PersistentString>
+            <PersistentString
+               value = " self.selectString">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[B3_PostBaseTableViewCell rtlabel:LongPress:]:B3_PostBaseTableViewCell.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.selectString">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "-[B3_PostBaseTableViewCell loadVoteElement:index:OriginY:subContentAry:contents:]:B3_PostBaseTableViewCell.m">
@@ -142,6 +170,17 @@
       </ContextState>
       <ContextState
          contextName = "-[RemindModel loadCache]:RemindModel.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[ASIFormDataRequest buildURLEncodedPostBody]:ASIFormDataRequest.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.postData">
+            </PersistentString>
+            <PersistentString
+               value = "data">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "-[EGORefreshTableFooterView setselfalpha:scrollview:]:EGORefreshTableFooterView.m">
@@ -251,6 +290,11 @@
       </ContextState>
       <ContextState
          contextName = "-[DZ_SystemSetting init]:DZ_SystemSetting.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.mode">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "-[D2_Setting_2G3GNotLoadImgCell initWithStyle:reuseIdentifier:]:D2_Setting_2G3GNotLoadImgCell.m">
@@ -353,6 +397,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[B3_PostView_Activity loadDatas:]:B3_PostView_Activity.m">
+      </ContextState>
+      <ContextState
          contextName = "-[D1_Msg_SystemViewController viewDidLoad]:D1_Msg_SystemViewController.m">
       </ContextState>
       <ContextState
@@ -409,7 +456,7 @@
          contextName = "-[API_HOME_SHOTS routine]:home.mm">
       </ContextState>
       <ContextState
-         contextName = "-[DZ_SystemSetting aboutus:]:DZ_SystemSetting.m">
+         contextName = "-[B3_PostViewController B3_Post_IWantApply:ConfirmButtonTaped:]:B3_PostViewController.m">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

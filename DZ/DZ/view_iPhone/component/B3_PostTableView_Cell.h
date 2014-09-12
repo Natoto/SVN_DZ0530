@@ -23,6 +23,7 @@
 - (void)B3_CellHeaderViewTapped:(B3_PostTableView_Cell *)object;
 - (void)B3_CellSupportBtnTapped:(B3_PostTableView_Cell *)object;
 - (void)B3_Cell:(B3_PostTableView_Cell *)cell rtLabel:(id)rtLabel didSelectLinkWithURL:(NSString *)url;
+-(void)B3_Cell:(B3_PostTableView_Cell *)cell rtlabel:(RCLabel *)rtlabel LongPress:(UIGestureRecognizer *)recognizer;
 @end
 
 @interface B3_PostTableView_Cell : UITableViewCell<B3_PostBaseTableViewCellDelegate>
@@ -53,7 +54,7 @@
 @property(nonatomic,assign) float       cellheight;
 @property (nonatomic, strong) NSNumber *status;
 @property (nonatomic, strong) NSNumber *support;
-@property (nonatomic, assign) CGRect cellHeaderFrame;
+@property (nonatomic, assign) CGRect cellHeaderFrame; 
 //@property (nonatomic, assign) BOOL isHeader;
 
 -(void)reloadsubviews;

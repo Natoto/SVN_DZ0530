@@ -12,6 +12,7 @@ typedef enum : NSInteger {
     MSG_SYSTEM = 3,
 } MSG_TYPE_FILTE;
 
+#define IOSTYPE @"2"
 
 #import "ZM_SystemSetting.h"
 #import "TouchXML.h"
@@ -65,11 +66,23 @@ typedef enum : NSInteger {
         
         NSDictionary *diction= [self parseRoot:document];
         self.websiteurl = [[diction valueForKey:@"websiteurl"] valueForKey:@"text"];
+        NSString *LASTCHAR1 = [self.websiteurl substringWithRange:NSMakeRange(self.websiteurl.length-1,1)];
+        if (![LASTCHAR1 isEqualToString:@"/"]) {
+            self.websiteurl = [self.websiteurl stringByAppendingString:@"/"];
+        }
+        self.websiteurl = [self.websiteurl stringByAppendingFormat:@"index.php?hy=1&ostype=%@",IOSTYPE];
         self.forumurl =  [[diction valueForKey:@"forumurl"] valueForKey:@"text"];
         self.downloadurl = [[diction valueForKey:@"downloadurl"] valueForKey:@"text"];
         self.appid =[[diction valueForKey:@"appid"] valueForKey:@"text"];
         self.appname =[[diction valueForKey:@"appname"] valueForKey:@"text"];
         self.appcolor =[NSString stringWithFormat:@"%@",[[diction valueForKey:@"appcolor"] valueForKey:@"text"]];
+        //http://iquapp.com/web/
+        self.idourl =[NSString stringWithFormat:@"%@",[[diction valueForKeyPath:@"idourl"] valueForKey:@"text"]];
+        NSString *LASTCHAR = [self.idourl substringWithRange:NSMakeRange(self.idourl.length-1,1)];
+        if (![LASTCHAR isEqualToString:@"/"]) {
+            self.idourl = [self.idourl stringByAppendingString:@"/"];
+        }
+        self.idologurl =[NSString stringWithFormat:@"%@log.php",self.idourl];
         self.appversion = [NSString stringWithFormat:@"%@",[[diction valueForKey:@"appversion"] valueForKey:@"text"]];
         self.apptemplate = [NSString stringWithFormat:@"%@",[[diction valueForKey:@"apptemplate"] valueForKey:@"text"]];
         self.clientVersion = [NSString stringWithFormat:@"%@",[[diction valueForKey:@"clientVersion"] valueForKey:@"text"]];

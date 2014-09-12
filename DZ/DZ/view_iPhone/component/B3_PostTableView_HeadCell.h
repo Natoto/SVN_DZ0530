@@ -24,7 +24,9 @@
 -(void)B3_HeadCellProfileBtnTapped:(B3_PostTableView_HeadCell *)obj;
 -(void)B3_HeadCellHeaderViewTapped:(B3_PostTableView_HeadCell *)obj;
 -(void)B3_HeadCell:(B3_PostTableView_HeadCell *)cell rtLabel:(id)rtLabel didSelectLinkWithURL:(NSString *)url;
+-(void)B3_HeadCell:(B3_PostTableView_HeadCell *)cell rtlabel:(RCLabel *)rtlabel LongPress:(UIGestureRecognizer *)recognizer;
 -(void)B3_HeadCell:(B3_PostTableView_HeadCell *)cell applyButtonTaped:(id)object;
+
 @end
 //webViewDidFinishLoad
 
@@ -44,8 +46,7 @@
 @property (nonatomic, strong) NSNumber *status;
 @property (nonatomic, strong) NSNumber *support;
 @property (nonatomic, assign) CGRect cellHeaderFrame;
-@property (nonatomic, assign) BOOL isHeader;
-
+@property (nonatomic, assign) BOOL isHeader; 
 //
 -(void)reloadsubviews;
 +(float)heightOfCell:(NSArray *)contents;

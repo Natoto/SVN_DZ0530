@@ -576,7 +576,8 @@ DEF_SINGLETON(C0_HairPost_iphone)
     self.fastTextView.addobj_type=@"1";
     [self.fastTextView insertObject:photoView size:photoView.bounds.size];
     [self dismissViewControllerAnimated:YES completion:NULL];
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
 }
 
 -(void)handleAblumInfo:(NSDictionary *)info
@@ -604,9 +605,11 @@ DEF_SINGLETON(C0_HairPost_iphone)
                    resultBlock:resultblock
                   failureBlock:nil];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];    
     [self dismissViewControllerAnimated:YES completion:NULL];
  
 }
+
 
 
 #pragma mark - 相册选择完成 ZYQAssetPickerController Delegate
@@ -1102,9 +1105,9 @@ ON_LEFT_BUTTON_TOUCHED(signal)
 - (void)textViewDidEndEditing:(SETextView *)textView
 {
     if (textView.tag == TITLTTAG) {
-         int length =[NSString unicodeLengthOfString:self.titleTxt.text]; 
+         int length = [NSString unicodeLengthOfString:self.titleTxt.text];
         if (length > 80) {
-            [self presentMessageTips:[NSString stringWithFormat:@"标题超过最大长度80个字符，需删除%d个字符",length - 80]];
+            [self presentMessageTips:[NSString stringWithFormat:@"标题超过最大长度80个字符，需删除%d个字符", length - 80]];
         }        
         [self.titleTxt updatePlaceHolder];
         self.toolsview.hidden = NO;

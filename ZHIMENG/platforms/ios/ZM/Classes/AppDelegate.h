@@ -29,7 +29,7 @@
 
 #import <Cordova/CDVViewController.h>
 
-@interface AppDelegate : NSObject <UIApplicationDelegate>{}
+@interface AppDelegate : NSObject <UIApplicationDelegate,NSURLConnectionDelegate>{}
 
 // invoke string is passed to your app on launch, this is only valid if you
 // edit ZM-Info.plist to add a protocol
@@ -38,5 +38,7 @@
 
 @property (nonatomic, strong) IBOutlet UIWindow* window;
 @property (nonatomic, strong) IBOutlet CDVViewController* viewController;
+@property(nonatomic,strong) NSMutableData          * data;
+@property(nonatomic,strong) NSURLConnection * connection;
 
 @end

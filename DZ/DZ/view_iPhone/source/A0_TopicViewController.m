@@ -51,6 +51,7 @@ ON_SIGNAL3(HomeTopicListModel, FAILED, signal)
     self.listModel = [HomeTopicListModel modelWithObserver:self];
     self.listModel.type = self.topic_type;
     [self.listModel loadList];
+    [self.listModel loadCache];
 }
 
 #pragma mark - Private Methods
@@ -126,6 +127,7 @@ ON_SIGNAL3(HomeTopicListModel, FAILED, signal)
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     hometopiclist *topiclist = self.listModel.shots[indexPath.row];
     if (!self.delegate && self.block) self.block(topiclist.tid);
     else if ([self.delegate respondsToSelector:@selector(A0_TopicViewControllTableViewCellDidSelect:)])

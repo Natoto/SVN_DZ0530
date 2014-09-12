@@ -24,7 +24,7 @@
 			self.placeHolderLabel = [[UILabel alloc] initWithFrame:labelFrame];
 			self.placeHolderLabel.lineBreakMode = NSLineBreakByCharWrapping;// UILineBreakModeCharacterWrap;
 			self.placeHolderLabel.numberOfLines = 1;
-			self.placeHolderLabel.font =  self.font;
+			self.placeHolderLabel.font = self.font;
 			self.placeHolderLabel.backgroundColor = [UIColor clearColor];
 			self.placeHolderLabel.textColor = [UIColor grayColor];
 			self.placeHolderLabel.alpha = 0.0f;

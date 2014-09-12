@@ -116,7 +116,6 @@ NSArray *getValue(NSString *iosearch)
 	if (results) return [results objectAtIndex:0];
 	return nil;
 }
-
 - (NSString *) mei
 {
 	NSArray *results = getValue(@"device-mei");

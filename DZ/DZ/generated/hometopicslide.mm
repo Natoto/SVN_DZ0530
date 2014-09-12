@@ -93,6 +93,19 @@ CONVERT_PROPERTY_CLASS(home, hometopicslide)
 		if ( result && [result isKindOfClass:[NSDictionary class]] )
 		{
 			self.resp = [HOMETOPICSLIDE objectFromDictionary:(NSDictionary *)result];
+            NSArray *slideDicAry = [self.resp.hometopicslide.slide copy];
+            NSLog(@"%@", slideDicAry);
+            NSMutableArray *slideArray = [[NSMutableArray alloc] initWithCapacity:0];
+            for (int index = 0; index < slideDicAry.count; index++) {
+                NSDictionary *dic = [slideDicAry objectAtIndex:index];
+                NSLog(@"%@", dic);
+                slide *aSlide = [slide objectFromDictionary:dic];
+                NSLog(@"%@", aSlide);
+                [slideArray addObject:aSlide];
+                NSLog(@"%@", slideArray);
+            }
+            self.resp.hometopicslide.slide = slideArray;
+            NSLog(@"%@", self.resp.hometopicslide.slide);
 		}
 
 		if ( nil == self.resp || NO == [self.resp validate] )

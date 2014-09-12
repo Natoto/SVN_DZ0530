@@ -11,8 +11,11 @@
 #import "ForumlistModel.h"
 #import "A0_HomePage1_iphone.h"
 #import "home.h"
+
 @interface A2_PlatesSelectBoard_iphone : BeeUIBoard
+
 AS_MODEL(ForumlistModel, fmModel)
+
 @property(nonatomic,assign)A0_HomePage1_iphone *delegate;
 @property(nonatomic,strong)NSMutableArray * ModeleBlocks;
 @property(nonatomic,retain)NSMutableDictionary * selectedFiddic;

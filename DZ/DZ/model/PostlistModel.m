@@ -90,6 +90,7 @@
     self.uid=[UserModel sharedInstance].session.uid;
     api.uid=self.uid;
     api.onlyauthorid=self.onlyauthorid;
+    api.ordertype = self.ordertype;
 	api.tid = self.tid;
 	api.req.page = @(page);
 	api.req.per_page = @(PER_PAGE);

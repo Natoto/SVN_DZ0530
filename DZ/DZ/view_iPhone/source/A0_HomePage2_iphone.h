@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PFAutomaticScrollView.h"
 #import "PFSlideSwitchView.h"
 #import "A0_TopicViewController.h"
 #import "BaseBoard_iPhone.h"
@@ -19,6 +20,7 @@
     NSMutableArray *viewsArray;
     NSMutableArray *tidArr;
 
+    PFAutomaticScrollView *automaticScrollView;
     PFSlideSwitchView *slideSwitchView;
 }
 

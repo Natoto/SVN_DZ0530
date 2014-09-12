@@ -20,6 +20,8 @@
 {
     self.type = @"0";
     self.shots = [NSMutableArray array];
+    self.autoSave = YES;
+    self.autoLoad = YES;
 }
 
 - (void)unload

@@ -7,10 +7,11 @@
 //
 
 #import "Bee_StreamViewModel.h"
+#import "hometopicslide.h"
 
 @interface HomeTopicSlideModel : BeeStreamViewModel
 
-@property (nonatomic, strong) NSMutableArray *shots;
+@property (nonatomic, strong) hometopicslide *shots;
 
 - (void)loadSlide;
 

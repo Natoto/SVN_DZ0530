@@ -25,10 +25,13 @@
 @end
 
 @interface B0_FormPlatesCell_iPhone : UITableViewCell
-@property(nonatomic,retain)UILabel *textlabel;
-@property(nonatomic,retain)NSIndexPath *indexPath;
-@property(nonatomic,retain)child * achild;
-@property(nonatomic,retain)NSString *mark;
-@property(nonatomic,retain)UIButton *accorybutton;
-@property(nonatomic,assign) id <B0_FormPlatesCell_iPhoneDelegate> delegate;
+
+@property (nonatomic, retain) UILabel *textlabel;
+@property (nonatomic, retain) NSIndexPath *indexPath;
+@property (nonatomic, retain) child *achild;
+@property (nonatomic, retain) NSString *mark;
+@property (nonatomic, retain) UIButton *accorybutton;
+@property (nonatomic, assign) BOOL isModeOne;
+@property (nonatomic, assign) id<B0_FormPlatesCell_iPhoneDelegate> delegate;
+
 @end

@@ -13,6 +13,7 @@
 @interface PostlistModel : BeeStreamViewModel
 
 @property(nonatomic,retain)   NSString *        onlyauthorid;
+@property(nonatomic,retain)   NSString *        ordertype;
 @property(nonatomic,retain)   NSString *        type;
 @property (nonatomic, retain) NSString *		tid;
 @property(nonatomic,retain)   NSString *        uid;

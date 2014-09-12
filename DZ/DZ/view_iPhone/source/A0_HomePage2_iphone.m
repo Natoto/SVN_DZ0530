@@ -7,7 +7,6 @@
 //
 
 #import "A0_HomePage2_iphone.h"
-#import "PFAutomaticScrollView.h"
 #import "B3_PostViewController.h"
 #import "B2_TopicTableViewCell.h"
 #import "AppBoard_iPhone.h"
@@ -54,26 +53,17 @@ ON_SIGNAL2( BeeUIBoard, signal )
 
 ON_SIGNAL3(HomeTopicSlideModel, RELOADED, signal)
 {
-    NSLog(@"%@", self.slideModel.shots);
-    NSMutableArray *imgArr = [[NSMutableArray alloc] init];
-    NSMutableArray *subArr = [[NSMutableArray alloc] init];
-    [imgArr removeAllObjects];
-    [subArr removeAllObjects];
-    tidArr = [[NSMutableArray alloc] init];
-    for (NSDictionary *dic in self.slideModel.shots) {
-        NSString *imgStr = [dic objectForKey:@"img"];
-        NSString *subStr = [dic objectForKey:@"subject"];
-        NSString *tidStr = [dic objectForKey:@"tid"];
-        [imgArr addObject:imgStr];
-        [subArr addObject:subStr];
-        [tidArr addObject:tidStr];
-    }
-    [self loadAutomaticScrollViewWithImageArray:imgArr subjectArray:subArr];
+    [self loadData];
 }
 
 ON_SIGNAL3(HomeTopicSlideModel, FAILED, signal)
 {
+    [self loadData];
+}
 
+ON_LOAD_DATAS(signal)
+{
+    [self.slideModel loadCache];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -82,6 +72,7 @@ ON_SIGNAL3(HomeTopicSlideModel, FAILED, signal)
 
     //加载失败时重新加载
     if (NO == self.slideModel.loaded) {
+
         [self.slideModel loadSlide];
     }
     [bee.ui.appBoard showTabbar];
@@ -103,6 +94,23 @@ ON_SIGNAL3(HomeTopicSlideModel, FAILED, signal)
 
 #pragma mark - View Management
 
+- (void)loadData
+{
+    NSMutableArray *imgArr = [[NSMutableArray alloc] init];
+    NSMutableArray *subArr = [[NSMutableArray alloc] init];
+    tidArr = [[NSMutableArray alloc] init];
+    [imgArr removeAllObjects];
+    [subArr removeAllObjects];
+
+    for (int i = 0; i < self.slideModel.shots.slide.count; i++) {
+        slide *aslide = self.slideModel.shots.slide[i];
+        [imgArr addObject:aslide.img];
+        [subArr addObject:aslide.subject];
+        [tidArr addObject:aslide.tid];
+    }
+    [self loadAutomaticScrollViewWithImageArray:imgArr subjectArray:subArr];
+}
+
 //自动滚动视图
 - (void)loadAutomaticScrollViewWithImageArray:(NSArray *)imageArray subjectArray:(NSArray *)subjectArray
 {
@@ -116,9 +124,11 @@ ON_SIGNAL3(HomeTopicSlideModel, FAILED, signal)
         [viewsArray addObject:imageView];
     }
 
-    PFAutomaticScrollView *automaticScrollView = [[PFAutomaticScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 170) animationDuration:2.5 delegate:nil];
-
-    automaticScrollView.backgroundColor = [[UIColor purpleColor] colorWithAlphaComponent:0.1];
+    if (!automaticScrollView) {
+        automaticScrollView = [[PFAutomaticScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 170) animationDuration:2.5 delegate:nil];
+        automaticScrollView.backgroundColor = [[UIColor purpleColor] colorWithAlphaComponent:0.1];
+        [self.view addSubview:automaticScrollView];
+    }
 
     //添加视图
     [automaticScrollView contentViewAtIndexUsingBlock:^UIView *(PFAutomaticScrollView *automaticScrollView, NSInteger index) {
@@ -142,24 +152,25 @@ ON_SIGNAL3(HomeTopicSlideModel, FAILED, signal)
         [self.navigationController pushViewController:board animated:YES];
     }];
 
-    [self.view addSubview:automaticScrollView];
-
     [self loadSlideSwitchView];
 }
 
 //滑动标签视图
 - (void)loadSlideSwitchView
 {
-    slideSwitchView = [[PFSlideSwitchView alloc] initWithFrame:CGRectMake(0, 175, 320, self.view.frame.size.height - 64 - 49 - 30 - 18)];
-    slideSwitchView.heightOfItem = 30;
+    if (!slideSwitchView) {
+        slideSwitchView = [[PFSlideSwitchView alloc] initWithFrame:CGRectMake(0, 175, 320, self.view.frame.size.height - 64 - 49 - 30 - 18)];
+        slideSwitchView.heightOfItem = 30;
 
-    slideSwitchView.itemNormalColor = [PFSlideSwitchView colorFromHexRGB:@"868686"];
-    UIColor *color = [DZ_SystemSetting sharedInstance].navigationBarColor;
-    slideSwitchView.itemSelectedColor = color;
+        slideSwitchView.itemNormalColor = [PFSlideSwitchView colorFromHexRGB:@"868686"];
+        UIColor *color = [DZ_SystemSetting sharedInstance].navigationBarColor;
+        slideSwitchView.itemSelectedColor = color;
+        [self.view addSubview:slideSwitchView];
+    }
 
     self.recommend = [[A0_TopicViewController alloc] init];
     self.recommend.topic_type = @"1";
-    self.recommend.title = @"站长推荐";
+    self.recommend.title = @"推荐";
     [self.recommend A0_TopicViewControllTableViewCellDidSelectUsingBlock:^(NSString *tid) {
         [self pushWithTid:tid];
     }];
@@ -173,14 +184,14 @@ ON_SIGNAL3(HomeTopicSlideModel, FAILED, signal)
 
     self.hot = [[A0_TopicViewController alloc] init];
     self.hot.topic_type = @"3";
-    self.hot.title = @"最热";
+    self.hot.title = @"热帖";
     [self.hot A0_TopicViewControllTableViewCellDidSelectUsingBlock:^(NSString *tid) {
         [self pushWithTid:tid];
     }];
 
     self.reply = [[A0_TopicViewController alloc] init];
     self.reply.topic_type = @"4";
-    self.reply.title = @"最新回复";
+    self.reply.title = @"回复";
     [self.reply A0_TopicViewControllTableViewCellDidSelectUsingBlock:^(NSString *tid) {
         [self pushWithTid:tid];
     }];
@@ -192,13 +203,13 @@ ON_SIGNAL3(HomeTopicSlideModel, FAILED, signal)
 
     //设置视图
     [slideSwitchView viewControllerOfItemAtIndexUsingBlock:^UIViewController *(PFSlideSwitchView *slideSwitchView, NSUInteger index) {
-        if (index == 0) {
+        if (index == 3) {
             return self.recommend;
-        } else if (index == 1) {
+        } else if (index == 0) {
             return self.newly;
-        } else if (index == 2) {
+        } else if (index == 1) {
             return self.hot;
-        } else if (index == 3) {
+        } else if (index == 2) {
             return self.reply;
         } else {
             return nil;
@@ -237,7 +248,6 @@ ON_SIGNAL3(HomeTopicSlideModel, FAILED, signal)
 
     //添加子视图
     [slideSwitchView loadSubviews];
-    [self.view addSubview:slideSwitchView];
 }
 
 #pragma mark - Events Management

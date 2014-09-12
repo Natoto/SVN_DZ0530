@@ -327,6 +327,7 @@ ON_SIGNAL3(D0_ProfileCell_Header, profileinfo, signal)
 -(void)DZ_PopupBox:(DZ_PopupBox *)view MaskViewDidTaped:(id)object
 {
     [self.wealthBox hide];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:YES];
 }
 #pragma mark - goto goto
 
@@ -336,13 +337,14 @@ ON_SIGNAL3(D0_ProfileCell_Header, profileinfo, signal)
 
 ON_SIGNAL3(D0_ProfileCell_Header, wealth, signal)
 {
-    CGRect rect = [UIScreen mainScreen].bounds;
-    DZ_PopupBox *PopupBox = [[DZ_PopupBox alloc] initWithFrame:rect];
-    PopupBox.ppboxdelegate = self;
-    PopupBox.title = @"我的财富";
-    [PopupBox show];
-    self.wealthBox = PopupBox;
-    
+    if (!self.wealthBox) {
+        CGRect rect = [UIScreen mainScreen].bounds;
+        DZ_PopupBox *PopupBox = [[DZ_PopupBox alloc] initWithFrame:rect];
+        PopupBox.ppboxdelegate = self;
+        PopupBox.title = @"我的财富";
+        self.wealthBox = PopupBox;
+    }
+    [self.wealthBox show];
     PROFILE *profile =[UserModel sharedInstance].profile;
     /*
      contribution
@@ -363,7 +365,7 @@ ON_SIGNAL3(D0_ProfileCell_Header, wealth, signal)
     [diction setObject:values[1] forKey:keys[1]];
     [diction setObject:values[2] forKey:keys[2]];
     [diction setObject:values[3] forKey:keys[3]];
-    [PopupBox loadDatas:diction];
+    [self.wealthBox loadDatas:diction];
     
 //    [UserModel sharedInstance] updateProfile
 }

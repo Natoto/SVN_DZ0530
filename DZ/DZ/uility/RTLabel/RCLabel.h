@@ -56,11 +56,12 @@ typedef enum
 
 @class RTLabelComponentsStructure;
 
-
+@class RCLabel;
 @class RTLabelComponent;
 @protocol RTLabelDelegate <NSObject>
 
-- (void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSString*)url;
+- (void)rtLabel:(RCLabel *)rtLabel didSelectLinkWithURL:(NSString*)url;
+-(void)rtlabel:(RCLabel *)rtlabel LongPress:(UIGestureRecognizer *)recognizer;
 
 @end
 

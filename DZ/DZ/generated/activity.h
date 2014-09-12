@@ -28,6 +28,7 @@
 @property (nonatomic, retain) NSString *			subject;
 @property (nonatomic, retain) NSString *			tid;
 @property (nonatomic, retain) NSString *			views;
+@property (nonatomic, retain) NSString *            message;
 @end
 
 @interface ACTIVITY : BeeActiveObject

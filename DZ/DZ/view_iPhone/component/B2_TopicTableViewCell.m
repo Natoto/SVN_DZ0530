@@ -138,7 +138,7 @@
     //        cell.lblreadl.font = [UIFont systemFontOfSize];
     self.lblreply.text = atopic.replies;
     atopic.subject = [atopic.subject stringByReplacingOccurrencesOfString:@"&quot;" withString:@""];
-    self.lbltitle.text = atopic.subject;
+    self.lbltitle.text = [NSString stringWithFormat:@"%@",atopic.subject];
     self.lbltime.text = [NSString stringWithFormat:@"%@", [ToolsFunc datefromstring:atopic.lastpost]];
     if (atopic.img.length) {
         self.cellicon.data = atopic.img;

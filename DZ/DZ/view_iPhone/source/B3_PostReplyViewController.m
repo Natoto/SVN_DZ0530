@@ -315,6 +315,8 @@ ON_SIGNAL3(postImageModel, RELOADED, signal)
     [m_imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
     [m_imagePicker setAllowsEditing:NO];
     [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+
     [self presentViewController:m_imagePicker animated:YES completion:nil];
     
 }
@@ -406,9 +408,17 @@ ON_SIGNAL3(postImageModel, RELOADED, signal)
     self.fastTextView.addobj_name=fileName;
     self.fastTextView.addobj_type=@"1";
     [self.fastTextView insertObject:photoView size:photoView.bounds.size];
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [self dismissViewControllerAnimated:YES completion:NULL];
+ 
+      // 这个是设置状态栏的
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    //这个是设置默认返回键图标等的颜色的
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+    [UIView animateWithDuration:0. animations:^{
+        [self setNeedsStatusBarAppearanceUpdate];
+    }];
 }
+
 
 -(void)handleAblumInfo:(NSDictionary *)info
 {
@@ -434,10 +444,15 @@ ON_SIGNAL3(postImageModel, RELOADED, signal)
     [assetslibrary assetForURL:imageURL
                    resultBlock:resultblock
                   failureBlock:nil];
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [self dismissViewControllerAnimated:YES completion:NULL];
-}
 
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+    [UIView animateWithDuration:0. animations:^{
+        [self setNeedsStatusBarAppearanceUpdate];
+    }];
+}
+ 
 -(void)selectpicture:(UIActionSheet *)actionSheet andclickedButtonAtIndex:(NSInteger)buttonIndex
 {
     

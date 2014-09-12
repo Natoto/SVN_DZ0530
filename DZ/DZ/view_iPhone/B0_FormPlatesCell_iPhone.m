@@ -39,28 +39,11 @@
         _textlabel.backgroundColor = [UIColor clearColor];
         _textlabel.font = [UIFont systemFontOfSize:15];
         [self addSubview:_textlabel];
-
-        UIImage *image=[UIImage bundleImageNamed:@"tianjia(xin)3"];
-        if (mark.intValue) {
-            UIColor *color = [DZ_SystemSetting sharedInstance].navigationBarColor;
-            image = [image imageWithTintColor:color];
-        }
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        CGRect aframe = CGRectMake(0.0 , 0.0 , image.size.width * 4.00 ,image.size.height * 4.00);
-        button.tag = achild.fid.intValue;
-        button.frame = aframe;
-        [button setImage:image forState:UIControlStateNormal];
-
-        button.backgroundColor = [UIColor clearColor];
-        [button addTarget:self action:@selector(buttonPressedAction:) forControlEvents:UIControlEventTouchUpInside];
-        //        self. accessoryView = button;
-        //        CGRect acframe=self.accessoryView.frame;
-        self.accorybutton = button;
-        button.frame=CGRectMake( self.frame.size.width -  aframe.size.width - 0, -15, aframe.size.width, aframe.size.height);
-        [self addSubview:button];
     }
     return self;
 }
+
+#pragma mark - Property Methods
 
 -(void)setAchild:(child *)child
 {
@@ -88,7 +71,39 @@
     [button setImage:image forState:UIControlStateNormal];
 }
 
--(IBAction)buttonPressedAction:(id)sender
+- (void)setIsModeOne:(BOOL)isModeOne
+{
+    _isModeOne = isModeOne;
+    if (_isModeOne) [self loadSubviews];
+}
+
+#pragma mark - Private Methods
+
+- (void)loadSubviews
+{
+    UIImage *image=[UIImage bundleImageNamed:@"tianjia(xin)3"];
+    if (mark.intValue) {
+        UIColor *color = [DZ_SystemSetting sharedInstance].navigationBarColor;
+        image = [image imageWithTintColor:color];
+    }
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    CGRect aframe = CGRectMake(0.0 , 0.0 , image.size.width * 4.00 ,image.size.height * 4.00);
+    button.tag = achild.fid.intValue;
+    button.frame = aframe;
+    [button setImage:image forState:UIControlStateNormal];
+
+    button.backgroundColor = [UIColor clearColor];
+    [button addTarget:self action:@selector(buttonPressedAction:) forControlEvents:UIControlEventTouchUpInside];
+//        self. accessoryView = button;
+//        CGRect acframe=self.accessoryView.frame;
+    self.accorybutton = button;
+    button.frame=CGRectMake( self.frame.size.width -  aframe.size.width - 0, -15, aframe.size.width, aframe.size.height);
+    [self addSubview:button];
+}
+
+#pragma mark - Events Methods
+
+- (IBAction)buttonPressedAction:(id)sender
 {
     UIButton *button = (UIButton *)sender;
     NSLog(@"row == %d",button.tag);
@@ -113,4 +128,5 @@
         [self.delegate buttonPressedTap:self indexPath:indexPath mark:mark.intValue];
     }
 }
+
 @end

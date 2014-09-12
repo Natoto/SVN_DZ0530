@@ -63,6 +63,9 @@ DEF_SINGLETON(RemindModel)
     if (!self.uid) {
       self.uid = [[UserModel sharedInstance] defaultSession].uid;
     }
+    if (!self.uid) {
+        return ;
+    }
     NSString * myclass= NSStringFromClass([self class]);
     NSString * myuid=self.uid;
     NSString * key=  MODELOBJECTKEY(myclass,myuid);
@@ -171,7 +174,9 @@ DEF_SINGLETON(RemindModel)
 	@weakify(api);
 	@weakify(self);
     api.uid=[UserModel sharedInstance].session.uid;
-	
+	if (!api.uid) {
+        return;
+    }
 	api.whenUpdate = ^
 	{
 		@normalize(api);

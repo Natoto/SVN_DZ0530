@@ -38,6 +38,11 @@ DEF_SINGLETON(DZ_SystemSetting)
 {
     self=[super init];
     if (self) {
+        //模板选择
+        NSMutableDictionary * templetedic=[[NSMutableDictionary alloc] initWithCapacity:0];
+        [templetedic setObject:@"1" forKey:@"square"];
+        [templetedic setObject:@"2" forKey:@"slide"];
+        
         NSString *folderPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
         NSString *filePath = [folderPath stringByAppendingPathComponent:@"DZ_Config.xml"];
         NSFileManager* manager = [NSFileManager defaultManager];
@@ -64,11 +69,14 @@ DEF_SINGLETON(DZ_SystemSetting)
             self.idourl = [self.idourl stringByAppendingString:@"/"];
         }
         self.feedbackurl =[NSString stringWithFormat:@"%@feedback.php",self.idourl];
-        //@"http://192.168.7.70:8080/web/
         self.logurl =[NSString stringWithFormat:@"%@log.php",self.idourl];
-
-        self.mode = [[diction valueForKey:@"mode"] valueForKey:@"text"];
-        
+        NSString *templetekey = [[diction valueForKey:@"apptemplate"] valueForKey:@"text"];
+        templetekey = templetekey.lowercaseString;
+        self.mode = [templetedic objectForKey:templetekey];
+        if (!self.mode) {
+            self.mode = [templetedic objectForKey:@"square"];
+        }
+        self.umappkey = [[diction valueForKey:@"umappkey"] valueForKey:@"text"];
         self.appid =[[diction valueForKey:@"appid"] valueForKey:@"text"];
         self.appname =[[diction valueForKey:@"appname"] valueForKey:@"text"];
         self.appversion = [[diction valueForKey:@"appversion"] valueForKey:@"text"];

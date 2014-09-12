@@ -629,7 +629,6 @@ ON_SIGNAL3(BeeUITextField, WILL_ACTIVE, signal)
                     m_imagePicker.sourceType = sourceType; //UIImagePickerControllerSourceTypePhotoLibrary;
                     [m_imagePicker setDelegate:self];
                     [m_imagePicker setAllowsEditing:YES];
-                    
                     [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
                     [self presentViewController:m_imagePicker animated:YES completion:^{}];
                     break;
@@ -642,8 +641,8 @@ ON_SIGNAL3(BeeUITextField, WILL_ACTIVE, signal)
                 sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
                 HBImagePickerControllerEx *picker = [[HBImagePickerControllerEx alloc] init];
                 picker.delegate = self;
-                [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
                 [self presentViewController:picker animated:YES completion:^{}];
+                [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
             }
         }
     }
@@ -713,6 +712,7 @@ ON_SIGNAL3(BeeUITextField, WILL_ACTIVE, signal)
                   failureBlock:nil];
     
     [self dismissViewControllerAnimated:YES completion:NULL];
+     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
      [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     
 }
@@ -744,6 +744,7 @@ ON_SIGNAL3(BeeUITextField, WILL_ACTIVE, signal)
 //    self.fastTextView.addobj_type=@"1";
 //    [self.fastTextView insertObject:photoView size:photoView.bounds.size];
     [self dismissViewControllerAnimated:YES completion:NULL];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
 }
 

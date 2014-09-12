@@ -27,9 +27,14 @@
 
 #import "AppDelegate.h"
 #import "MainViewController.h"
-
+#import "DZ_UIDevice_IOKit_Extensions.h"
 #import <Cordova/CDVPlugin.h>
-
+#import "NetworkManager.h"
+#import "OpenUDID.h"
+#import "ZM_SystemSetting.h"
+#import "NSObject+BeeJSON.h"
+#import "ido_log.h"
+#import "JSONKit.h"
 @implementation AppDelegate
 
 @synthesize window, viewController;
@@ -55,6 +60,7 @@
     self = [super init];
     return self;
 }
+
 
 #pragma mark UIApplicationDelegate implementation
 
@@ -87,9 +93,93 @@
 
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
-
+#pragma mark - 统计信息
+    
+    
+    NSString *urlString = [ZM_SystemSetting sharedInstance].idologurl; // @"http://iquapp.com/web/log.php";
+    NSMutableDictionary *headerFieldsDic =[[NSMutableDictionary alloc] initWithCapacity:0];
+    
+    NSString *imei= [self imei];
+    if (imei) {
+        [headerFieldsDic setObject:imei forKey:@"imei"];
+    }
+    NSString *mei=[self mei];
+    if (mei) {
+        [headerFieldsDic setObject:mei forKey:@"mei"];
+    }
+    [headerFieldsDic setObject:[self ostype] forKey:@"ostype"];
+    [headerFieldsDic setObject:[self appid] forKey:@"appid"];
+    [headerFieldsDic setObject:[self appversion] forKey:@"appversion"];
+    
+    NSString *device =[self device];
+    if ( device) {
+        [headerFieldsDic setObject:device forKey:@"device"];
+    }
+    NSString *ccid=[self ccid];
+    if (ccid) {
+        [headerFieldsDic setObject:ccid forKey:@"ccid"];
+    }
+    //统计信息
+    [[NetworkManager sharedInstance] Url:urlString parasdic:headerFieldsDic onSuccess:^(NSMutableURLRequest *request, NSMutableData *reciveData) {
+        NSLog(@" requst block success");
+    } onError:^(NSMutableURLRequest *request) {
+         NSLog(@" requst block error");
+    } onStart:^(NSMutableURLRequest *request) {
+         NSLog(@" requst block start");
+    } onCompletion:^(NSMutableURLRequest *request, NSMutableData *reciveData) {
+        NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingUTF8);
+        NSString *mystr = [[NSString alloc] initWithData:reciveData encoding:enc];
+        NSLog(@" requst block completion %@",mystr);
+        NSError * error = nil;
+        NSObject * result  = [mystr objectFromJSONStringWithParseOptions:JKParseOptionValidFlags error:&error];
+		if ( result && [result isKindOfClass:[NSDictionary class]] )
+		{
+			IDO_LOG *resp = [IDO_LOG objectFromDictionary:(NSDictionary *)result];
+            if (!resp.online.integerValue) {//下线了
+                UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"警告" message:@"该APP已下线,无法继续使用" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                alert.tag = 155348;
+                [alert show];
+            }
+        }
+    }];
     return YES;
 }
+
+-(NSString *)device
+{
+    return [OpenUDID value];
+}
+
+-(NSString *)ostype
+{
+    return @"2";
+}
+
+-(NSString *)appid
+{
+    return [ZM_SystemSetting sharedInstance].appid;
+}
+
+-(NSString *)appversion
+{
+    //    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey];      //获取项目版本号
+    return [ZM_SystemSetting sharedInstance].appversion;
+}
+-(NSString *)imei
+{
+    return [UIDevice currentDevice].imei;
+}
+
+-(NSString *)mei
+{
+    return [UIDevice currentDevice].mei;
+}
+
+-(NSString *)ccid
+{
+    return nil; //[UIDevice currentDevice].ccid;
+}
+
 
 // this happens while we are running ( in the background, or from within our own app )
 // only valid if ZM-Info.plist specifies a protocol to handle
@@ -147,6 +237,51 @@
 - (void)applicationDidReceiveMemoryWarning:(UIApplication*)application
 {
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
+}
+
+
+
+//-------------------------------- 退出程序 -----------------------------------------//
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(alertView.tag == 155348)
+    {
+        [self exitApplication];
+    }
+}
+- (void)exitApplication {
+    
+    [UIView beginAnimations:@"exitApplication" context:nil];
+    
+    [UIView setAnimationDuration:0.5];
+    
+    [UIView setAnimationDelegate:self];
+    
+    // [UIView setAnimationTransition:UIViewAnimationCurveEaseOut forView:self.view.window cache:NO];
+    
+    [UIView setAnimationTransition:UIViewAnimationTransitionCurlDown forView:self.window cache:NO];
+    
+    [UIView setAnimationDidStopSelector:@selector(animationFinished:finished:context:)];
+    
+    //self.view.window.bounds = CGRectMake(0, 0, 0, 0);
+    
+    self.window.bounds = CGRectMake(0, 0, 0, 0);
+    
+    [UIView commitAnimations];
+    
+}
+
+
+
+- (void)animationFinished:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
+    
+    if ([animationID compare:@"exitApplication"] == 0) {
+        
+        exit(0);
+        
+    }
+    
 }
 
 @end

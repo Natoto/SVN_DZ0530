@@ -14,12 +14,16 @@
 #import "A1_Digest_iphone.h"
 #import "D1_MypostViewController_iphone.h"
 #import "homeModel.h"
-@interface A0_HomePage1_iphone : A0_BaseHomeViewController<UIScrollViewDelegate>
+
+@interface A0_HomePage1_iphone : A0_BaseHomeViewController <UIScrollViewDelegate>
+
 //AS_MODEL(HomeModel,	 homeModel);
 AS_NOTIFICATION(homepageItemChanged)
 
 @property(nonatomic,assign) BOOL reloading; 
 @property(nonatomic,strong) homeModel *homeModel;
 @property(nonatomic,retain) NSMutableArray *ModeleBlocks;
+
 -(void)saveHomePageUserModel:(NSMutableArray *)array;
+
 @end

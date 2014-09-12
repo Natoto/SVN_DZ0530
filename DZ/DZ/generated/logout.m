@@ -40,6 +40,7 @@
     self.uid=nil;
 	self.resp = nil;
 }
+
 - (void)routine
 {
 	if ( self.sending )
@@ -58,7 +59,7 @@
         
 		if ( result && [result isKindOfClass:[NSDictionary class]] )
 		{
-			self.resp = [LOGOUT  objectFromDictionary:(NSDictionary *)result];
+			self.resp = [LOGOUT objectFromDictionary:(NSDictionary *)result];
 		}
         
 		if ( nil == self.resp || NO == [self.resp validate] )
