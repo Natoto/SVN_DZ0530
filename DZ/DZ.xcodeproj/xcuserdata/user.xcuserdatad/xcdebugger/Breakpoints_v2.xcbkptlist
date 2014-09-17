@@ -1380,11 +1380,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DZ/AppDelegate.m"
-            timestampString = "432187232.68484"
+            timestampString = "432626081.928091"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
             landmarkName = "-application:didFinishLaunchingWithOptions:"
             landmarkType = "5">
          </BreakpointContent>

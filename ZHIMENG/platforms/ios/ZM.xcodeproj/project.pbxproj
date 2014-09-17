@@ -35,6 +35,8 @@
 		CD8659FB8AD14295B19D8BCF /* MyConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 606EAF3E5B254D0B9DD28633 /* MyConfig.m */; };
 		CE002B9C19B565390037B5E3 /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE002B9B19B565390037B5E3 /* NetworkManager.m */; };
 		CE002BA019B571AE0037B5E3 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = CE002B9F19B571AE0037B5E3 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CE569DBA19C93EEF001961E8 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CE569DB919C93EEF001961E8 /* libz.dylib */; };
+		CE569DBF19C93F17001961E8 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE569DBC19C93F17001961E8 /* libMobClickLibrary.a */; };
 		CE775C2319B5B4C600EBE1C9 /* ido_log.m in Sources */ = {isa = PBXBuildFile; fileRef = CE775C2219B5B4C600EBE1C9 /* ido_log.m */; };
 		CE775C2619B5B8D100EBE1C9 /* NSDictionary+BeeExtension.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE775C2519B5B8D100EBE1C9 /* NSDictionary+BeeExtension.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CE775C2919B5B90500EBE1C9 /* NSObject+BeeTypeConversion.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE775C2819B5B90500EBE1C9 /* NSObject+BeeTypeConversion.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -140,6 +142,10 @@
 		CE002B9B19B565390037B5E3 /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkManager.m; sourceTree = "<group>"; };
 		CE002B9E19B571AE0037B5E3 /* OpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenUDID.h; sourceTree = "<group>"; };
 		CE002B9F19B571AE0037B5E3 /* OpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenUDID.m; sourceTree = "<group>"; };
+		CE569DB919C93EEF001961E8 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		CE569DBC19C93F17001961E8 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
+		CE569DBD19C93F17001961E8 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
+		CE569DBE19C93F17001961E8 /* MobClickSocialAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickSocialAnalytics.h; sourceTree = "<group>"; };
 		CE775C2119B5B4C600EBE1C9 /* ido_log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ido_log.h; sourceTree = "<group>"; };
 		CE775C2219B5B4C600EBE1C9 /* ido_log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ido_log.m; sourceTree = "<group>"; };
 		CE775C2419B5B8D100EBE1C9 /* NSDictionary+BeeExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+BeeExtension.h"; sourceTree = "<group>"; };
@@ -242,6 +248,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE569DBF19C93F17001961E8 /* libMobClickLibrary.a in Frameworks */,
+				CE569DBA19C93EEF001961E8 /* libz.dylib in Frameworks */,
 				CEA34DDC19B456B20027C830 /* libxml2.dylib in Frameworks */,
 				5B1594DD16A7569C00FEF299 /* AssetsLibrary.framework in Frameworks */,
 				301BF552109A68D80062928A /* libCordova.a in Frameworks */,
@@ -258,6 +266,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				CE569DBB19C93F17001961E8 /* UMAnalytics_Sdk_3.1.2 */,
 				CE775C2119B5B4C600EBE1C9 /* ido_log.h */,
 				CE775C2219B5B4C600EBE1C9 /* ido_log.m */,
 				CE002B9D19B571AE0037B5E3 /* OpenUDID */,
@@ -345,6 +354,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CE569DB919C93EEF001961E8 /* libz.dylib */,
 				CEA34DDD19B456C50027C830 /* IOKit.framework */,
 				CEA34DDB19B456B20027C830 /* libxml2.dylib */,
 				5AEE5B34173C68D80009041E /* CoreLocation.framework */,
@@ -417,6 +427,16 @@
 				CE002B9F19B571AE0037B5E3 /* OpenUDID.m */,
 			);
 			path = OpenUDID;
+			sourceTree = "<group>";
+		};
+		CE569DBB19C93F17001961E8 /* UMAnalytics_Sdk_3.1.2 */ = {
+			isa = PBXGroup;
+			children = (
+				CE569DBC19C93F17001961E8 /* libMobClickLibrary.a */,
+				CE569DBD19C93F17001961E8 /* MobClick.h */,
+				CE569DBE19C93F17001961E8 /* MobClickSocialAnalytics.h */,
+			);
+			path = UMAnalytics_Sdk_3.1.2;
 			sourceTree = "<group>";
 		};
 		CEA34D7A19B455D40027C830 /* 3rdParty */ = {
@@ -605,7 +625,7 @@
 				LastUpgradeCheck = 510;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = 3ZLC7X3FN8;
+						DevelopmentTeam = ND87V7M369;
 					};
 				};
 			};
@@ -814,6 +834,10 @@
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "ZM/ZM-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ZM/Classes/UMAnalytics_Sdk_3.1.2",
+				);
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					CoreFoundation,
@@ -846,6 +870,10 @@
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "ZM/ZM-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ZM/Classes/UMAnalytics_Sdk_3.1.2",
+				);
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					CoreFoundation,

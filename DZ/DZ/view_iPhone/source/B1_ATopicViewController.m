@@ -10,9 +10,9 @@
 #import "AppBoard_iPhone.h"
 #import "TopiclistModel.h"
 #import "B2_SearchViewController.h"
-
+#import "B1_TopicMenuView.h"
 @interface B1_ATopicViewController () <B2_TopicViewControllerDelegate>
-
+@property (nonatomic,retain) B1_TopicMenuView * topicmenuView;
 @property (nonatomic,retain) NSArray *array;
 @property (nonatomic,retain) NSArray *sections;
 @property (nonatomic,retain) UITableView *list;
@@ -29,12 +29,23 @@
 
 #pragma mark - BeeFramework Macro
 
+-(B1_TopicMenuView *)topicmenuView
+{
+    if (!_topicmenuView) {
+        _topicmenuView = [[B1_TopicMenuView alloc] initWithFrame:CGRectZero];
+    }
+    return _topicmenuView;
+}
+
 ON_RIGHT_BUTTON_TOUCHED(signal)
 {
 #warning 需要添加主题分类筛选
-    BeeLog(@"搜索------");
-    B2_SearchViewController *searchctr=[[B2_SearchViewController alloc] init];
-    [self.navigationController pushViewController:searchctr animated:YES];
+    self.topicmenuView.items =[NSDictionary dictionaryWithObjectsAndKeys:@"-1",@"全部",@"0",@"吐槽",@"1",@"潜水",@"2",@"冒泡", nil];
+    [self.topicmenuView show];
+    
+//    BeeLog(@"搜索------");
+//    B2_SearchViewController *searchctr=[[B2_SearchViewController alloc] init];
+//    [self.navigationController pushViewController:searchctr animated:YES];
 }
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -108,8 +119,8 @@ ON_RIGHT_BUTTON_TOUCHED(signal)
     [super viewDidLoad];
     [self initSVscrollview];
     [BeeUINavigationBar setButtonSize:CGSizeMake(30, 30)];
-    [self showBarButton:BeeUINavigationBar.RIGHT image:[UIImage bundleImageNamed:@"sousuo.jpg"]];
-//    [self showBarButton:BeeUINavigationBar.RIGHT image:[UIImage bundleImageNamed:@"fenglei"]];
+//    [self showBarButton:BeeUINavigationBar.RIGHT image:[UIImage bundleImageNamed:@"sousuo.jpg"]];
+    [self showBarButton:BeeUINavigationBar.RIGHT image:[UIImage bundleImageNamed:@"fenglei"]];
     self.navigationBarShown=YES;
     self.view.backgroundColor=[UIColor whiteColor];
 }

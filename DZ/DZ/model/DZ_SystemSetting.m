@@ -77,6 +77,10 @@ DEF_SINGLETON(DZ_SystemSetting)
             self.mode = [templetedic objectForKey:@"square"];
         }
         self.umappkey = [[diction valueForKey:@"umappkey"] valueForKey:@"text"];
+        self.umappkey = [self checkstring:self.umappkey optionalstr:@"540ea365fd98c516f5004f8b"];
+        
+        self.umchannelid = [[diction valueForKey:@"umchannelid"] valueForKey:@"text"];
+        self.umchannelid = [self checkstring:self.umchannelid optionalstr:@"IDOWEBSITE"];
         self.appid =[[diction valueForKey:@"appid"] valueForKey:@"text"];
         self.appname =[[diction valueForKey:@"appname"] valueForKey:@"text"];
         self.appversion = [[diction valueForKey:@"appversion"] valueForKey:@"text"];
@@ -85,6 +89,14 @@ DEF_SINGLETON(DZ_SystemSetting)
     return self;
 }
 
+-(NSString *)checkstring:(NSString *)str optionalstr:(NSString *)optionstr
+{
+    NSString *resultstr = str;
+    if (!str || [str rangeOfString:@"null"].location!=NSNotFound ) {
+        resultstr = optionstr;
+    }
+    return resultstr;
+}
 
 
 -(UIColor *)navigationBarColor

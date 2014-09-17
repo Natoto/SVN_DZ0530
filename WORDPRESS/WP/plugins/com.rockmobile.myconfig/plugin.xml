@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="" id="com.rockmobile.myconfig" version="0.0.2">
+    <name>myconfig</name>
+    <author>huangbo</author>
+    <description>Cordova zmconfig by huangbo</description>
+    <keywords>cordova, myconfig</keywords>
+    <engines>
+        <engine name="cordova" version=">=3.0.0" />
+    </engines>
+    <js-module src="www/myconfig.js" name="MyConfig">
+        <clobbers target="myconfig" />
+    </js-module>
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="MyConfig">
+                <param name="ios-package" value="MyConfig" />
+            </feature>
+        </config-file>
+        <header-file src="src/ios/MyConfig.h" />
+        <source-file src="src/ios/MyConfig.m" />
+    </platform>
+</plugin>

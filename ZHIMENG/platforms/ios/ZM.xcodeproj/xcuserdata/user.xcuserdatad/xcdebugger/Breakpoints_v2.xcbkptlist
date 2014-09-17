@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZM/Classes/AppDelegate.m"
-            timestampString = "431340952.279919"
+            timestampString = "432624552.160372"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
             landmarkName = "-application:didFinishLaunchingWithOptions:"
             landmarkType = "5">
             <Locations>
@@ -109,6 +109,22 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "74"
             endingLineNumber = "74"
+            landmarkName = "-init"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZM/Classes/Setting/ZM_SystemSetting.m"
+            timestampString = "432626601.486387"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
             landmarkName = "-init"
             landmarkType = "5">
          </BreakpointContent>

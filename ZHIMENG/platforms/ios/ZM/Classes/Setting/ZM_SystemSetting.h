@@ -37,7 +37,8 @@
 @property (nonatomic, strong) NSString * forumurl;
 @property (nonatomic, strong) NSString * downloadurl;
 
-//忽略消息
+@property (nonatomic, strong) NSString * umappkey;
+@property (nonatomic, strong) NSString * umchannelId;
 
 +(NSMutableArray *)classtoarray:(id)cls;
 //保存密码

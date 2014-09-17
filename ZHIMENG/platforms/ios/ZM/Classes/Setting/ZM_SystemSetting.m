@@ -70,7 +70,7 @@ typedef enum : NSInteger {
         if (![LASTCHAR1 isEqualToString:@"/"]) {
             self.websiteurl = [self.websiteurl stringByAppendingString:@"/"];
         }
-        self.websiteurl = [self.websiteurl stringByAppendingFormat:@"index.php?hy=1&ostype=%@",IOSTYPE];
+        self.websiteurl = [self.websiteurl stringByAppendingFormat:@"?hy=1&ostype=%@",IOSTYPE];
         self.forumurl =  [[diction valueForKey:@"forumurl"] valueForKey:@"text"];
         self.downloadurl = [[diction valueForKey:@"downloadurl"] valueForKey:@"text"];
         self.appid =[[diction valueForKey:@"appid"] valueForKey:@"text"];
@@ -87,20 +87,22 @@ typedef enum : NSInteger {
         self.apptemplate = [NSString stringWithFormat:@"%@",[[diction valueForKey:@"apptemplate"] valueForKey:@"text"]];
         self.clientVersion = [NSString stringWithFormat:@"%@",[[diction valueForKey:@"clientVersion"] valueForKey:@"text"]];
         
-//        if (color) {
-//            unsigned long red = strtoul([color UTF8String],0,16);
-//            self.navigationbarcolor = KT_HEXCOLOR(red);
-//        }
-        
-//        if (backcolor) {
-//            unsigned long red = strtoul([backcolor UTF8String],0,16);
-//            self.backgroundcolor = KT_HEXCOLOR(red);
-//        }
-
+        self.umappkey =[NSString stringWithFormat:@"%@",[[diction valueForKey:@"umappkey"] valueForKey:@"text"]];
+        self.umappkey = [self checkstring:self.umappkey optionalstr:@"540e9109fd98c5287b000179"];
+        self.umchannelId =[NSString stringWithFormat:@"%@",[[diction valueForKey:@"umchannelid"] valueForKey:@"text"]];
+        self.umchannelId = [self checkstring:self.umchannelId optionalstr:@"IDOWEBSITE"];
     }
     return self;
 }
- 
+
+-(NSString *)checkstring:(NSString *)str optionalstr:(NSString *)optionstr
+{
+    NSString *resultstr = str;
+    if (!str || [str rangeOfString:@"null"].location!=NSNotFound ) {
+        resultstr = optionstr;
+    }
+    return resultstr;
+}
 //获得一个类中的所有变量和函数名
 //传递一个变量名称stringxing和类名称string型 得到其对应的值
 - (NSString *)nameWithInstance:(id)instance target:(id)target

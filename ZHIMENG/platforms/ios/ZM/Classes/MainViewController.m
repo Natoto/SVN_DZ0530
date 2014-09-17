@@ -66,7 +66,7 @@
     //    }
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 40)];
     label.text = @"由IDO提供技术支持";
-    label.font = [UIFont systemFontOfSize:12.0];
+    label.font = [UIFont systemFontOfSize:10.0];
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [UIColor grayColor];
     label.center = CGPointMake(320./2, 20);

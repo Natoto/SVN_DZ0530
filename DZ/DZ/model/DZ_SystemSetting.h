@@ -67,6 +67,7 @@ AS_SINGLETON(DZ_SystemSetting)
 @property (nonatomic, strong) NSString * downloadurl;
 @property (nonatomic, strong) NSString * mode;
 @property (nonatomic, strong) NSString * umappkey;
+@property (nonatomic, strong) NSString * umchannelid;
 //读取颜色配置
 @property (nonatomic, strong) UIColor * navigationBarColor;
 @property (nonatomic, strong) UIColor * tabBarColor;
@@ -74,7 +75,7 @@ AS_SINGLETON(DZ_SystemSetting)
 @property (nonatomic, strong) UIColor * tabbarselectediconcolor;
 @property (nonatomic, strong) UIColor * tabbarbackgroundColor;
 @property (nonatomic, strong) UIColor * tabBarIconColor;
-//忽略消息
+
 -(void)saveIgnoreSetting:(MSG_TYPE_FILTE) msg_type ignore:(BOOL)isignore;
 -(BOOL)readIgnoreSetting:(MSG_TYPE_FILTE) msg_type;
 

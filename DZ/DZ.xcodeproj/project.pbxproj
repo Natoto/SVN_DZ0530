@@ -236,6 +236,7 @@
 		CE5266B71908AB3800762324 /* B3_PostTableView_Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5266B61908AB3800762324 /* B3_PostTableView_Cell.m */; };
 		CE5266BA1908F74900762324 /* RCLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5266B81908F74900762324 /* RCLabel.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CE54ACEA19737608002782C2 /* B3_QuickReplyView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE54ACE919737608002782C2 /* B3_QuickReplyView.m */; };
+		CE569D2219C91928001961E8 /* B1_TopicMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE569D2119C91928001961E8 /* B1_TopicMenuView.m */; };
 		CE5A7ACE190602CA005FCBC6 /* forumlist.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE5A7ACD190602CA005FCBC6 /* forumlist.mm */; };
 		CE5A7AD119060402005FCBC6 /* ForumlistModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5A7AD019060402005FCBC6 /* ForumlistModel.m */; };
 		CE5A7AE419063791005FCBC6 /* Topiclist.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE5A7AE319063791005FCBC6 /* Topiclist.mm */; };
@@ -1176,6 +1177,8 @@
 		CE5266B91908F74900762324 /* RCLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCLabel.h; sourceTree = "<group>"; };
 		CE54ACE819737608002782C2 /* B3_QuickReplyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = B3_QuickReplyView.h; sourceTree = "<group>"; };
 		CE54ACE919737608002782C2 /* B3_QuickReplyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = B3_QuickReplyView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		CE569D2019C91928001961E8 /* B1_TopicMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = B1_TopicMenuView.h; sourceTree = "<group>"; };
+		CE569D2119C91928001961E8 /* B1_TopicMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = B1_TopicMenuView.m; sourceTree = "<group>"; };
 		CE5A7ACC190602CA005FCBC6 /* forumlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = forumlist.h; sourceTree = "<group>"; };
 		CE5A7ACD190602CA005FCBC6 /* forumlist.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = forumlist.mm; sourceTree = "<group>"; };
 		CE5A7ACF19060402005FCBC6 /* ForumlistModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForumlistModel.h; sourceTree = "<group>"; };
@@ -4503,6 +4506,8 @@
 				CE34B82C195D20620067DD21 /* B3_PostBaseTableViewCell.m */,
 				CEAD1D69192F173C0024E043 /* B3_PostMenuView.h */,
 				CEAD1D6A192F173C0024E043 /* B3_PostMenuView.m */,
+				CE569D2019C91928001961E8 /* B1_TopicMenuView.h */,
+				CE569D2119C91928001961E8 /* B1_TopicMenuView.m */,
 				CE5266B51908AB3800762324 /* B3_PostTableView_Cell.h */,
 				CE5266B61908AB3800762324 /* B3_PostTableView_Cell.m */,
 				CE50B2151907AC7800557C25 /* B3_PostTableView_HeadCell.h */,
@@ -5540,6 +5545,7 @@
 				CE6DC4C3193DC63A00C0820F /* D1_Reply_MyViewController.m in Sources */,
 				CE423D7919244E58005C0C77 /* modifyPersonalInfo.m in Sources */,
 				CEB3241618E95324004134D4 /* Bee.mm in Sources */,
+				CE569D2219C91928001961E8 /* B1_TopicMenuView.m in Sources */,
 				CEB3243018E95324004134D4 /* Bee_UIBoard.m in Sources */,
 				CEB324F218E95324004134D4 /* Bee_CacheProtocol.mm in Sources */,
 				CEB3251F18E95324004134D4 /* NSString+BeeExtension.mm in Sources */,
