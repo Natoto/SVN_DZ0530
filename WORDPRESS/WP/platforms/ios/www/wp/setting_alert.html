@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" style="background: #f0f0f0;">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-touch-fullscreen" content="yes">
+	<title>提醒设置</title>
+	<link rel="stylesheet" href="css/base.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/color_variable.css" />
+	<script src="js/zepto.min.js"></script>
+	<script>
+		$(function()
+		{
+			$('.radio').click(function()
+			{
+				var _this = $(this);
+				_this.toggleClass('on');
+			})
+		})
+	</script>
+</head>
+<body>
+	<div class="wrapper clearfix">
+		<!-- 正文 -->
+		<div id="content">
+			<div id="home_head">
+				<span class="back">返回</span>
+				<div class="topTitle"> 提醒设置</div>
+			</div>
+			<div class="pt40"></div>
+			
+			<p class="resultText pt10">退出应用后任可以接收到推送信息！</p>
+			<div class="nofity clearfix mt10 ">
+				<span class="fl">重要通知</span>
+				<div class="radio fr">
+					<input type="checkbox">
+				</div>
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>

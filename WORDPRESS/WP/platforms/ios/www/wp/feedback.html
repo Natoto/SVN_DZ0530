@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" style="background: #f0f0f0;">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-touch-fullscreen" content="yes">
+	<title>意见反馈</title>
+	<link rel="stylesheet" href="css/base.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/color_variable.css" />
+	<script src="js/zepto.min.js"></script>
+	<script>
+		$(function()
+		{
+			$('.mlist a').click(function()
+			{
+				var _this = $(this);
+				_this.addClass('on').siblings('a').removeClass('on');
+			})
+		})
+	</script>
+	
+</head>
+<body>
+
+	<div class="wrapper clearfix">
+		<div id="content">
+				<div id="home_head">
+					<span class="back">返回</span>
+					<div class="topTitle">意见反馈</div>
+				</div>
+				<div class="pt40"></div>
+				<div class="horizental">
+					<div class="column mt10" style="border-top:1px solid #ccc;">
+						<div class="col_hd">反馈详情</div>
+						<div class="col_bd mt10">
+							<textarea name="" id="" class="myword" placeholder="请输入你认为有误的信息或修改意见，谢谢！"></textarea>
+						</div>
+					</div>		
+
+					<div class="column"  style="border-bottom:1px solid #ccc;">
+						<div class="col_hd">联系方式</div>
+						<div class="col_bd mt10">
+							<div class="tc mlist">
+								<a href="tel:15889971773" class="phone"></a>
+								<a href="#" class="qq"></a>
+								<a href="#" class="wenxin"></a>
+							</div>
+							<input type="text" class="yourphone mt5" placeholder="请输入你的手机号码">
+						</div>
+					</div>	
+	
+					<div class="m10">
+							<input type="submit" value="提交" class="btnsubmit">
+					</div>
+				</div>
+			</div>
+
+	</div>
+</body>
+</html>

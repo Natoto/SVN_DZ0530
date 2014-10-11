@@ -91,10 +91,11 @@
 @property (nonatomic, retain) FORUMLIST2 *	resp;
 @end
 
-
 @interface API_SUBFORUMLIST_SHOTS : BeeAPI
 @property (nonatomic, retain) NSString *	fid;
 @property (nonatomic, retain) REQ_FORUMLIST_SHOTS *	req;
 @property (nonatomic, retain) FORUMLIST2 *	resp;
 @end
+
+
 

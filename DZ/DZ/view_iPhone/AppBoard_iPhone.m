@@ -291,7 +291,6 @@ ON_NOTIFICATION3( BeeNetworkReachability, UNREACHABLE, notification )
     tabbarFrame.origin.y = _tabbarOriginY;
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.1];
-//        [UIView setAnimationDelay:0.2];
     [UIView setAnimationBeginsFromCurrentState:YES];
     bee.ui.tabbar.frame = tabbarFrame;
     [UIView commitAnimations];
@@ -303,16 +302,11 @@ ON_NOTIFICATION3( BeeNetworkReachability, UNREACHABLE, notification )
 	_tabbarOriginY = self.bounds.size.height+TAB_HEIGHT;
     CGRect tabbarFrame = bee.ui.tabbar.frame;
     tabbarFrame.origin.y = _tabbarOriginY;
-    
     [UIView beginAnimations:nil context:NULL];
- 	[UIView setAnimationDuration:0.2];
-//    [UIView setAnimationDelay:0.2];
+ 	[UIView setAnimationDuration:0.1];
     [UIView setAnimationBeginsFromCurrentState:YES];
-    
     bee.ui.tabbar.frame = tabbarFrame;
-	
     [UIView commitAnimations];
-
 }
 
 -(void)showForumPlatesSelect:(id)delegate

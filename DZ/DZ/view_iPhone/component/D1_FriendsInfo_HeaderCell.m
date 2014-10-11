@@ -58,7 +58,7 @@
     lblname.center=CGPointMake( 320/2.0, 110);
     [self addSubview:lblname];*/
     
-    lblname = [CreateComponent CreateLabelWithFrame:CGRectMake(20, CGRectGetMaxY(btnprofile.frame), 150, 30) andTxt:@"用户组:无名氏"];
+    lblname = [CreateComponent CreateLabelWithFrame:CGRectMake(20, CGRectGetMaxY(btnprofile.frame), 300, 30) andTxt:@"用户组:无名氏"];
     //移动到中部
     lblname.center = CGPointMake(CGRectGetMidX(btnprofile.frame), CGRectGetMaxY(btnprofile.frame)+15);
     lblname.textAlignment = NSTextAlignmentCenter;

@@ -72,12 +72,12 @@
     }
 }
 
-- (void)B3_PostBaseTableViewCell:(B3_PostBaseTableViewCell *)cell supportBtnTapped:(id)sender
-{
-    if (self.delegate && [self.delegate respondsToSelector:@selector(B3_HeadCellSupportButtonTap:)]) {
-        [self.delegate B3_HeadCellSupportButtonTap:self];
-    }
-}
+//- (void)B3_PostBaseTableViewCell:(B3_PostBaseTableViewCell *)cell supportBtnTapped:(id)sender
+//{
+//    if (self.delegate && [self.delegate respondsToSelector:@selector(B3_HeadCellSupportButtonTap:)]) {
+//        [self.delegate B3_HeadCellSupportButtonTap:self];
+//    }
+//}
 
 - (TYPETOSHOWCONTENT)typeToshowContent:(B3_PostBaseTableViewCell *)cell
 {
@@ -137,6 +137,13 @@
         [self.delegate B3_HeadCell:self applyButtonTaped:object];
     }
 }
+-(void)B3_PostBaseTableViewCell:(B3_PostBaseTableViewCell *)cell supportbtn:(id)sender support:(BOOL)support
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(B3_HeadCell:supportbtn:support:)])
+    {
+        [self.delegate B3_HeadCell:self supportbtn:sender support:support];
+    }
+}
 
 - (post *)cellpost:(B3_PostBaseTableViewCell *)cell
 {
@@ -159,11 +166,6 @@
     [super setSelected:selected animated:animated];
 }
 
-- (void)setIsHeader:(BOOL)isHeader
-{
-    _isHeader = isHeader;
-    headerpostcell.isHeader = isHeader;
-}
 
 - (void)setSupport:(NSNumber *)support
 {
@@ -177,10 +179,10 @@
     self.headerpostcell.status = status;
 }
 
-- (void)B3_PostTableView_HeadCell:(void(^)(id sender))obj
-{
-    [self.headerpostcell B3_PostBaseTableViewCell:obj];
-}
+//- (void)B3_PostTableView_HeadCell:(void(^)(id sender))obj
+//{
+//    [self.headerpostcell B3_PostBaseTableViewCell:obj];
+//}
 
 
 @end

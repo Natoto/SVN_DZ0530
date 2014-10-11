@@ -54,6 +54,11 @@
     return 1;
 }
 
+-(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 40.0;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 //    int row = indexPath.row;
@@ -70,6 +75,7 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSDictionary *aforum =[self.childAry objectAtIndex:indexPath.row];
     NSString * forum_fid= [aforum  objectForKey:@"fid"];
     NSString * forum_name=[aforum  objectForKey:@"name"];

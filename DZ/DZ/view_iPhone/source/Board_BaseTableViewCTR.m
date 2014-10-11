@@ -14,6 +14,7 @@
 #import "BeeUIBoard+ViewController.h"
 #import "Board_BaseTableViewCTR.h"
 #import "MJRefresh.h"
+#import "MobClick.h"
 @interface Board_BaseTableViewCTR ()
 
 @end
@@ -51,6 +52,14 @@ ON_SIGNAL2(BeeUIBoard, signal)
         self.list.backgroundColor = [UIColor clearColor];
         
         [self setupRefresh];
+    }
+    else if ([signal is:BeeUIBoard.WILL_APPEAR])
+    {
+         [MobClick beginLogPageView:self.title];
+    }
+    else if ([signal is:BeeUIBoard.WILL_DISAPPEAR])
+    {
+        [MobClick endLogPageView:self.title];
     }
     else if([signal is:BeeUIBoard.LAYOUT_VIEWS])
     {

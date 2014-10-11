@@ -10,19 +10,16 @@
 #import "Bee.h"
 #define ANIMATE_DURATION                        0.25f
 #define ITEMSSTARTTAG                           917959
+@class B1_TopicMenuView;
+
+
 @interface B1_TopicMenuView : UIView
 {
     NSDictionary *items;
 }
-AS_SINGLETON(B3_PostMenuView)
-AS_NOTIFICATION(onlyReadBuildingOwner)
-AS_NOTIFICATION(allRead)
-AS_NOTIFICATION(reply)
-AS_NOTIFICATION(share)
-AS_NOTIFICATION(collect)
-AS_NOTIFICATION(delcollection)
-AS_NOTIFICATION(daoxu)
-@property(nonatomic,strong)UIView * backGroundView;
+AS_SINGLETON(B1_TopicMenuView)
+AS_NOTIFICATION(selectitem)
+@property(nonatomic,strong)UIScrollView * backGroundView;
 @property(nonatomic,strong)NSArray * array;
 @property (nonatomic, strong) NSNumber *isfavorite;
 @property (nonatomic, strong) NSDictionary *items;

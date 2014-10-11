@@ -61,7 +61,11 @@
 }
 -(NSString *)imei
 {
-    return [UIDevice currentDevice].imei;
+    NSString *imei1= [UIDevice currentDevice].imei;
+    if (!imei1) {
+        imei1 = [OpenUDID value];
+    }
+    return imei1;
 }
 
 -(NSString *)mei
@@ -76,7 +80,18 @@
 
 -(NSString *)device
 {
-    return [OpenUDID value];
+//    NSString* deviceName = [[UIDevice currentDevice] systemName];
+//    NSLog(@"设备名称: %@",deviceName );
+    //手机系统版本
+    NSString* phoneVersion = [[UIDevice currentDevice] systemVersion];
+    NSLog(@"手机系统版本: %@", phoneVersion);
+    //手机型号
+    NSString* phoneModel = [[UIDevice currentDevice] model];
+    NSLog(@"手机型号: %@",phoneModel );
+    
+    NSString * phonemodelversion=[NSString stringWithFormat:@"MODEL:%@\nV.R:%@",phoneModel,phoneVersion];
+    return  phonemodelversion;
+    //[OpenUDID value];
 }
 
 

@@ -136,14 +136,17 @@ CONVERT_PROPERTY_CLASS( shots, SHOT );
 			self.failed = YES;
 			return;
 		}
-        
+//#warning         //测试用例
+//        if (self.typeids.integerValue > 0) {
+//            self.type = @"4";
+//        }
         NSString * requestURI =[NSString stringWithFormat:@"%@?action=topiclist&fid=%@&page=%d&pageSize=%d&cache=forumdisplay%@", [ServerConfig sharedInstance].url,self.fid,self.req.page.intValue,self.req.per_page.intValue,[ServerConfig sharedInstance].urlpostfix];
         if (_type.length>=1) {
             requestURI =[NSString stringWithFormat:@"%@?action=topiclist&fid=%@&type=%@&page=%d&pageSize=%d&cache=forumdisplay%@", [ServerConfig sharedInstance].url,self.fid,self.type,self.req.page.intValue,self.req.per_page.intValue,[ServerConfig sharedInstance].urlpostfix];
         }
         [self setCached:NO];
         [self setUseCache:NO];
-        self.HTTP_POST(requestURI).PARAM( [self.req objectToDictionary] );
+        self.HTTP_POST(requestURI).PARAM( [self.req objectToDictionary]).PARAM(@"typeid",self.typeids);
 	}
 	else if ( self.succeed )
 	{

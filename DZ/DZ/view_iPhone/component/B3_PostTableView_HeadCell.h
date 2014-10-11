@@ -19,10 +19,12 @@
 -(void)B3_HeadCellShowBigImgview:(NSString *)url imageView:(BeeUIImageView *)imageView;
 -(void)B3_HeadCellDidFinishLoad:(CGRect) frame;
 -(void)B3_HeadCellReplyButtonTap:(B3_PostTableView_HeadCell *)obj;
--(void)B3_HeadCellSupportButtonTap:(B3_PostTableView_HeadCell *)obj;
+//-(void)B3_HeadCellSupportButtonTap:(B3_PostTableView_HeadCell *)obj;
 @optional
 -(void)B3_HeadCellProfileBtnTapped:(B3_PostTableView_HeadCell *)obj;
 -(void)B3_HeadCellHeaderViewTapped:(B3_PostTableView_HeadCell *)obj;
+-(void)B3_HeadCell:(B3_PostTableView_HeadCell *)cell supportbtn:(id)sender support:(BOOL)support;
+
 -(void)B3_HeadCell:(B3_PostTableView_HeadCell *)cell rtLabel:(id)rtLabel didSelectLinkWithURL:(NSString *)url;
 -(void)B3_HeadCell:(B3_PostTableView_HeadCell *)cell rtlabel:(RCLabel *)rtlabel LongPress:(UIGestureRecognizer *)recognizer;
 -(void)B3_HeadCell:(B3_PostTableView_HeadCell *)cell applyButtonTaped:(id)object;

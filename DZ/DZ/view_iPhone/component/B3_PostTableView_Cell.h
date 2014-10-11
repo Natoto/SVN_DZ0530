@@ -18,10 +18,12 @@
 - (void)B3_CellDidFinishLoad:(B3_PostTableView_Cell *)cell andheight:(float) height;
 - (void)B3_CellShowBigImgview:(NSString *)imgurl cell:(B3_PostTableView_Cell *)cell imageview:(BeeUIImageView *)ImageView;
 @optional
+
+-(void)B3_Cell:(B3_PostTableView_Cell *)cell supportbtn:(id)sender support:(BOOL)support;
 - (void)B3_CellProfileBtnTapped:(B3_PostTableView_Cell *)object;
 - (void)B3_CellReplyBtnTapped:(B3_PostTableView_Cell *)object;
 - (void)B3_CellHeaderViewTapped:(B3_PostTableView_Cell *)object;
-- (void)B3_CellSupportBtnTapped:(B3_PostTableView_Cell *)object;
+//- (void)B3_CellSupportBtnTapped:(B3_PostTableView_Cell *)object;
 - (void)B3_Cell:(B3_PostTableView_Cell *)cell rtLabel:(id)rtLabel didSelectLinkWithURL:(NSString *)url;
 -(void)B3_Cell:(B3_PostTableView_Cell *)cell rtlabel:(RCLabel *)rtlabel LongPress:(UIGestureRecognizer *)recognizer;
 @end

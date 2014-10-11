@@ -74,6 +74,7 @@ static const NSUInteger kTagOfRightSideButton = 999;
 + (UIColor *)colorFromHexRGB:(NSString *)inColorString;
 
 -(void)showRedPoint:(int)index;
+-(void)selectItemView:(int)index;
 
 @end
 

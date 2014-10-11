@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration namespace="DefaultConfigure">
 <appicon></appicon>
-<websiteurl>http://192.168.7.193/wordpress/wptoweb/wp/</websiteurl>
-    
+<websiteurl></websiteurl>
 <downloadurl>我下载了APP地址http://114.215.178.111/amanmanceshi/forum.php</downloadurl>
 <idourl>http://192.168.7.70:8080/web/</idourl>
-<appid>ABCDAFAFASGASG</appid>
+<appid>WPABCDAFAFASGASG</appid>
 <appname>WORDPRESS</appname>
 <appversion>V1.0.1</appversion>
 <apptemplate>1</appTemplate>

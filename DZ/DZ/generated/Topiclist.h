@@ -27,6 +27,7 @@
 @property (nonatomic, retain) NSNumber *			page;
 @property (nonatomic, retain) NSArray *				topics;
 @property (nonatomic, retain) NSNumber *			totalPage;
+@property (nonatomic, retain) NSNumber *            hasThreadtypes;
 @end
 
 @interface topics : BeeActiveObject
@@ -64,6 +65,7 @@
 
 
 @interface API_TOPICLIST_SHOTS : BeeAPI
+@property (nonatomic, retain) NSString *    typeids;
 @property (nonatomic, retain) NSString *    type;
 @property (nonatomic, retain) NSString *	fid;
 @property (nonatomic, retain) REQ_TOPICLIST_SHOTS   *	req;

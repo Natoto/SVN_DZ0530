@@ -54,7 +54,7 @@ typedef enum : NSUInteger {
 //-(CGFloat)heightOfB3_PostBaseTableViewCell:(B3_PostBaseTableViewCell *)cell section:(int)section;
 -(void)B3_PostBaseTableViewCellDidFinishLoad:(B3_PostBaseTableViewCell *) cell frame:(CGRect)frame;
 @optional
-
+- (void)B3_PostBaseTableViewCell:(B3_PostBaseTableViewCell *)cell supportbtn:(id)sender support:(BOOL)support;
 -(CELL_TYPE)typeOfcell:(B3_PostBaseTableViewCell *)cell;
 -(void)B3_PostBaseTableViewCell:(B3_PostBaseTableViewCell *)cell  tappedheaderview:(BOOL)selected;
 -(NSString *)lblfloorText:(B3_PostBaseTableViewCell *)cell;
@@ -66,7 +66,7 @@ typedef enum : NSUInteger {
 - (void)B3_PostBaseTableViewCell:(B3_PostBaseTableViewCell *)cell rtLabel:(id)rtLabel didSelectLinkWithURL:(NSString *)url;
 - (void)B3_PostBaseTableViewCell:(B3_PostBaseTableViewCell *)cell  rtlabel:(RCLabel *)rtlabel LongPress:(UIGestureRecognizer *)recognizer;
 
-- (void)B3_PostBaseTableViewCell:(B3_PostBaseTableViewCell *)cell supportBtnTapped:(id)sender;
+//- (void)B3_PostBaseTableViewCell:(B3_PostBaseTableViewCell *)cell supportBtnTapped:(id)sender;
 //-(UIView *)ActivityViewOfB3_PostBaseTableViewCell:(B3_PostBaseTableViewCell *)cell withContent:(content *)acontent;
 -(void)B3_PostBaseTableViewCell:(B3_PostBaseTableViewCell *)view applyButtonTaped:(id)object;
 @end
@@ -105,19 +105,17 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) UIButton *btnsupport;
 @property (nonatomic, strong) UILabel *lblsupport;
 @property (nonatomic, strong) NSNumber *status;
-@property (nonatomic, strong) NSNumber *support;
-@property (nonatomic, assign) BOOL isHeader;
+@property (nonatomic, strong) NSNumber *support; 
 @property(nonatomic,assign)  CGRect blowcontentRect;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier target:(id)delegate;
 - (void)reloadsubviews;
 + (float)heightOfSelfdefinecontents:(NSArray *)contents celltype:(CELL_TYPE)celltype;
 - (float)heightofWebview:(NSArray *)contents;
-- (void)B3_PostBaseTableViewCell:(void (^)(id sender))obj;
-
+//- (void)B3_PostBaseTableViewCell:(void (^)(id sender))obj;
 //- (void)toShare;
 
-AS_SINGLETON(SUPPORT)
-AS_NOTIFICATION(SUPPORT)
+//AS_SINGLETON(SUPPORT)
+//AS_NOTIFICATION(SUPPORT)
 
 @end

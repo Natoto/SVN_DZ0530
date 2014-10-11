@@ -1,0 +1,6 @@
+@charset "utf-8";
+
+#content .header, #home_head,#homeTab .tab_hd .on,.refreshIcon, .toTopIcon,.small.on, .mid.on, .large.on,.btnsubmit{background: #ff0000;}
+
+.setOptLeft{border-left: 3px solid #ff0000;}
+.tab_hd{border: 1px solid #6ebebe;}

@@ -39,6 +39,8 @@ typedef enum : NSUInteger {
 -(void)finishReloadingData; 
 -(void)setFooterView;
 -(void)relayoutSubviews;
+-(void)startHeaderLoading;
+
 
 -(void)reframeTableView:(TABLEVIEW_TYPE)type;
 -(void)addCellSelectedColor:(UITableViewCell *)cell;

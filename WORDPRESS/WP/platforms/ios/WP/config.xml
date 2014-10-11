@@ -31,4 +31,17 @@
     <feature name="MyConfig">
         <param name="ios-package" value="MyConfig" />
     </feature>
+    <feature name="Notification">
+        <param name="ios-package" value="CDVNotification" />
+    </feature>
+    <feature name="Camera">
+        <param name="ios-package" value="CDVCamera" />
+    </feature>
+    <preference name="CameraUsesGeolocation" value="false" />
+    <feature name="IDOApp">
+        <param name="ios-package" value="IDOApp" />
+    </feature>
+    <feature name="Device">
+        <param name="ios-package" value="CDVDevice" />
+    </feature>
 </widget>

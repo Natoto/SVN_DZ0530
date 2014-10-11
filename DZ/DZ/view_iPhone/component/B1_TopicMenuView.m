@@ -8,19 +8,13 @@
 
 #import "B1_TopicMenuView.h"
 #import "UIImage+Tint.h"
-
+#import "DZ_SystemSetting.h"
 @implementation B1_TopicMenuView
 @synthesize items;
-DEF_SINGLETON(B3_PostMenuView)
+DEF_SINGLETON(B1_TopicMenuView)
+DEF_NOTIFICATION(selectitem)
 
-DEF_NOTIFICATION(onlyReadBuildingOwner)
-DEF_NOTIFICATION(allRead)
-DEF_NOTIFICATION(reply)
-DEF_NOTIFICATION(share)
-DEF_NOTIFICATION(collect)
-DEF_NOTIFICATION(delcollection)
-DEF_NOTIFICATION(daoxu)
-
+#define BTNSELECTTXTCOLOR   [DZ_SystemSetting sharedInstance].navigationBarColor
 #define BTNTXTCOLOR [UIColor whiteColor]
 #define BACKGROUNDVIEWCOLOR HEX_RGBA(0x3f3f3f, 0.95)
 
@@ -40,7 +34,7 @@ DEF_NOTIFICATION(daoxu)
         triangle.contentMode=UIViewContentModeScaleAspectFit;
         [self addSubview:triangle];
         [self addSubview:self.backGroundView];
-        
+
     }
     return self;
 }
@@ -48,21 +42,22 @@ DEF_NOTIFICATION(daoxu)
 -(IBAction)BTNACTIONS:(id)sender
 {
     UIButton *tapedBtn=(UIButton *)sender;
-    for (int index=0; index<5; index++) {
-        UIButton *button=(UIButton *)[_backGroundView viewWithTag:index + ITEMSSTARTTAG];
-        if (button.tag==tapedBtn.tag)
-        {
-        } else {
-            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        }
+    
+    for (int index=0; index< self.items.allKeys.count; index++) {
+        NSString * key = [self.items.allKeys objectAtIndex:index];
+        NSString * value = [self.items valueForKey:key];
+        UIButton *button=(UIButton *)[_backGroundView viewWithTag:value.integerValue + ITEMSSTARTTAG];
+        [button setTitleColor:BTNTXTCOLOR forState:UIControlStateNormal];
     }
+    [tapedBtn setTitleColor:BTNSELECTTXTCOLOR forState:UIControlStateNormal];
     [self sendSelfUISignal:tapedBtn];
     [self tappedCancel];
 }
 
 -(void)sendSelfUISignal:(UIButton *)button
 {
-    
+    NSNumber *index=[NSNumber numberWithInt:(button.tag - ITEMSSTARTTAG)];
+    [self postNotification:self.selectitem withObject:index];
 }
 
 -(void)reloadButton:(NSString * )key title:(NSString *)title
@@ -71,27 +66,50 @@ DEF_NOTIFICATION(daoxu)
     UIButton *button = (UIButton *)[_backGroundView viewWithTag:ITEMSSTARTTAG + index];
     [button setTitle:title forState:UIControlStateNormal];
 }
+-(void)dealloc
+{
+    
+}
 
+-(NSArray *)sortarray:(NSArray *)array
+{
+    NSString *COMPAREKEY = @"全部";
+    NSMutableArray * mtbary = [NSMutableArray arrayWithArray:array];
+    
+    for (int index = 0; index < array.count; index ++ ) {
+        NSString * key = [array objectAtIndex:index];
+        if ([key isEqualToString: COMPAREKEY]) {
+            if (index!=0) {
+                [mtbary exchangeObjectAtIndex:index withObjectAtIndex:0];
+            }
+            break;
+        }
+    }
+    return mtbary;
+}
 -(void)setItems:(NSDictionary *)aitems
 {
     items = aitems;
     NSArray *array = items.allKeys;
+    array = [self sortarray:array];
+    
     float HEIGHT=35;
     float WIDTH=self.backGroundView.frame.size.width;
     for (int index=0; index< array.count; index++)
     {
         NSString *key =[array objectAtIndex:index];
-        NSString * value=[items objectForKey:key];
+        NSString * value=[NSString stringWithFormat:@"%@",[items objectForKey:key]];
         UIButton *button=(UIButton *) [self.backGroundView viewWithTag:ITEMSSTARTTAG + value.integerValue];
         if (!button) {
             button = [UIButton buttonWithType:UIButtonTypeSystem];
             button.frame = CGRectMake(0, HEIGHT * index + 5, WIDTH , HEIGHT);
             button.tag= ITEMSSTARTTAG + value.integerValue;
+            [button setTitleColor:BTNTXTCOLOR forState:UIControlStateNormal];
+            button.titleLabel.font = [UIFont systemFontOfSize:15];
             [_backGroundView addSubview:button];
         }
         [button addTarget:self action:@selector(BTNACTIONS:) forControlEvents:UIControlEventTouchUpInside];
-        [button setTitleColor:BTNTXTCOLOR forState:UIControlStateNormal];
-        button.titleLabel.font = [UIFont systemFontOfSize:15];
+
         [button setTitle:key forState:UIControlStateNormal];
     }
     [self reSizeBackgroundView:items];
@@ -100,7 +118,7 @@ DEF_NOTIFICATION(daoxu)
 -(UIView *)backGroundView
 {
     if (!_backGroundView) {
-        _backGroundView = [[UIView alloc] initWithFrame:CGRectMake(200, 64.0f , 102, 150)];
+        _backGroundView = [[UIScrollView alloc] initWithFrame:CGRectMake(200, 64.0f , 102, 150)];
         _backGroundView.backgroundColor= BACKGROUNDVIEWCOLOR;
         [self reSizeBackgroundView:items];
     }
@@ -109,14 +127,22 @@ DEF_NOTIFICATION(daoxu)
 
 -(void)reSizeBackgroundView:(NSDictionary *)dic
 {
+    int MAXCOUNT = 6;
+    if (dic.count < MAXCOUNT) {
      [self.backGroundView setFrame:CGRectMake(200, 64.0f - bee.ui.config.heightOfStatusBar, 102, (items.count+1) * 30)];
+    }
+    else
+    {
+        [self.backGroundView setContentSize:CGSizeMake(102, (items.count+1) * 30)];
+        [self.backGroundView setFrame:CGRectMake(200, 64.0f - bee.ui.config.heightOfStatusBar, 102, (MAXCOUNT +1) * 30)];
+    }
 }
 
 -(void)show
 {
     [self reSizeBackgroundView:items];
-    self.alpha = 1;
-    [[UIApplication sharedApplication].delegate.window.rootViewController.view addSubview:self];
+     self.alpha = 1;
+     [[UIApplication sharedApplication].delegate.window.rootViewController.view addSubview:self];
 }
 
 - (void)tappedCancel
@@ -126,6 +152,7 @@ DEF_NOTIFICATION(daoxu)
         self.alpha = 0;
     } completion:^(BOOL finished) {
         if (finished) {
+             self.alpha = 0;
             [self removeFromSuperview];
         }
     }];

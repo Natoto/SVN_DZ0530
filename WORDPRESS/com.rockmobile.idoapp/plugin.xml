@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="" id="com.rockmobile.idoapp" version="0.0.1">
+	
+	   <name>idoapp</name>
+    <author>huangbo</author>
+    <description>Cordova idoapp by huangbo</description>
+    <keywords>cordova, idoapp</keywords>
+    <engines>
+        <engine name="cordova" version=">=3.0.0" />
+    </engines>
+    
+    <js-module src="www/idoapp.js" name="IDOApp">
+          <merges target="navigator.app" />
+    </js-module> 
+    
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+             <feature name="IDOApp">
+                <param name="ios-package" value="IDOApp"/>
+            </feature>
+        </config-file>
+        <header-file src="src/ios/IDOApp.h" />
+        <source-file src="src/ios/IDOApp.m" />
+    </platform>     
+    
+</plugin>

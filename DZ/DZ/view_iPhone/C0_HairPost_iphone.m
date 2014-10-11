@@ -25,6 +25,8 @@
 #import "DZ_BeeUITextView.h"
 #import "C0_ZhuTi_SelectPlates.h"
 #import "DZ_SystemSetting.h"
+#import "ThreadtypeModel.h"
+
 @implementation DratfStruct
 
 @end
@@ -313,6 +315,8 @@ DEF_SINGLETON(C0_HairPost_iphone)
     maskview.frame = self.frame;
     [maskview showInView:self.view belowSubview:_locateView];
 }
+
+
 #pragma mark 显示主题
 - (IBAction)showzhutiSelector:(id)sender
 {
@@ -320,48 +324,62 @@ DEF_SINGLETON(C0_HairPost_iphone)
         [self presentMessageTips:@"请先选择版块"];
         return;
     }
-    NSArray *athread =[ForumlistModel readthreadtype:self.selectfid forum:aforums];
-    if (athread) {
-        NSMutableArray *array =[[NSMutableArray alloc] initWithCapacity:0];
-        for (int index = 0; index < athread.count; index ++) {
-            NSDictionary *athreaddic=[athread objectAtIndex:index];
-            NSString *value =[athreaddic valueForKey:@"value"];
-            [array addObject:value];
-        }
-        [self.zhutiselector setArray: array];
-        [self.zhutiselector showInView:self.view];
-        [self.titleTxt resignFirstResponder];
-        [self.fastTextView resignFirstResponder];
-        [_locateView resignFirstResponder];
-        
-        maskview.frame = self.frame;
-        [maskview showInView:self.view belowSubview:_zhutiselector];
-    }
-    else
-    {
-         self.typedid = nil;
-         [self.zhutitn setTitle:@"无主题" forState:UIControlStateNormal];
-//         [self presentMessageTips:@"无主题"];
-    }
+   [ThreadtypeModel readthreadtype:self.selectfid block:^(NSArray *block) {
+       NSArray *athread = block;       
+       if (athread.count) {
+           NSMutableDictionary *dic =[[NSMutableDictionary alloc] initWithCapacity:0];
+           for (int index = 0; index < athread.count; index ++) {
+               threadtype *athreaddic=[athread objectAtIndex:index];
+               NSString *value = athreaddic.name;
+               NSString *key =[NSString stringWithFormat:@"%@",athreaddic.id];
+               [dic setObject:key forKey:value];
+           }
+           [self.zhutiselector setDataDic:dic];
+           [self.zhutiselector showInView:self.view];
+           [self.titleTxt resignFirstResponder];
+           [self.fastTextView resignFirstResponder];
+           [_locateView resignFirstResponder];
+           
+           maskview.frame = self.frame;
+           [maskview showInView:self.view belowSubview:_zhutiselector];
+       }
+       else
+       {
+           self.typedid = nil;
+           [self.zhutitn setTitle:@"无主题" forState:UIControlStateNormal];
+           //         [self presentMessageTips:@"无主题"];
+       }       
+    }];
+   
 }
+
+
 -(void)updatezhutiInfo
 {
     if (!self.selectfid) {
 //        [self presentMessageTips:@"请先选择版块"];
         return;
     }
+    @weakify(self)
 //    NSArray *forums=[ForumlistModel forumsAry];
-    NSArray *athread =[ForumlistModel readthreadtype:self.selectfid forum:aforums];
-    if (athread && !self.typedid) {
-          self.typedid = [NSNumber numberWithInt:1];
-          NSDictionary *athreaddic=[athread objectAtIndex:0];
-          NSString *value =[athreaddic valueForKey:@"value"];
-         [self.zhutitn setTitle:value forState:UIControlStateNormal];
-    }
-    if (!athread) {
-        self.typedid = nil;
-        [self.zhutitn setTitle:@"无主题" forState:UIControlStateNormal];
-    }
+    [ThreadtypeModel readthreadtype:self.selectfid  block:^(NSArray *block) {
+        NSArray *athread = block;
+        @normalize(self);
+        if (athread.count && !self.typedid) {
+            threadtype  *athreaddic=[athread objectAtIndex:0];
+            NSString * key =[NSString stringWithFormat:@"%@", athreaddic.id];
+            // [athreaddic valueForKey:@"key"];
+            self.typedid = [NSNumber numberWithInt:key.integerValue];
+            NSString *value = athreaddic.name;
+            //[athreaddic valueForKey:@"value"];
+            [self.zhutitn setTitle:value forState:UIControlStateNormal];
+        }
+        if (!athread || !athread.count) {
+            self.typedid = nil;
+            [self.zhutitn setTitle:@"无主题" forState:UIControlStateNormal];
+        }
+    }];
+   
 }
 #pragma mark -
 #pragma mark 图片拍照选择

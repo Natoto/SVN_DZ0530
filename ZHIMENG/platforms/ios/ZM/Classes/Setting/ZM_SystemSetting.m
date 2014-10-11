@@ -89,6 +89,7 @@ typedef enum : NSInteger {
         
         self.umappkey =[NSString stringWithFormat:@"%@",[[diction valueForKey:@"umappkey"] valueForKey:@"text"]];
         self.umappkey = [self checkstring:self.umappkey optionalstr:@"540e9109fd98c5287b000179"];
+        
         self.umchannelId =[NSString stringWithFormat:@"%@",[[diction valueForKey:@"umchannelid"] valueForKey:@"text"]];
         self.umchannelId = [self checkstring:self.umchannelId optionalstr:@"IDOWEBSITE"];
     }

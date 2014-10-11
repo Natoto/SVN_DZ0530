@@ -194,7 +194,10 @@ ON_SIGNAL3(ForumlistModel, FAILED, signal)
     if ([childary isKindOfClass:[NSArray class]]&& childary.count) {
         board.haveSubForums=YES;
         board.childAry=childary;
-    }    
+    }
+    if (achild.isset_threadtypes.integerValue) {
+//        board.threadtypes =(NSMutableArray *)achild.threadtypes;
+    }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self.navigationController pushViewController:board animated:YES];
 }

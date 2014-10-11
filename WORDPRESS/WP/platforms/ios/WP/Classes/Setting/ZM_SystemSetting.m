@@ -63,14 +63,20 @@ typedef enum : NSInteger {
         CXMLDocument *document = [[CXMLDocument alloc] initWithData:XMLData
                                                             options:0
                                                               error:nil];
-        
+        //http://192.168.7.193/wordpress/wptoweb/wp/
+        //www/wp/index.html
         NSDictionary *diction= [self parseRoot:document];
+  
+       
         self.websiteurl = [[diction valueForKey:@"websiteurl"] valueForKey:@"text"];
-        NSString *LASTCHAR1 = [self.websiteurl substringWithRange:NSMakeRange(self.websiteurl.length-1,1)];
-        if (![LASTCHAR1 isEqualToString:@"/"]) {
-            self.websiteurl = [self.websiteurl stringByAppendingString:@"/"];
+        if ([self.websiteurl rangeOfString:@"http://"].location != NSNotFound) {
+            NSString *LASTCHAR1 = [self.websiteurl substringWithRange:NSMakeRange(self.websiteurl.length-1,1)];
+            if (![LASTCHAR1 isEqualToString:@"/"])
+           {
+                 self.websiteurl = [self.websiteurl stringByAppendingString:@"/"];
+           }
+            self.websiteurl = [self.websiteurl stringByAppendingFormat:@"?hy=1&ostype=%@",IOSTYPE];
         }
-        self.websiteurl = [self.websiteurl stringByAppendingFormat:@"?hy=1&ostype=%@",IOSTYPE];
         self.forumurl =  [[diction valueForKey:@"forumurl"] valueForKey:@"text"];
         self.downloadurl = [[diction valueForKey:@"downloadurl"] valueForKey:@"text"];
         self.appid =[[diction valueForKey:@"appid"] valueForKey:@"text"];

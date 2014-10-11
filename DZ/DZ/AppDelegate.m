@@ -68,6 +68,15 @@ static NSString *const ID_KEY = @"id";
 
 - (void)load
 {
+    
+//    Class cls = NSClassFromString(@"UMANUtil");
+//    SEL deviceIDSelector = @selector(openUDIDString);
+//    NSString *deviceID = nil;
+//    if(cls && [cls respondsToSelector:deviceIDSelector]){
+//        deviceID = [cls performSelector:deviceIDSelector];
+//    }
+//    NSLog(@"{\"oid\": \"%@\"}", deviceID);
+    
     NSLog(@"hello dz");
 	[UIApplication sharedApplication].statusBarHidden = NO;
 	bee.ui.config.ASR = YES;

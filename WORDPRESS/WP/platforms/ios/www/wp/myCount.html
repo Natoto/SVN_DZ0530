@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" style="background: #f0f0f0;">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-touch-fullscreen" content="yes">
+	<title>我的帐号</title>
+	<link rel="stylesheet" href="css/base.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/color_variable.css" />
+
+</head>
+<body>
+	<div class="wrapper clearfix">
+		<!-- 正文 -->
+		<div id="content">
+			<div id="home_head">
+				<span class="back">返回</span>
+				<div class="topTitle"> 我的账号</div>
+			</div>
+			<div class="pt40"></div>
+			
+			<div class="mycount">
+				<div class="setOption mt10">
+					<a href="#">
+						<span class="setOptLeft">头像</span>
+						<span class="setOptRight" id="headP">
+							<img src="images/head1.png" alt="" width="35">
+						</span>
+					</a>
+				</div>
+				<p class="pptip">用户信息</p>
+				<div class="setOption toggle modify">
+					<a href="myname.html?type=1">
+						<span class="setOptLeft">用户昵称</span>
+						<span class="setOptRight arr" id="usname"> 未设置 </span>
+					</a>
+				</div>
+
+				<div class="setOption modify">
+					<a href="email.html?type=2">
+						<span class="setOptLeft">邮箱</span>
+						<span class="setOptRight arr" id="myemail"> 未设置 </span>
+					</a>
+				</div>
+
+				<div class="setOption modify" style="margin-top: -1px;">
+					<a href="address.html?type=3">
+						<span class="setOptLeft">网址</span>
+						<span class="setOptRight arr" id="myurl"> 未设置 </span>
+					</a>
+				</div>
+
+
+			</div>
+
+		</div>
+	</div>
+	<script src="js/zepto.min.js"></script>
+	<script src="js/appinfo_variable.js"></script>	
+	<script src="js/common.js"></script>
+	<script src="js/mycount.js"></script>
+</body>
+</html>

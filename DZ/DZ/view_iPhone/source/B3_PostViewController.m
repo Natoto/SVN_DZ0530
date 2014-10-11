@@ -40,8 +40,8 @@ extern NSInteger support;
     UIButton * sendbtn;
 //    NSTimer  * timer;
 //    NSInteger  indexTimer;
-    BOOL isHeader;
-    NSUInteger index;
+//    BOOL isHeader;
+//    NSUInteger index;
     D2_ChatInputView * replyArea;
 }
 
@@ -162,7 +162,7 @@ ON_NOTIFICATION3(B3_PostMenuView, delcollection, signal)
             self.delcollectionModel.favid = self.collectModel.favid;
             NSLog(@"aaabbbccc%@", self.delcollectionModel.favid);
             NSLog(@"aaabbbccc%@", self.collectModel.favid);
-        } else {
+        }else {
             self.delcollectionModel.favid = (NSNumber *)self.postmodel.maintopic.favid;
             NSLog(@"aaabbbccc%@", self.delcollectionModel.favid);
             NSLog(@"aaabbbccc%@", (NSNumber *)self.postmodel.maintopic.favid);
@@ -222,29 +222,89 @@ ON_SIGNAL3(delcollectionModel, FAILED, signal)
     [self presentMessageTips:__TEXT(@"decollect_failed")];//取消收藏失败
     self.isSelected = NO;
 }
+
 #pragma mark - 点赞
+-(void)B3_Cell:(B3_PostTableView_Cell *)cell supportbtn:(id)sender support:(BOOL)support
+{
+//    post *post = self.postmodel.shots[cell.cellIndex.integerValue +1];
+//    post.support = @(post.support.integerValue);
+//    post.status = @0;
+    NSUInteger section = 0;
+    NSUInteger row =cell.cellIndex.integerValue ;
+    self.currentIndexPath = [NSIndexPath indexPathForRow:row inSection:section];
+    [self supportAPIstart:cell.cellpost.pid type:@"2"];
+}
+
+-(void)B3_HeadCell:(B3_PostTableView_HeadCell *)cell supportbtn:(id)sender support:(BOOL)support
+{
+//    self.postmodel.maintopic.status = @0;
+//    self.postmodel.maintopic.support = @(self.postmodel.maintopic.support.integerValue + 1);
+    self.currentIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self supportAPIstart:cell.celltopic.pid type:@"1"];
+}
+
+-(void)supportAPIstart:(NSString *)pid type:(NSString *)type
+{
+    NSString *username = [UserModel sharedInstance].session.username;
+    if (!username) {
+        [self showAlertView];
+        return;
+    } else {
+        self.supportModel = [SupportModel modelWithObserver:self];
+        self.supportModel.tid = self.tid;
+        self.supportModel.pid = pid;
+        self.supportModel.type = type;
+        NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+        [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    }    
+    [self.supportModel firstPage];
+} 
+- (void)B3_CellProfileBtnTapped:(B3_PostTableView_Cell *)object
+{
+    D1_FriendsInfoViewController *ctr=[[D1_FriendsInfoViewController alloc] init];
+    ctr.uid=object.cellpost.authorid;
+    [self.navigationController pushViewController:ctr animated:YES];
+    
+}
+
+
 ON_SIGNAL3(SupportModel, RELOADED, signal)
 {
-    [self dismissTips];
-//    [self presentMessageTips:@"点赞成功"];
-    [B3_PostBaseTableViewCell sharedInstance].lblsupport.text = [NSString stringWithFormat:@"%d", support + 1];
-
-    if (isHeader)
-    {
-        UIImage *weidingtieimage02=[UIImage bundleImageNamed:@"weidingtie(02)"];
-        [[B3_PostBaseTableViewCell sharedInstance].btnsupport setImage:weidingtieimage02 forState:UIControlStateNormal];
-        self.postmodel.maintopic.status = @0;
-        self.postmodel.maintopic.support = @(self.postmodel.maintopic.support.integerValue + 1);
-    }
-    else
-    {
-        UIImage *weidingtieimage = [UIImage bundleImageNamed:@"weidingtie"];
-        [[B3_PostBaseTableViewCell sharedInstance].btnsupport setImage:weidingtieimage forState:UIControlStateNormal];
+    int index= self.currentIndexPath.row;
+    if (index >0) {
         post *post = self.postmodel.shots[index];
         post.support = @(post.support.integerValue + 1);
         post.status = @0;
     }
+    else
+    {
+        topic *post = self.postmodel.maintopic;
+        post.support = @(post.support.integerValue + 1);
+        post.status = @0;
+    }
+    [self.tableViewList reloadData];
 }
+
+//    [self dismissTips];
+////    [self presentMessageTips:@"点赞成功"];
+//    [B3_PostBaseTableViewCell sharedInstance].lblsupport.text = [NSString stringWithFormat:@"%d", support + 1];
+//
+//    if (isHeader)
+//    {
+//        UIImage *weidingtieimage02=[UIImage bundleImageNamed:@"weidingtie(02)"];
+//        [[B3_PostBaseTableViewCell sharedInstance].btnsupport setImage:weidingtieimage02 forState:UIControlStateNormal];
+//        self.postmodel.maintopic.status = @0;
+//        self.postmodel.maintopic.support = @(self.postmodel.maintopic.support.integerValue + 1);
+//    }
+//    else
+//    {
+//        UIImage *weidingtieimage = [UIImage bundleImageNamed:@"dingtie"];
+//        [[B3_PostBaseTableViewCell sharedInstance].btnsupport setImage:weidingtieimage forState:UIControlStateNormal];
+//        post *post = self.postmodel.shots[index];
+//        post.support = @(post.support.integerValue + 1);
+//        post.status = @0;
+//    }
+//}
 
 ON_SIGNAL3(SupportModel, FAILED, signal)
 {
@@ -704,11 +764,6 @@ ON_SIGNAL3(PostlistModel, FAILED, signal)
          dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [cell reloadsubviews];
             });
-         //点赞
-         cell.support = cell.cellpost.support;
-         if (cell.cellpost.support != nil)
-             cell.status = cell.cellpost.status;
-
          return cell;
      }
  }
@@ -926,22 +981,22 @@ ON_SIGNAL3(Deal_ActivityModel, FAILED, signal)
 }
 
 //赞楼主
-- (void)B3_HeadCellSupportButtonTap:(B3_PostTableView_HeadCell *)obj
-{
-    NSString *username = [UserModel sharedInstance].session.username;
-    if (!username) {
-        [self showAlertView];
-        return;
-    } else {
-        self.supportModel = [SupportModel modelWithObserver:self];
-        self.supportModel.tid = self.tid;
-        self.supportModel.pid = obj.celltopic.pid;
-        self.supportModel.type = @"1";
-    }
-    isHeader = YES;
-
-    [self.supportModel firstPage];
-}
+//- (void)B3_HeadCellSupportButtonTap:(B3_PostTableView_HeadCell *)obj
+//{
+//    NSString *username = [UserModel sharedInstance].session.username;
+//    if (!username) {
+//        [self showAlertView];
+//        return;
+//    } else {
+//        self.supportModel = [SupportModel modelWithObserver:self];
+//        self.supportModel.tid = self.tid;
+//        self.supportModel.pid = obj.celltopic.pid;
+//        self.supportModel.type = @"1";
+//    }
+////    isHeader = YES;
+//
+//    [self.supportModel firstPage];
+//}
 
 #pragma mark - 输入框隐藏和显示
 - (void)B3_HeadCellHeaderViewTapped:(B3_PostTableView_HeadCell *)object
@@ -967,7 +1022,13 @@ ON_SIGNAL3(Deal_ActivityModel, FAILED, signal)
 {
     url = [url stringByReplacingOccurrencesOfString:@"'" withString:@""];
     url = [url stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+    
+    if(![url hasPrefix:@"http://"])
+    {
+        url =[NSString stringWithFormat:@"%@%@",@"http://",url];
+    }
     NSURL * gotourl=[NSURL URLWithString:[NSString stringWithFormat:@"%@",url]];
+    
     
     if ([ToolsFunc isSelfWebSite:url]) {
         NSString *tid =[ToolsFunc articletid:url];
@@ -1056,35 +1117,6 @@ ON_SIGNAL3(Deal_ActivityModel, FAILED, signal)
     ctr.friendpost = self.friendpost;
     ctr.title = [NSString stringWithFormat:@"回复%@",self.friendpost.authorname];
     [self.navigationController pushViewController:ctr animated:YES];
-}
-
-//赞楼下
-- (void)B3_CellSupportBtnTapped:(B3_PostTableView_Cell *)obj
-{
-    NSString *username = [UserModel sharedInstance].session.username;
-    if (!username) {
-        [self showAlertView];
-        return;
-    } else {
-        self.supportModel = [SupportModel modelWithObserver:self];
-        self.supportModel.tid = self.tid;
-        self.supportModel.pid = obj.cellpost.pid;
-        self.supportModel.type = @"2";
-        NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-        [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-        index = [formatter numberFromString:obj.cellIndex].integerValue;
-    }
-    isHeader = NO;
-
-    [self.supportModel firstPage];
-}
-
-- (void)B3_CellProfileBtnTapped:(B3_PostTableView_Cell *)object
-{    
-    D1_FriendsInfoViewController *ctr=[[D1_FriendsInfoViewController alloc] init];
-    ctr.uid=object.cellpost.authorid;
-    [self.navigationController pushViewController:ctr animated:YES];
-    
 }
 #pragma mark - 复制
 

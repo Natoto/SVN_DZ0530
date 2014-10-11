@@ -178,15 +178,12 @@ CONVERT_PROPERTY_CLASS( shots, SHOT );
 			self.failed = YES;
 			return;
 		}
-		 
-        
 		NSString * requestURI =[NSString stringWithFormat:@"%@?action=forumlist%@", [ServerConfig sharedInstance].url,[ServerConfig sharedInstance].urlpostfix];
         self.HTTP_POST(requestURI).PARAM( [self.req objectToDictionary] ).PARAM(@"uid",self.uid);
 	}
 	else if ( self.succeed )
 	{
 		NSObject * result = self.responseJSON;
-        
 		if ( result && [result isKindOfClass:[NSDictionary class]] )
 		{
 			self.resp = [FORUMLIST2 objectFromDictionary:(NSDictionary *)result];

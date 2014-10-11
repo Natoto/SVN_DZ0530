@@ -33,8 +33,8 @@ typedef void(^didSelectBlock)(NSString *);
 
 ON_SIGNAL3(HomeTopicListModel, RELOADED, signal)
 {
-    [self.tableViewList reloadData];
     [self FinishedLoadData];
+    [self.tableViewList reloadData];
 }
 
 ON_SIGNAL3(HomeTopicListModel, FAILED, signal)

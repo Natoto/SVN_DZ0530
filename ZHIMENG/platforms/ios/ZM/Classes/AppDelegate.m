@@ -6,9 +6,9 @@
  to you under the Apache License, Version 2.0 (the
  "License"); you may not use this file except in compliance
  with the License.  You may obtain a copy of the License at
-
+ 
  http://www.apache.org/licenses/LICENSE-2.0
-
+ 
  Unless required by applicable law or agreed to in writing,
  software distributed under the License is distributed on an
  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -40,7 +40,7 @@
 @interface AppDelegate()
 {
     NSString * UMENG_APPKEY;
-     NSString * UMENG_CHANNELID;
+    NSString * UMENG_CHANNELID;
 }
 @end
 
@@ -54,18 +54,18 @@
      *  -jm
      **/
     NSHTTPCookieStorage* cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-
+    
     [cookieStorage setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
-
+    
     int cacheSizeMemory = 8 * 1024 * 1024; // 8MB
     int cacheSizeDisk = 32 * 1024 * 1024; // 32MB
 #if __has_feature(objc_arc)
-        NSURLCache* sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:@"nsurlcache"];
+    NSURLCache* sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:@"nsurlcache"];
 #else
-        NSURLCache* sharedCache = [[[NSURLCache alloc] initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:@"nsurlcache"] autorelease];
+    NSURLCache* sharedCache = [[[NSURLCache alloc] initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:@"nsurlcache"] autorelease];
 #endif
     [NSURLCache setSharedURLCache:sharedCache];
-
+    
     self = [super init];
     return self;
 }
@@ -79,27 +79,27 @@
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions
 {
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
-
+    
 #if __has_feature(objc_arc)
-        self.window = [[UIWindow alloc] initWithFrame:screenBounds];
+    self.window = [[UIWindow alloc] initWithFrame:screenBounds];
 #else
-        self.window = [[[UIWindow alloc] initWithFrame:screenBounds] autorelease];
+    self.window = [[[UIWindow alloc] initWithFrame:screenBounds] autorelease];
 #endif
     self.window.autoresizesSubviews = YES;
-
+    
 #if __has_feature(objc_arc)
-        self.viewController = [[MainViewController alloc] init];
+    self.viewController = [[MainViewController alloc] init];
 #else
-        self.viewController = [[[MainViewController alloc] init] autorelease];
+    self.viewController = [[[MainViewController alloc] init] autorelease];
 #endif
-
+    
     // Set your app's start page by setting the <content src='foo.html' /> tag in config.xml.
     // If necessary, uncomment the line below to override it.
     // self.viewController.startPage = @"index.html";
-
+    
     // NOTE: To customize the view's frame size (which defaults to full screen), override
     // [self.viewController viewWillAppear:] in your view controller.
-
+    
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
 #pragma mark - 统计信息
@@ -123,7 +123,7 @@
     [headerFieldsDic setObject:[self appversion] forKey:@"appversion"];
     
     NSString *device =[self device];
-    if ( device) {
+    if (device) {
         [headerFieldsDic setObject:device forKey:@"device"];
     }
     NSString *ccid=[self ccid];
@@ -134,18 +134,18 @@
     [[NetworkManager sharedInstance] Url:urlString parasdic:headerFieldsDic onSuccess:^(NSMutableURLRequest *request, NSMutableData *reciveData) {
         NSLog(@" requst block success");
     } onError:^(NSMutableURLRequest *request) {
-         NSLog(@" requst block error");
+        NSLog(@" requst block error");
     } onStart:^(NSMutableURLRequest *request) {
-         NSLog(@" requst block start");
+        NSLog(@" requst block start");
     } onCompletion:^(NSMutableURLRequest *request, NSMutableData *reciveData) {
         NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingUTF8);
         NSString *mystr = [[NSString alloc] initWithData:reciveData encoding:enc];
         NSLog(@" requst block completion %@",mystr);
         NSError * error = nil;
         NSObject * result  = [mystr objectFromJSONStringWithParseOptions:JKParseOptionValidFlags error:&error];
-		if ( result && [result isKindOfClass:[NSDictionary class]] )
-		{
-			IDO_LOG *resp = [IDO_LOG objectFromDictionary:(NSDictionary *)result];
+        if ( result && [result isKindOfClass:[NSDictionary class]] )
+        {
+            IDO_LOG *resp = [IDO_LOG objectFromDictionary:(NSDictionary *)result];
             if (!resp.online.integerValue) {//下线了
                 UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"警告" message:@"该APP已下线,无法继续使用" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 alert.tag = 155348;
@@ -158,7 +158,16 @@
 
 -(NSString *)device
 {
-    return [OpenUDID value];
+    NSString* phoneVersion = [[UIDevice currentDevice] systemVersion];
+    NSLog(@"手机系统版本: %@", phoneVersion);
+    //手机型号
+    NSString  * phoneModel = [[UIDevice currentDevice] model];
+    NSString * localizedModel =[[UIDevice currentDevice] localizedModel];
+    NSLog(@"手机型号: %@%@ ",phoneModel,localizedModel);
+    NSString * phonemodelversion=[NSString stringWithFormat:@"MODEL:%@ \nV.R:%@",phoneModel,phoneVersion];
+    //    phonemodelversion = [NetworkManager URLEncoding:phonemodelversion];
+    return  phonemodelversion;
+    //    return [OpenUDID value];
 }
 
 -(NSString *)ostype
@@ -178,7 +187,11 @@
 }
 -(NSString *)imei
 {
-    return [UIDevice currentDevice].imei;
+    NSString *imei1= [UIDevice currentDevice].imei;
+    if (!imei1) {
+        imei1 = [OpenUDID value];
+    }
+    return imei1;
 }
 
 -(NSString *)mei
@@ -199,14 +212,14 @@
     if (!url) {
         return NO;
     }
-
+    
     // calls into javascript global function 'handleOpenURL'
     NSString* jsString = [NSString stringWithFormat:@"handleOpenURL(\"%@\");", url];
     [self.viewController.webView stringByEvaluatingJavaScriptFromString:jsString];
-
+    
     // all plugins will get the notification, and their handlers will be called
     [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:CDVPluginHandleOpenURLNotification object:url]];
-
+    
     return YES;
 }
 
@@ -226,7 +239,7 @@
                          stringByReplacingOccurrencesOfString: @"<" withString: @""]
                         stringByReplacingOccurrencesOfString: @">" withString: @""]
                        stringByReplacingOccurrencesOfString: @" " withString: @""];
-
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:CDVRemoteNotification object:token];
 }
 
@@ -241,7 +254,7 @@
 {
     // iPhone doesn't support upside down by default, while the iPad does.  Override to allow all orientations always, and let the root view controller decide what's allowed (the supported orientations mask gets intersected).
     NSUInteger supportedInterfaceOrientations = (1 << UIInterfaceOrientationPortrait) | (1 << UIInterfaceOrientationLandscapeLeft) | (1 << UIInterfaceOrientationLandscapeRight) | (1 << UIInterfaceOrientationPortraitUpsideDown);
-
+    
     return supportedInterfaceOrientations;
 }
 
@@ -261,6 +274,7 @@
         [self exitApplication];
     }
 }
+
 - (void)exitApplication {
     
     [UIView beginAnimations:@"exitApplication" context:nil];
@@ -304,7 +318,6 @@
     //      [MobClick checkUpdate];   //自动更新检查, 如果需要自定义更新请使用下面的方法,需要接收一个(NSDictionary *)appInfo的参数
     //    [MobClick checkUpdateWithDelegate:self selector:@selector(updateMethod:)];
     [MobClick updateOnlineConfig];  //在线参数配置
-    
     //    1.6.8之前的初始化方法
     //    [MobClick setDelegate:self reportPolicy:REALTIME];  //建议使用新方法
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onlineConfigCallBack:) name:UMOnlineConfigDidFinishedNotification object:nil];

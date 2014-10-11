@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" style="background: #f0f0f0;">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-touch-fullscreen" content="yes">
+	<title>搜索</title>
+	<link rel="stylesheet" href="css/base.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/color_variable.css" />
+</head>
+<body>
+	<div class="wrapper clearfix">
+		<div id="content">
+				<header class="overflow header">
+				<form method="get" action="searchValue.html" name="feedback" id="searForm" onsubmit="return check()" >
+					<input type="hidden" name="ostype" value="-1">
+					<span class="back" style="width: 18px;height: 18px;top: 10px;"></span>
+					<div class="search_box mt5 fl listsearch ml30">
+						<input type="search" placeholder="请输入关键字" name="s" class="seaInput" required maxlength="20" title="请输入关键字">
+						<input type="submit" class="btnsearches" value="">
+					</div>
+
+			    </form>
+				</header>
+				<div class="horizental">
+					<div class="search_result pt45">
+						<label for="dateInputs" id="showDate"></label>
+						<input type="month" id="dateInputs" />
+						<div class="resultDate mt10">
+							<p class="resultText">所有归档日期</p>
+							<div class="retult mt5">
+								<div class="retult_sign" id="storeDate">
+									<ul>
+
+									</ul>
+								</div>	
+							</div>		
+						</div>
+						<div class="resultP mt10">
+							<p class="resultText">所有标签</p>
+							<div class="retult mt5">
+								<div class="retult_sign" id="sign">
+									<ul>
+										
+									</ul>
+								</div>	
+							</div>		
+						</div>
+
+					</div>
+					
+				</div>
+			</div>
+
+	</div>
+
+	<script src="js/zepto.min.js"></script>
+	<script src="js/appinfo_variable.js"></script>	
+	<script src="js/common.js"></script>
+	<script src="js/searchList.js"></script>
+</body>
+</html>

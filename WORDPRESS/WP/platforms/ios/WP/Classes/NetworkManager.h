@@ -17,6 +17,6 @@ typedef void (^complectionBlock)(NSMutableURLRequest * request,NSMutableData * r
 @property (nonatomic,retain) __block NSMutableData * reciveMutableData;
 
 -(void)Url:(NSString *)path parasdic:(NSDictionary *)paras onSuccess:(successBlock)successBlock onError:(errorBlock)errorBlock onStart:(startBlock)startBlock onCompletion:(complectionBlock)complectionBlock;
-
++ (NSString *)URLEncoding:(NSString *)STRING;
 
 @end

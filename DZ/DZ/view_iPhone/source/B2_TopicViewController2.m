@@ -15,6 +15,8 @@
 
 @implementation B2_TopicViewController2
 DEF_SIGNAL(selectpost)
+DEF_NOTIFICATION(skiptosub)
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -28,7 +30,23 @@ DEF_SIGNAL(selectpost)
 {
     [self.tpclistModel removeObserver:self];
 }
-
+#pragma mark - 主题分类筛选
+ON_NOTIFICATION3(B1_ATopicViewController, catalogselect, notify)
+{
+    if (self.superdelegate.currentIndex == self.selfIndex) {
+        NSLog(@"当前视图 = %@ 筛选...",self.title);
+        NSNumber *typeid=(NSNumber *)notify.object;
+        if (typeid.integerValue > 0) {
+            self.tpclistModel.typeids = [NSString stringWithFormat:@"%@",typeid];
+        }
+        else
+        {
+            self.tpclistModel.typeids = @"";
+        }
+        [self startHeaderLoading];
+        [self refreshView];
+    }
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -43,12 +61,21 @@ DEF_SIGNAL(selectpost)
     self.tpclistModel.type=self.topic_type; 
     [self.tpclistModel loadCache];
     [self setFooterView];
+    NSString *notiid =self.superdelegate.catalogselect;// @"notify.B1_TopicMenuView.selectitem";
+    [self observeNotification:notiid];
+    
 }
 
 ON_SIGNAL3(TopiclistModel, RELOADED, signal)
 {
     [self.tableViewList reloadData];
     [self FinishedLoadData];
+    
+    if (self.selfIndex == TOPIC_TYPE_ALL) {
+        if (!self.tpclistModel.shots.count) {
+            [self postNotification:self.skiptosub];
+        }
+    }
 }
 
 ON_SIGNAL3(TopiclistModel, FAILED, signal)

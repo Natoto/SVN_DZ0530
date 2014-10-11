@@ -329,6 +329,14 @@
     }
 }
 
+-(void)selectItemView:(int)index
+{
+    index = index + 100;
+    UIButton *button = (UIButton *)[_topScrollView viewWithTag:index];
+    if (button) {
+        [self selectNameButton:button];
+    }
+}
 //传递滑动事件给下一层
 -(void)scrollHandlePan:(UIPanGestureRecognizer*) panParam
 {

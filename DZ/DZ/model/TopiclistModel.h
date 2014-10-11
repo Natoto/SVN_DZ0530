@@ -12,6 +12,7 @@
 @interface TopiclistModel : BeeStreamViewModel
 @property(nonatomic,retain)   NSString *        type;
 @property (nonatomic, retain) NSString *		fid;
+@property (nonatomic, retain) NSString *        typeids;
 @property (nonatomic, retain) NSMutableArray *	shots;
 @property(nonatomic,assign) BOOL end;
 @end

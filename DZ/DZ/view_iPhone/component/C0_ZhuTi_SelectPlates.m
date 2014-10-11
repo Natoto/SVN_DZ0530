@@ -10,6 +10,11 @@
 #import "ForumlistModel.h"
 #define ZHUTITAG 104303
 @implementation THTPS_SELECT
+
+@end
+
+@interface C0_ZhuTi_SelectPlates()
+@property (strong, nonatomic)  NSArray              * array;
 @end
 
 @implementation C0_ZhuTi_SelectPlates
@@ -56,9 +61,10 @@
     }
     return self;
 }
--(void)setArray:(NSArray *)array
+-(void)setDataDic:(NSDictionary *)dataDic
 {
-    _array = array;
+    _array = dataDic.allKeys;
+    _dataDic = dataDic;
     [self.locatePicker reloadAllComponents];
 }
 -(void)initSelection
@@ -91,8 +97,9 @@
         {
             NSString *aforums=[_array objectAtIndex:row];
             self.locate.threadtypesitem = aforums;
-            self.locate.typedid = [NSNumber numberWithInt:(row +1)];
-//            self.locate.athreadtypes = self.athreadtypes;
+            NSString *type =  [_dataDic objectForKey:aforums];
+            self.locate.typedid =[NSNumber numberWithInt:type.integerValue] ;
+
             break;
         }
         default:

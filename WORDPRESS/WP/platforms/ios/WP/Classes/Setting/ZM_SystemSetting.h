@@ -25,8 +25,7 @@
 
 @property (nonatomic, strong) NSString * idourl;
 @property (nonatomic, strong) NSString * idologurl;
-@property (nonatomic, strong) NSString * websiteurl;
-
+@property (nonatomic, strong) NSString * websiteurl; 
 @property (nonatomic, strong) NSString * appid;
 @property (nonatomic, strong) NSString * appname;
 @property (nonatomic, strong) NSString * appversion;

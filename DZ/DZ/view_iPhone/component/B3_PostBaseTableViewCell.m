@@ -42,8 +42,8 @@ const float below_margin_v = 10.0;
 @end
 @implementation B3_PostBaseTableViewCell
 
-DEF_NOTIFICATION(SUPPORT)
-DEF_SINGLETON(SUPPORT)
+//DEF_NOTIFICATION(SUPPORT)
+//DEF_SINGLETON(SUPPORT)
 
 
 @synthesize webcontentview;
@@ -730,6 +730,14 @@ DEF_SINGLETON(SUPPORT)
               [self.delegate B3_PostBaseTableViewCellDidFinishLoad:self frame:rect];
             }
         }
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(isTopicArtile:)]) {
+        BOOL topicart = [self.delegate isTopicArtile:self];
+        if (topicart) {
+            _btnsupport.frame = CGRectMake(self.centerX - 17.5, _btnreply.frame.origin.y - 10, _btnreply.frame.size.width, _btnreply.frame.size.height);
+            _lblsupport.frame = CGRectMake(self.centerX - 3, _btnreply.frame.origin.y + 15, _btnreply.frame.size.width, _btnreply.frame.size.height);
+        }
+    }
 }
 #pragma mark - rtlabel delegate
 -(void)rtLabel:(RCLabel *)rtLabel didSelectLinkWithURL:(NSString *)url
@@ -1022,7 +1030,20 @@ ON_SIGNAL3(BeeUIImageView, LOAD_COMPLETED, signal)
         if ([self.delegate respondsToSelector:@selector(lblfloorText:)]) {
             self.lblfloor.text =[self.delegate lblfloorText:self];
         }
+        [self.lblfloor sizeToFit];
+        self.lbllandlord.frame=CGRectMake(CGRectGetMaxX(self.lblfloor.frame), CGRectGetMinY(self.lblfloor.frame), 100, CGRectGetHeight(self.lblfloor.frame));
+        [self.lbllandlord sizeToFit];
+        //点赞
         
+        if (self.cellpost.support) {
+            _lblsupport.text = [NSString stringWithFormat:@"%@", self.cellpost.support];
+        }
+        if (self.cellpost.support != nil)
+            self.status = self.cellpost.status;
+        else
+        {
+            self.status = nil;
+        }
         NSString *timestr=@"";
         KT_DATEFROMSTRING(self.cellpost.postsdate, timestr);
         self.lbltime.text= [ToolsFunc datefromstring:self.cellpost.postsdate];
@@ -1036,10 +1057,9 @@ ON_SIGNAL3(BeeUIImageView, LOAD_COMPLETED, signal)
             }
             else if (type == FORMSELFDEFINE)
             {
-//                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [self loadselfdefinecontents:self.cellpost.content senddelegate:NO];
-                    loadcontentselector = @selector(loadselfdefinecontents:senddelegate:);
-//                });
+                [self loadselfdefinecontents:self.cellpost.content senddelegate:NO];
+                loadcontentselector = @selector(loadselfdefinecontents:senddelegate:);
+ 
             }
         }
     }
@@ -1078,13 +1098,13 @@ ON_SIGNAL3(BeeUIImageView, LOAD_COMPLETED, signal)
     }
     
     UILabel *louzhu=[[UILabel alloc] init];
-    KT_LABELEWIFRAM(louzhu, CGRectMake(45, originY + 15, 40, 20), @"", 12, [UIColor clearColor], [UIColor blackColor], NSTextAlignmentRight, NO);
+    KT_LABELEWIFRAM(louzhu, CGRectMake(50, originY + 15, 40, 20), @"", 12, [UIColor clearColor], [UIColor blackColor], NSTextAlignmentRight, NO);
     [_headerView addSubview:louzhu];
     louzhu.font = [UIFont systemFontOfSize:13];
     self.lblfloor = louzhu;
     
     self.lbllandlord=[[UILabel alloc] init];
-    KT_LABELEWIFRAM(self.lbllandlord, CGRectMake(85, originY + 15, 70, 20), @"", 12, [UIColor clearColor], [UIColor blackColor], NSTextAlignmentLeft, NO);
+    KT_LABELEWIFRAM(self.lbllandlord, CGRectMake(CGRectGetMaxX(_lblfloor.frame), originY + 15, 70, 20), @"", 12, [UIColor clearColor], [UIColor blackColor], NSTextAlignmentLeft, NO);
     self.lbllandlord.font = [UIFont systemFontOfSize:13];
     [_headerView addSubview:self.lbllandlord];
     
@@ -1139,6 +1159,9 @@ ON_SIGNAL3(BeeUIImageView, LOAD_COMPLETED, signal)
     _lblsupport = [[UILabel alloc] init];
     _lblsupport.font = [UIFont systemFontOfSize:12];
     _lblsupport.backgroundColor=[UIColor clearColor];
+    [self addSubview:_btnsupport];
+    [self addSubview:_lblsupport];
+    
 }
 
 -(void)headerviewTap
@@ -1172,57 +1195,51 @@ ON_SIGNAL3(BeeUIImageView, LOAD_COMPLETED, signal)
 
 - (void)supportBtnTapped:(id)sender
 {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(B3_PostBaseTableViewCell:supportBtnTapped:)]) {
-        [self.delegate B3_PostBaseTableViewCell:self supportBtnTapped:sender];
-    }
-    [B3_PostBaseTableViewCell sharedInstance].btnsupport = sender;
-    [B3_PostBaseTableViewCell sharedInstance].lblsupport = _lblsupport;
-//    isHeader = _isHeader;
-    support = [_support integerValue];
-    
-//    [self postNotification:self.SUPPORT];
-}
-
-- (void)setIsHeader:(BOOL)isHeader
-{
-    _isHeader = isHeader;
-    if (isHeader) {
-        _btnsupport.frame = CGRectMake(self.centerX - 17.5, _btnreply.frame.origin.y - 10, _btnreply.frame.size.width, _btnreply.frame.size.height);
-        _lblsupport.frame = CGRectMake(self.centerX - 3, _btnreply.frame.origin.y + 15, _btnreply.frame.size.width, _btnreply.frame.size.height);
-    }
-}
-
-- (void)setSupport:(NSNumber *)support
-{
-    _support = support;
-    if (support != nil) {
-        [self addSubview:_btnsupport];
-        [self addSubview:_lblsupport];
-        _lblsupport.text = [NSString stringWithFormat:@"%@", support];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(B3_PostBaseTableViewCell:supportbtn:support:)]) {
+        
+        [self.delegate B3_PostBaseTableViewCell:self supportbtn:sender support:self.status.integerValue];
     }
 }
 
 - (void)setStatus:(NSNumber *)status
 {
+    if (!status) {
+        _lblsupport.hidden = YES;
+        _btnsupport.hidden = YES;
+        return;
+    }
+    else
+    {
+        _lblsupport.hidden = NO;
+        _btnsupport.hidden = NO;
+    }
     _status = status;
-    if (status != nil) {
-        if (status.integerValue == 1) {
-            UIImage *weidingtieimage01=[UIImage bundleImageNamed:@"weidingtie(01)"];
-            UIImage *weidingtieimage = [UIImage bundleImageNamed:@"weidingtie"];
-            self.isHeader ? [_btnsupport setImage:weidingtieimage01 forState:UIControlStateNormal] : [_btnsupport setImage:weidingtieimage forState:UIControlStateNormal];
-        } else {
-            UIImage *weidingtieimage02=[UIImage bundleImageNamed:@"weidingtie(02)"];
-            UIImage *weidingtieimage = [UIImage bundleImageNamed:@"weidingtie"];
-            
-            self.isHeader ? [_btnsupport setImage:weidingtieimage02 forState:UIControlStateNormal] : [_btnsupport setImage:weidingtieimage forState:UIControlStateNormal];
+    cell_type = [self.delegate typeOfcell:self];
+    UIImage *weidingtieimage01=[UIImage bundleImageNamed:@"weidingtie(01)"];
+    UIImage *weidingtie = [UIImage bundleImageNamed:@"weidingtie"];
+    UIImage *dingtie = [UIImage bundleImageNamed:@"dingtie"];
+    UIImage *weidingtieimage02=[UIImage bundleImageNamed:@"weidingtie(02)"];
+    if (cell_type == CELL_MAINTOPIC) {
+        if (!_status.integerValue) {
+            [_btnsupport setImage:weidingtieimage02 forState:UIControlStateNormal];
         }
+        else
+            [_btnsupport setImage:weidingtieimage01 forState:UIControlStateNormal];
+    }
+    else if (cell_type == CELL_REPLYTOPIC)
+    {
+        if (!_status.integerValue) {
+            [_btnsupport setImage:dingtie forState:UIControlStateNormal];
+        }
+        else
+            [_btnsupport setImage:weidingtie forState:UIControlStateNormal];
     }
 }
 
-- (void)B3_PostBaseTableViewCell:(void (^)(id sender))obj;
-{
-    if (obj) obj(_btnsupport);
-}
+//- (void)B3_PostBaseTableViewCell:(void (^)(id sender))obj;
+//{
+//    if (obj) obj(_btnsupport);
+//}
 
 - (void)awakeFromNib
 {

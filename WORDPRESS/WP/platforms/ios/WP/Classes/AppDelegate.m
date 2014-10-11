@@ -123,7 +123,7 @@
     [headerFieldsDic setObject:[self appversion] forKey:@"appversion"];
     
     NSString *device =[self device];
-    if ( device) {
+    if (device) {
         [headerFieldsDic setObject:device forKey:@"device"];
     }
     NSString *ccid=[self ccid];
@@ -158,7 +158,17 @@
 
 -(NSString *)device
 {
-    return [OpenUDID value];
+    NSString* phoneVersion = [[UIDevice currentDevice] systemVersion];
+    NSLog(@"手机系统版本: %@", phoneVersion);
+    //手机型号
+    NSString  * phoneModel = [[UIDevice currentDevice] model];
+     NSString * localizedModel =[[UIDevice currentDevice] localizedModel];
+    NSLog(@"手机型号: %@%@ ",phoneModel,localizedModel);
+    
+    NSString * phonemodelversion=[NSString stringWithFormat:@"MODEL:%@ \nV.R:%@",phoneModel,phoneVersion];
+//    phonemodelversion = [NetworkManager URLEncoding:phonemodelversion];
+    return  phonemodelversion;
+//    return [OpenUDID value];
 }
 
 -(NSString *)ostype
@@ -178,7 +188,11 @@
 }
 -(NSString *)imei
 {
-    return [UIDevice currentDevice].imei;
+    NSString *imei1= [UIDevice currentDevice].imei;
+    if (!imei1) {
+        imei1 = [OpenUDID value];
+    }
+    return imei1;
 }
 
 -(NSString *)mei
@@ -261,6 +275,7 @@
         [self exitApplication];
     }
 }
+
 - (void)exitApplication {
     
     [UIView beginAnimations:@"exitApplication" context:nil];

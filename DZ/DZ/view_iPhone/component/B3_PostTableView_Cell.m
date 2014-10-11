@@ -81,13 +81,13 @@
     }
 }
 
-- (void)B3_PostBaseTableViewCell:(B3_PostBaseTableViewCell *)cell supportBtnTapped:(id)sender
-{
-    if (self.delegate && [self.delegate respondsToSelector:@selector(B3_CellSupportBtnTapped:)]) {
-//        [self.delegate performSelector:@selector(B3_CellSupportBtnTapped:) withObject:self];
-        [self.delegate B3_CellSupportBtnTapped:self];
-    }
-}
+//- (void)B3_PostBaseTableViewCell:(B3_PostBaseTableViewCell *)cell supportBtnTapped:(id)sender
+//{
+//    if (self.delegate && [self.delegate respondsToSelector:@selector(B3_CellSupportBtnTapped:)]) {
+////        [self.delegate performSelector:@selector(B3_CellSupportBtnTapped:) withObject:self];
+//        [self.delegate B3_CellSupportBtnTapped:self];
+//    }
+//}
 
 -(TYPETOSHOWCONTENT)typeToshowContent:(B3_PostBaseTableViewCell *)cell
 {
@@ -131,6 +131,13 @@
         [self.delegate B3_CellHeaderViewTapped:self];
     }
 }
+
+-(void)B3_PostBaseTableViewCell:(B3_PostBaseTableViewCell *)cell supportbtn:(id)sender support:(BOOL)support
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(B3_Cell:supportbtn:support:)]) {
+        [self.delegate B3_Cell:self supportbtn:sender support:support];
+    }
+}
 -(BOOL)canBecomeFirstResponder
 {
     return YES;
@@ -143,6 +150,7 @@
 
 -(void)reloadsubviews
 {
+    
     [headerpostcell reloadsubviews];
 }
 
@@ -173,9 +181,9 @@
     headerpostcell.status = status;
 }
 
-- (void)B3_PostTableView_Cell:(void (^)(id sender))obj
-{
-    [headerpostcell B3_PostBaseTableViewCell:obj];
-}
+//- (void)B3_PostTableView_Cell:(void (^)(id sender))obj
+//{
+//    [headerpostcell B3_PostBaseTableViewCell:obj];
+//}
 
 @end

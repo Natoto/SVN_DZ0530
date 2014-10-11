@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" style="background: #f0f0f0;">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-touch-fullscreen" content="yes">
+	<title>详情</title>
+	<link rel="stylesheet" href="css/base.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/color_variable.css" />
+	
+</head>
+<body>
+	<div class="wrapper clearfix">
+		<!-- 正文 -->
+		<div id="content" style="padding-bottom: 50px;">
+			
+			
+
+			
+		</div>
+	</div>
+<!-- 分享菜单 -->
+
+<div id="shareMenu" style='display:none;'>
+	
+	<ul class="clearfix">
+		<li>
+			<a href="#">
+				<img src="images/weixinicon.png" alt="" width="45">
+				<p>微信好友</p>
+			</a>
+		</li>
+
+		<li>
+			<a href="#">
+				<img src="images/friends.png" alt="" width="45">
+				<p>微信朋友圈</p>
+			</a>
+		</li>
+
+		<li>
+			<a href="#">
+				<img src="images/tecent.png" alt="" width="45">
+				<p>腾讯微博</p>
+			</a>
+		</li>
+
+		<li>
+			<a href="#">
+				<img src="images/sinablog.png" alt="" width="45">
+				<p>新浪微博</p>
+			</a>
+		</li>
+	</ul>
+</div>
+	<!-- 设置菜单 -->
+	<div id="setMenu" style="display:none;">
+		<ul class="settingwrap " id="block2">
+
+			<li class="clearfix">
+				<span class="fl">字体大小</span>
+				<div class="fr f666 mr5 fontsize">
+					<span class="small on">小</span>	
+					<span class="mid">中</span>
+					<span class="large">大</span>
+				</div>
+			</li>
+
+			
+			<li class="clearfix">
+				<span class="fl">夜间模式</span>
+				<div class="radio fr ">
+					<input type="checkbox">
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div id="bottomMenu">
+		<span class="backStep">返回</span>
+		<!-- <span class="share"></span> -->
+		<span class="stars">0</span>
+		<a href="#" class="comm inline-block" data-num="10"></a>
+		<span class="pmenu"></span>
+	</div>
+	<!-- 刷新图标 -->
+	<div id="rightMenu">
+		<span class="refreshIcon">刷新</span>
+	</div>
+</body>
+<script src="js/zepto.min.js"></script>
+	<script src="js/appinfo_variable.js"></script>
+	<script src="js/common.js"></script>
+	<script src="js/content.js"></script>
+	<script src="../cordova.js"></script>
+		<script type="text/javascript">
+	 if(typeof(hy) != 'undefined' && hy == 1) {
+			document.addEventListener("deviceready", onDeviceReady, false);
+			function onDeviceReady() {
+				 
+					deviceid = device.uuid;
+                   // alert(deviceid);
+					getArtileComment();
+			 
+		}
+	}
+	else {
+			deviceid = window.location.host;
+			getArtileComment();
+	}
+			
+
+	</script>
+	
+	<script>
+
+		var target={};
+		target.id='';
+
+		$(function()
+		{
+
+			//夜间模式
+			// console.log(sessionStorage.getItem('night')==1);
+			if(sessionStorage.getItem('night')==1)
+			{
+				$('<link>').attr({'href':'css/night.css','id':'nightcss','rel':'stylesheet'}).appendTo('head');
+				$('.radio').addClass('on');
+			}
+			else
+			{
+				$('#content').css('background','#fff');
+				$('#nightcss').remove();
+				$('.radio').removeClass('on');
+			}
+
+
+
+			$('.radio').click(function()
+			{
+				var _this = $(this);
+				_this.toggleClass('on');
+				if(_this.hasClass('on'))
+				{
+					sessionStorage.setItem('night',1);
+					location.reload();
+				}
+				else
+				{
+					sessionStorage.setItem('night',0);
+					location.reload();
+				}
+					
+			});
+			//默认字体大小为'中'
+			if(sessionStorage.getItem('fontSize')==null)
+			{
+				sessionStorage.setItem('fontSize','16px')
+				$('.fontsize span').eq(1).addClass('on').siblings().removeClass('on');
+			}
+
+			if(sessionStorage.getItem('fontSize'))
+			{
+				if(sessionStorage.getItem('fontSize')=='16px')
+				{
+					$('.fontsize span').eq(1).addClass('on').siblings().removeClass('on');
+					$('<link>').attr({'href':'css/middle.css','id':'middle','rel':'stylesheet'}).appendTo('head');
+				}
+				else if(sessionStorage.getItem('fontSize')=='18px')
+				{
+					$('.fontsize span').eq(2).addClass('on').siblings().removeClass('on');
+					$('<link>').attr({'href':'css/large.css','id':'large','rel':'stylesheet'}).appendTo('head');
+				}
+			}
+
+			$('.comm').click(function() //把之前保存的对谁说的session清除
+			{
+				if(sessionStorage.getItem('to')!=null)
+				{
+					sessionStorage.setItem(null);
+				}
+			})	
+
+			$('.fontsize span').click(function()
+			{
+				var _this = $(this),
+					index = _this.index();
+				$('.fontsize span').removeClass('on');
+				_this.toggleClass('on');
+
+				if(index==0)
+					sessionStorage.setItem("fontSize", "14px")
+				else if(index==1)
+					sessionStorage.setItem("fontSize", "16px")
+				else
+					sessionStorage.setItem("fontSize", "18px")
+
+				location.reload();
+
+			});
+
+			//弹出设置菜单
+
+			$('.pmenu').click(function()
+			{
+				if($('#shareMenu').css('display')=='block')
+				{
+					$('#shareMenu').hide();	
+					$('.share').removeClass('on');
+				}
+				popMenu($('#setMenu'));
+				$(this).toggleClass('on');
+			})
+
+			// 分享菜单
+			$('.share').click(function()
+			{
+				if($('#setMenu').css('display')=='block')
+				{
+					$('#setMenu').hide();	
+					$('.pmenu').removeClass('on');
+				}
+
+				var _this = $(this);
+				popMenu($('#shareMenu'));
+				$(this).toggleClass('on');
+
+			});
+
+			
+
+			
+
+		})
+
+		function popMenu(thing)
+		{
+			var _maskLayer = $('.maskLayer');
+			// console.log('target id: '+target[0].id+'thing id: '+thing[0].id);
+			if(_maskLayer.css('display')=='block' && target[0].id==thing[0].id)
+				_maskLayer.hide();
+			else
+			{
+				if(_maskLayer.length)
+				{
+					_maskLayer.show();
+				}
+				else
+				{
+					$('body').append('<div class="maskLayer" style="position:fixed;top:0;width:100%;background:rgba(0,0,0,.5);height:'+$(window).height()+'px;z-index:10;"></div>');
+
+					_maskLayer = $('.maskLayer');
+				}
+			}
+
+			_maskLayer.click(function()
+			{
+				thing.hide();
+				_maskLayer.hide();
+				$('.pmenu').removeClass('on')
+
+			});	
+
+			thing.toggle();
+			target=thing;
+		}
+
+	</script>
+</html>

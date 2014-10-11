@@ -100,6 +100,11 @@
     return label;
 }
 
+-(float)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 30.0;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *name = [ServerConfig sharedInstance].aboutUsLeftArray[indexPath.row];
@@ -132,15 +137,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

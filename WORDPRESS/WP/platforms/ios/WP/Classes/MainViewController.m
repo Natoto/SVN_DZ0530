@@ -40,9 +40,9 @@
 {
     self = [super init];
     if (self) {
-        self.wwwFolderName = @"";//@"www";
+        self.wwwFolderName =@"";//  @"www/wp";
         self.zm_syssetting =[ZM_SystemSetting sharedInstance];
-        self.startPage = self.zm_syssetting.websiteurl;
+        self.startPage =@"www/wp/index.html";// self.zm_syssetting.websiteurl;
     }
     return self;
 }

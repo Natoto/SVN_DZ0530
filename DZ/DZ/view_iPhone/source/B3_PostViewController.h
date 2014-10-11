@@ -19,10 +19,6 @@
 
 @class FaceBoard;
 @class MaskView;
-
-BOOL isHeader;
-NSInteger support;
-
 @interface B3_PostViewController : Base_TableviewController <UITableViewDelegate, UITableViewDataSource, B3_PostTableView_HeadCellDelegate, B3_PostTableView_CellDelegate, UITextViewDelegate>
 {
     float              headercellheight; 
@@ -47,6 +43,7 @@ NSInteger support;
 @property (nonatomic, strong) collectModel *collectModel;
 @property (nonatomic, strong) delcollectionModel *delcollectionModel;
 @property (nonatomic, strong) SupportModel *supportModel;
+@property (nonatomic, strong) NSIndexPath  *currentIndexPath;
 //@property (nonatomic, strong) B3_PostBaseTableViewCell *astatus;
 @property (nonatomic, assign) BOOL isSelected;
 

@@ -23,8 +23,7 @@
 @class A0_HomePage1_iphone;
 
 @interface B0_ForumPlates_iphone : Board_BaseTableViewCTR <UITableViewDataSource, UITableViewDelegate>
-{
-//    EGORefreshTableHeaderView * _refreshHeaderView;
+{ 
 	BOOL _reloading;
 }
 

@@ -84,7 +84,8 @@
 	api.fid = self.fid;
 	api.req.page = @(page);
 	api.req.per_page = @(PER_PAGE);
-	
+	api.typeids = self.typeids;
+    
 	api.whenUpdate = ^
 	{
 		@normalize(api);
@@ -98,11 +99,13 @@
 		{
 			if ( api.succeed )
 			{
-				if ( nil == api.topics)
-				{
-					api.failed = YES;
-				}
-				else
+                
+                if ( nil == api.topics || api.topics.ecode.integerValue)
+                {
+                    api.failed = YES;
+                    [self sendUISignal:self.FAILED withObject:api.topics.emsg];
+                }
+                else
 				{
 					if ( page <= 1 )
 					{
@@ -112,16 +115,14 @@
 					else
 					{
 						[self.shots addObjectsFromArray:api.topics.topics];
-//						[self.shots unique:^NSComparisonResult(id left, id right) {
-//							return [((topics *)left).fid compare:((topics *)right).fid];
-//						}];
 					}
                     BeeLog(@"page =%d api.topics.isEnd = %d",page,api.topics.isEnd);
 					self.end = api.topics.isEnd.boolValue; //(self.shots.count >= api.resp.total.intValue) ? NO : YES;;
 					self.loaded = YES;
 					[self saveCache];
+                    [self sendUISignal:self.RELOADED];
 				}
-                [self sendUISignal:self.RELOADED];
+                
 			}
             else
             {
@@ -132,6 +133,5 @@
 	
 	[api send];
 }
-
 
 @end

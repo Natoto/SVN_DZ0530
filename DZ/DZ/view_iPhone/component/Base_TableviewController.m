@@ -10,6 +10,7 @@
 #import "bee.h"
 #import "Bee_UIActivityIndicatorView.h"
 #import "MJRefresh.h"
+#import "MobClick.h"
 @interface Base_TableviewController ()
 
 @end
@@ -37,8 +38,15 @@
     }
 }
 
--(void)viewDidAppear:(BOOL)animated
-{ 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:self.title];
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick endLogPageView:self.title];
 }
 - (void)viewDidLoad
 {
@@ -184,6 +192,10 @@
     
 }
 
+-(void)startHeaderLoading
+{
+    [self.tableViewList headerBeginRefreshing];
+}
 -(void)FinishedLoadData
 {
     [self.tableViewList headerEndRefreshing];

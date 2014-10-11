@@ -57,7 +57,7 @@
 #pragma mark utilities
 - (NSString*)encodeURL:(NSString *)string
 {
-	NSString * temp = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)string, NULL, CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding([self stringEncoding])));
+	NSString * temp = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)string, NULL, CFSTR(".:/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding([self stringEncoding])));
 	NSString * str = [NSString stringWithString:temp];
 	return str;
 }
@@ -95,10 +95,19 @@
     return result;
 }
 
++ (NSString *)URLEncoding:(NSString *)STRING
+{
+	NSString * result = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes( kCFAllocatorDefault,
+																			(CFStringRef)STRING,
+																			NULL,
+																			(CFStringRef)@"!*'();:@&=+$,/?%#[]",
+																			kCFStringEncodingUTF8 ));
+	return result;
+}
+
 -(void)Url:(NSString *)path parasdic:(NSDictionary *)paras  onSuccess:(successBlock)successBlock onError:(errorBlock)errorBlock onStart:(startBlock)startBlock onCompletion:(complectionBlock)complectionBlock
 {
-    [self StartUrl:path paradic:paras];
-    
+    [self StartUrl:path paradic:paras];    
     NSHTTPURLResponse * __block httpses = httpResponse;
     self.successblock = ^(NSMutableURLRequest * request,NSMutableData * reciveData){
         if (httpses.statusCode == 200)

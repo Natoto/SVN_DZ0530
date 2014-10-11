@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" style="background: #f0f0f0;">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-touch-fullscreen" content="yes">
+	<title>我的收藏</title>
+	<link rel="stylesheet" href="css/base.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/color_variable.css" />
+</head>
+<body oncontextmenu="return false">
+
+	<div class="wrapper clearfix" id="mystore">
+		<div id="content">
+				<div id="home_head">
+					<span class="back">返回</span>
+					<div class="topTitle">我的收藏</div>
+				</div>
+				<div class="horizental" id="mystore">
+					<div class="search_result pt45 aList">
+						<div class="retult innerScroll">
+							
+						</div>		
+					</div>
+					
+				</div>
+			</div>
+	<div class="loadingDiv" style="display: none;">
+		<img src="images/loading.gif" alt="">
+		<span>加载后十条...</span>
+	</div>
+	</div>
+	<script src="js/zepto.min.js"></script>
+	<script src="js/appinfo_variable.js"></script>	
+	<script src="js/common.js"></script>
+	<script src="js/touch.js"></script>
+	<script src="js/myStore.js"></script>
+	<script>
+
+		var target;
+		$(function()
+		{
+
+			$('#mystore .list_item').longTap(function(e)
+			{
+				target = $(this);
+				e.preventDefault();
+				e.stopPropagation();
+
+				//document.documentElement.style.webkitTouchCallout = "none"
+				//document.documentElement.style.webkitUserSelect='none'; 
+				_this = $(this);
+
+				$('.popMenu').hide();
+				$('#mystore .list_item').removeClass('grayBg');
+				$(this).addClass('grayBg');
+				_this.find('.popMenu').length==0 && (function()
+				{
+					_this.append('<div class="popMenu"><span class="cancel2">取消</span><span class="del">删除</span></div>');
+				}())
+
+				_this.find('.popMenu').length>0 && $('.popMenu',_this).show();
+
+				$('.cancel2',_this).click(function()
+				{
+					_this.removeClass('grayBg').find('.popMenu').hide();
+				})
+
+				$('.del',_this).click(function()
+				{
+					
+					$.ajax({ 
+
+							url:address+'/status.php?action=delfavorites&ostype=-1&ip='+ip+'&aid='+target.find('a').attr('href').split('?')[1].split('=')[1],
+							type:'post',
+							async:false,
+							success:function(data)
+							{
+								var json = JSON.parse(data);
+								console.log(json);
+								if(json.emsg=='')
+								{
+									alert('删除成功');
+									location.reload();
+								}
+									
+							}
+					})
+				})
+
+				return false;
+
+			})
+
+		})
+
+	</script>
+</body>
+</html>

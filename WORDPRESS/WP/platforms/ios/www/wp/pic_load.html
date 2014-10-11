@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" style="background: #f0f0f0;">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-touch-fullscreen" content="yes">
+	<title>图片加载</title>
+	<link rel="stylesheet" href="css/base.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/color_variable.css" />
+	<script src="js/zepto.min.js"></script>
+	<script>
+		$(function()
+		{
+			$('.checkbox').click(function()
+			{
+				var _this = $(this);
+
+				$('.checkbox').removeClass('on');
+				_this.toggleClass('on');
+			})
+		})
+	</script>
+</head>
+<body>
+	<div class="wrapper clearfix">
+		<!-- 正文 -->
+		<div id="content">
+			<div id="home_head">
+				<span class="back">返回</span>
+				<div class="topTitle"> 图片加载</div>
+			</div>
+			<div class="pt40"></div>
+			
+			<div id="imgLoading" class="mt10">
+				<div class="loadingList">
+					<ul>
+						<li class="">
+							<span class="fl">仅Wifi下</span>
+							<span class="checkbox fr">
+								<input type="radio" name="loadType">
+							</span>
+						</li>
+						<li class="">
+							<span class="fl">全部网络下</span>
+							<span class="checkbox fr">
+								<input type="radio" name="loadType">
+							</span>
+						</li>
+
+						<li class="">
+							<span class="fl">都不加载</span>
+							<span class="checkbox fr">
+								<input type="radio" name="loadType">
+							</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>

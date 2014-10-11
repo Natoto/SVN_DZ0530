@@ -11,21 +11,20 @@
 #import "TopiclistModel.h"
 #import "B2_SearchViewController.h"
 #import "B1_TopicMenuView.h"
+#import "ThreadtypeModel.h"
+
 @interface B1_ATopicViewController () <B2_TopicViewControllerDelegate>
 @property (nonatomic,retain) B1_TopicMenuView * topicmenuView;
 @property (nonatomic,retain) NSArray *array;
 @property (nonatomic,retain) NSArray *sections;
 @property (nonatomic,retain) UITableView *list;
+@property (nonatomic,retain) ThreadtypeModel * threadModel;
 @end
 
 @implementation B1_ATopicViewController
-
+DEF_NOTIFICATION(catalogselect)
 #pragma mark -
 
-//ON_LEFT_BUTTON_TOUCHED( signal )
-//{
-//    [self.stack popBoardAnimated:YES];
-//}
 
 #pragma mark - BeeFramework Macro
 
@@ -39,13 +38,29 @@
 
 ON_RIGHT_BUTTON_TOUCHED(signal)
 {
-#warning 需要添加主题分类筛选
-    self.topicmenuView.items =[NSDictionary dictionaryWithObjectsAndKeys:@"-1",@"全部",@"0",@"吐槽",@"1",@"潜水",@"2",@"冒泡", nil];
+//#warning 需要添加主题分类筛选
+    self.topicmenuView.items =self.threadtypesDic;
+    //[NSDictionary dictionaryWithObjectsAndKeys:@"-1",@"全部",@"0",@"吐槽",@"1",@"潜水",@"2",@"冒泡", nil];
     [self.topicmenuView show];
-    
 //    BeeLog(@"搜索------");
 //    B2_SearchViewController *searchctr=[[B2_SearchViewController alloc] init];
 //    [self.navigationController pushViewController:searchctr animated:YES];
+}
+#pragma mark - 主题分类筛选
+ON_NOTIFICATION3(B1_TopicMenuView, selectitem, notify)
+{
+    int index = 0;
+    self.currentIndex = index;
+    [self.slideSwitchView selectItemView:index];
+    [self postNotification:self.catalogselect withObject:notify.object];
+}
+
+ON_NOTIFICATION3(B2_TopicViewController2, skiptosub, notify)
+{
+    if (_haveSubForums) {
+        self.currentIndex = TOPIC_TYPE_SUBTOPIC;
+        [self.slideSwitchView selectItemView:TOPIC_TYPE_SUBTOPIC];
+    }
 }
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -54,6 +69,34 @@ ON_RIGHT_BUTTON_TOUCHED(signal)
         // Custom initialization
     }
     return self;
+}
+
+#pragma mark  - 设置主题
+-(void)setThreadtypes:(NSArray *)threadtypes
+{
+    if (threadtypes.count) {
+        if (!_threadtypesDic) {
+            _threadtypesDic = [[NSMutableDictionary alloc] initWithCapacity:0];
+        }
+        for (int index = 0; index < threadtypes.count; index ++) {
+            threadtype  *athreaddic=[threadtypes objectAtIndex:index];
+            NSString *count = athreaddic.count; //[athreaddic valueForKey:@"count"];
+            NSString *value = athreaddic.name; //[athreaddic valueForKey:@"value"];
+            NSString *key = [NSString stringWithFormat:@"%@",athreaddic.id];//[athreaddic valueForKey:@"key"];
+            value = [value stringByAppendingFormat:@"(%@)",count];
+            [_threadtypesDic setObject:key forKey:value];
+        }
+        [_threadtypesDic setObject:@"-1" forKey:@"全部"];
+        if (!_threadtypes) {
+            _threadtypes = [NSMutableArray arrayWithCapacity:0];
+            [_threadtypes addUniqueObject:@"全部" compare:^NSComparisonResult(id left, id right) {
+             return [((NSString *)left) compare:((NSString *)right)];
+            }];
+            _threadtypes =(NSMutableArray *)[_threadtypes arrayByAddingObjectsFromArray:_threadtypesDic.allKeys];
+        }
+        [BeeUINavigationBar setButtonSize:CGSizeMake(30, 30)];
+        [self showBarButton:BeeUINavigationBar.RIGHT image:[UIImage bundleImageNamed:@"fenglei"]];
+    }
 }
 
 -(void)initSVscrollview
@@ -76,13 +119,17 @@ ON_RIGHT_BUTTON_TOUCHED(signal)
    
      self.slideSwitchView.shadowImage = [image imageWithTintColor:color];
     self.vc3 = [[B2_TopicViewController2 alloc] init];
-    self.vc3.topic_type=@"1";
+    self.vc3.topic_type=TOPIC_TYPESTR(TOPIC_TYPE_DEGIST);// @"1";
+    self.vc3.selfIndex = TOPIC_TYPE_DEGIST;
+    self.vc3.superdelegate = self;
     self.vc3.topicvcdelegate=self;
     self.vc3.forum_fid=self.forum_fid;
     self.vc3.title = @"精华";
     
     self.vc4 = [[B2_TopicViewController2 alloc] init];
-    self.vc4.topic_type=@"2";
+    self.vc4.topic_type=TOPIC_TYPESTR(TOPIC_TYPE_TOP);//@"2";
+    self.vc4.selfIndex = TOPIC_TYPE_TOP;
+    self.vc4.superdelegate = self;
     self.vc4.topicvcdelegate=self;
     self.vc4.forum_fid=self.forum_fid;
     self.vc4.title = @"置顶";
@@ -93,12 +140,17 @@ ON_RIGHT_BUTTON_TOUCHED(signal)
     self.vc5.childAry=self.childAry;
     
     self.vc1 = [[B2_TopicViewController2 alloc] init];
-    self.vc1.topic_type = @"0";
-    self.vc1.forum_fid = self.forum_fid;self.vc1.title = @"全部";
+    self.vc1.topic_type = TOPIC_TYPESTR(TOPIC_TYPE_ALL); //@"0";
+    self.vc1.selfIndex = TOPIC_TYPE_ALL;
+    self.vc1.superdelegate = self;
+    self.vc1.forum_fid = self.forum_fid;
+    self.vc1.title = @"全部";
     self.vc1.topicvcdelegate = self;
     
     self.vc2 =[[B2_TopicViewController2 alloc] init];
-    self.vc2.topic_type=@"3";
+    self.vc2.topic_type= TOPIC_TYPESTR(TOPIC_TYPE_HOT);//@"3";
+    self.vc2.selfIndex = TOPIC_TYPE_HOT;
+    self.vc2.superdelegate = self;
     self.vc2.forum_fid=self.forum_fid;
     self.vc2.title = @"热帖";
     self.vc2.topicvcdelegate=self;
@@ -106,8 +158,8 @@ ON_RIGHT_BUTTON_TOUCHED(signal)
 //    self.vc6 = [[QCListViewController alloc] init];
 //    self.vc6.title = @"清幽Saup";
     UIButton *rightSideButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [rightSideButton setImage:[UIImage bundleImageNamed:@"icon_rightarrow.png"] forState:UIControlStateNormal];
-    [rightSideButton setImage:[UIImage bundleImageNamed:@"icon_rightarrow.png"]  forState:UIControlStateHighlighted];
+    [rightSideButton setImage:[UIImage imageNamed:@"icon_rightarrow.png"] forState:UIControlStateNormal];
+    [rightSideButton setImage:[UIImage imageNamed:@"icon_rightarrow.png"]  forState:UIControlStateHighlighted];
     rightSideButton.frame = CGRectMake(0, 0, 20.0f, 44.0f);
     rightSideButton.userInteractionEnabled = NO;
     self.slideSwitchView.rigthSideButton = rightSideButton;
@@ -118,13 +170,39 @@ ON_RIGHT_BUTTON_TOUCHED(signal)
 {
     [super viewDidLoad];
     [self initSVscrollview];
-    [BeeUINavigationBar setButtonSize:CGSizeMake(30, 30)];
-//    [self showBarButton:BeeUINavigationBar.RIGHT image:[UIImage bundleImageNamed:@"sousuo.jpg"]];
-    [self showBarButton:BeeUINavigationBar.RIGHT image:[UIImage bundleImageNamed:@"fenglei"]];
     self.navigationBarShown=YES;
     self.view.backgroundColor=[UIColor whiteColor];
+    NSString *notiid =[B1_TopicMenuView sharedInstance].selectitem;// @"notify.B1_TopicMenuView.selectitem";
+    [self observeNotification:notiid];
+    [self observeNotification:@"notify.B2_TopicViewController2.skiptosub"];
+    
 }
 
+ON_SIGNAL3(ThreadtypeModel, RELOADED, signal)
+{
+    [self loadthreadtypes];
+}
+ON_SIGNAL3(ThreadtypeModel, FAILED, signal)
+{
+    [self loadthreadtypes];
+}
+-(void)loadthreadtypes
+{
+    if (self.threadModel.shots.count) {
+        [self setThreadtypes:self.threadModel.shots];
+        NSLog(@"%@",self.threadModel.shots);
+    }
+}
+-(void)setForum_fid:(NSString *)forum_fid
+{
+    _forum_fid = forum_fid;
+    if (!_threadModel) {
+        self.threadModel = [ThreadtypeModel modelWithObserver:self];
+    }
+    self.threadModel.fid = _forum_fid;
+    [self.threadModel loadCache];
+    [self.threadModel firstPage];
+}
 - (void)viewWillAppear:(BOOL)animated
 {
     [bee.ui.appBoard hideTabbar];
@@ -151,6 +229,7 @@ ON_RIGHT_BUTTON_TOUCHED(signal)
         [self.navigationController pushViewController:board animated:YES];
     }
 }
+
 - (void)setHaveSubForums:(BOOL)haveSubForums
 {
     _haveSubForums = haveSubForums;
@@ -167,15 +246,20 @@ ON_RIGHT_BUTTON_TOUCHED(signal)
 - (UIViewController *)slideSwitchView:(QCSlideSwitchView *)view viewOfTab:(NSUInteger)number
 {
     if (number == 0) {
+        self.currentIndex = self.vc1.selfIndex;
         return self.vc1;
     } else if (number == 1) {
+        self.currentIndex = self.vc2.selfIndex;
         return self.vc2;
     } else if (number == 2) {
+        self.currentIndex = self.vc3.selfIndex;
         return self.vc3;
     } else if (number == 3) {
+        self.currentIndex = self.vc4.selfIndex;
          self.slideSwitchView.rigthSideButton.hidden=YES;
         return self.vc4;
     } else if (number == 4) {
+//        self.currentIndex = self.vc5.selfIndex;
        self.slideSwitchView.rigthSideButton.hidden=NO;
         return self.vc5;
     }
@@ -191,23 +275,28 @@ ON_RIGHT_BUTTON_TOUCHED(signal)
 //    [drawerController panGestureCallback:panParam];
 }
 
+
 - (void)slideSwitchView:(QCSlideSwitchView *)view didselectTab:(NSUInteger)number
 {
     if (number == 0) {
         B2_TopicViewController2 *vc = nil;
         vc = self.vc1;
+        self.currentIndex = vc.selfIndex;
         [vc viewDidCurrentView];
     } else if (number == 1) {
         B2_TopicViewController2 *vc = nil;
         vc = self.vc2;
+        self.currentIndex = vc.selfIndex;
         [vc viewDidCurrentView];
     } else if (number == 2) {
         B2_TopicViewController2 *vc = nil;
         vc = self.vc3;
+        self.currentIndex = vc.selfIndex;
         [vc viewDidCurrentView];
     } else if (number == 3) {
         B2_TopicViewController2 *vc = nil;
         vc = self.vc4;
+        self.currentIndex = vc.selfIndex;
         [vc viewDidCurrentView];
     } else if (number == 4) {
         B2_QCListViewController *vc=nil;

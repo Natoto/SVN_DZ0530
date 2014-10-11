@@ -20,7 +20,8 @@
 @property (strong, nonatomic)  UILabel               * titlelabel;
 @property (strong, nonatomic)  UIPickerView          * locatePicker;
 //@property (strong, nonatomic)  threadtypes          * athreadtypes;
-@property (strong, nonatomic)  NSArray              * array;
+
+@property (strong, nonatomic)  NSDictionary         * dataDic;
 @property (strong, nonatomic)  THTPS_SELECT         * locate;
 //@property (nonatomic,assign)   BOOL                   show;
 //@property (strong,nonatomic)   NSString             * basefid;
