@@ -240,28 +240,28 @@ DEF_SINGLETON(DZ_SystemSetting)
                     if ([[element name] isEqualToString:@"navigationbar"])
                     {
                         [item setObject:[[element childAtIndex:i] stringValue] forKey:[[element childAtIndex:i] name]];
-                        NSLog(@"1--%@", [[element childAtIndex:i] stringValue] );
+                       BeeLog(@"1--%@", [[element childAtIndex:i] stringValue] );
                     }
                     if ([[element name] isEqualToString:@"tabbar"])
                     {
                         [item setObject:[[element childAtIndex:i] stringValue] forKey:[[element childAtIndex:i] name]];
-                        NSLog(@"2--%@", [[element childAtIndex:i] stringValue] );
+                       BeeLog(@"2--%@", [[element childAtIndex:i] stringValue] );
                     }
                     if ([[element name] isEqualToString:@"aboutus"])
                     {
                         [item setObject:[[element childAtIndex:i] stringValue] forKey:[[element childAtIndex:i] name]];
-                        NSLog(@"2--%@", [[element childAtIndex:i] stringValue] );
+                       BeeLog(@"2--%@", [[element childAtIndex:i] stringValue] );
                     }
                 }
                     [item setObject:[[element childAtIndex:i] stringValue] forKey:[[element childAtIndex:i] name]];
-                    NSLog(@"3--%@", [[element childAtIndex:i] stringValue] );
+                   BeeLog(@"3--%@", [[element childAtIndex:i] stringValue] );
             }
             if (item) {
                 [nodeitem setObject:item forKey:[element name]];
             }
         }
     }
-    NSLog(@"%@", nodeitem);
+   BeeLog(@"%@", nodeitem);
     return nodeitem;
 }
 
@@ -282,7 +282,7 @@ DEF_SINGLETON(DZ_SystemSetting)
                     [item setObject:[[element childAtIndex:i] stringValue]
                              forKey:[[element childAtIndex:i] name]
                      ];
-                    NSLog(@"%@", [[element childAtIndex:i] stringValue]);
+                   BeeLog(@"%@", [[element childAtIndex:i] stringValue]);
                 }
             }
             //NSLog(@"%@", item);
@@ -302,7 +302,7 @@ DEF_SINGLETON(DZ_SystemSetting)
                     [item setObject:[[element childAtIndex:i] stringValue]
                              forKey:[[element childAtIndex:i] name]
                      ];
-                    NSLog(@"%@", [[element childAtIndex:i] stringValue]);
+                   BeeLog(@"%@", [[element childAtIndex:i] stringValue]);
                 }
             }
             //NSLog(@"%@", item);

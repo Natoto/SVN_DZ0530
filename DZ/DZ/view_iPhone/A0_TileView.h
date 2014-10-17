@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "Bee.h"
-#define kTileWidth  145.f
-#define kTileHeight 137.f  //kTileWidth
+#define kTileWidth  (CGRectGetWidth([UIScreen mainScreen].bounds) -30)/2
+#define kTileHeight kTileWidth
+//137.f  //
 @class A0_TileView;
 @class HOME2TOPICSPOSITIONITEM;
 @protocol TileViewCloseBtnTapDelegate <NSObject>

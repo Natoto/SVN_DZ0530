@@ -7,7 +7,7 @@
 //
 
 #import "B4_MoreOperationViewController.h"
-
+#import "bee.h"
 @interface B4_MoreOperationViewController ()<UIWebViewDelegate,UIGestureRecognizerDelegate>
 
 @end
@@ -58,10 +58,9 @@
 -(UIWebView *)webview
 {
     if (!_webview) {
-        _webview = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        _webview = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), self.view.frame.size.height)];
         _webview.contentMode = UIViewContentModeCenter;
 //        showGestureRecognizers(_webview, YES);
-        
         [self.view addSubview:_webview];
     }
     return _webview;
@@ -69,7 +68,7 @@
 
 -(void)singleTapRecognized:(UIGestureRecognizer *)gesture
 {
-    NSLog(@"singleTapRecognized .........");
+   BeeLog(@"singleTapRecognized .........");
 }
 
 -(void)setContentstring:(NSString *)contentstring

@@ -111,7 +111,7 @@
         return NSOrderedSame;
     }];
 
-    NSLog(@"%@", array);
+   BeeLog(@"%@", array);
 
     //赋值到cell
     //section的数组
@@ -188,7 +188,7 @@ ON_SIGNAL3(FriendsModel, FAILED, pinyinString)
     if (!self.myfriendsModel.loaded) {
         [self.myfriendsModel firstPage];
     }
-    NSLog(@"加载为当前视图 = %@",self.title);
+   BeeLog(@"加载为当前视图 = %@",self.title);
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -248,8 +248,8 @@ ON_SIGNAL3(FriendsModel, FAILED, pinyinString)
             if (ams.message) {
                 cell.message.text = ams.message;
                 cell.havenewmessage = YES;
-                NSLog(@"frdary%@", ams.message);
-                NSLog(@"%@", cell.message.text);
+               BeeLog(@"frdary%@", ams.message);
+               BeeLog(@"%@", cell.message.text);
             }
         }
     });
@@ -303,7 +303,7 @@ ON_SIGNAL3(FriendsModel, FAILED, pinyinString)
 -(NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
 {
     NSInteger count = 0;
-    NSLog(@"%@-%d",title,index);
+   BeeLog(@"%@-%ld",title,(long)index);
 //    [self presentMessageTips:title];
     for(NSString *character in _dataSource)
     {
@@ -316,7 +316,7 @@ ON_SIGNAL3(FriendsModel, FAILED, pinyinString)
     return 0;
 }
 
--(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return [D1_FriendsTableViewCell heightOfFriendsCell];
 }

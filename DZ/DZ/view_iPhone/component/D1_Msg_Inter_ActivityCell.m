@@ -102,7 +102,7 @@
         }
         else
         {
-            _messageLabel.frame = CGRectMake(10, 5, 320-20, 40);
+            _messageLabel.frame = CGRectMake(10, 5, CGRectGetWidth([UIScreen mainScreen].bounds) -20, 40);
              NSString *msg=[D1_Msg_Inter_ActivityCell NEWText:_activityAutomatic.note];
              self.messageLabel.text = msg;
             [self.messageLabel sizeToFit];

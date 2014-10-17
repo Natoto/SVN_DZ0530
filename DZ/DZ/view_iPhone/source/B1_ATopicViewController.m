@@ -108,7 +108,7 @@ ON_NOTIFICATION3(B2_TopicViewController2, skiptosub, notify)
     }
 #endif
     self.title =self.forum_name;
-    _slideSwitchView=[[QCSlideSwitchView alloc] initWithFrame:CGRectMake(0, 0, 320, self.bounds.size.height)];
+    _slideSwitchView=[[QCSlideSwitchView alloc] initWithFrame:CGRectMake(0, 0, self.viewBound.size.width, self.bounds.size.height)];
     _slideSwitchView.slideSwitchViewDelegate=self;
     [self.view addSubview:_slideSwitchView];
     self.slideSwitchView.tabItemNormalColor = [QCSlideSwitchView colorFromHexRGB:@"868686"];
@@ -190,7 +190,7 @@ ON_SIGNAL3(ThreadtypeModel, FAILED, signal)
 {
     if (self.threadModel.shots.count) {
         [self setThreadtypes:self.threadModel.shots];
-        NSLog(@"%@",self.threadModel.shots);
+       BeeLog(@"%@",self.threadModel.shots);
     }
 }
 -(void)setForum_fid:(NSString *)forum_fid

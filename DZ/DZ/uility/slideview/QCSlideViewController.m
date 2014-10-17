@@ -29,7 +29,7 @@
 {
     [super viewDidLoad];
     
-    _slideSwitchView = [[QCSlideSwitchView alloc ] initWithFrame:CGRectMake(0, 0, 320, self.view.frame.size.height)];
+    _slideSwitchView = [[QCSlideSwitchView alloc ] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds) , self.view.frame.size.height)];
     [self.view addSubview:_slideSwitchView];
     _slideSwitchView.slideSwitchViewDelegate = self;
     

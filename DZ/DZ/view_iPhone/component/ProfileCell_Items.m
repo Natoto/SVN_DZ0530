@@ -41,15 +41,15 @@
     float distanceY = 30;
     int index = 0;
     
-    float remain= (320 - (distanceX * 4 + 50));
+    float remain= (CGRectGetWidth([UIScreen mainScreen].bounds) - (distanceX * 4 + 50));
     if (profiletype == PROFILE_SELF)
     {
-         remain= (320 - (distanceX * 4 + 50));
+         remain= (CGRectGetWidth([UIScreen mainScreen].bounds) - (distanceX * 4 + 50));
     }
     else
     {
          distanceX = 65;
-         remain= (320 - (distanceX * 3 + 50));
+         remain= (CGRectGetWidth([UIScreen mainScreen].bounds) - (distanceX * 3 + 50));
     }
     startPositionX = remain/2;
     if (!lblsendhtm) {

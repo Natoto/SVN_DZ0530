@@ -693,7 +693,7 @@ static NSString * const PARAGRAPH_SEPARATOR = @"\u2029";
         previousLineOffset = CGRectGetMaxY(selectionRect);
 #else
         previousLineOffset = CGRectGetMinY(selectionRect);
-//        NSLog(@"%f %f", CGRectGetMaxY(selectionRect), CGRectGetMinY(selectionRect));
+//       BeeLog(@"%f %f", CGRectGetMaxY(selectionRect), CGRectGetMinY(selectionRect));
 #endif
         
         lineNumber++;
@@ -1665,12 +1665,12 @@ static NSString * const PARAGRAPH_SEPARATOR = @"\u2029";
 
 //- (void)setMarkedTextStyle:(NSDictionary *)markedTextStyle
 //{
-//    NSLog(@"%s", __func__);
+//   BeeLog(@"%s", __func__);
 //}
 //
 //- (NSDictionary *)markedTextStyle
 //{
-//    NSLog(@"%s", __func__);
+//   BeeLog(@"%s", __func__);
 //    return nil;
 //}
 
@@ -2007,7 +2007,7 @@ static NSString * const PARAGRAPH_SEPARATOR = @"\u2029";
 
 //- (NSDictionary *)textStylingAtPosition:(UITextPosition *)position inDirection:(UITextStorageDirection)direction
 //{
-//    NSLog(@"%s", __func__);
+//   BeeLog(@"%s", __func__);
 //    return @{UITextInputTextFontKey: self.font};
 //}
 

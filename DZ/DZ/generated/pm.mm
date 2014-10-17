@@ -116,12 +116,12 @@ CONVERT_RENAME_CLASS(strangerms, pm_strangerms);
 	}
 	else if ( self.failed )
 	{
-        NSLog(@"self.description===%@",self.description);
+       BeeLog(@"self.description===%@",self.description);
 		// TODO:
 	}
 	else if ( self.cancelled )
 	{
-        NSLog(@"self.description %@",self.description);
+       BeeLog(@"self.description %@",self.description);
 		// TODO:
 	}
 }

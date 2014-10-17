@@ -20,16 +20,16 @@
 @implementation C0_ZhuTi_SelectPlates
 - (id)initWithTitle:(NSString *)title delegate:(id /*<UIActionSheetDelegate>*/)delegate
 {
-    self = [super initWithFrame:CGRectMake(0, 0, 320, 260)];
-    UIImageView *imgview=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    self = [super initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), 260)];
+    UIImageView *imgview=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), 44)];
     imgview.image=[UIImage imageNamed:@"bg_023"];
     [self addSubview:imgview];
     self.tag = ZHUTITAG;
-    self.frame=CGRectMake(0, 0, 320, 260);
-    self.titlelabel=[[UILabel alloc] initWithFrame:CGRectMake(0, 11, 320, 21)];
+    self.frame=CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), 260);
+    self.titlelabel=[[UILabel alloc] initWithFrame:CGRectMake(0, 11, CGRectGetWidth([UIScreen mainScreen].bounds), 21)];
     self.titlelabel.textColor=[UIColor whiteColor];
     self.titlelabel.backgroundColor = [UIColor clearColor];
-    self.titlelabel.center=CGPointMake(320.0/2, 21);
+    self.titlelabel.center=CGPointMake(CGRectGetWidth([UIScreen mainScreen].bounds)/2, 21);
     self.titlelabel.textAlignment=NSTextAlignmentCenter;
     [self addSubview:self.titlelabel];
 
@@ -53,7 +53,7 @@
 
     if (self) {
         self.backgroundColor=[UIColor whiteColor];
-        self.delegate = delegate;
+        self.ztdelegate = delegate;
         self.titlelabel.text = title;
         self.locatePicker.dataSource = self;
         self.locatePicker.delegate = self;
@@ -98,15 +98,15 @@
             NSString *aforums=[_array objectAtIndex:row];
             self.locate.threadtypesitem = aforums;
             NSString *type =  [_dataDic objectForKey:aforums];
-            self.locate.typedid =[NSNumber numberWithInt:type.integerValue] ;
+            self.locate.typedid =[NSNumber numberWithInt:type.intValue] ;
 
             break;
         }
         default:
             break;
     }
-    if(self.delegate && [self.delegate respondsToSelector:@selector(actionSheet:clickedButtonAtIndex:)]) {
-        [self.delegate actionSheet:self clickedButtonAtIndex:1];
+    if(self.ztdelegate && [self.ztdelegate respondsToSelector:@selector(C0_ZhuTi_SelectPlates:select_thtps:clickedButtonAtIndex:)]) {
+        [self.ztdelegate C0_ZhuTi_SelectPlates:self select_thtps:self.locate clickedButtonAtIndex:1];
     }
 }
 
@@ -133,8 +133,8 @@
     [self setAlpha:0.0f];
     [self.layer addAnimation:animation forKey:@"TSLocateView"];
     [self performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:kDuration];
-    if(self.delegate && [self.delegate respondsToSelector:@selector(actionSheet:clickedButtonAtIndex:)]) {
-        [self.delegate actionSheet:self clickedButtonAtIndex:1];
+    if(self.ztdelegate && [self.ztdelegate respondsToSelector:@selector(C0_ZhuTi_SelectPlates:select_thtps:clickedButtonAtIndex:)]) {
+        [self.ztdelegate C0_ZhuTi_SelectPlates:self select_thtps:self.locate clickedButtonAtIndex:0];
     }
     
 }
@@ -144,6 +144,9 @@
 }
 -(IBAction)cancel:(id)sender
 {
+    if (!self.alpha) {
+        return;
+    }
     CATransition *animation = [CATransition  animation];
     animation.delegate = self;
     animation.duration = kDuration;
@@ -153,9 +156,9 @@
     [self setAlpha:0.0f];
     [self.layer addAnimation:animation forKey:@"TSLocateView"];
     [self performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:kDuration];
-    if(self.delegate && [self.delegate respondsToSelector:@selector(actionSheet:clickedButtonAtIndex:)]) {
+    if(self.ztdelegate && [self.ztdelegate respondsToSelector:@selector(C0_ZhuTi_SelectPlates:select_thtps:clickedButtonAtIndex:)]) {
         
-        [self.delegate actionSheet:self clickedButtonAtIndex:0];
+        [self.ztdelegate C0_ZhuTi_SelectPlates:self select_thtps:nil clickedButtonAtIndex:0]; // actionSheet:self clickedButtonAtIndex:0];
   
     }
 }

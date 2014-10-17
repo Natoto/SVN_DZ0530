@@ -114,6 +114,7 @@ DEF_SIGNAL(homepage)
 DEF_SIGNAL(forum)
 DEF_SIGNAL(sendhtm)
 DEF_SIGNAL(mine)
+DEF_SIGNAL(discovery)
 DEF_SIGNAL(album)
 /*
  <button id="homepage" class="item active">首页</button>
@@ -135,7 +136,7 @@ DEF_SIGNAL(album)
         NSString *HOME = __TEXT(@"HOME"); //@"首页";
         NSString *FORUM =__TEXT(@"FORUM");// @"版块";//
         NSString *POST = __TEXT(@"POST");// @"发帖";//
-        NSString *ABLUM = __TEXT(@"ALBUM");// @"图库";//
+        NSString *ABLUM = __TEXT(@"DISCOVERY");// @"发现";//
         NSString *MINE = __TEXT(@"MINE");//@"我的"; //
         titleAry=[NSArray arrayWithObjects:HOME,FORUM,POST,ABLUM,MINE, nil];
         iconNameAry=[NSArray arrayWithObjects:@"homepage.PNG",@"plates.PNG",@"sendhtm.PNG",@"tuku-01.png",@"wodetubiao@2x.png", nil];
@@ -239,7 +240,7 @@ DEF_SIGNAL(album)
     [self unactive:self.minebtn];
     [self active:self.blumbtn];
     self.RELAYOUT();
-    [self sendUISignal:self.album];
+    [self sendUISignal:self.discovery];
 }
 
 - (void)selectSendhtm

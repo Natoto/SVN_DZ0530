@@ -145,18 +145,24 @@ const NSInteger unionSize = 20;
     }
     return _sectionItemAttributes;
 }
-
+#define COLCOUNT 2
+#define SPACING 10.0
+#define LEFT 5
 #pragma mark - Init
 - (void)commonInit
 {
-    _columnCount = 2;
-    _minimumColumnSpacing = 0;
-    _minimumInteritemSpacing = 0;
-    _headerHeight = 0;
+    _columnCount = COLCOUNT;
+    _minimumColumnSpacing = SPACING;
+    _minimumInteritemSpacing = SPACING;
+    _headerHeight = SPACING;
     _footerHeight = 0;
-    _sectionInset = UIEdgeInsetsZero;
+    _sectionInset = UIEdgeInsetsMake(0, LEFT, 0, LEFT);  //UIEdgeInsetsZero;
 }
-
++(float)cellwidth
+{
+    float width = [UIScreen mainScreen].bounds.size.width;
+    return (width - 2*LEFT - SPACING)/COLCOUNT;
+}
 - (id)init
 {
     if (self = [super init])

@@ -49,8 +49,8 @@ ON_SIGNAL2(BeeUIBoard,  signal)
         [BeeUINavigationBar setButtonSize:CGSizeMake(30, 30)];
        [self showBarButton:BeeUINavigationBar.LEFT image:[UIImage bundleImageNamed:@"fanhui(xin)"]];
         int baseInsetHeight=bee.ui.config.baseInsets.top - 15;
-        inputview=[self layoutUsernamePassword:CGRectMake(0, 10 + baseInsetHeight, 320, 80)];
-        inputview.center=CGPointMake(160, baseInsetHeight+70);
+        inputview=[self layoutUsernamePassword:CGRectMake(0, 10 + baseInsetHeight, CGRectGetWidth([UIScreen mainScreen].bounds), 80)];
+        inputview.center=CGPointMake(CGRectGetWidth([UIScreen mainScreen].bounds)/2, baseInsetHeight+70);
         [self.view addSubview:inputview];
         
         
@@ -71,7 +71,7 @@ ON_SIGNAL2(BeeUIBoard,  signal)
         [loginbtn setTitle:@"登录" forState:UIControlStateNormal];
         loginbtn.titleLabel.font = [UIFont systemFontOfSize:15];
         loginbtn.frame=CGRectMake(10, baseInsetHeight + 30, 290, 40);
-        loginbtn.center=CGPointMake(320/2, baseInsetHeight+30+30);
+        loginbtn.center=CGPointMake(CGRectGetWidth([UIScreen mainScreen].bounds)/2, baseInsetHeight+30+30);
         [loginbtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 //        [loginbtn setBackgroundColor:[UIColor colorWithRed:20/255. green:154/255. blue:243/255. alpha:1] ];
         [loginbtn setBackgroundImage:[UIImage bundleImageNamed:@"dengluanniu01"] forState:UIControlStateNormal];
@@ -85,9 +85,10 @@ ON_SIGNAL2(BeeUIBoard,  signal)
             UIButton *logoutbtn=[UIButton buttonWithType:UIButtonTypeCustom];
             [logoutbtn setTitle:@"没有账号,立即注册" forState:UIControlStateNormal];
             logoutbtn.frame=CGRectMake(10, baseInsetHeight + 30, 280, 40);
+            logoutbtn.center = CGPointMake(CGRectGetWidth([UIScreen mainScreen].bounds)/2, baseInsetHeight+50);
             logoutbtn.titleLabel.font = [UIFont systemFontOfSize:15];
             [logoutbtn setTitleColor:[UIColor colorWithRed:20/255. green:154/255. blue:243/255. alpha:1]  forState:UIControlStateNormal];
-            logoutbtn.center=CGPointMake(320/2, baseInsetHeight+30+30);
+            logoutbtn.center=CGPointMake(CGRectGetWidth([UIScreen mainScreen].bounds)/2, baseInsetHeight+30+30);
             [logoutbtn addTarget:self action:@selector(signup) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:logoutbtn];
         }
@@ -143,7 +144,7 @@ ON_SIGNAL2(BeeUIBoard,  signal)
 
 -(UIView *)layoutUsernamePassword:(CGRect)frame
 {
-    int MARGIN_X = 0;
+    const int MARGIN_X = 0;
     UIView *bgview=[[UIView alloc] initWithFrame:frame];
     UIImageView *topimgview=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height/2)];
 //    topimgview.image=[UIImage bundleImageNamed:@"cell_bg_content.png"];
@@ -155,6 +156,7 @@ ON_SIGNAL2(BeeUIBoard,  signal)
     [bgview addSubview:log_in_user_name_icon];
     
     BeeUITextField *field=[[BeeUITextField alloc] initWithFrame:CGRectMake(CGRectGetMaxX(log_in_user_name_icon.frame) + MARGIN_X, 0, frame.size.width-CGRectGetMaxX(log_in_user_name_icon.frame) - MARGIN_X * 2, frame.size.height/2)];
+//    field.center = CGPointMake(CGRectGetWidth(frame)/2, frame.size.height/4);
     field.placeholder=@"用户名/Email";
     field.tag= USERNAMETAG;
     field.clearButtonMode=UITextFieldViewModeWhileEditing;
@@ -177,8 +179,8 @@ ON_SIGNAL2(BeeUIBoard,  signal)
     [bgview addSubview:log_in_user_password_icon];
     
     BeeUITextField *password=[[BeeUITextField alloc] initWithFrame:CGRectMake(MARGIN_X + CGRectGetMaxX(log_in_user_password_icon.frame), frame.size.height/2, frame.size.width - MARGIN_X * 2 - CGRectGetMaxX(log_in_user_password_icon.frame), frame.size.height/2)];
-    password.clearButtonMode=UITextFieldViewModeWhileEditing;
-    password.secureTextEntry=YES;
+    password.clearButtonMode = UITextFieldViewModeWhileEditing;
+    password.secureTextEntry = YES;
     password.tag= PASSWORDTAG;
     self.password=password;
     password.placeholder=@"密码";
@@ -286,6 +288,7 @@ ON_SIGNAL3(D1_LoginBoard_iphone, forgetsecr, signal)
     D2_RegistViewController_iphone *registctr=[[D2_RegistViewController_iphone alloc] init];
     [self.navigationController pushViewController:registctr animated:YES];
 }
+
 #pragma mark - 登录
 - (void)doLogin
 {

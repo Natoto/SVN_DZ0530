@@ -6,8 +6,7 @@
 //  Copyright (c) 2014年 Nonato. All rights reserved.
 //
 
-#import "ToolsFunc.h"
-
+#import "ToolsFunc.h" 
 @implementation ToolsFunc
 DEF_SINGLETON(ToolsFunc)
 
@@ -47,12 +46,31 @@ DEF_SINGLETON(ToolsFunc)
 
 + (UILabel *)CreateLabelWithFrame:(CGRect)frame andTxt:(NSString *)TXT
 {
+    return [ToolsFunc CreateLabelWithFrame:frame andTxt:TXT fontsize:15.0];
+}
+
++ (UILabel *)CreateLabelWithFrame:(CGRect)frame andTxt:(NSString *)TXT fontsize:(NSUInteger)size
+{
     UILabel *label=[[UILabel alloc] initWithFrame:frame];
+    label.text=TXT;
+    label.font=[UIFont systemFontOfSize:size];
+    label.backgroundColor=[UIColor clearColor];
+    label.textColor=[UIColor blackColor];
+    label.textAlignment=NSTextAlignmentCenter;
+    return label;
+}
+
+
++ (BeeUILabel *)CreateBeeLabelWithFrame:(CGRect)frame andTxt:(NSString *)TXT
+{
+    BeeUILabel *label=[[BeeUILabel alloc] initWithFrame:frame];
     label.text=TXT;
     label.font=[UIFont systemFontOfSize:15];
     label.backgroundColor=[UIColor clearColor];
-    label.textColor=[UIColor whiteColor];
+    label.textColor=[UIColor blackColor];
     label.textAlignment=NSTextAlignmentCenter;
+    label.numberOfLines = 0;
+    label.lineBreakMode = NSLineBreakByWordWrapping;
     return label;
 }
 
@@ -69,6 +87,16 @@ DEF_SINGLETON(ToolsFunc)
 {
     UIButton *button=[UIButton buttonWithType:UIButtonTypeCustom]; //[[UIButton alloc] initWithFrame:frame];
     [button setTitle:TXT forState:UIControlStateNormal];
+    button.frame=frame;
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    return button;
+}
+
++ (UIButton *)CreateButtonWithFrame:(CGRect)frame andimage:(NSString *)imagename
+{
+    UIButton *button=[UIButton buttonWithType:UIButtonTypeCustom]; //[[UIButton alloc] initWithFrame:frame];
+    UIImage * image=[UIImage bundleImageNamed:imagename];
+    [button setImage:image forState:UIControlStateNormal];
     button.frame=frame;
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     return button;

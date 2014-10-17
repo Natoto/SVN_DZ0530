@@ -93,7 +93,7 @@ static NSMutableDictionary *imgSizeDict = NULL;
 	return [[[self alloc] initWithString:aText tag:aTagLabel attributes:theAttributes] autorelease];
 }
 
-- (id)initWithTag:(NSString*)aTagLabel position:(int)aPosition attributes:(NSMutableDictionary*)theAttributes 
+- (id)initWithTag:(NSString*)aTagLabel position:(NSInteger)aPosition attributes:(NSMutableDictionary*)theAttributes 
 {
     self = [super init];
     if (self) {
@@ -105,7 +105,7 @@ static NSMutableDictionary *imgSizeDict = NULL;
     return self;
 }
 
-+(id)componentWithTag:(NSString*)aTagLabel position:(int)aPosition attributes:(NSMutableDictionary*)theAttributes
++(id)componentWithTag:(NSString*)aTagLabel position:(NSInteger)aPosition attributes:(NSMutableDictionary*)theAttributes
 {
 	return [[[self alloc] initWithTag:aTagLabel position:aPosition attributes:theAttributes] autorelease];
 }
@@ -116,7 +116,7 @@ static NSMutableDictionary *imgSizeDict = NULL;
 {
 	NSMutableString *desc = [NSMutableString string];
 	[desc appendFormat:@"text: %@", self.text];
-	[desc appendFormat:@", position: %i", self.position];
+	[desc appendFormat:@", position: %li", (long)self.position];
 	if (self.tagLabel) [desc appendFormat:@", tag: %@", self.tagLabel];
 	if (self.attributes) [desc appendFormat:@", attributes: %@", self.attributes];
 	return desc;
@@ -173,16 +173,16 @@ static NSInteger totalCount = 0;
 #pragma mark -
 #pragma mark styling
 
-- (void)applyItalicStyleToText:(CFMutableAttributedStringRef)text atPosition:(int)position withLength:(int)length;
-- (void)applyBoldStyleToText:(CFMutableAttributedStringRef)text atPosition:(int)position withLength:(int)length;
-- (void)applyColor:(NSString*)value toText:(CFMutableAttributedStringRef)text atPosition:(int)position withLength:(int)length;
-- (void)applySingleUnderlineText:(CFMutableAttributedStringRef)text atPosition:(int)position withLength:(int)length;
-- (void)applyDoubleUnderlineText:(CFMutableAttributedStringRef)text atPosition:(int)position withLength:(int)length;
-- (void)applyUnderlineColor:(NSString*)value toText:(CFMutableAttributedStringRef)text atPosition:(int)position withLength:(int)length;
-- (void)applyFontAttributes:(NSDictionary*)attributes toText:(CFMutableAttributedStringRef)text atPosition:(int)position withLength:(int)length;
-- (void)applyParagraphStyleToText:(CFMutableAttributedStringRef)text attributes:(NSMutableDictionary*)attributes atPosition:(int)position withLength:(int)length;
-- (void)applyImageAttributes:(CFMutableAttributedStringRef)text attributes:(NSMutableDictionary*)attributes atPosition:(int)position withLength:(int)length;
-- (void)applyLinkAttributes:(CFMutableAttributedStringRef)text attributes:(NSMutableDictionary*)attributes atPosition:(int)position withLength:(int)length;
+- (void)applyItalicStyleToText:(CFMutableAttributedStringRef)text atPosition:(NSInteger)position withLength:(NSInteger)length;
+- (void)applyBoldStyleToText:(CFMutableAttributedStringRef)text atPosition:(NSInteger)position withLength:(NSInteger)length;
+- (void)applyColor:(NSString*)value toText:(CFMutableAttributedStringRef)text atPosition:(NSInteger)position withLength:(NSInteger)length;
+- (void)applySingleUnderlineText:(CFMutableAttributedStringRef)text atPosition:(NSInteger)position withLength:(NSInteger)length;
+- (void)applyDoubleUnderlineText:(CFMutableAttributedStringRef)text atPosition:(NSInteger)position withLength:(NSInteger)length;
+- (void)applyUnderlineColor:(NSString*)value toText:(CFMutableAttributedStringRef)text atPosition:(NSInteger)position withLength:(NSInteger)length;
+- (void)applyFontAttributes:(NSDictionary*)attributes toText:(CFMutableAttributedStringRef)text atPosition:(NSInteger)position withLength:(NSInteger)length;
+- (void)applyParagraphStyleToText:(CFMutableAttributedStringRef)text attributes:(NSMutableDictionary*)attributes atPosition:(NSInteger)position withLength:(NSInteger)length;
+- (void)applyImageAttributes:(CFMutableAttributedStringRef)text attributes:(NSMutableDictionary*)attributes atPosition:(NSInteger)position withLength:(NSInteger)length;
+- (void)applyLinkAttributes:(CFMutableAttributedStringRef)text attributes:(NSMutableDictionary*)attributes atPosition:(NSInteger)position withLength:(NSInteger)length;
 @end
 
 @implementation RCLabel
@@ -530,7 +530,7 @@ CGFloat MyGetWidthCallback( void* refCon ){
             }
             linkComponentString = [self.componentsAndPlainText.plainTextData substringWithRange:NSMakeRange(linkComponent.position, rangeLength)];
         }
-        NSLog(@"%@",linkComponentString);
+       BeeLog(@"%@",linkComponentString);
        
         
         
@@ -744,7 +744,7 @@ CGFloat MyGetWidthCallback( void* refCon ){
 #pragma mark -
 #pragma mark styling
 
-- (void)applyParagraphStyleToText:(CFMutableAttributedStringRef)text attributes:(NSMutableDictionary*)attributes atPosition:(int)position withLength:(int)length
+- (void)applyParagraphStyleToText:(CFMutableAttributedStringRef)text attributes:(NSMutableDictionary*)attributes atPosition:(NSInteger)position withLength:(NSInteger)length
 {
 	//NSLog(@"%@", attributes);
 	
@@ -845,7 +845,7 @@ CGFloat MyGetWidthCallback( void* refCon ){
     CFRelease(styleDict);
 }
 
-- (void)applySingleUnderlineText:(CFMutableAttributedStringRef)text atPosition:(int)position withLength:(int)length
+- (void)applySingleUnderlineText:(CFMutableAttributedStringRef)text atPosition:(NSInteger)position withLength:(NSInteger)length
 {
     CFStringRef keys[] = { kCTUnderlineStyleAttributeName };
     CFTypeRef values[] = { (CFNumberRef)[NSNumber numberWithInt:kCTUnderlineStyleSingle] };
@@ -857,7 +857,7 @@ CGFloat MyGetWidthCallback( void* refCon ){
 	
 }
 
-- (void)applyDoubleUnderlineText:(CFMutableAttributedStringRef)text atPosition:(int)position withLength:(int)length
+- (void)applyDoubleUnderlineText:(CFMutableAttributedStringRef)text atPosition:(NSInteger)position withLength:(NSInteger)length
 {
     
     CFStringRef keys[] = { kCTUnderlineStyleAttributeName };
@@ -872,7 +872,7 @@ CGFloat MyGetWidthCallback( void* refCon ){
 	
 }
 
-- (void)applyItalicStyleToText:(CFMutableAttributedStringRef)text atPosition:(int)position withLength:(int)length
+- (void)applyItalicStyleToText:(CFMutableAttributedStringRef)text atPosition:(NSInteger)position withLength:(NSInteger)length
 {
 	UIFont *font = [UIFont italicSystemFontOfSize:self.font.pointSize];
 	CTFontRef italicFont = CTFontCreateWithName ((CFStringRef)[font fontName], [font pointSize], NULL); 
@@ -890,7 +890,7 @@ CGFloat MyGetWidthCallback( void* refCon ){
     CFRelease(fontDict);
 }
 
-- (void)applyFontAttributes:(NSDictionary*)attributes toText:(CFMutableAttributedStringRef)text atPosition:(int)position withLength:(int)length
+- (void)applyFontAttributes:(NSDictionary*)attributes toText:(CFMutableAttributedStringRef)text atPosition:(NSInteger)position withLength:(NSInteger)length
 {
 	for (NSString *key in attributes)
 	{
@@ -981,7 +981,7 @@ CGFloat MyGetWidthCallback( void* refCon ){
 	}
 }
 //This method will be called when parsing a link
-- (void)applyBoldStyleToText:(CFMutableAttributedStringRef)text atPosition:(int)position withLength:(int)length
+- (void)applyBoldStyleToText:(CFMutableAttributedStringRef)text atPosition:(NSInteger)position withLength:(NSInteger)length
 {
  
     //If the font size is very large(bigger than 30), core text will invoke a memory
@@ -1005,7 +1005,7 @@ CGFloat MyGetWidthCallback( void* refCon ){
        
 }
 
-- (void)applyColor:(NSString*)value toText:(CFMutableAttributedStringRef)text atPosition:(int)position withLength:(int)length
+- (void)applyColor:(NSString*)value toText:(CFMutableAttributedStringRef)text atPosition:(NSInteger)position withLength:(NSInteger)length
 {   
     if(!value) {
         
@@ -1057,7 +1057,7 @@ CGFloat MyGetWidthCallback( void* refCon ){
 	}
 }
 
-- (void)applyUnderlineColor:(NSString*)value toText:(CFMutableAttributedStringRef)text atPosition:(int)position withLength:(int)length
+- (void)applyUnderlineColor:(NSString*)value toText:(CFMutableAttributedStringRef)text atPosition:(NSInteger)position withLength:(NSInteger)length
 {
 	value = [value stringByReplacingOccurrencesOfString:@"'" withString:@""];
 	if ([value rangeOfString:@"#"].location==0) {
@@ -1104,7 +1104,7 @@ CGFloat MyGetWidthCallback( void* refCon ){
 }
 
 
-- (void)applyImageAttributes:(CFMutableAttributedStringRef)text attributes:(NSMutableDictionary*)attributes atPosition:(int)position withLength:(int)length 
+- (void)applyImageAttributes:(CFMutableAttributedStringRef)text attributes:(NSMutableDictionary*)attributes atPosition:(NSInteger)position withLength:(NSInteger)length 
 {
 
     // create the delegate
@@ -1133,7 +1133,7 @@ CGFloat MyGetWidthCallback( void* refCon ){
 
 }
 
-- (void)applyLinkAttributes:(CFMutableAttributedStringRef)text attributes:(NSMutableDictionary*)attributes atPosition:(int)position withLength:(int)length {
+- (void)applyLinkAttributes:(CFMutableAttributedStringRef)text attributes:(NSMutableDictionary*)attributes atPosition:(NSInteger)position withLength:(NSInteger)length {
     
     [self applyBoldStyleToText:text atPosition:position withLength:length];
     [self applyColor:@"#16387C" toText:text atPosition:position withLength:length];
@@ -1198,7 +1198,7 @@ CGFloat MyGetWidthCallback( void* refCon ){
     NSMutableArray *linkComponents = [NSMutableArray array];
     NSMutableArray *imgComponents = [NSMutableArray array];
 	
-	int last_position = 0;
+	NSInteger last_position = 0;
 	scanner = [NSScanner scannerWithString:data];
 	while (![scanner isAtEnd])
     {
@@ -1260,7 +1260,7 @@ CGFloat MyGetWidthCallback( void* refCon ){
         
         
 		NSString *delimiter = [NSString stringWithFormat:@"%@>", text];
-		int position = [plainData rangeOfString:delimiter options:NSCaseInsensitiveSearch range:NSMakeRange(last_position, [plainData length] - last_position)].location;
+		NSInteger position = [plainData rangeOfString:delimiter options:NSCaseInsensitiveSearch range:NSMakeRange(last_position, [plainData length] - last_position)].location;
         
 		if (position != NSNotFound && position >= last_position)
 		{
@@ -1322,7 +1322,7 @@ CGFloat MyGetWidthCallback( void* refCon ){
             //Find the latest tag
             //Do not use stack, because the overlapping tags are meaningful
             //This algrithm can handle the overlapping tags
-            for (int i=[components count]-1; i>=0; i--)
+            for (NSInteger i=[components count]-1; i>=0; i--)
             {
                 RTLabelComponent *component = [components objectAtIndex:i];
                 if (!component.isClosure && [component.tagLabel isEqualToString:tag])
@@ -1513,7 +1513,7 @@ CGFloat MyGetWidthCallback( void* refCon ){
 	
 	for (RTLabelComponent *component in self.componentsAndPlainText.components)
 	{
-		int index = [self.componentsAndPlainText.components indexOfObject:component];
+		NSInteger index = [self.componentsAndPlainText.components indexOfObject:component];
 		component.componentIndex = index;
 		
 		if ([component.tagLabel isEqualToString:@"i"])
@@ -1584,7 +1584,7 @@ CGFloat MyGetWidthCallback( void* refCon ){
 				 [NSCharacterSet whitespaceAndNewlineCharacterSet]
 				 ] uppercaseString];  
     if (hexColor.length!=8) {//补0 BOB ADD
-        int need0=8-hexColor.length;
+        NSInteger need0 = 8-hexColor.length;
         for ( int i=0; i<need0; i++) {
             hexColor=[hexColor stringByAppendingString:@"0"];
         }

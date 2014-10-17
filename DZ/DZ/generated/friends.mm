@@ -119,12 +119,12 @@ CONVERT_PROPERTY_CLASS( friends, friends );
 	}
 	else if ( self.failed )
 	{
-        NSLog(@"self.description===%@",self.description);
+       BeeLog(@"self.description===%@",self.description);
 		// TODO:
 	}
 	else if ( self.cancelled )
 	{
-        NSLog(@"self.description %@",self.description);
+       BeeLog(@"self.description %@",self.description);
 		// TODO:
 	}
 }

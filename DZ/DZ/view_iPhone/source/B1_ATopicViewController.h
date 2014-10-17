@@ -25,7 +25,7 @@
 @class B0_ForumPlates_iphone;
 @class B2_QCListViewController;
 @class B2_TopicViewController2;
-typedef enum : NSUInteger {
+typedef enum : int {
     TOPIC_TYPE_ALL = 0,
     TOPIC_TYPE_DEGIST = 1,
     TOPIC_TYPE_TOP = 2,

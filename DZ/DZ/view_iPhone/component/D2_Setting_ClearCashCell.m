@@ -51,7 +51,7 @@ DEF_SIGNAL(DIDCLEARCASH)
         NSString *cachPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         
         NSArray *files = [[NSFileManager defaultManager] subpathsAtPath:cachPath];
-        NSLog(@"files :%d",[files count]);
+       BeeLog(@"files :%d",[files count]);
         
         cashsize=[self folderSizeAtPath:[NSHomeDirectory() stringByAppendingPathComponent:@"Library"]];
         rightlabel.text=[NSString stringWithFormat:@"%.2f MB",cashsize];
@@ -77,7 +77,7 @@ DEF_SIGNAL(DIDCLEARCASH)
                        NSString *cachPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
                        
                        NSArray *files = [[NSFileManager defaultManager] subpathsAtPath:cachPath];
-                       NSLog(@"files :%d",[files count]);
+                      BeeLog(@"files :%d",[files count]);
                        for (NSString *p in files) {
                            NSError *error;
                            NSString *path = [cachPath stringByAppendingPathComponent:p];
@@ -90,7 +90,7 @@ DEF_SIGNAL(DIDCLEARCASH)
 
 - (void)clearCacheSuccess
 {
-    NSLog(@"清理成功");
+   BeeLog(@"清理成功");
     [self sendUISignal:self.DIDCLEARCASH];
     rightlabel.text=[NSString stringWithFormat:@"%d MB",0];
 

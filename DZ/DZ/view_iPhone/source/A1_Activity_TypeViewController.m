@@ -62,7 +62,7 @@ ON_SIGNAL3(ActivityModel, FAILED, signal)
     {
         [self.tpclistModel firstPage];
     } 
-    NSLog(@"加载为当前视图 = %@",self.title);
+   BeeLog(@"加载为当前视图 = %@",self.title);
 }
 
 - (void)didReceiveMemoryWarning

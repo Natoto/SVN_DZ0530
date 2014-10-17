@@ -64,7 +64,7 @@
 			self.failed = YES;
 			return;
 		}
-        NSLog(@"%@", self.message);
+       BeeLog(@"%@", self.message);
         NSString * requestURI =[NSString stringWithFormat:@"%@?action=report&type=2%@", [ServerConfig sharedInstance].url, [ServerConfig sharedInstance].urlpostfix];
         self.HTTP_POST(requestURI).PARAM(@"uid", self.uid).PARAM(@"ruid", self.ruid).PARAM(@"message", self.message);
 	}
@@ -85,12 +85,12 @@
 	}
 	else if ( self.failed )
 	{
-        NSLog(@"self.description===%@",self.description);
+       BeeLog(@"self.description===%@",self.description);
 		// TODO:
 	}
 	else if ( self.cancelled )
 	{
-        NSLog(@"self.description %@",self.description);
+       BeeLog(@"self.description %@",self.description);
 		// TODO:
 	}
 }

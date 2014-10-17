@@ -81,13 +81,13 @@
 -(NSString *)device
 {
 //    NSString* deviceName = [[UIDevice currentDevice] systemName];
-//    NSLog(@"设备名称: %@",deviceName );
+//   BeeLog(@"设备名称: %@",deviceName );
     //手机系统版本
     NSString* phoneVersion = [[UIDevice currentDevice] systemVersion];
-    NSLog(@"手机系统版本: %@", phoneVersion);
+   BeeLog(@"手机系统版本: %@", phoneVersion);
     //手机型号
     NSString* phoneModel = [[UIDevice currentDevice] model];
-    NSLog(@"手机型号: %@",phoneModel );
+   BeeLog(@"手机型号: %@",phoneModel );
     
     NSString * phonemodelversion=[NSString stringWithFormat:@"MODEL:%@\nV.R:%@",phoneModel,phoneVersion];
     return  phonemodelversion;

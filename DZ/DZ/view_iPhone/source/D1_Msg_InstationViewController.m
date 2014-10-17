@@ -91,9 +91,9 @@ ON_SIGNAL3(Allpm_StrangerModel, FAILED, signal)
         if (!self.allpmmodel.loaded) {
             [self.allpmmodel firstPage];
         }
-        NSLog(@"加载为当前视图 = %@",self.title);
+       BeeLog(@"加载为当前视图 = %@",self.title);
     }
-    _headView = [[D3_MSG_IgnoreView alloc] initWithFrame:CGRectMake(0, 0, 320, 40) sel:@selector(ignoreMessages) target:self];
+    _headView = [[D3_MSG_IgnoreView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds) , 40) sel:@selector(ignoreMessages) target:self];
     _headView.recievemessage = @"需要接受站内信吗？";
     // Do any additional setup after loading the view.
 }
@@ -127,7 +127,7 @@ ON_SIGNAL3(Allpm_StrangerModel, FAILED, signal)
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    //    return [self shieldView:CGRectMake(0, 0, 320, 50)];
+    //    return [self shieldView:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds) , 50)];
     if (section == 0) {
         return _headView;
     }

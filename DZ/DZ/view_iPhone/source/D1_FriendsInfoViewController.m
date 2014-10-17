@@ -100,7 +100,7 @@ ON_SIGNAL3(UserModel, PROFILE_RELOADED, signal)
 
 //    NSString * money =[NSString stringWithFormat:@"积分: %@",self.profilemodel.friendProfile.credits];
 //    [self.items addObject:money];
-//    NSLog(@"money%@", self.profilemodel.friendProfile.credits);
+//   BeeLog(@"money%@", self.profilemodel.friendProfile.credits);
 
 
     NSString * baomi = @"保密";
@@ -108,21 +108,21 @@ ON_SIGNAL3(UserModel, PROFILE_RELOADED, signal)
     else if (self.profilemodel.friendProfile.gender && self.profilemodel.friendProfile.gender.intValue == 2) baomi = @"女";
     else baomi = @"保密";
     NSString * gender = [NSString stringWithFormat:@"性别: %@", baomi];
-    NSLog(@"gender%@", self.profilemodel.friendProfile.gender);
+   BeeLog(@"gender%@", self.profilemodel.friendProfile.gender);
     [self.items addObject:gender];
 #warning data woring
     if (self.profilemodel.friendProfile.birthyear) {
          NSString * birthday =[NSString stringWithFormat:@"生日: %@-%@-%@", self.profilemodel.friendProfile.birthyear, self.profilemodel.friendProfile.birthmonth,self.profilemodel.friendProfile.birthday];
         [self.items addObject:birthday];
     }
-    NSLog(@"birth%@-%@-%@", self.profilemodel.friendProfile.birthyear, self.profilemodel.friendProfile.birthmonth, self.profilemodel.friendProfile.birthday);
+   BeeLog(@"birth%@-%@-%@", self.profilemodel.friendProfile.birthyear, self.profilemodel.friendProfile.birthmonth, self.profilemodel.friendProfile.birthday);
 
 
 //    NSString * oltime2 = [ToolsFunc datefromstring:self.profilemodel.friendProfile.oltime];
 //    NSString * oltime=[NSString stringWithFormat:@"在线时间: %@",oltime2];
     NSString *oltime = [NSString stringWithFormat:@"在线时间: %@小时", self.profilemodel.friendProfile.oltime];
     [self.items addObject:oltime];
-    NSLog(@"oltime%@", self.profilemodel.friendProfile.oltime);
+   BeeLog(@"oltime%@", self.profilemodel.friendProfile.oltime);
 
 
     /*
@@ -141,13 +141,13 @@ ON_SIGNAL3(UserModel, PROFILE_RELOADED, signal)
         NSString * residearea =[NSString stringWithFormat:@"所在地区: %@ %@",self.profilemodel.friendProfile.resideprovince,self.profilemodel.friendProfile.residecity];
         [self.items addObject:residearea];
     }
-    NSLog(@"residecity%@", self.profilemodel.friendProfile.residecity);
+   BeeLog(@"residecity%@", self.profilemodel.friendProfile.residecity);
 
 
     NSString * lastvisit2 = [ToolsFunc datefromstring2:self.profilemodel.friendProfile.lastvisit];
     NSString * lastvisit=[NSString stringWithFormat:@"最后登录时间: %@",lastvisit2];
     [self.items addObject:lastvisit];
-    NSLog(@"lastvisit%@", self.profilemodel.friendProfile.lastvisit);
+   BeeLog(@"lastvisit%@", self.profilemodel.friendProfile.lastvisit);
 
 
     /*
@@ -229,7 +229,7 @@ ON_SIGNAL3(UserModel, PROFILE_FAILED, signal)
         UIColor *fontcolor =[UIColor blackColor];
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ListViewCellId];
-            UIImage *image=[UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(320, 10)];
+            UIImage *image=[UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(CGRectGetWidth([UIScreen mainScreen].bounds), 10)];
             cell.backgroundImage = image;
             
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -298,7 +298,7 @@ ON_SIGNAL3(UserModel, PROFILE_FAILED, signal)
         if (cell == nil) {
             cell = [[D1_FriendsInfo_BelowCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ListViewCellId];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            UIImage *image=[UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(320, 10)];
+            UIImage *image=[UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(CGRectGetWidth([UIScreen mainScreen].bounds), 10)];
             cell.backgroundImage = image;
         }
         cell.textLabel.text=[_items objectAtIndex:indexPath.row -1];

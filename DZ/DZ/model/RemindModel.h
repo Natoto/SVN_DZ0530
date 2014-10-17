@@ -6,7 +6,7 @@
 //  Copyright (c) 2014年 Nonato. All rights reserved.
 //
 
-typedef enum : NSUInteger {
+typedef enum : int {
     MSG_ZHANNEIXIN = 1,
     MSG_GOODFREIND = 2,
     MSG_SYSTEM_REMAIND = 3,

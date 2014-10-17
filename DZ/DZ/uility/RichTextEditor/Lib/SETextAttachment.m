@@ -40,7 +40,7 @@ static CGFloat RunDelegateGetWidthCallback(void *refCon)
         _object = object;
         _size = size;
         _range = range;
-        _sortforRangLocation=[NSNumber numberWithInt:_range.location];
+        _sortforRangLocation=[NSNumber numberWithInteger:_range.location];
     }
     return self;
 }

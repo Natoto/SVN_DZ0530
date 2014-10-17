@@ -114,12 +114,12 @@ CONVERT_PROPERTY_CLASS( postmine, postmine );
 	}
 	else if ( self.failed )
 	{
-        NSLog(@"self.description===%@",self.description);
+       BeeLog(@"self.description===%@",self.description);
 		// TODO:
 	}
 	else if ( self.cancelled )
 	{
-        NSLog(@"self.description %@",self.description);
+       BeeLog(@"self.description %@",self.description);
 		// TODO:
 	}
 }

@@ -61,7 +61,7 @@ static NSString *const ID_KEY = @"id";
 
 - (void)onlineConfigCallBack:(NSNotification *)note {
     
-    NSLog(@"online config has fininshed and note = %@", note.userInfo);
+   BeeLog(@"online config has fininshed and note = %@", note.userInfo);
 }
 
 #pragma mark -
@@ -75,9 +75,9 @@ static NSString *const ID_KEY = @"id";
 //    if(cls && [cls respondsToSelector:deviceIDSelector]){
 //        deviceID = [cls performSelector:deviceIDSelector];
 //    }
-//    NSLog(@"{\"oid\": \"%@\"}", deviceID);
+//   BeeLog(@"{\"oid\": \"%@\"}", deviceID);
     
-    NSLog(@"hello dz");
+   BeeLog(@"hello dz");
 	[UIApplication sharedApplication].statusBarHidden = NO;
 	bee.ui.config.ASR = YES;
     if (IOS7_OR_LATER) {
@@ -127,7 +127,7 @@ static NSString *const ID_KEY = @"id";
     [self observeNotification:BeeReachability.CHANGED];
     [self observeNotification:BeeReachability.UNREACHABLE];
     
-    NSLog(NSLocalizedString(@"NSLocalizedString", @"NSLocalizedString"));
+   BeeLog(NSLocalizedString(@"NSLocalizedString", @"NSLocalizedString"));
     /*
      分享设置
      */
@@ -148,7 +148,7 @@ static NSString *const ID_KEY = @"id";
     
     if ([launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] != nil) {
         //获取应用程序消息通知标记数（即小红圈中的数字）
-        int badge = [UIApplication sharedApplication].applicationIconBadgeNumber;
+        NSInteger badge = [UIApplication sharedApplication].applicationIconBadgeNumber;
         if (badge>0) {
             //如果应用程序消息通知标记数（即小红圈中的数字）大于0，清除标记。
             badge--;
@@ -175,7 +175,7 @@ static NSString *const ID_KEY = @"id";
 {
     if ( application.applicationState == UIApplicationStateActive ) {
         // 程序在运行过程中受到推送通知
-        NSLog(@"%@", [[userInfo objectForKey: @"aps"] objectForKey: @"alert"]);
+       BeeLog(@"%@", [[userInfo objectForKey: @"aps"] objectForKey: @"alert"]);
         NSString *msg= [[userInfo objectForKey: @"aps"] objectForKey: @"alert"];
         UIAlertView *alertview = [[UIAlertView alloc] initWithTitle:@"推送" message:msg delegate:self cancelButtonTitle:@"查看" otherButtonTitles:@"关闭", nil];
         [alertview show ];

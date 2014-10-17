@@ -53,7 +53,7 @@ ON_SIGNAL3(RemindModel, RELOADED, signal)
     if (!self.remindmodel.loaded) {
 //        [self.remindmodel firstPage];
     }
-    NSLog(@"加载为当前视图 = %@",self.title);
+   BeeLog(@"加载为当前视图 = %@",self.title);
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -78,7 +78,7 @@ ON_SIGNAL3(RemindModel, RELOADED, signal)
         [self.remindmodel loadCache];
         [self viewDidCurrentView];
     }
-    _headView = [[D3_MSG_IgnoreView alloc] initWithFrame:CGRectMake(0, 0, 320, 40) sel:@selector(ignoreMessages) target:self];
+    _headView = [[D3_MSG_IgnoreView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds) , 40) sel:@selector(ignoreMessages) target:self];
     _headView.recievemessage = @"需要接受好友互动吗？";
 }
 
@@ -134,12 +134,12 @@ ON_SIGNAL3(RemindModel, RELOADED, signal)
 }
 
 
--(float)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return [D3_MSG_IgnoreView heightOfView];
 }
 
--(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
    return [D1_FriendsInteractTableViewCell heightOfD1_FriendsInteractTableViewCell];
 }
@@ -158,7 +158,7 @@ ON_SIGNAL3(RemindModel, RELOADED, signal)
         cell = [[D1_FriendsInteractTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ListViewCellId];
         cell.delegate = self;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        UIImage *image=[UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(320, 10)];
+        UIImage *image=[UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(CGRectGetWidth([UIScreen mainScreen].bounds) , 10)];
         cell.backgroundImage = image;
         [self addCellSelectedColor:cell];
     }

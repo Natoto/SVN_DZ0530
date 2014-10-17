@@ -20,7 +20,7 @@
         //        [self loadheaderviews];
         headerpostcell = [[B3_PostBaseTableViewCell alloc] initWithStyle:style reuseIdentifier:@"postbaseTabel.cell" target:self];
         headerpostcell.delegate = self;
-        headerpostcell.frame = CGRectMake(0, 0, 320, 200);
+        headerpostcell.frame = CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), 200);
 
         [self.contentView addSubview:headerpostcell];
     }
@@ -55,8 +55,8 @@
 
 -(CGRect)frameOfCellHeader:(B3_PostBaseTableViewCell *)cell
 {
-//    return CGRectMake(0, 0, 320, 60);
-    self.cellHeaderFrame = CGRectMake(0, 0, 320, 60);
+//    return CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds) , 60);
+    self.cellHeaderFrame = CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), 60);
     return self.cellHeaderFrame;
 }
 

@@ -6,7 +6,7 @@
 //  Copyright (c) 2014年 Nonato. All rights reserved.
 //
 #import "bee.h"
-typedef enum : NSInteger {
+typedef enum : int {
     MSG_PUBLIC=1, // 公共消息
     MSG_HAOYOU = 2, //好友消息
     MSG_ALL=3, //所有消息

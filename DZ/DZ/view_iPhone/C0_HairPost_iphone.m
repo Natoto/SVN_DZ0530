@@ -31,7 +31,7 @@
 
 @end
 
-@interface C0_HairPost_iphone ()<UITextViewDelegate,UITextFieldDelegate,LXActionSheetDelegate,FaceBoardDelegate,MaskViewDelegate>
+@interface C0_HairPost_iphone ()<UITextViewDelegate,UITextFieldDelegate,LXActionSheetDelegate,FaceBoardDelegate,MaskViewDelegate,C0_ZhuTi_SelectPlatesDelegate,C0_HairPost_SelectPlates>
 {
     MaskView  *maskview;
     FaceBoard *inputView;
@@ -207,7 +207,7 @@ DEF_SINGLETON(C0_HairPost_iphone)
     inputView.delegate = self;
     inputView.inputTextView = (UITextView *)_fastTextView;
     //toolsview
-    self.toolsview = [[C0_HairPost_ToolsView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.scrollView.frame), 320, 33) withTarget:self andFacialSel:@selector(showFace:) andpictureSel:@selector(pictureSelect:) andkeyboardSel:@selector(showKeyboard:)];
+    self.toolsview = [[C0_HairPost_ToolsView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.scrollView.frame), CGRectGetWidth([UIScreen mainScreen].bounds), 33) withTarget:self andFacialSel:@selector(showFace:) andpictureSel:@selector(pictureSelect:) andkeyboardSel:@selector(showKeyboard:)];
     [self.view addSubview:self.toolsview];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -343,33 +343,35 @@ DEF_SINGLETON(C0_HairPost_iphone)
            maskview.frame = self.frame;
            [maskview showInView:self.view belowSubview:_zhutiselector];
        }
-       else
-       {
-           self.typedid = nil;
-           [self.zhutitn setTitle:@"无主题" forState:UIControlStateNormal];
-           //         [self presentMessageTips:@"无主题"];
-       }       
+//       else
+//       {
+//           self.typedid = nil;
+//           [self.zhutitn setTitle:@"无主题" forState:UIControlStateNormal];
+//           //         [self presentMessageTips:@"无主题"];
+//       }       
     }];
    
 }
 
 
--(void)updatezhutiInfo
+-(void)updatezhutiInfo:(NSString *)fid
 {
-    if (!self.selectfid) {
+    if (!fid) {
 //        [self presentMessageTips:@"请先选择版块"];
         return;
     }
     @weakify(self)
-//    NSArray *forums=[ForumlistModel forumsAry];
-    [ThreadtypeModel readthreadtype:self.selectfid  block:^(NSArray *block) {
+    //    NSArray *forums=[ForumlistModel forumsAry];
+     NSString *oldselectfid = [NSString stringWithFormat:@"%@",self.selectfid];
+     self.selectfid = fid;
+    [ThreadtypeModel readthreadtype:fid block:^(NSArray *block) {
         NSArray *athread = block;
         @normalize(self);
-        if (athread.count && !self.typedid) {
+        if (athread.count && oldselectfid!=fid) {
             threadtype  *athreaddic=[athread objectAtIndex:0];
             NSString * key =[NSString stringWithFormat:@"%@", athreaddic.id];
             // [athreaddic valueForKey:@"key"];
-            self.typedid = [NSNumber numberWithInt:key.integerValue];
+            self.typedid = [NSNumber numberWithInt:key.intValue];
             NSString *value = athreaddic.name;
             //[athreaddic valueForKey:@"value"];
             [self.zhutitn setTitle:value forState:UIControlStateNormal];
@@ -377,9 +379,13 @@ DEF_SINGLETON(C0_HairPost_iphone)
         if (!athread || !athread.count) {
             self.typedid = nil;
             [self.zhutitn setTitle:@"无主题" forState:UIControlStateNormal];
+            [self.zhutitn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        }
+        else
+        {
+            [self.zhutitn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         }
     }];
-   
 }
 #pragma mark -
 #pragma mark 图片拍照选择
@@ -407,34 +413,84 @@ DEF_SINGLETON(C0_HairPost_iphone)
 
 - (void)didClickOnButtonIndex:(NSInteger *)buttonIndex
 {
-    NSLog(@"%d",(int)buttonIndex);
+   BeeLog(@"%d",(int)buttonIndex);
      [self selectpicture:nil andclickedButtonAtIndex:(int)buttonIndex];
 }
 
 - (void)didClickOnDestructiveButton
 {
-    NSLog(@"destructuctive");
+   BeeLog(@"destructuctive");
 }
 
 - (void)didClickOnCancelButton
 {
-    NSLog(@"cancelButton");
+   BeeLog(@"cancelButton");
 }
 
 #pragma mark - actionsheet delegate
--(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+//-(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+//{
+//    if (actionSheet.tag == 255) {
+//       
+//    }
+//    else
+//    {
+//        if (buttonIndex==0 || buttonIndex==1) {
+//            [self selectPlates:actionSheet andclickedButtonAtIndex:buttonIndex];
+//        }
+//    }
+//}
+#pragma mark  - 选择版块 选择主题
+-(void)C0_HairPost_SelectPlates:(C0_HairPost_SelectPlates *)action select_LoacateChild:(LoacateChild *)loate clickedButtonAtIndex:(NSInteger)index
 {
-    if (actionSheet.tag == 255) {
-       
+//-(void)selectPlates:(UIActionSheet *)actionSheet andclickedButtonAtIndex:(NSInteger)buttonIndex
+    if(index == 0) {
+        BeeLog(@"Cancel");
+        [maskview hiddenMask];
+        return;
     }
-    else
-    {
-        if (buttonIndex==0 || buttonIndex==1) {
-            [self selectPlates:actionSheet andclickedButtonAtIndex:buttonIndex];
+    if ([[action class] isSubclassOfClass:[C0_HairPost_SelectPlates class]]) {
+        C0_HairPost_SelectPlates *locateView = (C0_HairPost_SelectPlates *)action;
+        LoacateChild *location = locateView.locate;
+        if (location.child) {
+            BeeLog(@"name:%@ fid:%@ lastpost:%@", location.child.name, location.child.fid, location.child.lastpost);
+            
+            NSString *key=[NSString stringWithFormat:@"%@ / %@",location.parent.name,location.child.name];
+            NSString * selectfid = [NSString stringWithFormat:@"%@",loate.child.fid];
+            if (location.subchild) {
+                key=[NSString stringWithFormat:@"%@ / %@ /%@",location.parent.name,location.child.name,location.subchild.name];
+                selectfid = [NSString stringWithFormat:@"%@",location.subchild.fid];
+            };
+            [self.selectforumbtn setTitle:key forState:UIControlStateNormal];
+            [self updatezhutiInfo:selectfid];
         }
+        //You can uses location to your application.
+        
     }
+    
+    
 }
 
+-(void)C0_ZhuTi_SelectPlates:(C0_ZhuTi_SelectPlates *)action select_thtps:(THTPS_SELECT *)loate clickedButtonAtIndex:(NSInteger)index
+{
+    //选择主题
+        if(index == 0) {
+            BeeLog(@"Cancel");
+            [maskview hiddenMask];
+            return;
+        }
+        C0_ZhuTi_SelectPlates *zhutiView = (C0_ZhuTi_SelectPlates *)action;
+        THTPS_SELECT *item = zhutiView.locate;
+        NSString *key=[NSString stringWithFormat:@"%@",item.threadtypesitem];
+        if([key rangeOfString:@"null"].location == NSNotFound)
+        {
+            if (item.typedid) {
+                self.typedid = [NSNumber numberWithInt:item.typedid.intValue];
+                [self.zhutitn setTitle:key forState:UIControlStateNormal];
+            }
+        }
+    
+}
 -(void)selectpicture:(UIActionSheet *)actionSheet andclickedButtonAtIndex:(NSInteger)buttonIndex
 {
     
@@ -456,7 +512,6 @@ DEF_SINGLETON(C0_HairPost_iphone)
                 // 相册
             {
                  sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-                
                 [self selectFromAblum];
             }
         }
@@ -506,44 +561,6 @@ DEF_SINGLETON(C0_HairPost_iphone)
         }
     }];    
     [self presentViewController:picker animated:YES completion:NULL];*/
-}
-#pragma mark  - 选择版块
--(void)selectPlates:(UIActionSheet *)actionSheet andclickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if ([[actionSheet class] isSubclassOfClass:[C0_HairPost_SelectPlates class]]) {
-        C0_HairPost_SelectPlates *locateView = (C0_HairPost_SelectPlates *)actionSheet;
-        LoacateChild *location = locateView.locate;
-        if (location.child) {
-            NSLog(@"name:%@ fid:%@ lastpost:%@", location.child.name, location.child.fid, location.child.lastpost);
-
-            NSString *key=[NSString stringWithFormat:@"%@ / %@",location.parent.name,location.child.name];
-            self.selectfid=location.child.fid;
-            if (location.subchild) {
-                key=[NSString stringWithFormat:@"%@ / %@ /%@",location.parent.name,location.child.name,location.subchild.name];
-                self.selectfid =location.subchild.fid;
-            };
-            [self.selectforumbtn setTitle:key forState:UIControlStateNormal];
-            [self updatezhutiInfo];
-        }
-        //You can uses location to your application.
-        if(buttonIndex == 0) {
-            NSLog(@"Cancel");
-        }else {
-            NSLog(@"Select");
-        }
-    }
-    else if ([[actionSheet class] isSubclassOfClass:[C0_ZhuTi_SelectPlates class]])
-    {//选择主题
-         C0_ZhuTi_SelectPlates *zhutiView = (C0_ZhuTi_SelectPlates *)actionSheet;
-         THTPS_SELECT *item = zhutiView.locate;
-        NSString *key=[NSString stringWithFormat:@"%@",item.threadtypesitem];
-        if([key rangeOfString:@"null"].location == NSNotFound)
-        {
-            self.typedid = item.typedid;
-            [self.zhutitn setTitle:key forState:UIControlStateNormal];
-        }
-    }
-    
 }
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
@@ -798,7 +815,7 @@ ON_SIGNAL3(newTopicModel, FAILED, signal)
         else
         {
             SETextAttachment *lastachtment=[array objectAtIndex:index-1];
-            int lastpostion=lastachtment.range.location+lastachtment.range.length;
+            NSUInteger lastpostion=lastachtment.range.location+lastachtment.range.length;
             if (achtment.range.location >  lastpostion) {
                 NSAttributedString *substr=[AttributedString attributedSubstringFromRange:NSMakeRange(lastpostion,(achtment.range.location-lastpostion))];
                 newtopicContent *acont1=[[newtopicContent alloc] init];
@@ -824,8 +841,8 @@ ON_SIGNAL3(newTopicModel, FAILED, signal)
     }
      SETextAttachment *achtment=[array lastObject];
     if ((achtment.range.location+achtment.range.length)<(AttributedString.length)) {
-        int length=AttributedString.length-(achtment.range.location+achtment.range.length);
-        int location=achtment.range.location+achtment.range.length ;
+        NSUInteger length=AttributedString.length-(achtment.range.location+achtment.range.length);
+        NSUInteger location=achtment.range.location+achtment.range.length ;
         NSAttributedString *substr=[AttributedString attributedSubstringFromRange:NSMakeRange(location,length)];
         newtopicContent *acont1=[[newtopicContent alloc] init];
         acont1.msg=substr.string;
@@ -850,28 +867,28 @@ ON_RIGHT_BUTTON_TOUCHED(signal)
         return;
     }
     
-    int titlelength =[NSString unicodeLengthOfString:self.titleTxt.text];
+    NSUInteger titlelength =[NSString unicodeLengthOfString:self.titleTxt.text];
     if (titlelength >80)
     {
-        [self presentMessageTips:[NSString stringWithFormat:@"标题超过最大长度80个字符，需删除%d个字符",titlelength - 80]];
+        [self presentMessageTips:[NSString stringWithFormat:@"标题超过最大长度80个字符，需删除%u个字符",titlelength - 80]];
         return;
     }
     if (!self.selectfid) {
         [self presentMessageTips:@"请选择版块"];
         return;
     }
-    int length =[NSString unicodeLengthOfString:self.fastTextView.text];
+    NSUInteger length =[NSString unicodeLengthOfString:self.fastTextView.text];
     if (length < 10) {
         [self presentMessageTips:@"帖子内容不能少于10个字符"];
         return;
     }
-    int pushinterval = [DZ_Timer sharedInstance].publishcount;
+    NSUInteger pushinterval = [DZ_Timer sharedInstance].publishcount;
     if (!pushinterval) {
         [self startuploadimg];
     }
     else
     {
-        NSString *msg = [NSString stringWithFormat:@"您发布太快，%ds后重试",pushinterval];
+        NSString *msg = [NSString stringWithFormat:@"您发布太快，%lds后重试",(unsigned long)pushinterval];
         [self presentMessageTips:msg];
     }
 }
@@ -938,7 +955,7 @@ ON_SIGNAL3(C0_HairPost_iphone, didpostImage, signal)
     
         [_postImgModel load];
         [_postImgModel firstPage];
-        [self presentLoadingTips:[NSString stringWithFormat:@"正在上传(%d/%d)",self.Uploadindex+1,self.totalUploadCount]];
+        [self presentLoadingTips:[NSString stringWithFormat:@"正在上传(%d/%ld)",self.Uploadindex+1,(long)self.totalUploadCount]];
 }
 
 ON_SIGNAL3(postImageModel, FAILED, signal)
@@ -1037,6 +1054,8 @@ ON_LEFT_BUTTON_TOUCHED(signal)
     [maskview hiddenMask];
 }
 
+
+
 -(void)keyboardWillHide:(NSNotification *)notification
 {
     [self resizeTextView:notification];
@@ -1048,7 +1067,7 @@ ON_LEFT_BUTTON_TOUCHED(signal)
     self.scrollView.frame =CGRectMake(0, CGRectGetMaxY(_titleTxt.frame), CGRectGetWidth(_scrollView.frame),CGRectGetHeight(_scrollView.frame));
     self.toolsview.frame = CGRectMake(0, CGRectGetMaxY(self.scrollView.frame), self.bounds.size.width, TOP_VIEW_HEIGHT);
     [self.toolsview showKeyboardBtn:NO];
-//    self.toolsview.frame=CGRectMake(0, edg.top + 280 + 10*4, 320, 33);
+//    self.toolsview.frame=CGRectMake(0, edg.top + 280 + 10*4, CGRectGetWidth([UIScreen mainScreen].bounds) , 33);
     [UIView commitAnimations];
 }
 
@@ -1093,9 +1112,9 @@ ON_LEFT_BUTTON_TOUCHED(signal)
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
     if (textField.tag == TITLTTAG) {
-        int length =[NSString unicodeLengthOfString:textField.text];
+        NSUInteger length =[NSString unicodeLengthOfString:textField.text];
         if (length >80) {
-            [self presentMessageTips:[NSString stringWithFormat:@"标题超过最大长度80个字符，需删除%d个字符",length - 80]];
+            [self presentMessageTips:[NSString stringWithFormat:@"标题超过最大长度80个字符，需删除%u字符",length - 80]];
         }
     }
 } 
@@ -1123,9 +1142,9 @@ ON_LEFT_BUTTON_TOUCHED(signal)
 - (void)textViewDidEndEditing:(SETextView *)textView
 {
     if (textView.tag == TITLTTAG) {
-         int length = [NSString unicodeLengthOfString:self.titleTxt.text];
+         NSUInteger length = [NSString unicodeLengthOfString:self.titleTxt.text];
         if (length > 80) {
-            [self presentMessageTips:[NSString stringWithFormat:@"标题超过最大长度80个字符，需删除%d个字符", length - 80]];
+            [self presentMessageTips:[NSString stringWithFormat:@"标题超过最大长度80个字符，需删除%u个字符", length - 80]];
         }        
         [self.titleTxt updatePlaceHolder];
         self.toolsview.hidden = NO;

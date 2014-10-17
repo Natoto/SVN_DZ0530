@@ -40,7 +40,7 @@ DEF_NOTIFICATION(homepageItemChanged)
 #pragma mark 界面控制
 ON_SIGNAL3(A0_HomePage1_iphone, dragViewEnd, signal)
 {
-     NSLog(@"移动交换位置~~ " );
+    BeeLog(@"移动交换位置~~ " );
     if (self.EDITMODE) {
         NSString *changePositions =signal.object;
         NSArray *positons=[changePositions componentsSeparatedByString:@":"];
@@ -56,7 +56,7 @@ ON_SIGNAL3(A0_HomePage1_iphone, dragViewEnd, signal)
 
 ON_SIGNAL3(A0_HomePage1_iphone, longPressEnd, signal)
 {
-    NSLog(@"保存位置~~");
+   BeeLog(@"保存位置~~");
     if (!self.EDITMODE) {
             [self.homeModel saveArrangedPosition:self.ModeleBlocks];
       }
@@ -69,7 +69,7 @@ ON_SIGNAL3(A0_HomePage1_iphone, removeView, signal)
         return;
     }
 
-    NSLog(@"删除一个视图~~~");
+   BeeLog(@"删除一个视图~~~");
     [self.ModeleBlocks removeObject:item];
     [self.homeModel saveArrangedPosition:self.ModeleBlocks];
     [self postNotification:self.homepageItemChanged withObject:self.ModeleBlocks];//发送删除消息
@@ -141,7 +141,7 @@ ON_SIGNAL2( BeeUIBoard, signal )
     {
 //        self.scrollView.frame=CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height  - bee.ui.config.baseInsets.top);
         UIEdgeInsets edge= bee.ui.config.baseInsets;
-//        bgimgview.frame =CGRectMake(0, 0, 320, edge.top);
+//        bgimgview.frame =CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds) , edge.top);
 //        self.scrollView.contentInset=edge;
         self.scrollView.frame=CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
         [self reloadData];
@@ -193,7 +193,7 @@ ON_SIGNAL2( BeeUIBoard, signal )
         }
         newest *new = self.homeModel.shots.newest;
         HOME2TOPICSPOSITIONITEM *item2 = [[HOME2TOPICSPOSITIONITEM alloc] init];
-        item2.title = new.title;
+        item2.title =@"最新主题"; //new.title;
         item2.count = @"0"; //[NSString stringWithFormat:@"%@",new];
         item2.subject = new.subject;
         item2.icon = new.img;
@@ -205,7 +205,7 @@ ON_SIGNAL2( BeeUIBoard, signal )
         hot *ahot=self.homeModel.shots.hot;
         item3.count=@"0";
         item3.subject=ahot.subject;
-        item3.title=ahot.title;
+        item3.title=@"热门主题"; //ahot.title;
         item3.icon=ahot.img;
         item3.fid=HOME_FID_HOTEST;
         item3.enableDelete=[NSString stringWithFormat:@"0"];
@@ -341,7 +341,7 @@ ON_SIGNAL2( BeeUIBoard, signal )
 -(void)moveCommandPlatesFront:(NSMutableArray *)blocks
 {
      if (self.homeModel.onoff.iscommand.integerValue) {
-        int index = 0;
+        NSInteger index = 0;
         HOME2TOPICSPOSITIONITEM *commanditem = blocks[0];
         if (![commanditem.fid isEqualToString:HOME_FID_TUIJIAN])
         {
@@ -354,7 +354,7 @@ ON_SIGNAL2( BeeUIBoard, signal )
                 }
             }
             if (index ) {
-                for (int j=index-1; j>=0; j--) {
+                for (NSInteger j=index-1; j>=0; j--) {
                     HOME2TOPICSPOSITIONITEM *tempitem2=[blocks objectAtIndex:j];
                     if ((j+1) > blocks.count) {
                         [blocks addObject:tempitem2];
@@ -371,7 +371,7 @@ ON_SIGNAL2( BeeUIBoard, signal )
     }
     else
     {//如果没有开启站长推荐而本地数据库中有 则移除
-        int index = 0;
+        NSInteger index = 0;
         HOME2TOPICSPOSITIONITEM *commanditem = blocks[0];
         if (![commanditem.fid isEqualToString:HOME_FID_TUIJIAN])
         {
@@ -398,7 +398,7 @@ ON_SIGNAL2( BeeUIBoard, signal )
    if (!self.homeModel.onoff.isactivity.integerValue)
     {//如果没有活动主题而本地数据库中有 则移除
         HOME2TOPICSPOSITIONITEM *commanditem = nil;
-        int index = 0;
+        NSInteger index = 0;
         for (index = blocks.count-1; index >=0; index--) {
             HOME2TOPICSPOSITIONITEM *tempitem=[blocks objectAtIndex:index];
             if ([tempitem.fid isEqualToString:HOME_FID_ACTIVITY]) {
@@ -410,7 +410,7 @@ ON_SIGNAL2( BeeUIBoard, signal )
     }
     else
     {
-         int index = 0;
+         NSInteger index = 0;
         HOME2TOPICSPOSITIONITEM *item = blocks[2];
         if (![item.fid isEqualToString:HOME_FID_ACTIVITY])
         {
@@ -423,7 +423,7 @@ ON_SIGNAL2( BeeUIBoard, signal )
                 }
             }
             if (index ) {
-                for (int j=index-1; j>=1; j--) {
+                for (NSInteger j=index-1; j>=1; j--) {
                     HOME2TOPICSPOSITIONITEM *tempitem2=[blocks objectAtIndex:j];
                     if ((j+1) > blocks.count) {
                         [blocks addObject:tempitem2];

@@ -34,7 +34,7 @@ DEF_NOTIFICATION(skiptosub)
 ON_NOTIFICATION3(B1_ATopicViewController, catalogselect, notify)
 {
     if (self.superdelegate.currentIndex == self.selfIndex) {
-        NSLog(@"当前视图 = %@ 筛选...",self.title);
+       BeeLog(@"当前视图 = %@ 筛选...",self.title);
         NSNumber *typeid=(NSNumber *)notify.object;
         if (typeid.integerValue > 0) {
             self.tpclistModel.typeids = [NSString stringWithFormat:@"%@",typeid];
@@ -51,11 +51,6 @@ ON_NOTIFICATION3(B1_ATopicViewController, catalogselect, notify)
 {
     [super viewDidLoad];
     self.tableViewList.frame=CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-bee.ui.config.baseInsets.top);
-//    CGFloat height = MAX(self.tableViewList.contentSize.height, self.tableViewList.frame.size.height);
-//    self.refreshFooterView.frame = CGRectMake(0.0f,
-//                                          height,
-//                                          self.tableViewList.frame.size.width,
-//                                          self.view.frame.size.height);
     self.tpclistModel =[TopiclistModel modelWithObserver:self];
     self.tpclistModel.fid=self.forum_fid;
     self.tpclistModel.type=self.topic_type; 
@@ -102,7 +97,7 @@ ON_SIGNAL3(TopiclistModel, FAILED, signal)
     }
 //     self.tableViewList.frame=CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-bee.ui.config.baseInsets.top);
 //    self.refreshHeaderView.frame=self.tableViewList.frame;
-    NSLog(@"加载为当前视图 = %@",self.title);
+   BeeLog(@"加载为当前视图 = %@",self.title);
 }
 
 - (void)didReceiveMemoryWarning

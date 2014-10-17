@@ -46,7 +46,7 @@
     //用[NSDate date]可以获取系统当前时间
     NSString *currentDateStr = [dateFormatter stringFromDate:[NSDate date]];
     //输出格式为：2010-10-27 10:22:13
-    NSLog(@"%@",currentDateStr);
+   BeeLog(@"%@",currentDateStr);
     return currentDateStr;
 }
 

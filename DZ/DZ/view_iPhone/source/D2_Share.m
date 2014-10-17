@@ -59,7 +59,7 @@ DEF_SINGLETON(shareImage)
 {
     [super viewDidLoad];
 
-    NSLog(@"%@", self.title);
+   BeeLog(@"%@", self.title);
 
     //解析html
 //    for (int index = 0; i < self.content.count; index++) {
@@ -78,9 +78,9 @@ DEF_SINGLETON(shareImage)
     [self setNavigationBarTitle:@"分享应用"];
     self.view.backgroundColor = [UIColor colorWithWhite:0.900 alpha:1];
 
-    CGSize size = CGSizeMake(300, 100);
+    CGSize size = CGSizeMake(CGRectGetWidth([UIScreen mainScreen].bounds)-20, 100);
     CGSize labelSize = [kShareString sizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:size lineBreakMode:NSLineBreakByWordWrapping];
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10, bee.ui.config.baseInsets.top + 10, 300, labelSize.height)];
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10, bee.ui.config.baseInsets.top + 10, CGRectGetWidth([UIScreen mainScreen].bounds)-20, labelSize.height)];
     if (self.hasTid) {
         title.text = self.title;
 //        codeStr = [NSString stringWithFormat:@"%@?mod=viewthread&tid=%@", [DZ_SystemSetting  sharedInstance].forumurl, self.tid];
@@ -100,7 +100,7 @@ DEF_SINGLETON(shareImage)
     [title.layer setMasksToBounds:YES];
     [self.view addSubview:title];
 
-    UIView *buttonView = [[UIView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(title.frame) + 20, 300, 240)];
+    UIView *buttonView = [[UIView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(title.frame) + 20, CGRectGetWidth([UIScreen mainScreen].bounds) - 20, 240)];
     buttonView.backgroundColor = [UIColor whiteColor];
     buttonView.layer.borderColor = [UIColor colorWithWhite:0.8 alpha:1].CGColor;
     buttonView.layer.borderWidth = 0.5;
@@ -108,7 +108,7 @@ DEF_SINGLETON(shareImage)
     [buttonView.layer setMasksToBounds:YES];
     [self.view addSubview:buttonView];
 
-    UILabel *buttonLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 20)];
+    UILabel *buttonLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, CGRectGetWidth([UIScreen mainScreen].bounds) - 20 , 20)];
     buttonLabel.text = __TEXT(@"share_to");
     buttonLabel.backgroundColor = [UIColor whiteColor];
 //    buttonLabel.layer.borderColor = [UIColor colorWithWhite:0.8 alpha:1].CGColor;
@@ -356,24 +356,24 @@ DEF_SINGLETON(shareImage)
 
 //- (NSString *)url:(NSString *)string
 //{
-//    NSLog(@"%@", string);
+//   BeeLog(@"%@", string);
 //    NSError *error;
 //    NSString *regulaStr = @"(http[s]{0,1}|ftp):\\/\\/([\\w-]+\\.)+[\\w-]+(\\/[\\w- .\\/?%&=]*)?";
 //    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regulaStr
 //                                                                           options:NSRegularExpressionCaseInsensitive
 //                                                                             error:&error];
 //    NSArray *arrayOfAllMatches = [regex matchesInString:string options:0 range:NSMakeRange(0, [string length])];
-//    NSLog(@"%@", arrayOfAllMatches);
+//   BeeLog(@"%@", arrayOfAllMatches);
 //
 //    NSString *urlStr = nil;
 //    for (NSTextCheckingResult *match in arrayOfAllMatches)
 //    {
 //        urlStr = [string substringWithRange:match.range];
-//        NSLog(@"%@", urlStr);
+//       BeeLog(@"%@", urlStr);
 //    }
 //    //获得匹配个数
 //    NSUInteger numberOfMatches = [regex numberOfMatchesInString:string options:0 range:NSMakeRange(0, [string length])];
-//    NSLog(@"numberOfMatches===%d",numberOfMatches);
+//   BeeLog(@"numberOfMatches===%d",numberOfMatches);
 //
 //    return urlStr;
 //}
@@ -469,12 +469,12 @@ DEF_SINGLETON(shareImage)
 
 - (void)shareLogInDidCancel:(PFShareKit *)shareKit
 {
-    NSLog(@"用户取消了登录");
+   BeeLog(@"用户取消了登录");
 }
 
 - (void)share:(PFShareKit *)shareKit logInDidFailWithError:(NSError *)error
 {
-    NSLog(@"登录失败");
+   BeeLog(@"登录失败");
 }
 
 - (void)share:(PFShareKit *)shareKit accessTokenInvalidOrExpired:(NSError *)error
@@ -484,26 +484,26 @@ DEF_SINGLETON(shareImage)
 
 - (void)shareWillBeginRequest:(PFShareRequest *)request
 {
-    NSLog(@"开始请求");
+   BeeLog(@"开始请求");
 }
 
 -(void)request:(PFShareRequest *)request didFailWithError:(NSError *)error
 {
     if ([request.url hasSuffix:@"statuses/upload.json"])
     {
-        NSLog(@"发表微博失败");
-        NSLog(@"Post image status failed with error : %@", error);
+       BeeLog(@"发表微博失败");
+       BeeLog(@"Post image status failed with error : %@", error);
     }
     else if ([request.url hasSuffix:@"api/t/add_pic"])
     {
-        NSLog(@"发表微博失败");
-        NSLog(@"Post image status failed with error : %@", error);
+       BeeLog(@"发表微博失败");
+       BeeLog(@"Post image status failed with error : %@", error);
     }
     else if ([request.url hasSuffix:@"restserver.do"])
     {
         //发表人人网相片回调
-        NSLog(@"发表人人网相片失败");
-        NSLog(@"Post image status failed with error : %@", error);
+       BeeLog(@"发表人人网相片失败");
+       BeeLog(@"Post image status failed with error : %@", error);
     }
 }
 
@@ -513,38 +513,38 @@ DEF_SINGLETON(shareImage)
     {
         //新浪微博响应
         if([[result objectForKey:@"error_code"] intValue]==20019) {
-            NSLog(@"发送频率过高，请您过会再发");
+           BeeLog(@"发送频率过高，请您过会再发");
         }
         else if([[result objectForKey:@"error_code"] intValue]==0) {
-            NSLog(@"发送微博成功");
+           BeeLog(@"发送微博成功");
         }
     }
     else if ([request.url hasSuffix:@"api/t/add_pic"])
     {
         //腾讯微博响应
         if([[result objectForKey:@"errcode"] intValue]==0) {
-            NSLog(@"发表微博成功");
+           BeeLog(@"发表微博成功");
         } else {
-            NSLog(@"发表微博失败");
+           BeeLog(@"发表微博失败");
         }
     }
     else if ([request.url hasSuffix:@"shuo/v2/statuses/"])
     {
         //豆瓣说响应
         if([[result objectForKey:@"code"] intValue]==0) {
-            NSLog(@"发表豆瓣说成功");
+           BeeLog(@"发表豆瓣说成功");
         } else {
-            NSLog(@"%@",result);
-            NSLog(@"发表豆瓣说失败");
+           BeeLog(@"%@",result);
+           BeeLog(@"发表豆瓣说失败");
         }
     }
     else if ([request.url hasSuffix:@"restserver.do"])
     {
         //发表人人网相片回调
         if([[result objectForKey:@"error_code"] intValue]==0) {
-            NSLog(@"发表人人网相片成功");
+           BeeLog(@"发表人人网相片成功");
         } else {
-            NSLog(@"发表人人网相片失败");
+           BeeLog(@"发表人人网相片失败");
         }
     }
 }

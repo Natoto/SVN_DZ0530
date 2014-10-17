@@ -16,7 +16,7 @@
     if (self) {
         // Initialization code
         
-        UIView *headView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
+        UIView *headView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds) , 40)];
         headView.backgroundColor=[UIColor whiteColor];
         //    headView.layer.borderColor = LINE_LAYERBOARDCOLOR;
         //    headView.layer.borderWidth = LINE_LAYERBOARDWIDTH;

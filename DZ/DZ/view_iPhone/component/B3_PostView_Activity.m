@@ -179,8 +179,8 @@
         index ++;
     }
     if (self.applyButton) {
-        _applyButton.center = CGPointMake(320.0/2, (diction.allKeys.count)*40.+ APPLYBTN_HEIGHT/2 + 5);
-        scrollview.contentSize = CGSizeMake(320, CGRectGetMaxY(_applyButton.frame));
+        _applyButton.center = CGPointMake(CGRectGetWidth([UIScreen mainScreen].bounds)/2, (diction.allKeys.count)*40.+ APPLYBTN_HEIGHT/2 + 5);
+        scrollview.contentSize = CGSizeMake(CGRectGetWidth([UIScreen mainScreen].bounds), CGRectGetMaxY(_applyButton.frame));
     }
 }
 
@@ -208,7 +208,7 @@
     NSString *text=[NSString stringWithFormat:@"%@ : %@",key,value];
     NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:text];
     UIColor *color = [DZ_SystemSetting sharedInstance].navigationBarColor;
-    int LENGTH= key.length + 2;
+    NSInteger LENGTH= key.length + 2;
     [attriString addAttribute:NSForegroundColorAttributeName
                         value:[UIColor blackColor]
                         range:NSMakeRange(0, LENGTH)];

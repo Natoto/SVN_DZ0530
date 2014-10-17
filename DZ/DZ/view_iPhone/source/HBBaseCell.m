@@ -26,11 +26,11 @@ DEF_SIGNAL(ABOUTUS)
         [self addSubview:bgview];
         
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(0, 0, 320, 60);
+        button.frame = CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds) , 60);
         [button addTarget:self action:@selector(cellButtonTap:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:button];
         
-        leftlabel=[[UILabel alloc] initWithFrame:CGRectMake(20, 10, 200, 30)];
+        leftlabel=[[UILabel alloc] initWithFrame:CGRectMake(20, 10, 250, 30)];
         leftlabel.backgroundColor = [UIColor clearColor];
         leftlabel.textAlignment = NSTextAlignmentLeft;
         leftlabel.text = @"";
@@ -39,7 +39,7 @@ DEF_SIGNAL(ABOUTUS)
 
         [self addSubview:leftlabel];
         
-        rightlabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 10, 100, 30)];
+        rightlabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth([UIScreen mainScreen].bounds) - 100 - 40, 10, 100, 30)];
         rightlabel.backgroundColor = [UIColor clearColor];
         rightlabel.textAlignment = NSTextAlignmentRight;
         rightlabel.text = @"";

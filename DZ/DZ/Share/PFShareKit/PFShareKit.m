@@ -270,7 +270,7 @@ static PFShareKit *shareInstance;
 
 - (void)logInDidFinishWithAuthInfo:(NSDictionary *)authInfo
 {
-    NSLog(@"auto:%@",authInfo);
+   BeeLog(@"auto:%@",authInfo);
     
     //新浪的比较特别，所以不在这个函数中获得access_token
     NSString *access_token = [authInfo objectForKey:@"access_token"];

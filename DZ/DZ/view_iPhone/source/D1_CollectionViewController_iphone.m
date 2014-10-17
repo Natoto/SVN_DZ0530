@@ -59,7 +59,7 @@ ON_SIGNAL3(collectionModel, FAILED, signal)
     if (!self.collectModel.loaded) {
         [self.collectModel firstPage];
     }
-    NSLog(@"加载为当前视图 = %@",self.title);
+   BeeLog(@"加载为当前视图 = %@",self.title);
 }
 
 - (void)didReceiveMemoryWarning

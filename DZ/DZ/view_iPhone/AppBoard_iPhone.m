@@ -43,6 +43,7 @@ DEF_SIGNAL( TAB_FORUM )
 DEF_SIGNAL( TAB_SENDHTM)
 DEF_SIGNAL( TAB_MINE)
 DEF_SIGNAL( TAB_ALBUM)
+DEF_SIGNAL( TAB_DISCOVERY)
 DEF_SIGNAL( NOTIFY_FORWARD )
 DEF_SIGNAL( NOTIFY_IGNORE )
 @synthesize firstLogin = _firstLogin;
@@ -64,14 +65,14 @@ ON_SIGNAL2( BeeUIBoard, signal )
 		bee.ui.router[self.TAB_FORUM]	= [B0_ForumPlates_iphone class];
 		bee.ui.router[self.TAB_SENDHTM]	= [C0_HairPost_iphone class];
 		bee.ui.router[self.TAB_MINE]	= [D0_Mine_iphone class];
-        bee.ui.router[self.TAB_ALBUM]	= [E0_AlbumBoard_iphone class];
+        bee.ui.router[self.TAB_DISCOVERY]	= [E0_Discovery class];
         
 		[self.view addSubview:bee.ui.router.view];
         [self.view addSubview:bee.ui.tabbar];
 		[bee.ui.router open:self.TAB_HOME animated:YES];
         CGRect rect = [UIScreen mainScreen].bounds;
-        bee.ui.tabbar.frame = CGRectMake( 0, CGRectGetHeight(rect)-TAB_HEIGHT, 320, TAB_HEIGHT);
-        bee.ui.router.view.frame = CGRectMake( 0, 0, self.viewBound.size.width, self.viewBound.size.height );
+        bee.ui.tabbar.frame = CGRectMake( 0, CGRectGetHeight(rect)-TAB_HEIGHT, self.viewBound.size.width, TAB_HEIGHT);
+        bee.ui.router.view.frame = CGRectMake( 0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), self.viewBound.size.height );
 //         self.navigationBarShown = YES;
 //        [self.tabbar selectHomepage];
         [self.view bringSubviewToFront:bee.ui.tabbar];
@@ -93,7 +94,7 @@ ON_SIGNAL2( BeeUIBoard, signal )
 		{
             float Y=self.bounds.size.height-TAB_HEIGHT;
 //            CGRect frame=bee.ui.tabbar.frame;
-            bee.ui.tabbar.frame = CGRectMake( 0, Y, 320, TAB_HEIGHT);
+            bee.ui.tabbar.frame = CGRectMake( 0, Y, self.viewBound.size.width, TAB_HEIGHT);
             bee.ui.router.view.frame = CGRectMake( 0, 0, self.viewBound.size.width, self.viewBound.size.height );
             self.firsLoad=YES;
         }
@@ -137,7 +138,7 @@ ON_SIGNAL2( BeeUIBoard, signal )
 
 ON_SIGNAL3(IDO_LogModel, RELOADED, signal)
 {
-    NSLog(@"统计数据完成...");
+   BeeLog(@"统计数据完成...");
     if (!self.logmodel.shots.online.integerValue) {//下线了
         UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"警告" message:@"该APP已下线,无法继续使用" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         alert.tag = 155348;
@@ -147,7 +148,7 @@ ON_SIGNAL3(IDO_LogModel, RELOADED, signal)
 
 ON_SIGNAL3(IDO_LogModel, FAILED, signal)
 {
-    NSLog(@"统计数据失败...");
+   BeeLog(@"统计数据失败...");
 }
 
 -(void)dealloc
@@ -176,9 +177,9 @@ ON_SIGNAL3( AppBoardTab_iPhone, sendhtm, signal )
 // 	[self transitionFade];
 }
 
-ON_SIGNAL3(AppBoardTab_iPhone, album, signal)
+ON_SIGNAL3(AppBoardTab_iPhone, discovery, signal)
 {
-    [bee.ui.router open:AppBoard_iPhone.TAB_ALBUM animated:YES];
+    [bee.ui.router open:AppBoard_iPhone.TAB_DISCOVERY animated:YES];
     [self transitionFade];
 }
 ON_SIGNAL3(AppBoardTab_iPhone, mine, signal )
@@ -263,7 +264,6 @@ ON_NOTIFICATION3( BeeNetworkReachability, UNREACHABLE, notification )
     }
     C0_HairPost_iphone *board = [[C0_HairPost_iphone alloc] init];    
 //    [self  presentViewController:board animated:YES completion:^{
-//        
 //    }];
 	[self presentModalStack:[BeeUIStack stackWithFirstBoard:(BeeUIBoard *)board] animated:YES];
 }

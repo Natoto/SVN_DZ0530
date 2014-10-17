@@ -18,7 +18,7 @@
 {
     if (!hbackgroundImageView) {
         hbackgroundImageView = [[UIImageView alloc] init];
-        UIImage *imagea = [UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(320, 30)];
+        UIImage *imagea = [UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(CGRectGetWidth([UIScreen mainScreen].bounds) , 30)];
         hbackgroundImageView.image = imagea;
     }
     [self setBackgroundView:hbackgroundImageView];

@@ -47,12 +47,12 @@
     {
         //请求结果转JSON
         NSObject *result = self.responseJSON;
-        NSLog(@"123收藏，收藏=================%@", result);
+       BeeLog(@"123收藏，收藏=================%@", result);
         //获取结果转NSDictionary
         if (result && [result isKindOfClass:[NSDictionary class]]) {
             self.resp = [COLLECT objectFromDictionary:(NSDictionary *)result];
 //            BeeLog(@"%@", self.resp);
-//            NSLog(@"==============++++++++++++==================%@", self.resp);
+//           BeeLog(@"==============++++++++++++==================%@", self.resp);
         }
         //请求响应失败
         if (nil == self.resp || NO == [self.resp validate]) {
@@ -62,11 +62,11 @@
     }
     //发送失败
     else if (self.failed) {
-        NSLog(@"self.descripting===%@", self.description);
+       BeeLog(@"self.descripting===%@", self.description);
     }
     //发送取消
     else if (self.cancelled) {
-        NSLog(@"self.description===%@", self.description);
+       BeeLog(@"self.description===%@", self.description);
     }
 }
 

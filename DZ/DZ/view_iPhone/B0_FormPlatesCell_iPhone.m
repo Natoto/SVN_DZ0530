@@ -74,31 +74,45 @@
 - (void)setIsModeOne:(BOOL)isModeOne
 {
     _isModeOne = isModeOne;
-    if (_isModeOne) [self loadSubviews];
+    if (self.accorybutton) {
+        
+    }
+    if (_isModeOne)
+    {
+
+        self.accorybutton.hidden = NO;
+    }
+    else
+    {
+        self.accorybutton.hidden = YES;
+    };
 }
 
 #pragma mark - Private Methods
 
-- (void)loadSubviews
+-(UIButton *)accorybutton
 {
-    UIImage *image=[UIImage bundleImageNamed:@"tianjia(xin)3"];
-    if (mark.intValue) {
-        UIColor *color = [DZ_SystemSetting sharedInstance].navigationBarColor;
-        image = [image imageWithTintColor:color];
+    if (!_accorybutton) {
+        UIImage *image=[UIImage bundleImageNamed:@"tianjia(xin)3"];
+        if (mark.intValue) {
+            UIColor *color = [DZ_SystemSetting sharedInstance].navigationBarColor;
+            image = [image imageWithTintColor:color];
+        }
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        CGRect aframe = CGRectMake(0.0 , 0.0 , image.size.width * 4.00 ,image.size.height * 4.00);
+        button.tag = achild.fid.intValue;
+        button.frame = aframe;
+        [button setImage:image forState:UIControlStateNormal];
+        
+        button.backgroundColor = [UIColor clearColor];
+        [button addTarget:self action:@selector(buttonPressedAction:) forControlEvents:UIControlEventTouchUpInside];
+        //        self. accessoryView = button;
+        //        CGRect acframe=self.accessoryView.frame;
+        _accorybutton = button;
+        button.frame=CGRectMake(CGRectGetWidth([UIScreen mainScreen].bounds) -  aframe.size.width - 0, -15, aframe.size.width, aframe.size.height);
+        [self addSubview:button];
     }
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    CGRect aframe = CGRectMake(0.0 , 0.0 , image.size.width * 4.00 ,image.size.height * 4.00);
-    button.tag = achild.fid.intValue;
-    button.frame = aframe;
-    [button setImage:image forState:UIControlStateNormal];
-
-    button.backgroundColor = [UIColor clearColor];
-    [button addTarget:self action:@selector(buttonPressedAction:) forControlEvents:UIControlEventTouchUpInside];
-//        self. accessoryView = button;
-//        CGRect acframe=self.accessoryView.frame;
-    self.accorybutton = button;
-    button.frame=CGRectMake( self.frame.size.width -  aframe.size.width - 0, -15, aframe.size.width, aframe.size.height);
-    [self addSubview:button];
+    return _accorybutton;
 }
 
 #pragma mark - Events Methods
@@ -106,7 +120,7 @@
 - (IBAction)buttonPressedAction:(id)sender
 {
     UIButton *button = (UIButton *)sender;
-    NSLog(@"row == %d",button.tag);
+   BeeLog(@"row == %d",button.tag);
     UIImage *image=[UIImage bundleImageNamed:@"tianjia(xin)3"];
     if (mark.intValue) {//删除一个位置
 //          image = [image imageWithTintColor:FORUMCELLNOADDHOMECOLOR];

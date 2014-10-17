@@ -56,13 +56,13 @@ DEF_NOTIFICATION(selectitem)
 
 -(void)sendSelfUISignal:(UIButton *)button
 {
-    NSNumber *index=[NSNumber numberWithInt:(button.tag - ITEMSSTARTTAG)];
+    NSNumber *index=[NSNumber numberWithInteger:(button.tag - ITEMSSTARTTAG)];
     [self postNotification:self.selectitem withObject:index];
 }
 
 -(void)reloadButton:(NSString * )key title:(NSString *)title
 {
-    int index =[[items valueForKey:key] integerValue];
+    int index =[[items valueForKey:key] intValue];
     UIButton *button = (UIButton *)[_backGroundView viewWithTag:ITEMSSTARTTAG + index];
     [button setTitle:title forState:UIControlStateNormal];
 }

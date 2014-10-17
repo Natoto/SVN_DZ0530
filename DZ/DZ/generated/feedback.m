@@ -48,7 +48,7 @@
     else if (self.succeed)
     {
         NSObject *result = self.responseJSON;
-        NSLog(@"反馈结果是：%@", result);
+       BeeLog(@"反馈结果是：%@", result);
         if (result && [result isKindOfClass:[NSDictionary class]]) {
             self.resp = [feedback objectFromDictionary:(NSDictionary *)result];
         }
@@ -58,11 +58,11 @@
         }
     }
     else if (self.failed) {
-        NSLog(@"self.descripting===%@", self.description);
+       BeeLog(@"self.descripting===%@", self.description);
     }
     else if (self.cancelled)
     {
-        NSLog(@"self.descripting===%@", self.description);
+       BeeLog(@"self.descripting===%@", self.description);
     }
 }
 

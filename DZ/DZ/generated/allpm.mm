@@ -147,12 +147,12 @@ CONVERT_PROPERTY_CLASS(public, allpm_public)
 	}
 	else if ( self.failed )
 	{
-        NSLog(@"self.description===%@",self.description);
+       BeeLog(@"self.description===%@",self.description);
 		// TODO:
 	}
 	else if ( self.cancelled )
 	{
-        NSLog(@"self.description %@",self.description);
+       BeeLog(@"self.description %@",self.description);
 		// TODO:
 	}
 }

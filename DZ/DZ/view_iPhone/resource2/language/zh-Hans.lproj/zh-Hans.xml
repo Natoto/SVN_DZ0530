@@ -211,6 +211,7 @@
 <string name="POST">发帖</string>
 <string name="ALBUM">图库</string>
 <string name="MINE">我的</string>
+<string name="DISCOVERY">发现</string>
 
 <string name="realname">真实姓名</string>
 <string name="mobile">手机</string>

@@ -52,7 +52,7 @@
 {
     [super viewDidLoad];
     if (self.navigationBarShown) {
-        self.view.frame =CGRectMake(0, 0, 320, self.bounds.size.height - bee.ui.config.baseInsets.top);
+        self.view.frame =CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), self.bounds.size.height - bee.ui.config.baseInsets.top);
     } 
     
     self.view.backgroundColor = CLR_BACKGROUND;

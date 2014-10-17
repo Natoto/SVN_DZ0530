@@ -37,7 +37,7 @@
     }
 #endif
     self.title =@"回复";
-    _slideSwitchView=[[QCSlideSwitchView alloc] initWithFrame:CGRectMake(0, 0, 320, self.bounds.size.height)];
+    _slideSwitchView=[[QCSlideSwitchView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds) , self.bounds.size.height)];
     _slideSwitchView.slideSwitchViewDelegate=self;
     [self.view addSubview:_slideSwitchView];
     self.slideSwitchView.tabItemNormalColor = [QCSlideSwitchView colorFromHexRGB:@"868686"];

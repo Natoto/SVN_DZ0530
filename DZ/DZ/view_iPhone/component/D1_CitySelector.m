@@ -40,16 +40,16 @@ DEF_SIGNAL(DIDHIDE)
 - (id)initWithTitle:(NSString *)title delegate:(id /*<UIActionSheetDelegate>*/)delegate
 {
     //    self = [[[NSBundle mainBundle] loadNibNamed:@"TSLocateView" owner:self options:nil] objectAtIndex:0];
-    self = [super initWithFrame:CGRectMake(0, 0, 320, 260)];
+    self = [super initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), 260)];
     
-    UIImageView *imgview=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    UIImageView *imgview=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), 44)];
     imgview.image=[UIImage imageNamed:@"bg_023"];
     [self addSubview:imgview];
     
-    self.frame=CGRectMake(0, 0, 320, 260);
-    self.titlelabel=[[UILabel alloc] initWithFrame:CGRectMake(0, 11, 320, 21)];
+    self.frame=CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), 260);
+    self.titlelabel=[[UILabel alloc] initWithFrame:CGRectMake(0, 11, CGRectGetWidth([UIScreen mainScreen].bounds), 21)];
     self.titlelabel.textColor=[UIColor whiteColor];
-    self.titlelabel.center=CGPointMake(320.0/2, 21);
+    self.titlelabel.center=CGPointMake(CGRectGetWidth([UIScreen mainScreen].bounds)/2, 21);
     self.titlelabel.backgroundColor = [UIColor clearColor];
     self.titlelabel.textAlignment=NSTextAlignmentCenter;
     [self addSubview:self.titlelabel];
@@ -66,7 +66,7 @@ DEF_SIGNAL(DIDHIDE)
     [rightbtn addTarget:self action:@selector(locate:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:rightbtn];
     
-    self.locatePicker=[[UIPickerView alloc] initWithFrame:CGRectMake(0, 44, 320, 216)];
+    self.locatePicker=[[UIPickerView alloc] initWithFrame:CGRectMake(0, 44, CGRectGetWidth([UIScreen mainScreen].bounds), 216)];
     
     [self addSubview:self.locatePicker];
     
@@ -238,8 +238,8 @@ ON_SIGNAL3(DistrictsModel, RELOADED, signal)
     self.frame = CGRectMake(0, view.frame.size.height - self.frame.size.height, self.frame.size.width, self.frame.size.height);
     [view addSubview:self];
         
-    int proviceindex=[self.distrctModel proviceIndexForname:Provicename];
-    int cityindex=[self.distrctModel CityIndexForProvicename:Provicename andChildname:cityname];    
+    NSInteger proviceindex=[self.distrctModel proviceIndexForname:Provicename];
+    NSInteger cityindex=[self.distrctModel CityIndexForProvicename:Provicename andChildname:cityname];
     if (proviceindex != NSNotFound && cityindex != NSNotFound) {
         [self.locatePicker selectRow:proviceindex inComponent:0 animated:YES];
         [self.locatePicker selectRow:cityindex inComponent:1 animated:YES];

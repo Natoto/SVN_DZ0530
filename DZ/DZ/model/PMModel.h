@@ -7,7 +7,7 @@
 //
 
 
-typedef enum : NSInteger {
+typedef enum : int {
     MSG_ZHANNEI = 1,
     MSG_FRIENDS = 2,
     MSG_SYSTEM = 3,

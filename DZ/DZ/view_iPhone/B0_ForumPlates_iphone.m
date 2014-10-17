@@ -127,7 +127,10 @@ ON_SIGNAL3(ForumlistModel, FAILED, signal)
         cell = [[B0_FormPlatesCell_iPhone alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         cell.delegate = self;
     }
-    if ([B0_ForumPlates_iphone sharedInstance].isModeOne == YES) cell.isModeOne = YES;
+    if ([DZ_SystemSetting sharedInstance].mode.intValue == 1)
+        cell.isModeOne = YES;
+    else
+        cell.isModeOne = NO;
     cell.indexPath = indexPath;
     forums *aforums = [self.fmModel.shots objectAtIndex:indexPath.section];
     if (aforums.child) {

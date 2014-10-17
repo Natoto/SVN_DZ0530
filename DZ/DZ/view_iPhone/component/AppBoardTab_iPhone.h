@@ -47,6 +47,7 @@ AS_SIGNAL(forum)
 AS_SIGNAL(sendhtm)
 AS_SIGNAL(mine)
 AS_SIGNAL(album)
+AS_SIGNAL(discovery)
 @property(nonatomic,retain)TabItem * blumbtn;
 @property(nonatomic,retain)TabItem * homepagebtn;
 @property(nonatomic,retain)TabItem * forumbtn;

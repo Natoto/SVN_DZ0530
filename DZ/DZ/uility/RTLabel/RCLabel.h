@@ -135,17 +135,17 @@ typedef enum
 	NSString *_text;
 	NSString *_tagLabel;
 	NSMutableDictionary *_attributes;
-	int _position;
-	int _componentIndex;
+	NSInteger _position;
+	NSInteger _componentIndex;
     BOOL _isClosure;
     UIImage *img_;    
 }
 
-@property (nonatomic, assign) int componentIndex;
+@property (nonatomic, assign) NSInteger componentIndex;
 @property (nonatomic, copy) NSString *text;
 @property (nonatomic, copy) NSString *tagLabel;
 @property (nonatomic, retain) NSMutableDictionary *attributes;
-@property (nonatomic, assign) int position;
+@property (nonatomic, assign) NSInteger position;
 @property (nonatomic, assign) BOOL isClosure;
 @property (nonatomic, retain) UIImage *img;
 
@@ -153,8 +153,8 @@ typedef enum
 
 - (id)initWithString:(NSString*)aText tag:(NSString*)aTagLabel attributes:(NSMutableDictionary*)theAttributes;
 + (id)componentWithString:(NSString*)aText tag:(NSString*)aTagLabel attributes:(NSMutableDictionary*)theAttributes;
-- (id)initWithTag:(NSString*)aTagLabel position:(int)_position attributes:(NSMutableDictionary*)_attributes;
-+ (id)componentWithTag:(NSString*)aTagLabel position:(int)aPosition attributes:(NSMutableDictionary*)theAttributes;
+- (id)initWithTag:(NSString*)aTagLabel position:(NSInteger)_position attributes:(NSMutableDictionary*)_attributes;
++ (id)componentWithTag:(NSString*)aTagLabel position:(NSInteger)aPosition attributes:(NSMutableDictionary*)theAttributes;
 
 @end
 

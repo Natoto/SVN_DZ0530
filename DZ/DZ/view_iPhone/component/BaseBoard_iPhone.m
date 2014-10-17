@@ -34,7 +34,7 @@ ON_SIGNAL2( BeeUIBoard, signal )
         self.navigationItem.backBarButtonItem = myBarButtonItem;
         
         self.view.backgroundColor = [UIImage bundleImageNamed:@"index_body_bg.png"].patternColor;
-        NSLog(@"self.stack.boards.count= %d",self.stack.boards.count);
+       BeeLog(@"self.stack.boards.count= %lu",(unsigned long)self.stack.boards.count);
     }
     else if ([signal is:BeeUIBoard.WILL_APPEAR])
     {//	[MobClick beginLogPageView:[[self class] description]];

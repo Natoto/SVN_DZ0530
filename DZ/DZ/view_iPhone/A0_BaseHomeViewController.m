@@ -13,7 +13,7 @@
 //#define kTileWidth  130.f
 //#define kTileHeight kTileWidth
 #define kTileMarginLeft1 10.f
-#define kTileMarginLeft2 (320.f - kTileMarginLeft1 - kTileWidth)
+#define kTileMarginLeft2 (CGRectGetWidth([UIScreen mainScreen].bounds)  - kTileMarginLeft1 - kTileWidth)
 #define kTileMargin 50.f
 #define kTileMarginV 10.f
 @interface A0_BaseHomeViewController ()<TileViewCloseBtnTapDelegate>
@@ -199,17 +199,17 @@ DEF_SIGNAL(removeView)
     {
 //        float contentsizeheight = self.tileArray.count % 2>0?(self.tileArray.count +1)/2:(self.tileArray.count)/2;
         
-        self.scrollView.contentSize = CGSizeMake(320, contentsizeheight);
-        NSLog(@"---多屏 %f scrollviewframe %f",self.scrollView.contentSize.height,self.scrollView.frame.size.height);
+        self.scrollView.contentSize = CGSizeMake(CGRectGetWidth([UIScreen mainScreen].bounds) , contentsizeheight);
+       BeeLog(@"---多屏 %f scrollviewframe %f",self.scrollView.contentSize.height,self.scrollView.frame.size.height);
     }
     else
     {
 //        float contentsizeheight = self.tileArray.count%2>0?(self.tileArray.count +1)/2:(self.tileArray.count)/2;
 //        contentsizeheight = contentsizeheight * (kTileHeight +kTileMarginV) + 60 + 50;
-//        self.scrollView.contentSize = CGSizeMake(320, contentsizeheight);
+//        self.scrollView.contentSize = CGSizeMake(CGRectGetWidth([UIScreen mainScreen].bounds) , contentsizeheight);
         CGRect rect = [UIScreen mainScreen].bounds;
         self.scrollView.contentSize =CGSizeMake(self.view.width, rect.size.height - bee.ui.config.baseInsets.top + 5);
-        NSLog(@"---单屏 %f scrollviewframe %f",self.scrollView.contentSize.height,self.scrollView.frame.size.height);
+       BeeLog(@"---单屏 %f scrollviewframe %f",self.scrollView.contentSize.height,self.scrollView.frame.size.height);
     }
      scrollContentSize=self.scrollView.contentSize;
 }
@@ -377,7 +377,7 @@ DEF_SIGNAL(removeView)
                 {
                     self.EDITMODE=YES;
                     [self startShakeAllTileViews];
-                    NSLog(@"长按开始~~~");
+                   BeeLog(@"长按开始~~~");
                     [self longdragTile:recognizer];
                 }
                 break;
@@ -388,7 +388,7 @@ DEF_SIGNAL(removeView)
                 break;
             }
             case UIGestureRecognizerStateEnded:
-                    NSLog(@"长按结束~~~");
+                   BeeLog(@"长按结束~~~");
                 [self longdragTile:recognizer];
                 [self sendUISignal:self.longPressEnd withObject:self.tileArray];
 //                [longPressView stopShake];
@@ -575,7 +575,7 @@ DEF_SIGNAL(removeView)
 {
     if (!_scrollView)
     {
-        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, self.bounds.size.height)];
+        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds) , self.bounds.size.height)];
         _scrollView.backgroundColor = [UIColor blueColor];
     }
     return _scrollView;

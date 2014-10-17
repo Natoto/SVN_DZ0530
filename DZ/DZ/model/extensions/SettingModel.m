@@ -37,9 +37,9 @@ DEF_INT( PHOTO_23G_LOAD,	1 )
 
 - (void)loadCache
 {
-    self.fontsize =  [[self userDefaultsRead:@"SettingModel.fontsize"] integerValue];
+    self.fontsize =  [[self userDefaultsRead:@"SettingModel.fontsize"] intValue];
     self.fontsize = self.fontsize ? self.fontsize :FONTSIZE_MIDDLE;
-	self.photoMode = [[self userDefaultsRead:@"SettingModel.photoMode"] integerValue];
+	self.photoMode = [[self userDefaultsRead:@"SettingModel.photoMode"] intValue];
     if (![self userDefaultsRead:@"SettingModel.photoMode"]) {//默认加载图片
         self.photoMode = self.PHOTO_23G_LOAD;
     }

@@ -36,8 +36,6 @@
         _biaoqings=@[@"ch.gif",@"fd.gif",@"kx.gif",@"ng.gif",\
                      @"nu.gif",@"shuai.gif",@"wl.gif",@"yl.gif",@"ym.gif"];
         
-
-        
         CGRect rect =[UIScreen mainScreen].bounds;
         self.contentView = [self checkinView:CGRectMake(0, 0, 290, 230)];
         self.contentView.center = CGPointMake(rect.size.width/2, rect.size.height/2);
@@ -157,7 +155,7 @@ ON_SIGNAL3(SignModel, FAILED, signal)
     UIButton *button=(UIButton *)sender;
     NSInteger index = button.tag - BQ_START_TAG;
     NSString *bqstr = [_biaoqings objectAtIndex:index];
-    NSLog(@"%@",bqstr);
+   BeeLog(@"%@",bqstr);
     NSArray *bqstrcomponts=[bqstr componentsSeparatedByString:@"."];
     self.signmodel.qdxq =[NSString stringWithFormat:@"%@",[bqstrcomponts objectAtIndex:0]];
     [UIView animateWithDuration:0.2 animations:^{

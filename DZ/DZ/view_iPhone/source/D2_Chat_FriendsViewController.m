@@ -351,7 +351,7 @@ ON_SIGNAL3(PostpmModel, FAILED, signal)
 }
 
 - (void)handleDeleteCell:(id)sender{//删除cell
-    NSLog(@"handle delete cell");
+   BeeLog(@"handle delete cell");
 }
 
 - (void)didReceiveMemoryWarning

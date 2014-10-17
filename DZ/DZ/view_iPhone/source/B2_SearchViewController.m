@@ -82,17 +82,17 @@
 
     //    int stateBarHeight = 0;
 
-    //    UIView *background = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
+    //    UIView *background = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds) , 64)];
     //    background.backgroundColor = KT_HEXCOLOR(0x32325a);
     //    [self.view addSubview:background];
 
     //    if (KT_IOS_VERSION_7_OR_ABOVE) {
-    //        searchBg = [[UIView alloc] initWithFrame:CGRectMake(0, 20, 320, 35)];
+    //        searchBg = [[UIView alloc] initWithFrame:CGRectMake(0, 20, CGRectGetWidth([UIScreen mainScreen].bounds) , 35)];
     //        searchBg.backgroundColor = [UIColor colorWithRed:239/255. green:239/255. blue:239/255. alpha:1];
     //        [background addSubview:searchBg];
     //        stateBarHeight = 22;
     //    }
-    //    searchBar = [self addReplayEditArea:CGRectMake(0, 22, 320, 40)];
+    //    searchBar = [self addReplayEditArea:CGRectMake(0, 22, CGRectGetWidth([UIScreen mainScreen].bounds) , 40)];
     //    [self.view addSubview:searchBar];
 
     inputText = [[UITextField alloc] initWithFrame:CGRectMake(5, 7, 250, 30)];
@@ -119,7 +119,7 @@
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:__TEXT(@"cancel") style:UIBarButtonItemStylePlain target:self action:@selector(cancelBtn)];//取消
     self.navigationItem.rightBarButtonItem = item;
     
-    list = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 320, self.view.bounds.size.height - 64)];
+    list = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.viewBound.size.width, self.view.bounds.size.height - 64)];
     list.dataSource = self;
     list.delegate = self;
 //    if (IOS7_OR_LATER) {
@@ -215,7 +215,7 @@ ON_SIGNAL3(SearchModel, RELOADED, signal)
     self.searchModel = [SearchModel modelWithObserver:self];
     self.searchModel.kw = kw;
 //    self.searchModel.kw = inputText.text;
-    NSLog(@"%@", self.searchModel.kw);
+   BeeLog(@"%@", self.searchModel.kw);
     [self.searchModel firstPage];
 }
 
@@ -278,7 +278,7 @@ ON_SIGNAL3(SearchModel, RELOADED, signal)
             cell.textLabel.text = searchList.subject;
     }
     @catch (NSException *exception) {
-        NSLog(@"exception:%@", exception);
+       BeeLog(@"exception:%@", exception);
     }
     @finally {
 
@@ -322,14 +322,14 @@ ON_SIGNAL3(SearchModel, RELOADED, signal)
 {
     NSDictionary *resultDic = [NSJSONSerialization JSONObjectWithData:[request responseData] options:0 error:nil];
     resultArray = [resultDic objectForKey:@"searchlist"];
-    NSLog(@"============!!!!!!!!!!=============%d", resultArray.count);
+   BeeLog(@"============!!!!!!!!!!=============%d", resultArray.count);
     //刷新列表
     [list reloadData];
 }
 
 - (void)requestFailed:(ASIHTTPRequest *)request
 {
- NSLog(@"%@", request.error);
+BeeLog(@"%@", request.error);
 }
  */
 

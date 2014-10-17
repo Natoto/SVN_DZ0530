@@ -37,7 +37,7 @@ DEF_SIGNAL(gotocredit)
        
         backgImageView = [[UIImageView alloc] init];
         float height=90.0-1.0f;
-        float width=320;
+        float width=CGRectGetWidth([UIScreen mainScreen].bounds);
         backgImageView.frame = CGRectMake(0, 0, width, height);
         backgImageView.image = [UIImage bundleImageNamed:@"beijingdi"];
         [self addSubview:backgImageView];
@@ -118,7 +118,7 @@ DEF_SIGNAL(gotocredit)
      KT_CORNER_PROFILE(imgview);
      btnprofile = [CreateComponent CreateButtonWithFrame:CGRectMake(0, 10, 80,80) andTxt:@""];
     [btnprofile addSubview:imgview];
-    btnprofile.center = CGPointMake(320/2.0, 55);
+    btnprofile.center = CGPointMake(CGRectGetWidth([UIScreen mainScreen].bounds)/2.0, 55);
 
     [btnprofile addTarget:self action:@selector(btnprofileTap:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:btnprofile];
@@ -133,7 +133,7 @@ DEF_SIGNAL(gotocredit)
     btnlogin = [CreateComponent CreateButtonWithFrame:CGRectMake(0, 0, 100, 35) andTxt:__TEXT(@"login_login") txtcolor:[UIColor blackColor]];
 //    [btnlogin setBackgroundColor:[UIColor colorWithRed:227/255.0 green:221/255.0 blue:220/255.0 alpha:1]];
     [btnlogin setBackgroundImage:[UIImage bundleImageNamed:@"dengluaniu@2x"] forState:UIControlStateNormal];
-    btnlogin.center = CGPointMake(320/2, CGRectGetMaxY(btnprofile.frame) + 40);
+    btnlogin.center = CGPointMake(CGRectGetWidth([UIScreen mainScreen].bounds)/2, CGRectGetMaxY(btnprofile.frame) + 40);
     btnlogin.titleLabel.font = [UIFont systemFontOfSize:15];
     KT_CORNER_RADIUS(btnlogin, 3);
     [btnlogin addTarget:self action:@selector(btnloginTap:) forControlEvents:UIControlEventTouchUpInside];
@@ -151,7 +151,7 @@ DEF_SIGNAL(gotocredit)
     
     btnwealth =  [CreateComponent CreateButtonWithFrame:CGRectMake(20, CGRectGetMaxY(lblname.frame), 80, 30) andTxt:@"财富"];
     [btnwealth setBackgroundImage:[UIImage bundleImageNamed:@"dengluaniu@2x"] forState:UIControlStateNormal];
-    btnwealth.center = CGPointMake(320/2, CGRectGetMidY(btnwealth.frame)+5);
+    btnwealth.center = CGPointMake(CGRectGetWidth([UIScreen mainScreen].bounds)/2, CGRectGetMidY(btnwealth.frame)+5);
     btnwealth.titleLabel.font = [UIFont systemFontOfSize:15];
     KT_CORNER_RADIUS(btnlogin, 3);
     [btnwealth addTarget:self action:@selector(btnwealthTap:) forControlEvents:UIControlEventTouchUpInside];
@@ -166,7 +166,7 @@ DEF_SIGNAL(gotocredit)
 //    bgView = [self getbgView];// 发帖 好友 消息 回复 排列
     
     float cellheight =[D0_ProfileCell_Header heightOfProfileCell];
-    bgView=[[ProfileCell_Items alloc] initWithFrame:CGRectMake(0, cellheight - 60, 320, 60)];
+    bgView=[[ProfileCell_Items alloc] initWithFrame:CGRectMake(0, cellheight - 60, CGRectGetWidth([UIScreen mainScreen].bounds), 60)];
     bgView.seltarget = self;
     bgView.profiletype = PROFILE_SELF;
     bgView.btncollectTap = @selector(btncollectTap:);
@@ -332,13 +332,13 @@ DEF_SIGNAL(gotocredit)
 
 - (IBAction)btnprofileTap:(id)sender
 {
-     NSLog(@"个人中心");
+    BeeLog(@"个人中心");
     [self sendUISignal:self.profileinfo];
 }
 
 - (IBAction)btnlogoutTap:(id)sender
 {
-    NSLog(@"注销");
+   BeeLog(@"注销");
     [self sendUISignal:self.logout];
 //    self.LOGEDIN=NO;
 //    [self reloadSubViews];

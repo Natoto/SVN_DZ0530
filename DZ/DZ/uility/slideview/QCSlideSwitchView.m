@@ -126,7 +126,7 @@
         UIViewController *vc = [self.slideSwitchViewDelegate slideSwitchView:self viewOfTab:i];
         [_viewArray addObject:vc];
         [_rootScrollView addSubview:vc.view];
-        NSLog(@"%@",[vc.view class]);
+       BeeLog(@"%@",[vc.view class]);
     }
     [self createNameButtons];
     
@@ -171,7 +171,7 @@
     
     //slideTabTextSize
     
-    CGSize textSize =CGSizeMake(320/5, kHeightOfTopScrollView);
+    CGSize textSize =CGSizeMake(CGRectGetWidth([UIScreen mainScreen].bounds) /5, kHeightOfTopScrollView);
     if (self.slideSwitchViewDelegate && [self.slideSwitchViewDelegate respondsToSelector:@selector(slideTabTextSize:)]) {
        textSize = [self.slideSwitchViewDelegate slideTabTextSize:self];
     }
@@ -179,7 +179,7 @@
     for (int i = 0; i < [_viewArray count]; i++) {
         UIViewController *vc = _viewArray[i];
         UIButton_RedPoint *button = [UIButton_RedPoint buttonWithType:UIButtonTypeCustom];
-//        CGSize textSize =CGSizeMake(320/5, kHeightOfTopScrollView); //[vc.title sizeWithFont:[UIFont systemFontOfSize:kFontSizeOfTabButton]
+//        CGSize textSize =CGSizeMake(CGRectGetWidth([UIScreen mainScreen].bounds) /5, kHeightOfTopScrollView); //[vc.title sizeWithFont:[UIFont systemFontOfSize:kFontSizeOfTabButton]
 //                               constrainedToSize:CGSizeMake(_topScrollView.bounds.size.width, kHeightOfTopScrollView)
 //                                   lineBreakMode:NSLineBreakByTruncatingTail];
         //累计每个tab文字的长度

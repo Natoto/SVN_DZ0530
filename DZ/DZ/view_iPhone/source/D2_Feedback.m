@@ -50,7 +50,7 @@
     [submit addTarget:self action:@selector(submit) forControlEvents:UIControlEventTouchUpInside];
     self.navigationBarRight = submit;
 
-    feedbackText = [[UITextView_Boarder alloc] initWithFrame:CGRectMake(10, 10, 300, 200)];
+    feedbackText = [[UITextView_Boarder alloc] initWithFrame:CGRectMake(10, 10, CGRectGetWidth([UIScreen mainScreen].bounds) -20, 200)];
     feedbackText.backgroundColor = [UIColor whiteColor];
     feedbackText.delegate = self;
     feedbackText.scrollEnabled = YES;
@@ -68,7 +68,7 @@
     feedbackLabel.numberOfLines = 0;
     [feedbackText addSubview:feedbackLabel];
  
-    qqText = [[DZ_UITextField alloc] initWithFrame:CGRectMake(10, 230, 300, 40)];
+    qqText = [[DZ_UITextField alloc] initWithFrame:CGRectMake(10, 230, CGRectGetWidth([UIScreen mainScreen].bounds) - 20, 40)];
     qqText.placeholder = @"为了更好沟通，请留下您的QQ联系方式（选填）";
     qqText.font = [UIFont systemFontOfSize:13];
     qqText.backgroundColor = [UIColor whiteColor];
@@ -91,7 +91,7 @@ ON_SIGNAL3(FeedbackModel, FEEDBACK_RELOADING, signal)
 {
     [self dismissTips];
      [self presentLoadingTips:@"正在反馈..."];
-    NSLog(@"123312");
+   BeeLog(@"123312");
 }
 
 ON_SIGNAL3(FeedbackModel, FEEDBACK_RELOADED, signal)
@@ -124,7 +124,7 @@ ON_SIGNAL3(BeeUITipsView, WILL_DISAPPEAR, signal)
 - (void)submit
 {
     feedbackText.text = feedbackText.text.trim;
-    NSLog(@"提交");
+   BeeLog(@"提交");
     if (feedbackText.text.length == 0 || feedbackText.text == nil) {
 //        UIAlertView *prompt = [[UIAlertView alloc] initWithTitle:@"请输入您的意见"
 //                                                         message:nil
@@ -139,10 +139,10 @@ ON_SIGNAL3(BeeUITipsView, WILL_DISAPPEAR, signal)
         self.feedbackModel.appVersion = self.appVersion;
         self.feedbackModel.content = feedbackText.text;
         self.feedbackModel.QQ = qqText.text;
-        NSLog(@"%@", feedbackText.text);
-        NSLog(@"%@", qqText.text);
-        NSLog(@"%@", self.feedbackModel.content);
-        NSLog(@"%@", self.feedbackModel.QQ);
+       BeeLog(@"%@", feedbackText.text);
+       BeeLog(@"%@", qqText.text);
+       BeeLog(@"%@", self.feedbackModel.content);
+       BeeLog(@"%@", self.feedbackModel.QQ);
 
         if (![qqText.text isQQ]) {
             [self presentMessageTips:@"请输入正确的QQ"];

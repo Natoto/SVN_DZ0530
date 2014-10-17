@@ -139,7 +139,7 @@ ON_NOTIFICATION3(B3_PostMenuView, collect, signal)
         self.collectModel = [collectModel modelWithObserver:self];
         self.collectModel.tid = self.tid;
         self.collectModel.uid = [UserModel sharedInstance].session.uid;
-        NSLog(@"%@", self.postmodel.maintopic.isfavorite);
+       BeeLog(@"%@", self.postmodel.maintopic.isfavorite);
         if ([self.postmodel.maintopic.isfavorite isEqualToNumber:[NSNumber numberWithInt:1]]) {
             [self presentMessageTips:@"您已收藏本帖子，不可重复收藏"];
         } else {
@@ -157,15 +157,15 @@ ON_NOTIFICATION3(B3_PostMenuView, delcollection, signal)
     } else {
         self.delcollectionModel = [delcollectionModel modelWithObserver:self];
         self.delcollectionModel.uid = [UserModel sharedInstance].session.uid;
-        NSLog(@"123123123%@", [UserModel sharedInstance].session.uid);
+       BeeLog(@"123123123%@", [UserModel sharedInstance].session.uid);
         if (self.collectModel.favid != 0) {
             self.delcollectionModel.favid = self.collectModel.favid;
-            NSLog(@"aaabbbccc%@", self.delcollectionModel.favid);
-            NSLog(@"aaabbbccc%@", self.collectModel.favid);
+           BeeLog(@"aaabbbccc%@", self.delcollectionModel.favid);
+           BeeLog(@"aaabbbccc%@", self.collectModel.favid);
         }else {
             self.delcollectionModel.favid = (NSNumber *)self.postmodel.maintopic.favid;
-            NSLog(@"aaabbbccc%@", self.delcollectionModel.favid);
-            NSLog(@"aaabbbccc%@", (NSNumber *)self.postmodel.maintopic.favid);
+           BeeLog(@"aaabbbccc%@", self.delcollectionModel.favid);
+           BeeLog(@"aaabbbccc%@", (NSNumber *)self.postmodel.maintopic.favid);
         }
         [self.delcollectionModel delcollection];
     }
@@ -270,7 +270,7 @@ ON_SIGNAL3(delcollectionModel, FAILED, signal)
 
 ON_SIGNAL3(SupportModel, RELOADED, signal)
 {
-    int index= self.currentIndexPath.row;
+    long index= self.currentIndexPath.row;
     if (index >0) {
         post *post = self.postmodel.shots[index];
         post.support = @(post.support.integerValue + 1);
@@ -397,10 +397,9 @@ ON_SIGNAL3(SupportModel, FAILED, signal)
     [self observeNotification:[B3_PostMenuView sharedInstance].allRead];
     [self observeNotification:[B3_PostMenuView sharedInstance].daoxu];
     
-//    self.astatus = [[B3_PostBaseTableViewCell alloc] init];
-//    [self observeNotification:self.astatus.SUPPORT];
+    //回到顶部
     toTopbtn=[UIButton buttonWithType:UIButtonTypeCustom];
-    toTopbtn.frame=CGRectMake(280,self.view.bounds.size.height-REPLYAREAHEIGHT-70, 40, 40);
+    toTopbtn.frame=CGRectMake(CGRectGetWidth([UIScreen mainScreen].bounds)-40,self.view.bounds.size.height-REPLYAREAHEIGHT-70, 40, 40);
     [toTopbtn setImage:[UIImage bundleImageNamed:@"huidaoshouye-02"] forState:UIControlStateNormal];
     [toTopbtn addTarget:self action:@selector(titleBtnTap:) forControlEvents:UIControlEventTouchUpInside];
     toTopbtn.hidden=YES;
@@ -410,7 +409,7 @@ ON_SIGNAL3(SupportModel, FAILED, signal)
     self.title = __TEXT(@"all");//全部
 //    titleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 //    titleBtn.frame=CGRectMake(100, 0, 200, self.navigationController.navigationBar.bounds.size.height);
-//    titleBtn.center =CGPointMake(320.0/2.0, self.navigationController.navigationBar.bounds.size.height/2.0);
+//    titleBtn.center =CGPointMake(CGRectGetWidth([UIScreen mainScreen].bounds) .0/2.0, self.navigationController.navigationBar.bounds.size.height/2.0);
 //    [titleBtn setTitle:@"全部" forState:UIControlStateNormal];
 //    [titleBtn addTarget:self action:@selector(titleBtnTap:) forControlEvents:UIControlEventTouchUpInside];
 //    self.navigationItem.titleView = titleBtn;
@@ -514,9 +513,9 @@ ON_SIGNAL3(SupportModel, FAILED, signal)
         [replayField resignFirstResponder];
         return;
     }
-    int indexTimer = [DZ_Timer sharedInstance].replycount;
+    long indexTimer = [DZ_Timer sharedInstance].replycount;
     if (indexTimer >0 ) {
-        [self presentMessageTips:[NSString stringWithFormat:@"%ds 后可以回复", indexTimer]];
+        [self presentMessageTips:[NSString stringWithFormat:@"%lds 后可以回复", indexTimer]];
         return;
     }
     self.reply_model=[replyModel modelWithObserver:self];
@@ -705,7 +704,7 @@ ON_SIGNAL3(PostlistModel, FAILED, signal)
     return self.postmodel.shots.count+1;
 }
 
--(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row==0)
     {
@@ -757,7 +756,7 @@ ON_SIGNAL3(PostlistModel, FAILED, signal)
              cell.delegate=self;
              cell.selectionStyle=UITableViewCellSelectionStyleNone;
          }
-         cell.cellIndex=[NSString stringWithFormat:@"%d",indexPath.row-1];
+         cell.cellIndex=[NSString stringWithFormat:@"%ld",indexPath.row-1];
          cell.cellpost=[self.postmodel.shots objectAtIndex:indexPath.row - 1];
          
          cell.lblfloortext = [NSString stringWithFormat:@"%@楼: ",cell.cellpost.position];

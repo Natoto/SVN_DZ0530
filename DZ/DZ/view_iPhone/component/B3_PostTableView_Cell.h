@@ -62,6 +62,6 @@
 -(void)reloadsubviews;
 
 +(float)heightOfCell:(NSArray *)contents;
-- (void)B3_PostTableView_Cell:(void (^)(id sender))obj;
+//- (void)B3_PostTableView_Cell:(void (^)(id sender))obj;
 
 @end

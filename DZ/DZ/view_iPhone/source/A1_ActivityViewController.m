@@ -45,7 +45,7 @@
     }
 #endif
     self.title =@"活动";
-    _slideSwitchView=[[QCSlideSwitchView alloc] initWithFrame:CGRectMake(0, 0, 320, self.bounds.size.height)];
+    _slideSwitchView=[[QCSlideSwitchView alloc] initWithFrame:CGRectMake(0, 0, self.viewBound.size.width, self.bounds.size.height)];
     _slideSwitchView.slideSwitchViewDelegate=self;
     [self.view addSubview:_slideSwitchView];
     self.slideSwitchView.tabItemNormalColor = [QCSlideSwitchView colorFromHexRGB:@"868686"];

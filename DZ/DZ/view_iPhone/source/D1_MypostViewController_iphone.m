@@ -60,7 +60,7 @@ ON_SIGNAL3(myPostModel, FAILED, signal)
     if (!self.postModel.loaded) {
         [self.postModel firstPage];
     }
-    NSLog(@"加载为当前视图 = %@",self.title);
+   BeeLog(@"加载为当前视图 = %@",self.title);
 }
 -(void)viewWillAppear:(BOOL)animated
 {

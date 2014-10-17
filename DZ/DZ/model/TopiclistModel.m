@@ -42,7 +42,7 @@
 //                                  compare:^NSComparisonResult(id left, id right) {
 //                                      return [((topics *)left).fid compare:((topics *)right).fid];
 //                                  }];
-//   NSLog(@"%@",self.shots);
+//  BeeLog(@"%@",self.shots);
 }
 
 - (void)saveCache
@@ -67,7 +67,7 @@
 {
 	if ( self.shots.count )
 	{
-        int page=self.shots.count / PER_PAGE + 1;
+        NSInteger page=self.shots.count / PER_PAGE + 1;
 		[self gotoPage:page];
 	}
 }

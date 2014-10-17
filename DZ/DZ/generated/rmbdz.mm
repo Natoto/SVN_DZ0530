@@ -85,7 +85,7 @@ DEF_SINGLETON( ServerConfig )
         
         _urlpostfix = urlkey;
         
-        NSLog(@"%@",_urlpostfix);
+       BeeLog(@"%@",_urlpostfix);
         
     }
     return self;

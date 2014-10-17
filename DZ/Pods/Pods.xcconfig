@@ -1,0 +1,8 @@
+CLANG_CXX_LANGUAGE_STANDARD = gnu++0x
+CLANG_CXX_LIBRARY = libstdc++
+CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/ASIHTTPRequest" "${PODS_ROOT}/Headers/BeeFramework" "${PODS_ROOT}/Headers/DZ_BEELIB" "${PODS_ROOT}/Headers/FMDB" "${PODS_ROOT}/Headers/OpenUDID" "${PODS_ROOT}/Headers/Reachability" "${PODS_ROOT}/Headers/TouchXML" "${PODS_ROOT}/Headers/ZipArchive" "$(SDKROOT)/usr/include/libxml2" $(SDKROOT)/usr/include/libz, $(SDKROOT)/usr/include/libxml2
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers" -isystem "${PODS_ROOT}/Headers/ASIHTTPRequest" -isystem "${PODS_ROOT}/Headers/BeeFramework" -isystem "${PODS_ROOT}/Headers/DZ_BEELIB" -isystem "${PODS_ROOT}/Headers/FMDB" -isystem "${PODS_ROOT}/Headers/OpenUDID" -isystem "${PODS_ROOT}/Headers/Reachability" -isystem "${PODS_ROOT}/Headers/TouchXML" -isystem "${PODS_ROOT}/Headers/ZipArchive"
+OTHER_LDFLAGS = -ObjC -lsqlite3 -lxml2 -lxml2.2 -lz -lz.1 -framework AVFoundation -framework CFNetwork -framework CoreGraphics -framework CoreMedia -framework CoreVideo -framework MobileCoreServices -framework QuartzCore -framework Security -framework SystemConfiguration
+PODS_ROOT = ${SRCROOT}/Pods

@@ -128,7 +128,7 @@
     NSUInteger lastposition = 0;
     
     NSDictionary *dic = [FaceBoard facailDictionary];
-    int index = 1;
+    NSInteger index = 1;
     for (index = 1; index < message.length; index ++) {
         
         NSRange range=[message rangeOfString: @":" options:NSCaseInsensitiveSearch range:NSMakeRange(position, message.length - position)];
@@ -139,7 +139,7 @@
         if (range.location == NSNotFound) {
             break;
         }
-        for (int j = 2; j <= FACE_MAX_LENGTH ; j++)
+        for (NSInteger j = 2; j <= FACE_MAX_LENGTH ; j++)
         {
             position = range.location;
             if ((position+j)>message.length) {
@@ -171,7 +171,7 @@
 
 - (id)init {
 
-    self = [super initWithFrame:CGRectMake(0, 0, 320, 216)];
+    self = [super initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds) , 216)];
     if (self) {
 
         self.backgroundColor = [UIColor colorWithRed:236.0/255.0 green:236.0/255.0 blue:236.0/255.0 alpha:1];
@@ -187,15 +187,15 @@
             NSString *parpath = [[NSBundle mainBundle] pathForResource:@"image" ofType:@"bundle"];
             _faceMap = [[NSDictionary dictionaryWithContentsOfFile:
                          [parpath stringByAppendingPathComponent:@"expressions/_expression_en.plist"   ]] retain];
-            NSLog(@"%@",[_faceMap description]);
+           BeeLog(@"%@",[_faceMap description]);
         }
        
         [[NSUserDefaults standardUserDefaults] setObject:_faceMap forKey:@"FaceMap"];
         FACE_COUNT_ALL=_faceMap.count;
         //表情盘
-        faceView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, 320, 190)];
+        faceView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds) , 190)];
         faceView.pagingEnabled = YES;
-        faceView.contentSize = CGSizeMake((FACE_COUNT_ALL / FACE_COUNT_PAGE + 1) * 320, 190);
+        faceView.contentSize = CGSizeMake((FACE_COUNT_ALL / FACE_COUNT_PAGE + 1) * CGRectGetWidth([UIScreen mainScreen].bounds) , 190);
         faceView.showsHorizontalScrollIndicator = NO;
         faceView.showsVerticalScrollIndicator = NO;
         faceView.delegate = self;
@@ -211,7 +211,7 @@
                  forControlEvents:UIControlEventTouchUpInside];
             
             //计算每一个表情按钮的坐标和在哪一屏
-            CGFloat x = (((i - 1) % FACE_COUNT_PAGE) % FACE_COUNT_CLU) * FACE_ICON_SIZE + 6 + ((i - 1) / FACE_COUNT_PAGE * 320);
+            CGFloat x = (((i - 1) % FACE_COUNT_PAGE) % FACE_COUNT_CLU) * FACE_ICON_SIZE + 6 + ((i - 1) / FACE_COUNT_PAGE * CGRectGetWidth([UIScreen mainScreen].bounds) );
             CGFloat y = (((i - 1) % FACE_COUNT_PAGE) / FACE_COUNT_CLU) * FACE_ICON_SIZE + 8;
             faceButton.frame = CGRectMake( x, y, FACE_ICON_SIZE, FACE_ICON_SIZE);
             
@@ -253,19 +253,19 @@
 //停止滚动的时候
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
 
-    [facePageControl setCurrentPage:faceView.contentOffset.x / 320];
+    [facePageControl setCurrentPage:faceView.contentOffset.x / CGRectGetWidth([UIScreen mainScreen].bounds) ];
     [facePageControl updateCurrentPageDisplay];
 }
 
 - (void)pageChange:(id)sender {
 
-    [faceView setContentOffset:CGPointMake(facePageControl.currentPage * 320, 0) animated:YES];
+    [faceView setContentOffset:CGPointMake(facePageControl.currentPage * CGRectGetWidth([UIScreen mainScreen].bounds) , 0) animated:YES];
     [facePageControl setCurrentPage:facePageControl.currentPage];
 }
 
 - (void)faceButton:(id)sender {
 
-    int i = ((FaceButton*)sender).buttonIndex;
+    NSInteger i = ((FaceButton*)sender).buttonIndex;
     if (delegate) { 
         NSArray *keys=_faceMap.allKeys;
         NSString *key=[keys objectAtIndex:i];

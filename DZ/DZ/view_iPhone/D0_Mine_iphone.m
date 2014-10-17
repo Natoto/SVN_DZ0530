@@ -182,11 +182,11 @@ ON_SIGNAL2( BeeUIBoard, signal )
         }
         if (self.lginModel.session) {
             cell.usermodel = self.lginModel;
-            [cell newfriendmessage:allpmmodel.newfriendmsDic.count];
-             int othermsgcount = [strangerpmmodel sharedInstance].newstrangermsDic.allKeys.count + [RemindModel sharedInstance].sysautomatic.count + [RemindModel sharedInstance].friendsautomatic.count + [RemindModel sharedInstance].activityautomatic.count + [RemindModel sharedInstance].threadautomatic.count;
-            [UserModel sharedInstance].messageCount = [NSString stringWithFormat:@"%d",othermsgcount];
-            int othernewcount = [strangerpmmodel sharedInstance].newstrangermsDic.allKeys.count + SYSTEMMESSAGE + SYSTEMMESSAGE + ACTVMESSAGE + THREADMESSAGE;
-            [cell newothermessage:othernewcount];
+            [cell newfriendmessage:(int)allpmmodel.newfriendmsDic.count];
+             NSInteger othermsgcount = [strangerpmmodel sharedInstance].newstrangermsDic.allKeys.count + [RemindModel sharedInstance].sysautomatic.count + [RemindModel sharedInstance].friendsautomatic.count + [RemindModel sharedInstance].activityautomatic.count + [RemindModel sharedInstance].threadautomatic.count;
+            [UserModel sharedInstance].messageCount = [NSString stringWithFormat:@"%ld",(long)othermsgcount];
+            NSInteger othernewcount = [strangerpmmodel sharedInstance].newstrangermsDic.allKeys.count + SYSTEMMESSAGE + SYSTEMMESSAGE + ACTVMESSAGE + THREADMESSAGE;
+            [cell newothermessage:(int)othernewcount];
         }
         else
         {
@@ -219,9 +219,9 @@ ON_SIGNAL2( BeeUIBoard, signal )
         if (!cell) {
             cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier];
             cell.selectionStyle=UITableViewCellSelectionStyleNone;
-            UIButton *logoutBtn=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-//            logoutBtn.frame=CGRectMake(15, 10, self.bounds.size.width-30, 35);
+            UIButton *logoutBtn=[UIButton buttonWithType:UIButtonTypeRoundedRect]; 
             logoutBtn.frame = CGRectMake(20, 15, 280, 45);
+            logoutBtn.center = CGPointMake(CGRectGetWidth([UIScreen mainScreen].bounds)/2, 15+45/2);
             [cell.contentView addSubview:logoutBtn];
             [logoutBtn setTitle:@"注销" forState:UIControlStateNormal];
             logoutBtn.titleLabel.font = [UIFont systemFontOfSize:15];
@@ -254,7 +254,6 @@ ON_SIGNAL2( BeeUIBoard, signal )
             /* 0813 V1.0 打包暂时屏蔽*/
             D2_Share *share = [[D2_Share alloc] init];
             [self.navigationController pushViewController:share animated:YES];
-            
             /* [self presentMessageTips:@"暂未开放"];*/
         }
         else if ([sometype isEqualToString:__TEXT(@"setting_feedback")])//用户反馈
@@ -590,7 +589,7 @@ ON_SIGNAL3(Allpm_FriendsModel, RELOADED, signal)
     [allpmmodel saveNewMessage];
     BeeLog(@"%@",self.remindModel.shots);
     NSInteger  count = self.remindModel.shots.count + self.remindModel.sysautomatic.count + self.remindModel.friendsautomatic.count + self.remindModel.threadautomatic.count;
-    [UserModel sharedInstance].messageCount = [NSString stringWithFormat:@"%d",count];
+    [UserModel sharedInstance].messageCount = [NSString stringWithFormat:@"%ld",(long)count];
     [self.list reloadData];
     [strangerpmmodel firstPage];
 }
@@ -603,7 +602,7 @@ ON_SIGNAL3(Allpm_StrangerModel, RELOADED, signal)
 {
      [strangerpmmodel saveNewMessage];
      NSInteger  count = self.remindModel.shots.count + self.remindModel.sysautomatic.count + self.remindModel.friendsautomatic.count + strangerpmmodel.strangermsDic.allKeys.count + self.remindModel.threadautomatic.count;
-    [UserModel sharedInstance].messageCount = [NSString stringWithFormat:@"%d",count];
+    [UserModel sharedInstance].messageCount = [NSString stringWithFormat:@"%ld",(long)count];
     [self.list reloadData];
 }
 

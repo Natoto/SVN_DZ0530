@@ -19,14 +19,14 @@
 - (id)initWithTitle:(NSString *)title delegate:(id /*<UIActionSheetDelegate>*/)delegate
 {
 //    self = [[[NSBundle mainBundle] loadNibNamed:@"TSLocateView" owner:self options:nil] objectAtIndex:0];
-    self = [super initWithFrame:CGRectMake(0, 0, 320, 260)];
+    self = [super initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds) , 260)];
     
-    UIImageView *imgview=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    UIImageView *imgview=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds) , 44)];
     imgview.image=[UIImage imageNamed:@"bg_023"];
     [self addSubview:imgview];
     
-    self.frame=CGRectMake(0, 0, 320, 260);
-    self.titleLabel=[[UILabel alloc] initWithFrame:CGRectMake(0, 11, 320, 21)];
+    self.frame=CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds) , 260);
+    self.titleLabel=[[UILabel alloc] initWithFrame:CGRectMake(0, 11, CGRectGetWidth([UIScreen mainScreen].bounds) , 21)];
     [self addSubview:self.titleLabel];
     
     UIButton *leftbtn=[UIButton buttonWithType:UIButtonTypeCustom];
@@ -41,7 +41,7 @@
     [rightbtn addTarget:self action:@selector(locate:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:rightbtn];
     
-    self.locatePicker=[[UIPickerView alloc] initWithFrame:CGRectMake(0, 44, 320, 216)];
+    self.locatePicker=[[UIPickerView alloc] initWithFrame:CGRectMake(0, 44, CGRectGetWidth([UIScreen mainScreen].bounds) , 216)];
     [self addSubview:self.locatePicker];
     
     if (self) {

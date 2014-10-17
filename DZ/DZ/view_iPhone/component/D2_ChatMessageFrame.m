@@ -37,7 +37,7 @@
         CGFloat timeY = kMargin;
 //        CGSize timeSize = [_message.time sizeWithAttributes:@{UIFontDescriptorSizeAttribute: @"16"}];
         CGSize timeSize = [_message.time sizeWithFont:kTimeFont];
-        NSLog(@"----%@", NSStringFromCGSize(timeSize));
+       BeeLog(@"----%@", NSStringFromCGSize(timeSize));
         CGFloat timeX = (screenW - timeSize.width) / 2;
         _timeF = CGRectMake(timeX, timeY, timeSize.width + kTimeMarginW, timeSize.height + kTimeMarginH);
     }
@@ -94,7 +94,7 @@
     if (data) {
         for (int i=0;i < [data count];i++) {
             NSString *str=[data objectAtIndex:i];
-            NSLog(@"str--->%@",str);
+           BeeLog(@"str--->%@",str);
             NSRange rang=[str rangeOfString:FACE_FLAG_1];
             NSRange rang1=[str rangeOfString:FACE_FLAG_2];
             NSString *faceimg= [faceMap objectForKey:str];
@@ -107,7 +107,7 @@
                     X = 150;
                     Y = upY;
                 }
-                NSLog(@"str(image)---->%@",str);
+               BeeLog(@"str(image)---->%@",str);
 //                NSString *imageName=[str substringWithRange:NSMakeRange(1, str.length - 2)];
 //                NSString *faceimg= [faceMap objectForKey:str];
                 if (faceimg) {
@@ -150,7 +150,7 @@
         returnView.frame = CGRectMake(10.0f, 0.0f, X, Y); //@ 需要将该view的尺寸记下，方便以后使用
     else
         returnView.frame = CGRectMake(20.0f, 0.0f, X, Y);
-    NSLog(@"%.1f %.1f", X, Y);
+   BeeLog(@"%.1f %.1f", X, Y);
     return returnView;
 }
 

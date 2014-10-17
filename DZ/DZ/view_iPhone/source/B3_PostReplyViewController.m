@@ -19,7 +19,7 @@
 #import "HBImagePickerControllerEx.h"
 #import "NSString+BeeExtension.h"
 #import "DZ_Timer.h"
-#define RECT_TOOLSOLD CGRectMake(0, CGRectGetMaxY(_scrollView.frame), 320, 33)
+#define RECT_TOOLSOLD CGRectMake(0, CGRectGetMaxY(_scrollView.frame), CGRectGetWidth([UIScreen mainScreen].bounds), 33)
 #define RECT_TOOLSNEW CGRectMake(0, self.view.bounds.size.height - TOP_VIEW_HEIGHT - keyBoardSize.height, self.view.bounds.size.width, TOP_VIEW_HEIGHT)
 
 #define RECT_OLD_SCROLLVIEW CGRectMake(10,  10 , [[UIScreen mainScreen] bounds].size.width-20,300)
@@ -70,7 +70,7 @@ DEF_SIGNAL(didpostImage)
     KT_CORNER_RADIUS(_scrollView, 5);
     [self.view addSubview:_scrollView];
     
-    self.toolsview=[[C0_HairPost_ToolsView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_scrollView.frame), 320, 33) withTarget:self andFacialSel:@selector(showFace:) andpictureSel:@selector(pictureSelect:) andkeyboardSel:@selector(showKeyboard:)];
+    self.toolsview=[[C0_HairPost_ToolsView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_scrollView.frame), CGRectGetWidth([UIScreen mainScreen].bounds), 33) withTarget:self andFacialSel:@selector(showFace:) andpictureSel:@selector(pictureSelect:) andkeyboardSel:@selector(showKeyboard:)];
     [self.view addSubview:self.toolsview];
     self.toolsview.backgroundColor=[UIColor clearColor];
     
@@ -145,7 +145,7 @@ ON_RIGHT_BUTTON_TOUCHED(signal)
         return;
     }
     
-    int remaincount =[[DZ_Timer sharedInstance] replycount];
+    NSInteger remaincount =[[DZ_Timer sharedInstance] replycount];
     if (!remaincount)
     {
         [self.fastTextView resignFirstResponder];
@@ -153,7 +153,7 @@ ON_RIGHT_BUTTON_TOUCHED(signal)
     }
     else
     {
-        [self presentMessageTips:[NSString stringWithFormat:@"还有%ds才可回复",remaincount]];
+        [self presentMessageTips:[NSString stringWithFormat:@"还有%lds才可回复",(long)remaincount]];
     }
 }
 
@@ -276,7 +276,7 @@ ON_SIGNAL3(replyModel, FAILED, signal)
     _postImgModel.filedata=UIImageJPEGRepresentation(photoview.image, 0.5);
     [_postImgModel load];
     [_postImgModel firstPage];
-    [self presentLoadingTips:[NSString stringWithFormat:@"正在上传(%d/%d)",self.Uploadindex+1,self.totalUploadCount]];
+    [self presentLoadingTips:[NSString stringWithFormat:@"正在上传(%d/%ld)",self.Uploadindex+1,(long)self.totalUploadCount]];
 }
 
 ON_SIGNAL3(postImageModel, FAILED, signal)
@@ -345,18 +345,18 @@ ON_SIGNAL3(postImageModel, RELOADED, signal)
 
 - (void)didClickOnButtonIndex:(NSInteger *)buttonIndex
 {
-    NSLog(@"%d",(int)buttonIndex);
+   BeeLog(@"%d",(int)buttonIndex);
     [self selectpicture:nil andclickedButtonAtIndex:(int)buttonIndex];
 }
 
 - (void)didClickOnDestructiveButton
 {
-    NSLog(@"destructuctive");
+   BeeLog(@"destructuctive");
 }
 
 - (void)didClickOnCancelButton
 {
-    NSLog(@"cancelButton");
+   BeeLog(@"cancelButton");
 }
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
@@ -620,11 +620,11 @@ ON_SIGNAL3(postImageModel, RELOADED, signal)
 	[UIView setAnimationDuration:0.3];
     [UIView setAnimationDelay:0.2];
     [UIView setAnimationBeginsFromCurrentState:YES];
-    self.scrollView.frame = RECT_OLD_SCROLLVIEW;//CGRectMake(10, edg.top + 80 + 10*3, 320-20,200);
+    self.scrollView.frame = RECT_OLD_SCROLLVIEW;//CGRectMake(10, edg.top + 80 + 10*3, CGRectGetWidth([UIScreen mainScreen].bounds) -20,200);
     self.toolsview.frame = RECT_TOOLSOLD;
     [self.toolsview showKeyboardBtn:NO];
     //CGRectMake(0, self.bounds.size.height-2*TOP_VIEW_HEIGHT, self.bounds.size.width, TOP_VIEW_HEIGHT);
-    //    self.toolsview.frame=CGRectMake(0, edg.top + 280 + 10*4, 320, 33);
+    //    self.toolsview.frame=CGRectMake(0, edg.top + 280 + 10*4, CGRectGetWidth([UIScreen mainScreen].bounds) , 33);
     [UIView commitAnimations];
 }
 -(void)resizeTextView:(NSNotification *)notify

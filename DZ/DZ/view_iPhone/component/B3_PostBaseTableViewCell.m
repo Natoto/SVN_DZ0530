@@ -96,8 +96,9 @@ const float below_margin_v = 10.0;
 
 -(void)didreloadWebview:(UIWebView *)webView
 {
+    CGRect rect = [UIScreen mainScreen].bounds;
     CGRect frame = webView.frame;
-    CGSize fittingSize = [webView sizeThatFits:CGSizeMake(320, 30)];
+    CGSize fittingSize = [webView sizeThatFits:CGSizeMake(rect.size.width, 30)];
 //    float webViewHeight = [[webView stringByEvaluatingJavaScriptFromString: @"document.body.scrollHeight"] floatValue];
 //    fittingSize.height = webViewHeight;
     frame.size = fittingSize;
@@ -106,7 +107,7 @@ const float below_margin_v = 10.0;
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(B3_PostBaseTableViewCellDidFinishLoad:frame:)]) {
         _btnreply.frame = FRAME_REPLYBTN(CGRectGetMaxY(_belowcontentView.frame)); //CGRectMake(self.frame.size.width - 45, CGRectGetMaxY(_belowcontentView.frame) , 30, 30);
-        self.blowcontentRect = CGRectMake(0, 0,320,CGRectGetMaxY(_belowcontentView.frame)+30);
+        self.blowcontentRect = CGRectMake(0, 0,rect.size.width,CGRectGetMaxY(_belowcontentView.frame)+30);
    
         self.frame =self.blowcontentRect;
         [self.delegate B3_PostBaseTableViewCellDidFinishLoad:self frame:self.blowcontentRect];
@@ -148,9 +149,10 @@ const float below_margin_v = 10.0;
 -(void)loadwebcontents:(NSArray *)contents senddelegate:(BOOL)send
 {
     if (!_belowcontentView) {
+         CGRect rect = [UIScreen mainScreen].bounds;
         _belowcontentView=[[UIView alloc] init];
         _belowcontentView.backgroundColor = [UIColor clearColor];
-        webcontentview=[[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+        webcontentview=[[UIWebView alloc] initWithFrame:CGRectMake(0, 0, rect.size.width, 50)];
         webcontentview.delegate=self;
         webcontentview.opaque = NO;
         webcontentview.scrollView.delegate=self;
@@ -159,7 +161,7 @@ const float below_margin_v = 10.0;
         //设置UIWebView是按 WebView自适应大小显示,还是按正文内容的大小来显示,YES:表示WebView自适应大小,NO:表示按正文内容的大小来显示
         [webcontentview setScalesPageToFit:NO];
         [_belowcontentView addSubview:webcontentview];
-        _belowcontentView.frame = CGRectMake(0, CGRectGetMaxY(headerFrame), 320, 60);
+        _belowcontentView.frame = CGRectMake(0, CGRectGetMaxY(headerFrame), rect.size.width, 60);
         [self addSubview:_belowcontentView];
     }
     float OriginY=0.0;
@@ -219,10 +221,11 @@ const float below_margin_v = 10.0;
     webcontent = (NSMutableString *)[webcontent stringByAppendingFormat:@"%@",tailHtml];
     NSString *filepath = [[NSBundle mainBundle] bundlePath];
     NSURL *baseURL = [NSURL fileURLWithPath:filepath];
+     CGRect mainrect = [UIScreen mainScreen].bounds;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [webcontentview loadHTMLString:webcontent baseURL:baseURL];
-        _belowcontentView.size=CGSizeMake(320, OriginY);
-        _belowcontentView.frame=CGRectMake(0, CGRectGetMaxY(headerFrame), 320, OriginY);
+        _belowcontentView.size=CGSizeMake(mainrect.size.width, OriginY);
+        _belowcontentView.frame=CGRectMake(0, CGRectGetMaxY(headerFrame), mainrect.size.width, OriginY);
         sendDelegate = send;
     });
 }
@@ -279,8 +282,9 @@ const float below_margin_v = 10.0;
         [rtLabel removeFromSuperview];
         rtLabel=nil;
     }
+     CGRect rect = [UIScreen mainScreen].bounds;
     if (!rtLabel) {
-        rtLabel=[[RCLabel alloc] initWithFrame:CGRectMake(VOTE_MARGIN_LEFT, OriginY, 320 - VOTE_MARGIN_LEFT -VOTE_MARGIN_RIGHT, 50)];
+        rtLabel=[[RCLabel alloc] initWithFrame:CGRectMake(VOTE_MARGIN_LEFT, OriginY, rect.size.width - VOTE_MARGIN_LEFT -VOTE_MARGIN_RIGHT, 50)];
         rtLabel.delegate = self;
         [rtLabel setFont:[UIFont systemFontOfSize:tempfontsize]];
         rtLabel.tag=currentIndex + HEADCONTENTVIEWSTARTTAG;
@@ -304,7 +308,7 @@ const float below_margin_v = 10.0;
     RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:rtlabelText];
     rtLabel.componentsAndPlainText = componentsDS;
     CGSize optimumSize = [rtLabel optimumSize];
-    rtLabel.frame=CGRectMake(VOTE_MARGIN_LEFT, OriginY, 320 - VOTE_MARGIN_LEFT -VOTE_MARGIN_RIGHT, optimumSize.height);
+    rtLabel.frame=CGRectMake(VOTE_MARGIN_LEFT, OriginY, CGRectGetWidth([UIScreen mainScreen].bounds) - VOTE_MARGIN_LEFT -VOTE_MARGIN_RIGHT, optimumSize.height);
     OriginY = OriginY + optimumSize.height;
     tempOriginY = OriginY;
     return [NSString stringWithFormat:@"%f:%d",tempOriginY,index];
@@ -413,7 +417,7 @@ const float below_margin_v = 10.0;
     int tempfontsize = self.fontsize;
 //    tempfontsize = tempfontsize * 2 + FONT_MIDDLEBASE;
     if (!rtLabel) {
-        rtLabel=[[RCLabel alloc] initWithFrame:CGRectMake(TXT_MARGIN_LEFT, OriginY, 320- TXT_MARGIN_LEFT - TXT_MARGIN_RIGHT, 50)];
+        rtLabel=[[RCLabel alloc] initWithFrame:CGRectMake(TXT_MARGIN_LEFT, OriginY, CGRectGetWidth([UIScreen mainScreen].bounds)- TXT_MARGIN_LEFT - TXT_MARGIN_RIGHT, 50)];
         [rtLabel setFont:[UIFont systemFontOfSize:tempfontsize]];
         rtLabel.tag=currentIndex + HEADCONTENTVIEWSTARTTAG;
         rtLabel.backgroundColor = [UIColor clearColor];
@@ -448,7 +452,7 @@ const float below_margin_v = 10.0;
             rtlabelText=[rtlabelText stringByAppendingString:htmlcode];
             RepeatTXTClass *rptcls = [B3_PostBaseTableViewCell RepeatTXT:index contents:contents rtlabelText:rtlabelText];
             rtlabelText = rptcls.string;
-            index = rptcls.index;
+            index = (int)rptcls.index;
         }
         else
         {
@@ -461,7 +465,7 @@ const float below_margin_v = 10.0;
     RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:rtlabelText];
     rtLabel.componentsAndPlainText = componentsDS;
     CGSize optimumSize = [rtLabel optimumSize];
-    rtLabel.frame=CGRectMake(TXT_MARGIN_LEFT, OriginY, 320-TXT_MARGIN_LEFT -TXT_MARGIN_RIGHT, optimumSize.height);
+    rtLabel.frame=CGRectMake(TXT_MARGIN_LEFT, OriginY, CGRectGetWidth([UIScreen mainScreen].bounds)-TXT_MARGIN_LEFT -TXT_MARGIN_RIGHT, optimumSize.height);
     OriginY = OriginY + optimumSize.height;
     [subContentAry addObject:rtLabel];
 
@@ -585,9 +589,9 @@ const float below_margin_v = 10.0;
 
     float width = imgview.image.size.width;
     float height = imgview.image.size.height;
-    float imgwith = MIN(imgview.image.size.width, 320 - IMG_MARGIN_LEFT - IMG_MARGIN_RIGHT);
+    float imgwith = MIN(imgview.image.size.width, CGRectGetWidth([UIScreen mainScreen].bounds) - IMG_MARGIN_LEFT - IMG_MARGIN_RIGHT);
     if (imgwith) {
-        imgwith = 320 - IMG_MARGIN_LEFT - IMG_MARGIN_RIGHT;  //
+        imgwith = CGRectGetWidth([UIScreen mainScreen].bounds) - IMG_MARGIN_LEFT - IMG_MARGIN_RIGHT;  //
         if (acont.smileurl) {
             imgwith = SMILEFACAIL_WIDTH;
         }
@@ -620,7 +624,7 @@ const float below_margin_v = 10.0;
             return;
         }
         frame =[self.delegate frameOfCellHeader:self];
-        _belowcontentView.frame = CGRectMake(0, CGRectGetMaxY(frame), 320, 60);
+        _belowcontentView.frame = CGRectMake(0, CGRectGetMaxY(frame), CGRectGetWidth([UIScreen mainScreen].bounds), 60);
         _belowcontentView.backgroundColor = [UIColor clearColor];
         [self addSubview:_belowcontentView];
         _btnreply.frame = FRAME_REPLYBTN(CGRectGetMaxY(_belowcontentView.frame));
@@ -695,8 +699,8 @@ const float below_margin_v = 10.0;
     }
     
     OriginY = OriginY  + 10;
-    _belowcontentView.size = CGSizeMake(320, OriginY);
-    _belowcontentView.frame = CGRectMake(0, CGRectGetMaxY(headerFrame), 320, OriginY);
+    _belowcontentView.size = CGSizeMake(CGRectGetWidth([UIScreen mainScreen].bounds), OriginY);
+    _belowcontentView.frame = CGRectMake(0, CGRectGetMaxY(headerFrame), CGRectGetWidth([UIScreen mainScreen].bounds), OriginY);
     
     CGRect frame=_belowcontentView.frame;
     
@@ -714,12 +718,12 @@ const float below_margin_v = 10.0;
     _btnsupport.frame = CGRectMake(_btnreply.frame.origin.x - 60, _btnreply.frame.origin.y - 8, _btnreply.frame.size.width, _btnreply.frame.size.height);
     _lblsupport.frame = CGRectMake(_btnsupport.frame.origin.x + 30, _btnreply.frame.origin.y - 3, _btnreply.frame.size.width, _btnreply.frame.size.height);
     
-    CGRect rect = CGRectMake(0, 0, 320, CGRectGetMaxY(_belowcontentView.frame) + 30);
+    CGRect rect = CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), CGRectGetMaxY(_belowcontentView.frame) + 30);
     self.frame = CGRectMake(0, 0, rect.size.width, rect.size.height);
     if (self.delegate && [self.delegate isTopicArtile:self]) {
         BOOL topicarticle = [self.delegate isTopicArtile:self];
         if (topicarticle) {
-            rect = CGRectMake(0, 0, 320, CGRectGetMaxY(_belowcontentView.frame) + 50);
+            rect = CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), CGRectGetMaxY(_belowcontentView.frame) + 50);
             self.frame = CGRectMake(0, 0, rect.size.width, rect.size.height);
         }
     }
@@ -827,12 +831,12 @@ const float below_margin_v = 10.0;
         content *acont=[contents objectAtIndex:index];
         [B3_PostBaseTableViewCell checkContent:acont faceMap:faceMap];
     }
-    for (int index=0; index<contents.count; index++)
+    for (NSUInteger index=0; index<contents.count; index++)
     {
         content *acont=[contents objectAtIndex:index];
         if (acont.type.intValue == CONTENTTYPE_TEXT || acont.type.intValue == CONTENTTYPE_FACIAL) {//如果内容是网页文字
             
-            RCLabel *rtLabel = [[RCLabel alloc] initWithFrame:CGRectMake(MARGIN_LEFT, OriginY, 320 - MARGIN_RIGHT - MARGIN_LEFT, 30)];
+            RCLabel *rtLabel = [[RCLabel alloc] initWithFrame:CGRectMake(MARGIN_LEFT, OriginY, CGRectGetWidth([UIScreen mainScreen].bounds) - MARGIN_RIGHT - MARGIN_LEFT, 30)];
             [rtLabel setFont:[UIFont systemFontOfSize:tempfontsize]];
             NSString *rtlabelText=[[NSString alloc] initWithFormat:@""];
             if (acont.type.intValue == CONTENTTYPE_TEXT) {
@@ -855,7 +859,7 @@ const float below_margin_v = 10.0;
                 else if (imgcontent.type.intValue == CONTENTTYPE_TEXT) {
                     NSString *htmlcode=[NSString stringWithFormat:@"%@",imgcontent.msg];
                     rtlabelText=[rtlabelText stringByAppendingString:htmlcode];
-                    RepeatTXTClass *rptcls = [B3_PostBaseTableViewCell RepeatTXT:index contents:contents rtlabelText:rtlabelText];
+                    RepeatTXTClass *rptcls = [B3_PostBaseTableViewCell RepeatTXT:(int)index contents:contents rtlabelText:rtlabelText];
                     rtlabelText = rptcls.string;
                     index = rptcls.index;
                 }
@@ -869,19 +873,19 @@ const float below_margin_v = 10.0;
             RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:rtlabelText];
             rtLabel.componentsAndPlainText = componentsDS;
             CGSize optimumSize = [rtLabel optimumSize];
-            rtLabel.frame=CGRectMake(MARGIN_LEFT, OriginY, 320 - MARGIN_LEFT - MARGIN_RIGHT, optimumSize.height);
+            rtLabel.frame=CGRectMake(MARGIN_LEFT, OriginY, CGRectGetWidth([UIScreen mainScreen].bounds) - MARGIN_LEFT - MARGIN_RIGHT, optimumSize.height);
             OriginY = OriginY + optimumSize.height;
         }
         else if (acont.type.intValue == CONTENTTYPE_QUOTEREPLY)//计算引用文本大小
         {
-            RCLabel *rtLabel = [[RCLabel alloc] initWithFrame:CGRectMake(MARGIN_LEFT, OriginY, 320 - MARGIN_LEFT - MARGIN_RIGHT , 30)];
+            RCLabel *rtLabel = [[RCLabel alloc] initWithFrame:CGRectMake(MARGIN_LEFT, OriginY, CGRectGetWidth([UIScreen mainScreen].bounds) - MARGIN_LEFT - MARGIN_RIGHT , 30)];
             [rtLabel setFont:[UIFont systemFontOfSize:tempfontsize]];
             NSString *rtlabelText=[[NSString alloc] initWithFormat:@""];
             NSString *message=[acont.msg stringByReplacingOccurrencesOfString:@"&nbsp;" withString:@""];
             message=[message stringByReplacingOccurrencesOfString:@"<br />" withString:@"\n"];
             rtlabelText=[rtlabelText stringByAppendingString:message];
             if (acont.signmod.length) {
-                if (![B3_PostBaseTableViewCell HideSignMode:index content:acont]) {
+                if (![B3_PostBaseTableViewCell HideSignMode:(int)index content:acont]) {
                     NSString *htmlcode=[NSString stringWithFormat:@"<br /><img src='dzimages.bundle/%@.gif'></img>",acont.signmod];
                     rtlabelText=[rtlabelText stringByAppendingString:htmlcode];
                 }
@@ -890,7 +894,7 @@ const float below_margin_v = 10.0;
             RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:rtlabelText];
             rtLabel.componentsAndPlainText = componentsDS;
             CGSize optimumSize = [rtLabel optimumSize];
-            rtLabel.frame=CGRectMake(MARGIN_LEFT, OriginY, 320 - MARGIN_LEFT - MARGIN_RIGHT, optimumSize.height);
+            rtLabel.frame=CGRectMake(MARGIN_LEFT, OriginY, CGRectGetWidth([UIScreen mainScreen].bounds) - MARGIN_LEFT - MARGIN_RIGHT, optimumSize.height);
             OriginY = OriginY + optimumSize.height;
         }
         else if (acont.type.intValue == CONTENTTYPE_ACTIVE)//活动啊
@@ -916,9 +920,9 @@ const float below_margin_v = 10.0;
             }
             float width=imgview.image.size.width;
             float height=imgview.image.size.height;
-            float imgwith= MIN(imgview.image.size.width, 320 - MARGIN_RIGHT - MARGIN_LEFT);
+            float imgwith= MIN(imgview.image.size.width, CGRectGetWidth([UIScreen mainScreen].bounds) - MARGIN_RIGHT - MARGIN_LEFT);
             if (imgwith) {
-                imgwith = 320 - MARGIN_RIGHT - MARGIN_LEFT; //
+                imgwith = CGRectGetWidth([UIScreen mainScreen].bounds) - MARGIN_RIGHT - MARGIN_LEFT; //
                 if (acont.smileurl) {
                     imgwith = SMILEFACAIL_WIDTH;
                 }
@@ -936,7 +940,7 @@ const float below_margin_v = 10.0;
         }
     }
     OriginY = OriginY  + 10 ;
-    CGRect rect = CGRectMake(0, 0, 320, OriginY + 30);
+    CGRect rect = CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), OriginY + 30);
 
     [B3_PostBaseTableViewCell setCellHeight:OriginY];
 
@@ -1130,14 +1134,15 @@ ON_SIGNAL3(BeeUIImageView, LOAD_COMPLETED, signal)
     [_headerView addSubview:profileBtn];
     
     self.lbltime=[[UILabel alloc] init];
-    KT_LABELEWIFRAM(self.lbltime, CGRectMake(200, originY + 15, 100, 20), @"", 12, [UIColor clearColor], [UIColor blackColor], NSTextAlignmentRight, NO);
+    KT_LABELEWIFRAM(self.lbltime, CGRectMake(CGRectGetWidth([UIScreen mainScreen].bounds) - 160, originY + 15, 150, 20), @"", 12, [UIColor clearColor], [UIColor blackColor], NSTextAlignmentRight, NO);
+    self.lbltime.textAlignment = NSTextAlignmentRight;
     self.lbltime.font = [UIFont systemFontOfSize:13];
     [_headerView addSubview:self.lbltime];
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(isTopicArtile:)]) {
         BOOL topicart = [self.delegate isTopicArtile:self];
         if (topicart) {
-            UIImageView *splitimg =[[UIImageView alloc] initWithFrame:CGRectMake(10, 5 + CGRectGetMaxY(profileBtn.frame), self.frame.size.width - 20, 0.6)];
+            UIImageView *splitimg =[[UIImageView alloc] initWithFrame:CGRectMake(10, 5 + CGRectGetMaxY(profileBtn.frame), CGRectGetWidth([UIScreen mainScreen].bounds) - 20, 0.6)];
             splitimg.image=[UIImage bundleImageNamed:@"fengexian02"];
             [_headerView addSubview:splitimg];
         }

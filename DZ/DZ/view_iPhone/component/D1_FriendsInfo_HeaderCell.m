@@ -50,12 +50,12 @@
     KT_CORNER_PROFILE(imgview);
     btnprofile=[ToolsFunc CreateButtonWithFrame:CGRectMake(0, 10, 80,80) andTxt:@""];
     [btnprofile addSubview:imgview];
-    btnprofile.center=CGPointMake(320/2.0, 60);    
+    btnprofile.center=CGPointMake(CGRectGetWidth([UIScreen mainScreen].bounds)/2.0, 60);
     [self addSubview:btnprofile];
     
     /*
     lblname=[ToolsFunc CreateLabelWithFrame:CGRectMake(20, 110, 150, 40) andTxt:@"用户组:无名氏"];
-    lblname.center=CGPointMake( 320/2.0, 110);
+    lblname.center=CGPointMake( CGRectGetWidth([UIScreen mainScreen].bounds)/2.0, 110);
     [self addSubview:lblname];*/
     
     lblname = [CreateComponent CreateLabelWithFrame:CGRectMake(20, CGRectGetMaxY(btnprofile.frame), 300, 30) andTxt:@"用户组:无名氏"];
@@ -68,14 +68,14 @@
     
     btnwealth =  [CreateComponent CreateButtonWithFrame:CGRectMake(20, CGRectGetMaxY(lblname.frame), 80, 30) andTxt:@"财富"];
     [btnwealth setBackgroundImage:[UIImage bundleImageNamed:@"dengluaniu@2x"] forState:UIControlStateNormal];
-    btnwealth.center = CGPointMake(320/2, CGRectGetMidY(btnwealth.frame)+5);
+    btnwealth.center = CGPointMake(CGRectGetWidth([UIScreen mainScreen].bounds)/2, CGRectGetMidY(btnwealth.frame)+5);
     btnwealth.titleLabel.font = [UIFont systemFontOfSize:15];
     KT_CORNER_RADIUS(btnlogin, 3);
     [btnwealth addTarget:self action:@selector(btnwealthTap:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:btnwealth];
      
     float cellheight =[D1_FriendsInfo_HeaderCell heightOfProfileCell];
-    bgView=[[ProfileCell_Items alloc] initWithFrame:CGRectMake(0, cellheight - 60, 320, 60)];
+    bgView=[[ProfileCell_Items alloc] initWithFrame:CGRectMake(0, cellheight - 60, CGRectGetWidth([UIScreen mainScreen].bounds), 60)];
     bgView.seltarget = self;
     bgView.profiletype = PROFILE_OTHER;
     /*

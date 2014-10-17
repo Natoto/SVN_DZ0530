@@ -19,7 +19,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         [self addbackgroundView:nil];
-        textlabel =[[RCLabel alloc] initWithFrame:CGRectMake(MARGIN_X, 5, 320 - 2*MARGIN_X,  10)];
+        textlabel =[[RCLabel alloc] initWithFrame:CGRectMake(MARGIN_X, 5, CGRectGetWidth([UIScreen mainScreen].bounds) - 2*MARGIN_X,  10)];
         [self addSubview:textlabel];
     }
     return self;
@@ -36,7 +36,7 @@
 
 + (float)heightOfcell:(NSString *)text
 {
-    RCLabel *label =[[RCLabel alloc] initWithFrame:CGRectMake(MARGIN_X, 5, 320 - 2 * MARGIN_X,  10)];
+    RCLabel *label =[[RCLabel alloc] initWithFrame:CGRectMake(MARGIN_X, 5, CGRectGetWidth([UIScreen mainScreen].bounds) - 2 * MARGIN_X,  10)];
     RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:text];
     label.componentsAndPlainText = componentsDS;
     CGSize optimumSize = [label optimumSize];
@@ -59,24 +59,24 @@
 //匹配URL
 - (NSString *)url:(NSString *)string
 {
-    NSLog(@"%@", string);
+   BeeLog(@"%@", string);
     NSError *error;
     NSString *regulaStr = @"(http[s]{0,1}|ftp):\\/\\/([\\w-]+\\.)+[\\w-]+(\\/[\\w- .\\/?%&=]*)?";
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regulaStr
                                                                            options:NSRegularExpressionCaseInsensitive
                                                                              error:&error];
     NSArray *arrayOfAllMatches = [regex matchesInString:string options:0 range:NSMakeRange(0, [string length])];
-    NSLog(@"%@", arrayOfAllMatches);
+   BeeLog(@"%@", arrayOfAllMatches);
 
     NSString *urlStr = nil;
     for (NSTextCheckingResult *match in arrayOfAllMatches)
     {
         urlStr = [string substringWithRange:match.range];
-        NSLog(@"%@", urlStr);
+       BeeLog(@"%@", urlStr);
     }
     //获得匹配个数
     NSUInteger numberOfMatches = [regex numberOfMatchesInString:string options:0 range:NSMakeRange(0, [string length])];
-    NSLog(@"numberOfMatches===%d",numberOfMatches);
+   BeeLog(@"numberOfMatches===%lu",(unsigned long)numberOfMatches);
 
     return urlStr;
 }

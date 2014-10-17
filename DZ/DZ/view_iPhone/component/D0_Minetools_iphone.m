@@ -30,7 +30,7 @@ DEF_SIGNAL(BUTTONTAP)
         KT_CORNER_RADIUS(self.avatar,4)
         [self addSubview:self.avatar];
 
-        self.name = [[BeeUILabel alloc] initWithFrame:CGRectMake(60, 0, 100, 50)];
+        self.name = [[BeeUILabel alloc] initWithFrame:CGRectMake(60, 0, 200, 50)];
         self.name.text = __TEXT(@"setting");
 //        self.name.font = GB_FontHelveticaNeue(15);
         self.name.font = [UIFont systemFontOfSize:15];
@@ -39,14 +39,14 @@ DEF_SIGNAL(BUTTONTAP)
         self.name.backgroundColor = [UIColor clearColor];
         [self addSubview:self.name];
 
-//            self.BUTTON=[[BeeUIButton alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
+//            self.BUTTON=[[BeeUIButton alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds) , 60)];
 //            [self addSubview:self.BUTTON];
 //            [self.BUTTON setBackgroundColor:[UIColor clearColor]];
         self.backgroundColor = [UIColor clearColor];
         self.avatar.image = [UIImage bundleImageNamed:@"profile.jpg"];
         self.avatar.contentMode = UIViewContentModeScaleAspectFit;//UIViewContentModeScaleToFill;
 
-        UIImageView *splitimg = [[BeeUIImageView alloc] initWithFrame:CGRectMake(15, 49, 290, LINE_LAYERBOARDWIDTH)];
+        UIImageView *splitimg = [[BeeUIImageView alloc] initWithFrame:CGRectMake(15, 49, CGRectGetWidth([UIScreen mainScreen].bounds)-10, LINE_LAYERBOARDWIDTH)];
         splitimg.backgroundColor =LINE_LAYERBOARD_NOTCGCOLOR;
         splitimg.contentMode = UIViewContentModeScaleAspectFill;
         [self addSubview:splitimg];

@@ -151,7 +151,7 @@ typedef void (^didSelectItemBlock)(PFSlideSwitchView *, NSUInteger);
         else vc = [self.delegate slideSwitchView:self viewControllerOfItemAtIndex:i];
         [viewsArray addObject:vc];
         [rootScrollView addSubview:vc.view];
-        NSLog(@"%@", vc.view.class);
+       BeeLog(@"%@", vc.view.class);
     }
 
     //加载标签
@@ -283,8 +283,8 @@ typedef void (^didSelectItemBlock)(PFSlideSwitchView *, NSUInteger);
     } else if ([self.delegate respondsToSelector:@selector(textSizeOfItemInSlideSwitchView:)]) {//监听代理并回调
         textSize = [self.delegate textSizeOfItemInSlideSwitchView:self];
     } else {
-        if (!self.heightOfItem) textSize = CGSizeMake(320 / 4, kHeightOfItem);
-        else textSize = CGSizeMake(320 / 4, self.heightOfItem);
+        if (!self.heightOfItem) textSize = CGSizeMake(CGRectGetWidth([UIScreen mainScreen].bounds) / 4, kHeightOfItem);
+        else textSize = CGSizeMake(CGRectGetWidth([UIScreen mainScreen].bounds) / 4, self.heightOfItem);
     }
 
     for (int i = 0; i < viewsArray.count; i++) {

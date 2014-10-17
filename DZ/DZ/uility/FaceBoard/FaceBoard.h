@@ -31,7 +31,7 @@
 @interface FaceBoard : UIView<UIScrollViewDelegate>{
 
     UIScrollView *faceView;
-    int  FACE_COUNT_ALL;
+    NSInteger  FACE_COUNT_ALL;
     GrayPageControl *facePageControl;
 
     NSDictionary *_faceMap;

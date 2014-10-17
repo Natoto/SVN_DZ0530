@@ -9,7 +9,7 @@
 #import "Bee_UIBoard.h"
 #import "Bee.h"
 #import "AppBoardTab_iPhone.h" 
-
+#import "E0_Discovery.h"
 AS_UI( AppBoard_iPhone, appBoard )
 @interface AppBoard_iPhone : BeeUIBoard<UIAlertViewDelegate>
 AS_SINGLETON( AppBoard_iPhone ) 
@@ -31,10 +31,15 @@ AS_SIGNAL( TAB_FORUM )
  AS_SIGNAL( TAB_SENDHTM)
 
 /**
- * 底部菜单-图片墙，点击时会触发该事件
+ * 底部菜单-图片墙，点击时会触发该事件 V1.2之前版本采用
  */
 AS_SIGNAL( TAB_ALBUM)
 
+/**
+ * 底部菜单-发现，点击时会触发该事件
+ */
+
+AS_SIGNAL(TAB_DISCOVERY)
 /**
  * 底部菜单-个人中心，点击时会触发该事件
  */

@@ -287,7 +287,7 @@
         if (([[params objectForKey:key] isKindOfClass:[UIImage class]]) || ([[params objectForKey:key] isKindOfClass:[NSData class]]))
         {
             if ([httpMethod isEqualToString:@"GET"]) {
-                NSLog(@"can not use GET to upload a file");
+               BeeLog(@"can not use GET to upload a file");
             }
             continue;
         }
@@ -337,7 +337,7 @@
     [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]
                             cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                         timeoutInterval:kShareRequestTimeOutInterval];
-    NSLog(@"%@",urlString);
+   BeeLog(@"%@",urlString);
     
     [request setHTTPMethod:self.httpMethod];
     if ([self.httpMethod isEqualToString: @"POST"])

@@ -34,7 +34,7 @@
     else if (self.succeed)
     {
         NSObject *result = self.responseJSON;
-        NSLog(@"%@", result);
+       BeeLog(@"%@", result);
 
         if (nil == self.resp || NO == [self.resp validate]) {
             self.failed = YES;
@@ -42,10 +42,10 @@
         }
     }
     else if (self.failed) {
-        NSLog(@"self.descripting===%@", self.description);
+       BeeLog(@"self.descripting===%@", self.description);
     }
     else if (self.cancelled) {
-        NSLog(@"self.description===%@", self.description);
+       BeeLog(@"self.description===%@", self.description);
     }
 }
 

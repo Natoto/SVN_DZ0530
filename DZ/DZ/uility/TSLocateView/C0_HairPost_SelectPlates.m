@@ -26,17 +26,17 @@
 - (id)initWithTitle:(NSString *)title delegate:(id /*<UIActionSheetDelegate>*/)delegate
 {
     //    self = [[[NSBundle mainBundle] loadNibNamed:@"TSLocateView" owner:self options:nil] objectAtIndex:0];
-    self = [super initWithFrame:CGRectMake(0, 0, 320, 260)];
+    self = [super initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), 260)];
     
-    UIImageView *imgview=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    UIImageView *imgview=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), 44)];
     imgview.image=[UIImage imageNamed:@"bg_023"];
     [self addSubview:imgview];
     
-    self.frame=CGRectMake(0, 0, 320, 260);
-    self.titlelabel=[[UILabel alloc] initWithFrame:CGRectMake(0, 11, 320, 21)];
+    self.frame=CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), 260);
+    self.titlelabel=[[UILabel alloc] initWithFrame:CGRectMake(0, 11, CGRectGetWidth([UIScreen mainScreen].bounds), 21)];
     self.titlelabel.textColor=[UIColor whiteColor];
     self.titlelabel.backgroundColor = [UIColor clearColor];
-    self.titlelabel.center=CGPointMake(320.0/2, 21);
+    self.titlelabel.center=CGPointMake(CGRectGetWidth([UIScreen mainScreen].bounds)/2, 21);
     self.titlelabel.textAlignment=NSTextAlignmentCenter;
     [self addSubview:self.titlelabel];
     
@@ -53,14 +53,14 @@
     [rightbtn addTarget:self action:@selector(locate:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:rightbtn];
     
-    self.locatePicker=[[UIPickerView alloc] initWithFrame:CGRectMake(0, 44, 320, 216)];
+    self.locatePicker=[[UIPickerView alloc] initWithFrame:CGRectMake(0, 44, CGRectGetWidth([UIScreen mainScreen].bounds), 216)];
  
     self.locate=[[LoacateChild alloc] init];
     [self addSubview:self.locatePicker];
     
     if (self) {
         self.backgroundColor=[UIColor whiteColor];
-        self.delegate = delegate;
+        self.hpdelegate = delegate;
         self.titlelabel.text = title;
         self.locatePicker.dataSource = self;
         self.locatePicker.delegate = self;
@@ -219,8 +219,8 @@ ON_SIGNAL3(ForumlistModel, RELOADED, signal)
         default:
             break;
     }
-    if(self.delegate && [self.delegate respondsToSelector:@selector(actionSheet:clickedButtonAtIndex:)]) {
-        [self.delegate actionSheet:self clickedButtonAtIndex:1];
+    if(self.hpdelegate && [self.hpdelegate respondsToSelector:@selector(C0_HairPost_SelectPlates:select_LoacateChild:clickedButtonAtIndex:)]) {
+        [self.hpdelegate C0_HairPost_SelectPlates:self select_LoacateChild:self.locate clickedButtonAtIndex:1];
     }
 }
 
@@ -247,8 +247,8 @@ ON_SIGNAL3(ForumlistModel, RELOADED, signal)
     [self setAlpha:0.0f];
     [self.layer addAnimation:animation forKey:@"TSLocateView"];
     [self performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:kDuration];
-    if(self.delegate && [self.delegate respondsToSelector:@selector(actionSheet:clickedButtonAtIndex:)]) {
-        [self.delegate actionSheet:self clickedButtonAtIndex:1];
+    if(self.hpdelegate && [self.hpdelegate respondsToSelector:@selector(C0_HairPost_SelectPlates:select_LoacateChild:clickedButtonAtIndex:)]) {
+        [self.hpdelegate C0_HairPost_SelectPlates:self select_LoacateChild:self.locate clickedButtonAtIndex:0];
     }
 
 }
@@ -258,6 +258,9 @@ ON_SIGNAL3(ForumlistModel, RELOADED, signal)
 }
 -(IBAction)cancel:(id)sender
 {
+    if (!self.alpha) {
+        return;
+    }
     CATransition *animation = [CATransition  animation];
     animation.delegate = self;
     animation.duration = kDuration;
@@ -267,8 +270,8 @@ ON_SIGNAL3(ForumlistModel, RELOADED, signal)
     [self setAlpha:0.0f];
     [self.layer addAnimation:animation forKey:@"TSLocateView"];
     [self performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:kDuration];
-    if(self.delegate && [self.delegate respondsToSelector:@selector(actionSheet:clickedButtonAtIndex:)]) {
-        [self.delegate actionSheet:self clickedButtonAtIndex:0];
+    if(self.hpdelegate && [self.hpdelegate respondsToSelector:@selector(C0_HairPost_SelectPlates:select_LoacateChild:clickedButtonAtIndex:)]) {
+        [self.hpdelegate C0_HairPost_SelectPlates:self select_LoacateChild:self.locate clickedButtonAtIndex:1];
     }
 }
 - (void)showInView:(UIView *) view

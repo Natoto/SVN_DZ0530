@@ -24,7 +24,7 @@
         switcher=[[BeeUISwitch alloc] init];
         switcher.on=![SettingModel sharedInstance].photoMode;
         float switcherwidth = switcher.frame.size.width;
-        switcher.frame = CGRectMake(self.frame.size.width - switcherwidth - 15, 10, switcherwidth, 30);
+        switcher.frame = CGRectMake(CGRectGetWidth([UIScreen mainScreen].bounds) - switcherwidth - 15, 10, switcherwidth, 30);
         [switcher addTarget:self action:@selector(dataDidChanged) forControlEvents:UIControlEventValueChanged];
         switcher.onTintColor = [DZ_SystemSetting sharedInstance].navigationBarColor;
         [self addSubview:switcher];

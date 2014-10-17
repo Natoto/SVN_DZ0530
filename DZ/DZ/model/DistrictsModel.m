@@ -50,7 +50,7 @@
 -(int)proviceIndexForname:(NSString *)provicename
 {
     districts *mydistrcts=[[districts alloc] init];
-    int myproviceIndex=NSNotFound;
+    NSInteger myproviceIndex=NSNotFound;
     for (int index=0;index<self.shots.count;index++) {
         districts *dis = [self.shots objectAtIndex:index];
         if ([dis.name isEqualToString:provicename]) {
@@ -59,14 +59,14 @@
             break;
         }
     }
-    return myproviceIndex;
+    return (int)myproviceIndex;
 }
 
 
 -(int)proviceIndexForid:(NSString *)proviceid
 {
     districts *mydistrcts=[[districts alloc] init];
-    int myproviceIndex=NSNotFound;
+    NSInteger myproviceIndex=NSNotFound;
     for (int index=0;index<self.shots.count;index++) {
         districts *dis = [self.shots objectAtIndex:index];
         if ([dis.id isEqualToString:proviceid]) {
@@ -75,13 +75,13 @@
             break;
         }
     }
-    return myproviceIndex;
+    return (int)myproviceIndex;
 }
 
 -(int)CityIndexForProvicename:(NSString *)provicename andChildname:(NSString *)cityname
 {
     dis_child *obj=[[dis_child alloc] init];
-    int myCityIndex=NSNotFound;
+    NSInteger myCityIndex=NSNotFound;
     for (int index=0;index<self.shots.count;index++) {
         districts *dis = [self.shots objectAtIndex:index];
         if ([dis.name isEqualToString:provicename]) {
@@ -95,13 +95,13 @@
             }
         }
     }
-    return myCityIndex;
+    return (int)myCityIndex;
 }
 
 -(int)CityIndexForProviceid:(NSString *)proviceid andChildId:(NSString *)cityid
 {
     dis_child *obj=[[dis_child alloc] init];
-    int myCityIndex=NSNotFound;
+    NSInteger myCityIndex=NSNotFound;
     for (int index=0;index<self.shots.count;index++) {
         districts *dis = [self.shots objectAtIndex:index];
         if ([dis.id isEqualToString:proviceid]) {
@@ -115,7 +115,7 @@
             }            
         }
     }
-    return myCityIndex;
+    return (int)myCityIndex;
 }
 
 

@@ -57,9 +57,9 @@
 //    self.navigationBarTitle = @"个人资料";
     self.modifyreq = [[REQ_MODIFYPROFILE_SHOTS alloc] init];
     [self showBarButton:BeeUINavigationBar.RIGHT title:@"确定"];
-    [self layoutHeaderViews:CGRectMake(0, 10, 320, 50)];
+    [self layoutHeaderViews:CGRectMake(0, 10, CGRectGetWidth([UIScreen mainScreen].bounds) , 50)];
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage bundleImageNamed:@"index_body_bg"]];
-    _belowview = [self layoutUsernamePassword:CGRectMake(0, 80, 320, 200)];
+    _belowview = [self layoutUsernamePassword:CGRectMake(0, 80, CGRectGetWidth([UIScreen mainScreen].bounds) , 200)];
     [self.view addSubview:_belowview];
     _brithdaySelector = [[D1_BirthdaySelector alloc] initWithTitle:@"选择出生年月" delegate:self];
     _brithdaySelector.tag = BIRTHDAYSELECTORTAG;
@@ -162,7 +162,7 @@ ON_SIGNAL3(BeeUITipsView, WILL_DISAPPEAR, signal)
 //#pragma mark - 个人资料加载成功
 //ON_SIGNAL3(UserModel, PROFILE_RELOADED, signal)
 //{
-//    NSLog(@"%@%@", [UserModel sharedInstance].profile.birthyear, [UserModel sharedInstance].profile.birthmonth);
+//   BeeLog(@"%@%@", [UserModel sharedInstance].profile.birthyear, [UserModel sharedInstance].profile.birthmonth);
 //    _lblbirthyearmonth.text = [NSString stringWithFormat:@"%@-%@", [UserModel sharedInstance].profile.birthyear, [UserModel sharedInstance].profile.birthmonth];
 //}
 
@@ -277,8 +277,8 @@ ON_SIGNAL3(BeeUITipsView, WILL_DISAPPEAR, signal)
         _lblbirthyearmonth.text = [NSString stringWithFormat:@"%@-%@-%@", [[BeeUserDefaults sharedInstance] objectForKey:@"birthyear"], [[BeeUserDefaults sharedInstance] objectForKey:@"birthmonth"], [[BeeUserDefaults sharedInstance] objectForKey:@"birthday"]];
     else
         _lblbirthyearmonth.text = @"1988-09-01";
-    NSLog(@"%@-%@-%@", [UserModel sharedInstance].profile.birthyear, [UserModel sharedInstance].profile.birthmonth, [UserModel sharedInstance].profile.birthday);
-    NSLog(@"我的UID是：%@", [UserModel sharedInstance].session.uid);
+   BeeLog(@"%@-%@-%@", [UserModel sharedInstance].profile.birthyear, [UserModel sharedInstance].profile.birthmonth, [UserModel sharedInstance].profile.birthday);
+   BeeLog(@"我的UID是：%@", [UserModel sharedInstance].session.uid);
     [bgview addSubview:_lblbirthyearmonth];
     UIButton *shengriBtn=[UIButton buttonWithType:UIButtonTypeCustom];
     shengriBtn.frame=CGRectMake(0, 100, frame.size.width, 50);
@@ -306,7 +306,7 @@ ON_SIGNAL3(BeeUITipsView, WILL_DISAPPEAR, signal)
         _lblyourarea.text = [NSString stringWithFormat:@"%@ %@", [[BeeUserDefaults sharedInstance] objectForKey:@"resideprovince"], [[BeeUserDefaults sharedInstance] objectForKey:@"residecity"]];
     else
         _lblyourarea.text = @"广东省 广州市";
-    NSLog(@"%@%@", [UserModel sharedInstance].profile.resideprovince, [UserModel sharedInstance].profile.residecity);
+   BeeLog(@"%@%@", [UserModel sharedInstance].profile.resideprovince, [UserModel sharedInstance].profile.residecity);
     [bgview addSubview:_lblyourarea];
     UIButton *diquBtn=[UIButton buttonWithType:UIButtonTypeCustom];
     diquBtn.frame=CGRectMake(0, 150, frame.size.width, 50);
@@ -386,16 +386,16 @@ ON_SIGNAL3(BeeUITipsView, WILL_DISAPPEAR, signal)
     //    C0_HairPost_SelectPlates *locateView = (C0_HairPost_SelectPlates *)actionSheet;
     //    LoacateChild *location = locateView.locate;
     //    if (location.child) {
-    //        NSLog(@"name:%@ fid:%@ lastpost:%@", location.child.name, location.child.fid, location.child.lastpost);
+    //       BeeLog(@"name:%@ fid:%@ lastpost:%@", location.child.name, location.child.fid, location.child.lastpost);
     //        NSString *key=[NSString stringWithFormat:@"%@ / %@",location.parent.name,location.child.name];
     //        self.selectfid=location.child.fid;
     //        [self.selectforumbtn setTitle:key forState:UIControlStateNormal];
     //    }
     //    //You can uses location to your application.
     //    if(buttonIndex == 0) {
-    //        NSLog(@"Cancel");
+    //       BeeLog(@"Cancel");
     //    }else {
-    //        NSLog(@"Select");
+    //       BeeLog(@"Select");
     //    }
 }
 #pragma mark - 显示和隐藏
@@ -406,7 +406,7 @@ ON_SIGNAL3(D1_CitySelector, DIDSHOW, signal)
     [UIView setAnimationDelay:0.2];
     [UIView setAnimationBeginsFromCurrentState:YES];
     if ((self.view.frame.size.height-200-260) < 80) {
-        _belowview.frame=CGRectMake(0, self.view.frame.size.height-200-260, 320, 200);        
+        _belowview.frame=CGRectMake(0, self.view.frame.size.height-200-260, CGRectGetWidth([UIScreen mainScreen].bounds) , 200);        
     }
     [UIView commitAnimations];
 
@@ -418,7 +418,7 @@ ON_SIGNAL3(D1_CitySelector, DIDHIDE, signal)
     [UIView setAnimationDuration:0.3];
     [UIView setAnimationDelay:0.2];
     [UIView setAnimationBeginsFromCurrentState:YES];
-    _belowview.frame=CGRectMake(0, 80, 320, 200);
+    _belowview.frame=CGRectMake(0, 80, CGRectGetWidth([UIScreen mainScreen].bounds) , 200);
     [UIView commitAnimations];
 
 }
@@ -430,7 +430,7 @@ ON_SIGNAL3(D1_BirthdaySelector, DIDSHOW, signal)
     [UIView setAnimationDelay:0.2];
     [UIView setAnimationBeginsFromCurrentState:YES];
     if ((self.view.frame.size.height-200-260) < 80) {
-        _belowview.frame=CGRectMake(0, self.view.frame.size.height-200-260, 320, 200);
+        _belowview.frame=CGRectMake(0, self.view.frame.size.height-200-260, CGRectGetWidth([UIScreen mainScreen].bounds) , 200);
     }
     [UIView commitAnimations];
 }
@@ -441,7 +441,7 @@ ON_SIGNAL3(D1_BirthdaySelector, DIDHIDE, signal)
     [UIView setAnimationDuration:0.3];
     [UIView setAnimationDelay:0.2];
     [UIView setAnimationBeginsFromCurrentState:YES];
-    _belowview.frame=CGRectMake(0, 80, 320, 200);
+    _belowview.frame=CGRectMake(0, 80, CGRectGetWidth([UIScreen mainScreen].bounds) , 200);
     [UIView commitAnimations];
 }
 -(IBAction)profileBtnTap:(id)sender
@@ -595,18 +595,18 @@ ON_SIGNAL3(BeeUITextField, WILL_ACTIVE, signal)
 
 - (void)didClickOnButtonIndex:(NSInteger *)buttonIndex
 {
-    NSLog(@"%d", (int)buttonIndex);
+   BeeLog(@"%d", (int)buttonIndex);
     [self selectpicture:nil andclickedButtonAtIndex:(int)buttonIndex];
 }
 
 - (void)didClickOnDestructiveButton
 {
-    NSLog(@"destructuctive");
+   BeeLog(@"destructuctive");
 }
 
 - (void)didClickOnCancelButton
 {
-    NSLog(@"cancelButton");
+   BeeLog(@"cancelButton");
 }
 
 #pragma mark - 选择头像
@@ -695,7 +695,7 @@ ON_SIGNAL3(BeeUITextField, WILL_ACTIVE, signal)
     {
         ALAssetRepresentation *representation = [myasset defaultRepresentation];
         NSString *fileName = [representation filename];
-        NSLog(@"fileName : %@",fileName);
+       BeeLog(@"fileName : %@",fileName);
         UIImage *image = info[UIImagePickerControllerOriginalImage];
         
         SEPhotoView *photoView = [[SEPhotoView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 200.0f, 200.0f)];

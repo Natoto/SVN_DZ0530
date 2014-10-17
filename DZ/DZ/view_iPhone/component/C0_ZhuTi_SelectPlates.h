@@ -9,14 +9,24 @@
 #import <UIKit/UIKit.h>
 #import "forumlist.h"
 #import "UIImage+Bundle.h"
+//actionSheet:self clickedButtonAtIndex:1
+@class THTPS_SELECT;
+@class C0_ZhuTi_SelectPlates;
+
+@protocol C0_ZhuTi_SelectPlatesDelegate<NSObject>
+-(void)C0_ZhuTi_SelectPlates:(C0_ZhuTi_SelectPlates *)action select_thtps:(THTPS_SELECT *)loate clickedButtonAtIndex:(NSInteger)index;
+@end
+
 @interface THTPS_SELECT : NSObject
 //@property(nonatomic,strong) threadtypes *athreadtypes;
 @property(nonatomic,strong) NSString  * threadtypesitem;
-@property(nonatomic,assign) NSNumber  * typedid;
+@property(nonatomic,strong) NSNumber  * typedid;
+
 @end
 
-@interface C0_ZhuTi_SelectPlates : UIActionSheet<UIPickerViewDelegate, UIPickerViewDataSource>
 
+@interface C0_ZhuTi_SelectPlates : UIActionSheet<UIPickerViewDelegate, UIPickerViewDataSource>
+@property (nonatomic, weak) id<C0_ZhuTi_SelectPlatesDelegate> ztdelegate;
 @property (strong, nonatomic)  UILabel               * titlelabel;
 @property (strong, nonatomic)  UIPickerView          * locatePicker;
 //@property (strong, nonatomic)  threadtypes          * athreadtypes;

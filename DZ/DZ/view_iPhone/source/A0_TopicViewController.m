@@ -68,7 +68,7 @@ ON_SIGNAL3(HomeTopicListModel, FAILED, signal)
     if (!self.listModel.loaded) {
         [self.listModel loadList];
     }
-    NSLog(@"加载为当前视图 = %@",self.title);
+   BeeLog(@"加载为当前视图 = %@",self.title);
 }
 
 #pragma mark - Public Methods

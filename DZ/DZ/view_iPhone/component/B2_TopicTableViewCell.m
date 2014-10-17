@@ -27,8 +27,9 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         [self addbackgroundView:nil];
-        // Initialization code        
-        _cellicon=[[BeeUIImageView alloc] initWithFrame:CGRectMake(self.frame.size.width-CELLICONWITH-8, 8, CELLICONWITH,CELLICONHEIGHT)];
+        // Initialization code
+        //self.frame.size.width - CELLICONWITH - 15
+        _cellicon=[[BeeUIImageView alloc] initWithFrame:CGRectMake(CGRectGetWidth([UIScreen mainScreen].bounds) - CELLICONWITH-8, 8, CELLICONWITH,CELLICONHEIGHT)];
         _cellicon.backgroundColor=[UIColor colorWithRed:128/255. green:128/255. blue:128/255. alpha:1];
         _cellicon.contentMode=UIViewContentModeScaleAspectFill;
         _cellicon.indicatorColor=[UIColor whiteColor];
@@ -196,7 +197,7 @@
     if (havePhote) {//有图
         _cellicon.hidden=NO;
 //        _cellicon.data=self.atopic.img;
-        _cellicon.frame = CGRectMake(self.frame.size.width - CELLICONWITH - 15, 8, CELLICONWITH,CELLICONHEIGHT);
+        _cellicon.frame = CGRectMake(CGRectGetWidth([UIScreen mainScreen].bounds) - CELLICONWITH - 15, 8, CELLICONWITH,CELLICONHEIGHT);
         _lbltitle.frame = CGRectMake(MARGELEFT, 0, self.frame.size.width - CELLICONWITH - MARGELEFT * 2 - 11, 40);
         message.hidden = YES;
         

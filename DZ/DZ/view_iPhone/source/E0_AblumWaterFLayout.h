@@ -79,6 +79,8 @@ extern NSString *const WaterFallSectionFooter;
 @end
 
 @interface E0_AblumWaterFLayout : UICollectionViewLayout
+
++(float)cellwidth;
 /**
  *  @brief How many columns for this layout.
  *  @discussion Default: 2

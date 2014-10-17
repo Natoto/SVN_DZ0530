@@ -22,7 +22,7 @@
 @property (nonatomic,strong) NSArray* imagesArr;
 @property (nonatomic,strong) NSArray* textsArr;
 @property (nonatomic,assign) NSInteger sectionNum;
-@property (nonatomic) float imagewidth;
+//@property (nonatomic) float imagewidth;
 //@property (nonatomic) CGFloat textViewHeight;
 //@property (nonatomic,strong) NSMutableArray* buttons;
 //@property (nonatomic,strong) NSMutableArray* buttonStates;
@@ -38,29 +38,26 @@
     }
     return self;
 }
--(void)viewDidAppear:(BOOL)animated
-{
-    [bee.ui.appBoard showTabbar];
-}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor lightGrayColor];
     self.picwallModel = [PictureWallModel modelWithObserver:self];
     [self.picwallModel firstPage];
     
     E0_AblumWaterFLayout* flowLayout = [[E0_AblumWaterFLayout alloc]init];
     CGRect bounds = [UIScreen mainScreen].bounds;
-    CGRect rect =CGRectMake(0, 0, CGRectGetWidth(bounds), CGRectGetHeight(bounds) - bee.ui.tabbar.height);
-    self.collectionView = [[UICollectionView alloc] initWithFrame:rect collectionViewLayout:flowLayout]; //initWithCollectionViewLayout:flowLayout];
+    CGRect rect =CGRectMake(0, 0, CGRectGetWidth(bounds), CGRectGetHeight(bounds));// - bee.ui.tabbar.height
+    self.collectionView = [[UICollectionView alloc] initWithFrame:rect collectionViewLayout:flowLayout]; //initWithCollectionViewLayout:flowLayout]; 
     [self.collectionView registerClass:[E0_AblumWaterFCell class] forCellWithReuseIdentifier:@"cell"];
-    self.collectionView.backgroundColor =[UIColor whiteColor];
+    self.collectionView.backgroundColor =[UIColor clearColor];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     [self.view addSubview:self.collectionView];
     [self.picwallModel loadCache];
     
-    self.imagewidth = 160;
+//    self.imagewidth = 140;
     [self loadData];
 
     self.navigationBarShown = YES;
@@ -73,8 +70,10 @@
 {
     
 }
-
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [bee.ui.appBoard hideTabbar];
+}
 - (void)addHeader
 {
     __unsafe_unretained typeof(self) vc = self;
@@ -144,9 +143,16 @@ ON_SIGNAL3(PictureWallModel, RELOADED, signal)
     }
     pcms * apcms = [self.picwallModel.shots objectAtIndex:indexPath.row];
     CGFloat aFloat = 0;
-    aFloat = self.imagewidth/apcms.width.floatValue;
-    cell.imageView.frame = CGRectMake(0, 0, self.imagewidth,  apcms.height.floatValue*aFloat) ;
-    cell.imageView.data =apcms.attachment;
+    aFloat = cell.width/apcms.width.floatValue;
+    
+    float STICK = 5;
+    cell.imageView.frame = CGRectMake(STICK, STICK,cell.width-STICK*2,  apcms.height.floatValue*aFloat-STICK) ;
+    [cell.imageView setUrl:apcms.attachment];//.data =apcms.attachment;
+    cell.textView.text = apcms.subject;
+    cell.lblview.text = apcms.views;
+    cell.lblreply.text = apcms.replies;
+    cell.lbllouzhu.text = apcms.author;
+    [cell layoutSubviews];
     return cell;
 }
 
@@ -167,9 +173,14 @@ ON_SIGNAL3(PictureWallModel, RELOADED, signal)
     pcms * apcms = [self.picwallModel.shots objectAtIndex:indexPath.row];
     CGFloat aFloat = 0.0;
     float pcimgwidth = apcms.width.floatValue;
-    aFloat = self.imagewidth/pcimgwidth;//image.size.width;
+    float cellwidth =  [E0_AblumWaterFLayout cellwidth];
+    aFloat = cellwidth/pcimgwidth;//image.size.width;
+    float aheight = 40;
+    if ([NSString unicodeLengthOfString:apcms.subject]>18) {
+         aheight = 60;
+    }
     CGSize size = CGSizeMake(0,0);
-    size = CGSizeMake(self.imagewidth, apcms.height.floatValue * aFloat);
+    size = CGSizeMake(cellwidth, apcms.height.floatValue * aFloat + aheight+1);
     return size;
 }
 

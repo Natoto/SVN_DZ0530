@@ -13,7 +13,7 @@
 //
 
 
-typedef enum : NSUInteger {
+typedef enum : int {
     FONTSIZE_SMALL = 14,
     FONTSIZE_MIDDLE = 16,
     FONTSIZE_BIG = 20,

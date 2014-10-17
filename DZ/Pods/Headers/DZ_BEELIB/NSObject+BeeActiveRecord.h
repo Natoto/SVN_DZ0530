@@ -1,0 +1,1 @@
+../../DZ_BEELIB/framework/system/database/extension/NSObject+BeeActiveRecord.h

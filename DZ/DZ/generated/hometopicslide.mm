@@ -83,7 +83,7 @@ CONVERT_PROPERTY_CLASS(home, hometopicslide)
     if (self.sending)
     {
         NSString *requestURI = [NSString stringWithFormat:@"%@?action=home_tpl_2%@", [ServerConfig sharedInstance].url, [ServerConfig sharedInstance].urlpostfix];
-        NSLog(@"%@", requestURI);
+       BeeLog(@"%@", requestURI);
         self.HTTP_POST(requestURI);
     }
     else if (self.succeed)
@@ -94,20 +94,21 @@ CONVERT_PROPERTY_CLASS(home, hometopicslide)
 		{
 			self.resp = [HOMETOPICSLIDE objectFromDictionary:(NSDictionary *)result];
             NSArray *slideDicAry = [self.resp.hometopicslide.slide copy];
-            NSLog(@"%@", slideDicAry);
+           BeeLog(@"%@", slideDicAry);
             NSMutableArray *slideArray = [[NSMutableArray alloc] initWithCapacity:0];
             for (int index = 0; index < slideDicAry.count; index++) {
                 NSDictionary *dic = [slideDicAry objectAtIndex:index];
-                NSLog(@"%@", dic);
+                BeeLog(@"%@", dic);
                 slide *aSlide = [slide objectFromDictionary:dic];
-                NSLog(@"%@", aSlide);
+                aSlide.subject = aSlide.subject?aSlide.subject:@"";
+                BeeLog(@"%@", aSlide);
                 [slideArray addObject:aSlide];
-                NSLog(@"%@", slideArray);
+                BeeLog(@"%@", slideArray);
             }
             self.resp.hometopicslide.slide = slideArray;
-            NSLog(@"%@", self.resp.hometopicslide.slide);
+           BeeLog(@"%@", self.resp.hometopicslide.slide);
 		}
-
+        
 		if ( nil == self.resp || NO == [self.resp validate] )
 		{
 			self.failed = YES;
@@ -116,12 +117,12 @@ CONVERT_PROPERTY_CLASS(home, hometopicslide)
     }
     else if (self.failed)
 	{
-        NSLog(@"self.description===%@",self.description);
+       BeeLog(@"self.description===%@",self.description);
 		// TODO:
 	}
 	else if (self.cancelled)
 	{
-        NSLog(@"self.description %@",self.description);
+       BeeLog(@"self.description %@",self.description);
 		// TODO:
 	}
 }

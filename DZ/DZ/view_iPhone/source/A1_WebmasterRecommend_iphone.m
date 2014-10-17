@@ -98,7 +98,7 @@ ON_SIGNAL3(CommandModel, FAILED, signal)
     [self finishReloadingData];
 }
 
--(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0)
         return 215;
@@ -106,7 +106,7 @@ ON_SIGNAL3(CommandModel, FAILED, signal)
         return 90;
 }
 
--(int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.commandmodel.shots.count;
 }

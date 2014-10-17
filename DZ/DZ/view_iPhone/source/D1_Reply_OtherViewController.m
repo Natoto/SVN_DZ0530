@@ -72,7 +72,7 @@ ON_SIGNAL3(PostmineModel, FAILED, signal)
 {
     if (!self.myReplyModel.loaded)
         [self.myReplyModel firstPage];
-    NSLog(@"加载为当前视图 = %@",self.title);
+   BeeLog(@"加载为当前视图 = %@",self.title);
 }
 
 - (void)didReceiveMemoryWarning
@@ -89,7 +89,7 @@ ON_SIGNAL3(PostmineModel, FAILED, signal)
     if (cell == nil)
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
-        UIImage *image=[UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(320, 10)];
+        UIImage *image=[UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(CGRectGetWidth([UIScreen mainScreen].bounds) , 10)];
         cell.backgroundImage = image;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [self addCellSelectedColor:cell];

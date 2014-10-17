@@ -40,6 +40,7 @@ DEF_SIGNAL(CLOSTBTNTAPPED)
     self = [super init];
     if (self)
     {
+
         self.enableDelete=YES;
         self.editmode=NO;
         self.backgroundColor = [UIColor whiteColor];//[UIColor colorWithRed:200.0/255.0 green:200.0/255.0 blue:200.0/255.0 alpha:1.0];// [UIColor colorWithRed:0.605 green:0.000 blue:0.007 alpha:1.000];        

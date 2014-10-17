@@ -216,6 +216,7 @@
 <string name="POST">POST</string>
 <string name="ALBUM">ALBUM</string>
 <string name="MINE">MINE</string>
+<string name="DISCOVERY">DISCOVERY</string>
 
 <string name="realname">realname</string>
 <string name="mobile">mobile</string>

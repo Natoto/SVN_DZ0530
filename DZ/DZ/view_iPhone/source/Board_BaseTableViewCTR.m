@@ -132,8 +132,14 @@ ON_SIGNAL2(BeeUIBoard, signal)
     //    int row = indexPath.row;
     NSString *ListViewCellId = @"ListViewCellId";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ListViewCellId];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ListViewCellId];
+    }
+    cell.textLabel.text = [NSString stringWithFormat:@"cell %d",indexPath.row + 1 ];
     return cell;
 }
+
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

@@ -65,7 +65,8 @@
                     else
                     {
                         NSArray * array = api.resp.threadtype;
-                        [threadtype saveObject:array forKey:fid];
+                        NSString * key = MODELOBJECTKEY(myclass,fid);
+                        [threadtype saveObject:array forKey:key];
                         block(array);
                     }
                 }

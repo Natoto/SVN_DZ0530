@@ -48,7 +48,7 @@ ON_SIGNAL3(RemindModel, FAILED, signal)
     if (!self.remindmodel.loaded) {
 //        [self.remindmodel firstPage];
     }
-    NSLog(@"加载为当前视图 = %@",self.title);
+   BeeLog(@"加载为当前视图 = %@",self.title);
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -70,7 +70,7 @@ ON_SIGNAL3(RemindModel, FAILED, signal)
         [self.remindmodel loadCache];
         [self viewDidCurrentView];
     }
-    _headView = [[D3_MSG_IgnoreView alloc] initWithFrame:CGRectMake(0, 0, 320, 40) sel:@selector(ignoreMessages) target:self];
+    _headView = [[D3_MSG_IgnoreView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds) , 40) sel:@selector(ignoreMessages) target:self];
     _headView.recievemessage = @"需要接受系统消息吗？";
     // Do any additional setup after loading the view.
 }
@@ -79,7 +79,7 @@ ON_SIGNAL3(RemindModel, FAILED, signal)
 {
     [super didReceiveMemoryWarning];
 }
--(float)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 40;
 }

@@ -6,7 +6,7 @@
 //
 //
 #import "Constants.h"
-#import "Bee_UIBoard.h"
+#import "Bee_UIBoard.h" 
 //#import "EGORefreshTableFooterView.h"
 //#import "EGORefreshTableHeaderView.h"
 @interface Board_BaseTableViewCTR : BeeUIBoard<UITableViewDataSource, UITableViewDelegate>

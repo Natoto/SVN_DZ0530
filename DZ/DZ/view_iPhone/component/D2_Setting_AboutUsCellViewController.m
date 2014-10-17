@@ -50,7 +50,7 @@
     if (IOS6_OR_EARLIER) {
         MARGIN_HEIGHT = 44;
     }
-    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 320, self.view.height - MARGIN_HEIGHT)];
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds) , self.view.height - MARGIN_HEIGHT)];
 //    tableView.scrollEnabled = NO;
     tableView.dataSource = self;
     tableView.delegate = self;
@@ -93,14 +93,14 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    UILabel *label = [CreateComponent CreateLabelWithFrame:CGRectMake(0, 0, 320, 30) andTxt:@"由易多app提供技术支持"];
+    UILabel *label = [CreateComponent CreateLabelWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds) , 30) andTxt:@"由易多app提供技术支持"];
     label.textColor = [UIColor grayColor];
 //    label.font =[UIFont systemFontOfSize:12];
     label.textAlignment = NSTextAlignmentCenter;
     return label;
 }
 
--(float)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return 30.0;
 }

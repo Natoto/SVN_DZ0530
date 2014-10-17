@@ -56,15 +56,14 @@ ON_RIGHT_BUTTON_TOUCHED(signal)
     }
 #endif
     self.title =@"我的消息";
-    _slideSwitchView=[[QCSlideSwitchView alloc] initWithFrame:CGRectMake(0, 0, 320, self.bounds.size.height)];
+    _slideSwitchView=[[QCSlideSwitchView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds) , self.bounds.size.height)];
     _slideSwitchView.slideSwitchViewDelegate=self;
     [self.view addSubview:_slideSwitchView];
     self.slideSwitchView.tabItemNormalColor = [QCSlideSwitchView colorFromHexRGB:@"868686"];
      UIColor *color = [DZ_SystemSetting sharedInstance].navigationBarColor;
     self.slideSwitchView.tabItemSelectedColor = color; //[QCSlideSwitchView colorFromHexRGB:@"bb0b15"];
      UIImage *image = [[UIImage imageNamed:@"red_line_and_shadow.png"]
-                                        stretchableImageWithLeftCapWidth:59.0f topCapHeight:0.0f];
-    
+                                        stretchableImageWithLeftCapWidth:59.0f topCapHeight:0.0f];    
     
      self.slideSwitchView.shadowImage = [image imageWithTintColor:color];
     

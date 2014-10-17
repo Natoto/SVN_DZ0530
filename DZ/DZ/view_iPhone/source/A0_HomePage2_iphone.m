@@ -119,13 +119,13 @@ ON_LOAD_DATAS(signal)
 
     //遍历视图
     for (int i = 0; i < imageArray.count; i++) {
-        BeeUIImageView *imageView = [[BeeUIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 200)];
+        BeeUIImageView *imageView = [[BeeUIImageView alloc] initWithFrame:CGRectMake(0, 0, self.viewBound.size.width, 200)];
         [imageView setUrl:imageArray[i]];
         [viewsArray addObject:imageView];
     }
 
     if (!automaticScrollView) {
-        automaticScrollView = [[PFAutomaticScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 170) animationDuration:2.5 delegate:nil];
+        automaticScrollView = [[PFAutomaticScrollView alloc] initWithFrame:CGRectMake(0, 0, self.viewBound.size.width, 170) animationDuration:2.5 delegate:nil];
         automaticScrollView.backgroundColor = [[UIColor purpleColor] colorWithAlphaComponent:0.1];
         [self.view addSubview:automaticScrollView];
     }
@@ -159,7 +159,7 @@ ON_LOAD_DATAS(signal)
 - (void)loadSlideSwitchView
 {
     if (!slideSwitchView) {
-        slideSwitchView = [[PFSlideSwitchView alloc] initWithFrame:CGRectMake(0, 175, 320, self.view.frame.size.height - 64 - 49 - 30 - 18)];
+        slideSwitchView = [[PFSlideSwitchView alloc] initWithFrame:CGRectMake(0, 175, self.viewBound.size.width, self.view.frame.size.height - 64 - 49 - 30 - 18)];
         slideSwitchView.heightOfItem = 30;
 
         slideSwitchView.itemNormalColor = [PFSlideSwitchView colorFromHexRGB:@"868686"];
@@ -227,22 +227,22 @@ ON_LOAD_DATAS(signal)
             A0_TopicViewController *recommend = nil;
             recommend =  self.recommend;
             [recommend viewDidCurrentView];
-            NSLog(@"123");
+           BeeLog(@"123");
         } else if (index == 1) {
             A0_TopicViewController *newly = nil;
             newly = self.newly;
             [newly viewDidCurrentView];
-            NSLog(@"234");
+           BeeLog(@"234");
         } else if (index == 2) {
             A0_TopicViewController *hot = nil;
             hot = self.hot;
             [hot viewDidCurrentView];
-            NSLog(@"345");
+           BeeLog(@"345");
         } else if (index == 3) {
             A0_TopicViewController *reply = nil;
             reply = self.reply;
             [reply viewDidCurrentView];
-            NSLog(@"456");
+           BeeLog(@"456");
         }
     }];
 

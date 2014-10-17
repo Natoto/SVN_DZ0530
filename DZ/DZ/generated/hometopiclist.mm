@@ -82,7 +82,7 @@ CONVERT_PROPERTY_CLASS(home, hometopiclist)
     if (self.sending)
     {
         NSString *requestURI = [NSString stringWithFormat:@"%@?action=home_tpl_2_list&type=%@%@", [ServerConfig sharedInstance].url, self.type, [ServerConfig sharedInstance].urlpostfix];
-        NSLog(@"%@", requestURI);
+       BeeLog(@"%@", requestURI);
         self.HTTP_POST(requestURI);
     }
     else if (self.succeed)
@@ -102,12 +102,12 @@ CONVERT_PROPERTY_CLASS(home, hometopiclist)
     }
     else if (self.failed)
 	{
-        NSLog(@"self.description===%@",self.description);
+       BeeLog(@"self.description===%@",self.description);
 		// TODO:
 	}
 	else if (self.cancelled)
 	{
-        NSLog(@"self.description %@",self.description);
+       BeeLog(@"self.description %@",self.description);
 		// TODO:
 	}
 }

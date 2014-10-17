@@ -175,7 +175,7 @@ ON_SIGNAL3(BeeUIImageView, LOAD_CACHE, signal)
 
 - (void)didClickOnButtonIndex:(NSInteger *)buttonIndex
 {
-    NSLog(@"%d",(int)buttonIndex);
+   BeeLog(@"%d",(int)buttonIndex);
     if (buttonIndex==0) {
         [self saveImageToPhotos:imageView.image];
     }
@@ -188,11 +188,11 @@ ON_SIGNAL3(BeeUIImageView, LOAD_CACHE, signal)
 
 - (void)didClickOnDestructiveButton
 {
-    NSLog(@"destructuctive");
+   BeeLog(@"destructuctive");
 }
 
 - (void)didClickOnCancelButton
 {
-    NSLog(@"cancelButton");
+   BeeLog(@"cancelButton");
 }
 @end

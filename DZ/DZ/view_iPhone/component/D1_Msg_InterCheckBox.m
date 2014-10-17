@@ -162,7 +162,7 @@
         NSString *value =[diction valueForKey:key];
         [self createCell:key value:value index:index];
     }
-    int index = allkeys.count -1;
+    int index =(int)allkeys.count -1;
     NSString *key = [allkeys objectAtIndex:index];
     NSString *value =[diction valueForKey:key];
     [self createCell:key textvalue:value index:index];
@@ -276,7 +276,7 @@
     NSString *text=[NSString stringWithFormat:@"%@ : %@",key,value];
     NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:text];
     UIColor *color = [DZ_SystemSetting sharedInstance].navigationBarColor;
-    int LENGTH= key.length + 2;
+    int LENGTH=(int)key.length + 2;
     [attriString addAttribute:NSForegroundColorAttributeName
                         value:[UIColor blackColor]
                         range:NSMakeRange(0, LENGTH)];

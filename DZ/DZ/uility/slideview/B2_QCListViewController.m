@@ -35,7 +35,7 @@
 
 - (void)viewDidCurrentView
 {
-    NSLog(@"加载为当前视图 = %@",self.title);
+   BeeLog(@"加载为当前视图 = %@",self.title);
 }
 
 -(void)setChildAry:(NSArray *)childAry

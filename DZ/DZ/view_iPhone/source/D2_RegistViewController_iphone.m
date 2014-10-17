@@ -45,7 +45,7 @@
     self.registermodel = [UserModel modelWithObserver:self];
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor colorWithPatternImage:[UIImage bundleImageNamed:@"index_body_bg"]];
-    scrollview=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+    scrollview=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds) , 480)];
     UITapGestureRecognizer *singleTap =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handelSingleTap:)];
     [scrollview addGestureRecognizer:singleTap];
     [singleTap setNumberOfTouchesRequired:1];//触摸点个数
@@ -57,18 +57,18 @@
      int MARGINV=0;
      int TEXTFIELDHEIGHT=40;
      int MARGIN_X=0;
-    self.username=[self createTextFieldWithFrame:CGRectMake(MARGIN_X, TOPHEIGHT,320 - 2*MARGIN_X, TEXTFIELDHEIGHT) placeholder:@"请输入用户名" tag:1510 border:NO];
-     self.password=[self createTextFieldWithFrame:CGRectMake(MARGIN_X,  TOPHEIGHT+(MARGINV+TEXTFIELDHEIGHT)*1, 320 - 2*MARGIN_X, TEXTFIELDHEIGHT) placeholder:@"请输入密码" tag:1512 border:NO];
+    self.username=[self createTextFieldWithFrame:CGRectMake(MARGIN_X, TOPHEIGHT,CGRectGetWidth([UIScreen mainScreen].bounds) - 2*MARGIN_X, TEXTFIELDHEIGHT) placeholder:@"请输入用户名" tag:1510 border:NO];
+     self.password=[self createTextFieldWithFrame:CGRectMake(MARGIN_X,  TOPHEIGHT+(MARGINV+TEXTFIELDHEIGHT)*1, CGRectGetWidth([UIScreen mainScreen].bounds) - 2*MARGIN_X, TEXTFIELDHEIGHT) placeholder:@"请输入密码" tag:1512 border:NO];
     self.password.secureTextEntry=YES;
-    self.confirmpassword=[self createTextFieldWithFrame:CGRectMake(MARGIN_X, TOPHEIGHT+(MARGINV+TEXTFIELDHEIGHT) *2, 320 - 2*MARGIN_X, TEXTFIELDHEIGHT) placeholder:@"请再次输入密码" tag:1513 border:YES];
+    self.confirmpassword=[self createTextFieldWithFrame:CGRectMake(MARGIN_X, TOPHEIGHT+(MARGINV+TEXTFIELDHEIGHT) *2, CGRectGetWidth([UIScreen mainScreen].bounds) - 2*MARGIN_X, TEXTFIELDHEIGHT) placeholder:@"请再次输入密码" tag:1513 border:YES];
     
-    self.email=[self createTextFieldWithFrame:CGRectMake(MARGIN_X, TOPHEIGHT + (MARGINV + TEXTFIELDHEIGHT)*3, 320 - 2*MARGIN_X, TEXTFIELDHEIGHT) placeholder:@"请输入Email" tag:1511 border:YES];
+    self.email=[self createTextFieldWithFrame:CGRectMake(MARGIN_X, TOPHEIGHT + (MARGINV + TEXTFIELDHEIGHT)*3, CGRectGetWidth([UIScreen mainScreen].bounds) - 2*MARGIN_X, TEXTFIELDHEIGHT) placeholder:@"请输入Email" tag:1511 border:YES];
     
     self.confirmpassword.secureTextEntry=YES;
-    self.username.center=CGPointMake(320.0/2, TOPHEIGHT);
-    self.email.center=CGPointMake(320.0/2, (TOPHEIGHT + MARGINV + TEXTFIELDHEIGHT));
-    self.password.center=CGPointMake(320.0/2, TOPHEIGHT + (MARGINV + TEXTFIELDHEIGHT)*2);
-    self.confirmpassword.center=CGPointMake(320.0/2, TOPHEIGHT + (MARGINV+TEXTFIELDHEIGHT)*3);
+    self.username.center=CGPointMake(CGRectGetWidth([UIScreen mainScreen].bounds)/2, TOPHEIGHT);
+    self.email.center=CGPointMake(CGRectGetWidth([UIScreen mainScreen].bounds)/2, (TOPHEIGHT + MARGINV + TEXTFIELDHEIGHT));
+    self.password.center=CGPointMake(CGRectGetWidth([UIScreen mainScreen].bounds)/2, TOPHEIGHT + (MARGINV + TEXTFIELDHEIGHT)*2);
+    self.confirmpassword.center=CGPointMake(CGRectGetWidth([UIScreen mainScreen].bounds)/2, TOPHEIGHT + (MARGINV+TEXTFIELDHEIGHT)*3);
     
     
     UIButton *registBtn =[UIButton buttonWithType:UIButtonTypeCustom];
@@ -80,7 +80,7 @@
 
     [registBtn addTarget:self action:@selector(registBtnTap:) forControlEvents:UIControlEventTouchUpInside];
     registBtn.frame=CGRectMake(15, TOPHEIGHT+(MARGINV+TEXTFIELDHEIGHT) *4 + 30, 290, TEXTFIELDHEIGHT);
-    registBtn.center = CGPointMake(320.0/2, TOPHEIGHT + (MARGINV+TEXTFIELDHEIGHT)*4 + 30);
+    registBtn.center = CGPointMake(CGRectGetWidth([UIScreen mainScreen].bounds) /2, TOPHEIGHT + (MARGINV+TEXTFIELDHEIGHT)*4 + 30);
 //    KT_CORNER_RADIUS(registBtn, 4);
     [scrollview addSubview:registBtn];
     
@@ -101,7 +101,7 @@
         CGRect rect = [notify.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
         CGFloat ty = rect.size.height;
         [UIView animateWithDuration:[notify.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue] animations:^{
-            scrollview.contentSize = CGSizeMake(320, CGRectGetHeight(self.view.frame) + ty);
+            scrollview.contentSize = CGSizeMake(CGRectGetWidth([UIScreen mainScreen].bounds) , CGRectGetHeight(self.view.frame) + ty);
 //            self.view.transform = CGAffineTransformMakeTranslation(0, ty);
         }];
     
@@ -110,7 +110,7 @@
 {
     [UIView animateWithDuration:[notify.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue] animations:^{
 //        self.view.transform = CGAffineTransformIdentity;
-    scrollview.contentSize = CGSizeMake(320, CGRectGetHeight(self.view.frame));
+    scrollview.contentSize = CGSizeMake(CGRectGetWidth([UIScreen mainScreen].bounds) , CGRectGetHeight(self.view.frame));
     }];
 }
 
@@ -129,7 +129,7 @@ ON_SIGNAL3(BeeUITextField, RETURN, signal)
 
 -(void)handelSingleTap:(UITapGestureRecognizer*)gestureRecognizer
 {
-    NSLog(@"%s",__FUNCTION__);
+   BeeLog(@"%s",__FUNCTION__);
     [self.username resignFirstResponder];
     [self.password resignFirstResponder];
     [self.email resignFirstResponder];

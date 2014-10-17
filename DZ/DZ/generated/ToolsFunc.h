@@ -16,7 +16,10 @@ AS_SINGLETON(ToolsFunc)
 
 +(BeeUIImageView *)CreateImageViewWithFrame:(CGRect)frame andImgName:(NSString *)imgname;
 +(UILabel *)CreateLabelWithFrame:(CGRect)frame andTxt:(NSString *)TXT;
++ (BeeUILabel *)CreateBeeLabelWithFrame:(CGRect)frame andTxt:(NSString *)TXT;
++ (UILabel *)CreateLabelWithFrame:(CGRect)frame andTxt:(NSString *)TXT fontsize:(NSUInteger)size;
 +(UIButton *)CreateButtonWithFrame:(CGRect)frame andTxt:(NSString *)TXT txtcolor:(UIColor *)color;
++ (UIButton *)CreateButtonWithFrame:(CGRect)frame andimage:(NSString *)imagename;
 +(UIButton *)CreateButtonWithFrame:(CGRect)frame andTxt:(NSString *)TXT;
 +(SEL)hbselector:(SEL)oldselector target:(id)target firstArgument:(id)firstArgument , ...;
 

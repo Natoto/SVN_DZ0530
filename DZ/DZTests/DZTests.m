@@ -30,7 +30,7 @@
 
 - (void)testExample2
 {
-    NSLog(@"test success");
+   BeeLog(@"test success");
 //    [board saveHomePageUserModel:nil];
 //    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 }

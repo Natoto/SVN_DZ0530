@@ -23,7 +23,7 @@
     if (self) {
         // Initialization code
         
-        self.frame=CGRectMake(frame.origin.x, frame.origin.y, 320, TOP_VIEW_HEIGHT);
+        self.frame=CGRectMake(frame.origin.x, frame.origin.y, CGRectGetWidth([UIScreen mainScreen].bounds), TOP_VIEW_HEIGHT);
         _btnFacial=[UIButton buttonWithType:UIButtonTypeCustom];
         [_btnFacial setImage:[UIImage bundleImageNamed:@"face"] forState:UIControlStateNormal];
         _btnFacial.frame=CGRectMake(18, 0, 32, 33);
@@ -47,7 +47,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        self.frame=CGRectMake(frame.origin.x, frame.origin.y, 320, TOP_VIEW_HEIGHT);
+        self.frame=CGRectMake(frame.origin.x, frame.origin.y, CGRectGetWidth([UIScreen mainScreen].bounds), TOP_VIEW_HEIGHT);
         _btnFacial=[UIButton buttonWithType:UIButtonTypeCustom];
         [_btnFacial setImage:[UIImage bundleImageNamed:@"biaoqing"] forState:UIControlStateNormal];
         _btnFacial.frame=CGRectMake(18, 0, 32, 33);

@@ -23,6 +23,8 @@ DEF_NOTIFICATION(daoxu)
 
 #define BTNTXTCOLOR [UIColor whiteColor]
 #define BACKGROUNDVIEWCOLOR HEX_RGBA(0x3f3f3f, 0.95)
+
+#define MENUVIEWMINX CGRectGetWidth([UIScreen mainScreen].bounds) - 122
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -35,7 +37,7 @@ DEF_NOTIFICATION(daoxu)
         [self addGestureRecognizer:tapGesture];
         UIImageView *triangle=[[UIImageView alloc] initWithImage:[UIImage bundleImageNamed:@"jiantou"]];
         triangle.image = [triangle.image imageWithTintColor:BACKGROUNDVIEWCOLOR];
-        triangle.frame = CGRectMake(200+102-20, 64.0f-15.0f, 20, 20);
+        triangle.frame = CGRectMake(MENUVIEWMINX+102-20, 64.0f-15.0f, 20, 20);
         triangle.contentMode=UIViewContentModeScaleAspectFit;
         [self addSubview:triangle];
         [self addSubview:self.backGroundView];
@@ -100,7 +102,7 @@ DEF_NOTIFICATION(daoxu)
 
 -(void)reloadButton:(NSString * )key title:(NSString *)title
 {
-    int index =[[items valueForKey:key] integerValue];
+    int index =[[items valueForKey:key] intValue];
     UIButton *button = (UIButton *)[_backGroundView viewWithTag:ITEMSSTARTTAG + index];
     [button setTitle:title forState:UIControlStateNormal];
 }
@@ -108,7 +110,7 @@ DEF_NOTIFICATION(daoxu)
 -(UIView *)backGroundView
 { 
    if (!_backGroundView) {
-       _backGroundView = [[UIView alloc] initWithFrame:CGRectMake(200, 64.0f , 102, 150)];
+       _backGroundView = [[UIView alloc] initWithFrame:CGRectMake(MENUVIEWMINX, 64.0f , 102, 150)];
        _backGroundView.backgroundColor= BACKGROUNDVIEWCOLOR;
        //[UIColor colorWithRed:241./255 green:241./255. blue:241./255. alpha:1];
        items=[NSDictionary dictionaryWithObjectsAndKeys:@"0",@"只看楼主",@"1",@"倒序看帖",@"2",@"回复",@"3",@"分享",@"4",@"收藏",@"5",@"取消收藏", nil];
@@ -128,7 +130,7 @@ DEF_NOTIFICATION(daoxu)
             [button setTitle:key forState:UIControlStateNormal];
             [_backGroundView addSubview:button];
         }
-       _backGroundView.frame = CGRectMake(200, 64.0f , 102, 30 *(items.count));
+       _backGroundView.frame = CGRectMake(MENUVIEWMINX, 64.0f , 102, 30 *(items.count));
     }
     return _backGroundView;
 }
@@ -136,12 +138,12 @@ DEF_NOTIFICATION(daoxu)
 -(void)setIsfavorite:(NSNumber *)isfavorite
 {
     _isfavorite = isfavorite;
-    int index = [[items objectForKey:@"收藏"] integerValue];
+    int index = [[items objectForKey:@"收藏"] intValue];
     UIButton *button=(UIButton *)[_backGroundView viewWithTag: ITEMSSTARTTAG + index];
     if (button.tag == ITEMSSTARTTAG + index) {
         if (isfavorite.integerValue == 1) {//变为取消收藏
             [button setTitle:@"取消收藏" forState:UIControlStateNormal];
-            NSLog(@"%@", [items objectForKey:@"取消收藏"]);
+           BeeLog(@"%@", [items objectForKey:@"取消收藏"]);
         } else {//变为收藏
             [button setTitle:@"收藏" forState:UIControlStateNormal];
         }
@@ -155,7 +157,7 @@ DEF_NOTIFICATION(daoxu)
 
 -(void)showInView:(UIView *)view
 {
-    [self.backGroundView setFrame:CGRectMake(200, 64.0f - bee.ui.config.heightOfStatusBar, 102, items.count * 30)];
+    [self.backGroundView setFrame:CGRectMake(MENUVIEWMINX, 64.0f - bee.ui.config.heightOfStatusBar, 102, items.count * 30)];
     self.alpha = 1;
     [[UIApplication sharedApplication].delegate.window.rootViewController.view addSubview:self];
 }
@@ -163,7 +165,7 @@ DEF_NOTIFICATION(daoxu)
 - (void)tappedCancel
 {
     [UIView animateWithDuration:ANIMATE_DURATION animations:^{
-        [self.backGroundView setFrame:CGRectMake(200, 64.0f - bee.ui.config.heightOfStatusBar, 102, 0)];
+        [self.backGroundView setFrame:CGRectMake(MENUVIEWMINX, 64.0f - bee.ui.config.heightOfStatusBar, 102, 0)];
         self.alpha = 0;
     } completion:^(BOOL finished) {
         if (finished) {

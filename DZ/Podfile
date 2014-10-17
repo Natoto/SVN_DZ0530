@@ -1,0 +1,2 @@
+platform :ios, '5.0'
+pod 'DZ_BEELIB', :git=>'https://github.com/Natoto/DZ_BEELIB.git'

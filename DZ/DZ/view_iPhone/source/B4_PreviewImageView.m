@@ -61,7 +61,7 @@
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.showsVerticalScrollIndicator = NO;
         [self addSubview:_scrollView];
-        [_scrollView setContentSize:CGSizeMake(320 * 1, frame.size.height)];
+        [_scrollView setContentSize:CGSizeMake(CGRectGetWidth([UIScreen mainScreen].bounds) * 1, frame.size.height)];
         
         _imgURLarray=[[NSArray alloc] init];
         self.contentAry=contentAry;
@@ -89,7 +89,7 @@
             self.scrollView.contentSize=CGSizeMake(frame.size.width * (i+1), frame.size.height);
             [self.scrollView addSubview:_zoomScrollView];
         }
-        int indexImage=[self indexOfImage:url];
+        NSUInteger indexImage=[self indexOfImage:url];
         CGRect frame = self.scrollView.frame;
         
         [self.scrollView setContentOffset:CGPointMake(frame.size.width * indexImage, 0) animated:YES];
@@ -99,19 +99,19 @@
         
         _lblTips = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
         _lblTips.textAlignment = NSTextAlignmentCenter;
-        _lblTips.center = CGPointMake(320/2, self.frame.size.height - 50);
+        _lblTips.center = CGPointMake(CGRectGetWidth([UIScreen mainScreen].bounds)/2, self.frame.size.height - 50);
         _lblTips.textColor = [UIColor whiteColor];
         _lblTips.backgroundColor = [UIColor clearColor];
         [self addSubview:_lblTips];
-        _lblTips.text = [NSString stringWithFormat:@"%d/%d",(indexImage+1),self.imgURLarray.count];
+        _lblTips.text = [NSString stringWithFormat:@"%u/%ld",(indexImage+1),(unsigned long)self.imgURLarray.count];
         
     }
     return self;
 }
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    int index = 1 + scrollView.contentOffset.x / scrollView.frame.size.width;
-    int count= self.imgURLarray.count;
-    _lblTips.text = [NSString stringWithFormat:@"%d/%d",index,count];
+    NSUInteger index = 1 + scrollView.contentOffset.x / scrollView.frame.size.width;
+    NSUInteger count= self.imgURLarray.count;
+    _lblTips.text = [NSString stringWithFormat:@"%ld/%ld",index,count];
 }
 @end

@@ -93,7 +93,7 @@ typedef void (^MobClickSocialAnalyticsCompletion)(NSDictionary * response, NSErr
 
     MobClickSocialWeibo *tencentWeibo = [[MobClickSocialWeibo alloc] initWithPlatformType:UMSocialTypeTencent weiboId:nil userId:@"tencent123" param:@{@"gender":@"1"}];
     [MobClickSocialAnalytics postWeibos:@[tencentWeibo] appKey:@"507fcab25270157b37000010" topic:@"test" completion:^(NSDictionary *result, NSError *error) {
-    NSLog(@"result is %@", result);
+   BeeLog(@"result is %@", result);
     }];
  
  */
