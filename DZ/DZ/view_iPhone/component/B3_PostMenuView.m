@@ -20,6 +20,7 @@ DEF_NOTIFICATION(share)
 DEF_NOTIFICATION(collect)
 DEF_NOTIFICATION(delcollection)
 DEF_NOTIFICATION(daoxu)
+DEF_NOTIFICATION(copyurl)
 
 #define BTNTXTCOLOR [UIColor whiteColor]
 #define BACKGROUNDVIEWCOLOR HEX_RGBA(0x3f3f3f, 0.95)
@@ -62,7 +63,14 @@ DEF_NOTIFICATION(daoxu)
     [self sendSelfUISignal:tapedBtn];
     [self tappedCancel];
 }
-
+typedef enum : NSUInteger {
+    TAG_ALL = 0,
+    TAG_DAOXU = 1,
+    TAG_REPLY = 2,
+    TAG_SHARE = 3,
+    TAG_COLLENT = 4,
+    TAG_COPYURL = 5
+} TAG_TYPE;
 -(void)sendSelfUISignal:(UIButton *)button
 {
     switch (button.tag) {
@@ -77,16 +85,16 @@ DEF_NOTIFICATION(daoxu)
                 [self postNotification:self.allRead];
             }
             break;
-        case ITEMSSTARTTAG + 1:
+        case ITEMSSTARTTAG + TAG_DAOXU:
             [self postNotification:self.daoxu];
             break;
-        case ITEMSSTARTTAG + 2:
+        case ITEMSSTARTTAG + TAG_REPLY:
             [self postNotification:self.reply];
             break;
-        case ITEMSSTARTTAG + 3:
+        case ITEMSSTARTTAG + TAG_SHARE:
             [self postNotification:self.share];
             break;
-        case ITEMSSTARTTAG + 4:
+        case ITEMSSTARTTAG + TAG_COLLENT:
             if ([button.titleLabel.text isEqualToString:@"收藏"]) {
                 [self postNotification:self.collect];
                 [button setTitle:@"取消收藏" forState:UIControlStateNormal];
@@ -95,6 +103,8 @@ DEF_NOTIFICATION(daoxu)
                 [self postNotification:self.delcollection];
             }
             break;
+        case ITEMSSTARTTAG+TAG_COPYURL:
+            [self postNotification:self.copyurl];
         default:
             break;
     }
@@ -113,13 +123,13 @@ DEF_NOTIFICATION(daoxu)
        _backGroundView = [[UIView alloc] initWithFrame:CGRectMake(MENUVIEWMINX, 64.0f , 102, 150)];
        _backGroundView.backgroundColor= BACKGROUNDVIEWCOLOR;
        //[UIColor colorWithRed:241./255 green:241./255. blue:241./255. alpha:1];
-       items=[NSDictionary dictionaryWithObjectsAndKeys:@"0",@"只看楼主",@"1",@"倒序看帖",@"2",@"回复",@"3",@"分享",@"4",@"收藏",@"5",@"取消收藏", nil];
-       
-      NSArray *array = [[NSArray alloc] initWithObjects:@"只看楼主",@"倒序看帖",@"回复",@"分享",@"收藏", @"取消收藏", nil];
+       items=[NSDictionary dictionaryWithObjectsAndKeys:@"0",@"只看楼主",@"1",@"倒序看帖",@"2",@"回复",@"3",@"分享",@"4",@"收藏",@"5",@"复制链接", nil];
+       //,@"5",@"取消收藏"
+      NSArray *array = [[NSArray alloc] initWithObjects:@"只看楼主",@"倒序看帖",@"回复",@"分享",@"收藏", @"复制链接", nil];
        
         float HEIGHT=35;
         float WIDTH=_backGroundView.frame.size.width;
-        for (int index=0; index<array.count - 1; index++) {
+        for (int index=0; index < array.count; index++) {
             UIButton *button=[[UIButton alloc] initWithFrame:CGRectMake(0, HEIGHT * index + 5, WIDTH , HEIGHT)];
             [button addTarget:self action:@selector(BTNACTIONS:) forControlEvents:UIControlEventTouchUpInside];
             [button setTitleColor:BTNTXTCOLOR forState:UIControlStateNormal];
@@ -130,7 +140,7 @@ DEF_NOTIFICATION(daoxu)
             [button setTitle:key forState:UIControlStateNormal];
             [_backGroundView addSubview:button];
         }
-       _backGroundView.frame = CGRectMake(MENUVIEWMINX, 64.0f , 102, 30 *(items.count));
+       _backGroundView.frame = CGRectMake(MENUVIEWMINX, 64.0f , 102, 30 *(items.count + 1));
     }
     return _backGroundView;
 }
@@ -138,8 +148,8 @@ DEF_NOTIFICATION(daoxu)
 -(void)setIsfavorite:(NSNumber *)isfavorite
 {
     _isfavorite = isfavorite;
-    int index = [[items objectForKey:@"收藏"] intValue];
-    UIButton *button=(UIButton *)[_backGroundView viewWithTag: ITEMSSTARTTAG + index];
+    int index = TAG_COLLENT;//[[items objectForKey:@"收藏"] intValue];
+    UIButton *button=(UIButton *)[_backGroundView viewWithTag: ITEMSSTARTTAG + TAG_COLLENT];
     if (button.tag == ITEMSSTARTTAG + index) {
         if (isfavorite.integerValue == 1) {//变为取消收藏
             [button setTitle:@"取消收藏" forState:UIControlStateNormal];
@@ -157,7 +167,7 @@ DEF_NOTIFICATION(daoxu)
 
 -(void)showInView:(UIView *)view
 {
-    [self.backGroundView setFrame:CGRectMake(MENUVIEWMINX, 64.0f - bee.ui.config.heightOfStatusBar, 102, items.count * 30)];
+    [self.backGroundView setFrame:CGRectMake(MENUVIEWMINX, 64.0f - bee.ui.config.heightOfStatusBar, 102, (items.count +1) * 30)];
     self.alpha = 1;
     [[UIApplication sharedApplication].delegate.window.rootViewController.view addSubview:self];
 }
@@ -173,11 +183,11 @@ DEF_NOTIFICATION(daoxu)
         }
     }];
 
-    if ([self.isfavorite isEqualToNumber:[NSNumber numberWithInt:0]]) {
-        self.isfavorite = [NSNumber numberWithInt:1];
-    } else {
-        self.isfavorite = [NSNumber numberWithInt:0];
-    }
+//    if ([self.isfavorite isEqualToNumber:[NSNumber numberWithInt:0]]) {
+//        self.isfavorite = [NSNumber numberWithInt:1];
+//    } else {
+//        self.isfavorite = [NSNumber numberWithInt:0];
+//    }
 }
 
 /*

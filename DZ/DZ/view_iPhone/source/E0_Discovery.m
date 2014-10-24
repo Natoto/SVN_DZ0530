@@ -13,6 +13,7 @@
 @interface E0_Discovery()
 @property(nonatomic,strong)NSArray * dataArray;
 @property(nonatomic,strong)NSArray * detailArray;
+@property(nonatomic,strong)NSArray * imageNames;
 @end
 @implementation E0_Discovery
 
@@ -28,7 +29,8 @@ ON_SIGNAL2( BeeUIBoard, signal )
     {
         self.title = __TEXT(@"DISCOVERY");
         self.dataArray = @[@"图集",@"排行榜",@"附近的优惠券",@"附近的团购",@"我的QQ"];
-        self.detailArray = @[@"来这里看图...",@"点赞、查看和回复最多的帖子",@"看看周围有什么优惠券",@"看看附近的团购",@"介绍我的QQ"];
+        self.detailArray = @[@"这里汇聚了全站的图片贴...",@"点赞、查看和回复最多的帖子",@"看看周围有什么优惠券",@"看看附近的团购",@"介绍我的QQ"];
+        self.imageNames = @[@"b11@2x.png",@"b10@2x.png",@"b9@2x.png",@"b8@2x.png",@"b7@2x.png"];
         self.list.showsVerticalScrollIndicator = NO;
         self.list.separatorStyle = UITableViewCellSeparatorStyleNone;
         
@@ -59,6 +61,7 @@ ON_SIGNAL2( BeeUIBoard, signal )
     }
     cell.title = [self.dataArray objectAtIndex:indexPath.row];
     cell.detail = [self.detailArray objectAtIndex:indexPath.row];
+    cell.imageName = [self.imageNames objectAtIndex:indexPath.row];
     return cell;
 }
 
@@ -78,7 +81,29 @@ ON_SIGNAL2( BeeUIBoard, signal )
         E1_RankViewController * ctr = [[E1_RankViewController alloc] init];
         [self.navigationController pushViewController:ctr animated:YES];
     }
-    
+    else if (indexPath.row == 2)//附近的优惠券
+    {
+        NSString *keywords = [@"优惠券" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSURL *url = [NSURL URLWithString: [NSString stringWithFormat:@"dianping://shoplist?q=%@",keywords]];
+        if([[UIApplication sharedApplication] canOpenURL:url]) {
+            [[UIApplication sharedApplication] openURL:url];
+        } else {
+            //没有安装应用，默认打开HTML5站
+            url = [NSURL URLWithString:[NSString stringWithFormat:@"http://m.dianping.com/shoplist/4/kw/%@/search", keywords]];
+            [[UIApplication sharedApplication] openURL:url];
+        }
+    }
+    else if (indexPath.row == 3)//附近的团购
+    {
+        NSURL *url = [NSURL URLWithString: [NSString stringWithFormat:@"dianping://tuanhome"]];
+        if([[UIApplication sharedApplication] canOpenURL:url]) {
+            [[UIApplication sharedApplication] openURL:url];
+        } else {
+            //没有安装应用，默认打开HTML5站
+            url = [NSURL URLWithString: [NSString stringWithFormat:@"http://m.dianping.com/tuan"]];
+            [[UIApplication sharedApplication] openURL:url];
+        }
+    }
 }
 
 

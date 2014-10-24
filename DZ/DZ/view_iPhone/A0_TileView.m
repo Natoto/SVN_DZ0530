@@ -163,9 +163,9 @@ DEF_SIGNAL(CLOSTBTNTAPPED)
     self.synopsislbl.text=item.subject.trim;
     self.enableDelete=[item.enableDelete boolValue];
     
-    int length = [NSString unicodeLengthOfString:self.synopsislbl.text];
+    int length = (int)[NSString unicodeLengthOfString:self.synopsislbl.text];
     if (length > 30) {
-        int index = [NSString unicodeIndexOfString:self.synopsislbl.text index:30];
+        int index = (int)[NSString unicodeIndexOfString:self.synopsislbl.text index:30];
         NSString * text =[self.synopsislbl.text substringToIndex:index];
         text = [text stringByAppendingFormat:@"..."];
         self.synopsislbl.text = text;

@@ -1555,7 +1555,6 @@ CGFloat MyGetWidthCallback( void* refCon ){
 				[self applySingleUnderlineText:_attrString atPosition:component.position withLength:[component.text length]];
 			}
 			
-			
 			if ([component.attributes objectForKey:@"color"])
 			{
 				NSString *value = [component.attributes objectForKey:@"color"];
@@ -1683,7 +1682,9 @@ CGFloat MyGetWidthCallback( void* refCon ){
         
         const CGPoint *positions = CTRunGetPositionsPtr(run);
         
-        
+        if (!positions) {
+            return;
+        }
         if (location.x <= width + positions[0].x) {
             isClicked = YES;
             break;

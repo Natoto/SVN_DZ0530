@@ -12,7 +12,9 @@
 {
     BeeUILabel * lbltitle;
     BeeUILabel * lbldetail;
+    UIImageView * bgimageView;
 }
+@property(nonatomic,strong) NSString * imageName;
 @property(nonatomic,strong) NSString * title;
 @property(nonatomic,strong) NSString * detail;
 +(float)heightOfCell;

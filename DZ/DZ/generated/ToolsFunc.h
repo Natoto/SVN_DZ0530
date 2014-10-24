@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "Bee.h"
 #import "UIImage+Tint.h"
+#define TL_PUSTMAK(device) [NSString stringWithFormat:@"\n※※ 发布于: %@客户端 ※※",device]
+
 @interface ToolsFunc : NSObject
 AS_SINGLETON(ToolsFunc)
 +(NSString *)datefromstring:(NSString *)timestr;
@@ -25,4 +27,7 @@ AS_SINGLETON(ToolsFunc)
 
 +(BOOL)isSelfWebSite:(NSString *)url;
 + (NSString *)articletid:(NSString *)url;
++(NSString *)websiteArticleUrl:(NSString *)tid;
+//跟设备相关的
++ (NSString*)deviceType;
 @end

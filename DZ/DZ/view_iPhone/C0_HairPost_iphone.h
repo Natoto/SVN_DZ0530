@@ -14,7 +14,7 @@
 #import "postImageModel.h"
 #import "SETextAttachment.h"
 #import "UserModel.h"
-  
+#import "ToolsFunc.h"  
 #import "BeeUIBoard+ViewController.h"
 #import "NSString+BeeExtension.h"
 #define DRAFTSTRUCT @"draftstruct"
@@ -48,4 +48,5 @@ AS_SINGLETON(C0_HairPost_iphone);
 -(UIImage *)scaleImage:(UIImage *)image toScale:(float)scaleSize;
 -(void)saveDrafts;
 -(BOOL)isFacialMark:(NSString *)mark seTextView:(SETextView *)textview;
++(newtopicContent *)pushDeviceMark;
 @end

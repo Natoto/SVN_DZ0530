@@ -162,7 +162,7 @@ confromTimespStr = [formatter stringFromDate:confromTimesp];
 #undef	FORUMCELLDIDADDHOMECOLOR
 #define FORUMCELLDIDADDHOMECOLOR [UIColor colorWithRed:20/255. green:155/255. blue:242/255.  alpha:1] 
 
-#define MODELOBJECTKEY(...)  [@[__VA_ARGS__] componentsJoinedByString:@"."]
+#define MODELOBJECTKEY(...)  [@[__VA_ARGS__] componentsJoinedByString:@"_"]
 
 
 #undef	PER_PAGE

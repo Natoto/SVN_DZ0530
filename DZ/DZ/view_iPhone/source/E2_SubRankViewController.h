@@ -7,11 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "B2_TopicViewController2.h"
 #import "E1_RankViewController.h"
+#import "ToptenModel.h"
+#import "Base_TableviewController.h"
+@class E2_SubRankViewController;
+
+@protocol E2_SubRankViewControllerDelegate <NSObject>
+- (void)E2_SubRankViewController:(E2_SubRankViewController *)controller topicViewControllerCellSelectedWithTid:(NSString *)tid;
+@end
+
 
 @class E1_RankViewController;
-@interface E2_SubRankViewController : B2_TopicViewController2
+@interface E2_SubRankViewController : Base_TableviewController
+@property (nonatomic, assign) TOPTENTYPE tptType; 
+@property (nonatomic, assign) E1_RankViewController * superdelegate;
 
-//@property (nonatomic, assign) E1_RankViewController * superdelegate;
+@property (nonatomic, assign) NSObject <E2_SubRankViewControllerDelegate> * topicvcdelegate;
+@property(nonatomic,strong) ToptenModel *tpclistModel;
 @end

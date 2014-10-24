@@ -461,25 +461,6 @@ ON_SIGNAL3( D0_MineTools_iphone, BUTTONTAP, signal )
 	}
 }
 
-/*
-ON_MESSAGE3( API, login, msg )
-{
-    if ( msg.sending )
-	{
-		[self presentLoadingTips:__TEXT(@"signing_in")];
-	}
-	else if(msg.succeed)
-	{
-//        [self.lginModel  setOnline:YES];
-        [self.list reloadData];
-		[self dismissTips];
-	}
-    else if(msg.failed)
-    {
-        [self.list reloadData];
-    }
-}*/
-
 #pragma mark -获得通知登录成功
 
 ON_SIGNAL3(UserModel, LOGIN_FAILED, signal)
@@ -571,8 +552,7 @@ ON_SIGNAL3(RemindModel, RELOADED, signal)
             strangerpmmodel.nowdate = nowdate;
         }
         [allpmmodel firstPage];
- 
-         [self.list reloadData];
+//         [self.list reloadData];
     }
     [self FinishedLoadData];
 }
@@ -590,12 +570,13 @@ ON_SIGNAL3(Allpm_FriendsModel, RELOADED, signal)
     BeeLog(@"%@",self.remindModel.shots);
     NSInteger  count = self.remindModel.shots.count + self.remindModel.sysautomatic.count + self.remindModel.friendsautomatic.count + self.remindModel.threadautomatic.count;
     [UserModel sharedInstance].messageCount = [NSString stringWithFormat:@"%ld",(long)count];
-    [self.list reloadData];
+//    [self.list reloadData];
     [strangerpmmodel firstPage];
 }
 
 ON_SIGNAL3(Allpm_FriendsModel, FAILED, signal)
 {
+    
 }
 
 ON_SIGNAL3(Allpm_StrangerModel, RELOADED, signal)
@@ -616,6 +597,7 @@ ON_NOTIFICATION3(BeeReachability, CHANGED, notify)
 
     }
 }
+
 - (void)refreshView
 {
    [self updateState];

@@ -252,8 +252,8 @@ ON_SIGNAL3(ForumlistModel, RELOADED, signal)
     if (componts.count==2) {
         NSString *year=[componts objectAtIndex:0];
         NSString *month=[componts objectAtIndex:1];
-        int yearindex=[self.firstLevelAry indexOfObject:year];
-        int monthindex=[self.secondLevelAry indexOfObject:[NSString stringWithFormat:@"%d",month.intValue]];
+        NSInteger yearindex=[self.firstLevelAry indexOfObject:year];
+        NSInteger monthindex=[self.secondLevelAry indexOfObject:[NSString stringWithFormat:@"%d",month.intValue]];
         if (yearindex!=NSNotFound && monthindex!=NSNotFound) {
             self.locate.year=year;
             self.locate.month=month;

@@ -46,7 +46,7 @@
     [rightbtn addTarget:self action:@selector(locate:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:rightbtn];
 
-    self.locatePicker=[[UIPickerView alloc] initWithFrame:CGRectMake(0, 44, 320, 216)];
+    self.locatePicker=[[UIPickerView alloc] initWithFrame:CGRectMake(0, 44,  CGRectGetWidth([UIScreen mainScreen].bounds), 216)];
 
     self.locate=[[THTPS_SELECT alloc] init];
     [self addSubview:self.locatePicker];

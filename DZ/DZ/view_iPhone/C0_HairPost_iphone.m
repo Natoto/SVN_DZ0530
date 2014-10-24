@@ -777,6 +777,7 @@ ON_SIGNAL3(newTopicModel, FAILED, signal)
         acont1.msg=AttributedString.string;
         acont1.type=[NSNumber numberWithInt:TEXTTYPE];
         [contentTextAry addObject:acont1];
+        [contentTextAry addObject:[C0_HairPost_iphone pushDeviceMark]];
         return contentTextAry;
     }
     NSSortDescriptor *goodscodeDesc = [NSSortDescriptor sortDescriptorWithKey:@"sortforRangLocation" ascending:YES];
@@ -849,7 +850,18 @@ ON_SIGNAL3(newTopicModel, FAILED, signal)
         acont1.type=[NSNumber numberWithInt:TEXTTYPE];
         [contentTextAry addObject:acont1];
     }
+    /*插入标签 发布于iOS客户端*/
+    [contentTextAry addObject:[C0_HairPost_iphone pushDeviceMark]];
     return contentTextAry;
+}
+#pragma mark - 发布标签
++(newtopicContent *)pushDeviceMark
+{
+    newtopicContent *acont1=[[newtopicContent alloc] init];
+    NSString * device = [ToolsFunc   deviceType];
+    acont1.msg= TL_PUSTMAK(device) ;
+    acont1.type=[NSNumber numberWithInt:TEXTTYPE];
+    return acont1;
 }
 
 #pragma mark - 发帖按钮

@@ -33,7 +33,7 @@
         bgview.backgroundColor=[UIColor whiteColor];
         [self addSubview:bgview];
     
-        _textlabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, 280, 40)];
+        _textlabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 3, 280, 25)];
         _textlabel.text = [NSString stringWithFormat:@"%@", achild.name];
 //        _textlabel.font = GB_FontHelveticaNeue(12);//[UIFont systemFontOfSize:12];
         _textlabel.backgroundColor = [UIColor clearColor];
@@ -49,8 +49,46 @@
 {
     achild = child;
     _textlabel.text = [NSString stringWithFormat:@"  %@", achild.name.trim];
-    _textlabel.font = [UIFont systemFontOfSize:13];
+    _textlabel.font = [UIFont systemFontOfSize:14];
     _textlabel.textColor = [UIColor darkGrayColor];
+    if (self.detailsLabel) {
+        self.detailsLabel.text = [NSString stringWithFormat:@"  今日：%@  主题：%@",achild.todayposts,achild.threads];
+    }
+    if (self.icon) {
+        if (achild.icon.length) {
+            self.icon.data = achild.icon;
+        }
+        else
+        {
+            srandom(time(NULL));
+            int indx = (random() + self.indexPath.row)%5 + 1;
+            NSString * imagename = [NSString stringWithFormat:@"b0cell_moren%d",indx];
+            _icon.image = [UIImage bundleImageNamed:imagename];
+        }
+    }
+}
+
+-(BeeUIImageView *)icon
+{
+    if (!_icon) {
+        _icon = [[BeeUIImageView alloc] initWithFrame:CGRectMake(10, 5, 40, 40)];
+        srandom(time(NULL));
+        int indx = random()%5 + 1;
+        NSString * imagename = [NSString stringWithFormat:@"b0cell_moren%d",indx];
+        _icon.image = [UIImage bundleImageNamed:imagename];
+        [self addSubview:_icon];
+    }
+    return _icon;
+}
+-(UILabel *)detailsLabel
+{
+    if (!_detailsLabel) {
+        _detailsLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(_textlabel.frame), CGRectGetMaxY(_textlabel.frame), 280, 20)];
+        _detailsLabel.textColor = [UIColor grayColor];
+        _detailsLabel.font = [UIFont systemFontOfSize:12];
+        [self addSubview:_detailsLabel];
+    }
+    return _detailsLabel;
 }
 
 -(void)setMark:(NSString *)amark

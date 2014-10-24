@@ -1,0 +1,1 @@
+PODS_BEEFRAMEWORK_OTHER_LDFLAGS = -l"sqlite3" -l"xml2" -l"z" -framework "AVFoundation" -framework "CFNetwork" -framework "CoreMedia" -framework "CoreVideo" -framework "MobileCoreServices" -framework "QuartzCore" -framework "Security" -framework "SystemConfiguration"

@@ -64,7 +64,7 @@ DEF_UI( AppBoardTab_iPhone, tabbar)
         [self addSubview:_selectimgview];
          _selectimgview.hidden=YES;
         
-        _icon=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 23, 23)];
+        _icon=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
         _icon.center=CGPointMake(self.width/2, 20);
         _icon.contentMode=UIViewContentModeScaleAspectFill;
         [self addSubview:_icon];
@@ -139,7 +139,7 @@ DEF_SIGNAL(album)
         NSString *ABLUM = __TEXT(@"DISCOVERY");// @"发现";//
         NSString *MINE = __TEXT(@"MINE");//@"我的"; //
         titleAry=[NSArray arrayWithObjects:HOME,FORUM,POST,ABLUM,MINE, nil];
-        iconNameAry=[NSArray arrayWithObjects:@"homepage.PNG",@"plates.PNG",@"sendhtm.PNG",@"tuku-01.png",@"wodetubiao@2x.png", nil];
+        iconNameAry=[NSArray arrayWithObjects:@"homepage.PNG",@"plates.PNG",@"sendhtm.PNG",@"faxian@2x.png",@"wodetubiao@2x.png", nil];
         tabbarSelectorAry=[NSArray arrayWithObjects:@"selectHomepage",@"selectForum",@"selectSendhtm",@"selectblum",@"selectMine", nil];
         
         

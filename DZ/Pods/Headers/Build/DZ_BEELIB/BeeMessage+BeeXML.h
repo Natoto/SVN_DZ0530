@@ -1,0 +1,1 @@
+../../../DZ_BEELIB/framework/mvc/controller/extension/BeeMessage+BeeXML.h

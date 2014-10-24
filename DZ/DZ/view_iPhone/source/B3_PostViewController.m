@@ -82,6 +82,14 @@ ON_NOTIFICATION3(B3_PostMenuView, onlyReadBuildingOwner, signal)
     self.title = @"只看楼主";
 }
 
+ON_NOTIFICATION3(B3_PostMenuView, copyurl, notify)
+{
+    NSString * url=[NSString stringWithFormat:@"%@",[ToolsFunc websiteArticleUrl:self.tid]];
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    pasteboard.string = url;
+    
+    [self presentSuccessTips:@"复制成功"];
+}
 ON_NOTIFICATION3(B3_PostMenuView, allRead, signal)
 {
 //    [titleBtn setTitle:@"全部" forState:UIControlStateNormal];
@@ -396,6 +404,7 @@ ON_SIGNAL3(SupportModel, FAILED, signal)
     [self observeNotification:[B3_PostMenuView sharedInstance].delcollection];
     [self observeNotification:[B3_PostMenuView sharedInstance].allRead];
     [self observeNotification:[B3_PostMenuView sharedInstance].daoxu];
+    [self observeNotification:[B3_PostMenuView sharedInstance].copyurl];
     
     //回到顶部
     toTopbtn=[UIButton buttonWithType:UIButtonTypeCustom];
@@ -1027,7 +1036,6 @@ ON_SIGNAL3(Deal_ActivityModel, FAILED, signal)
         url =[NSString stringWithFormat:@"%@%@",@"http://",url];
     }
     NSURL * gotourl=[NSURL URLWithString:[NSString stringWithFormat:@"%@",url]];
-    
     
     if ([ToolsFunc isSelfWebSite:url]) {
         NSString *tid =[ToolsFunc articletid:url];

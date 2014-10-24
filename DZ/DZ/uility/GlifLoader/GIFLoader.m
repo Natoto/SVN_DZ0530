@@ -26,8 +26,8 @@
         for (size_t i = 0; i < l; i++) {
             CGImageRef img = CGImageSourceCreateImageAtIndex(src, i, NULL);
             NSDictionary *properties = (__bridge NSDictionary *)CGImageSourceCopyPropertiesAtIndex(src, i, NULL);
-            NSDictionary *frameProperties = [properties objectForKey:(NSString *)kCGImagePropertyGIFDictionary];
-            NSNumber *delayTime = [frameProperties objectForKey:(NSString *)kCGImagePropertyGIFUnclampedDelayTime];
+            NSDictionary *frameProperties = [properties objectForKey:(__bridge NSString *)kCGImagePropertyGIFDictionary];
+            NSNumber *delayTime = [frameProperties objectForKey:(__bridge NSString *)kCGImagePropertyGIFUnclampedDelayTime];
             animationTime += [delayTime floatValue];
             if (img) {
                 [frames addObject:[UIImage imageWithCGImage:img]];

@@ -10,6 +10,7 @@
 #import "FaceBoard.h"
 #import "UserModel.h"
 #import "reply.h"
+#import "ToolsFunc.h"
 @implementation D2_ChatInputView
 @synthesize replayField;
 
@@ -136,6 +137,15 @@
     }
 }
 
+#pragma mark - 发布标签
++(replyContent *)pushDeviceMark
+{
+    replyContent *acont1=[[replyContent alloc] init];
+    NSString * device = [ToolsFunc   deviceType];
+    acont1.msg= TL_PUSTMAK(device);
+    acont1.type=[NSNumber numberWithInt:0];
+    return acont1;
+}
 
 + (NSMutableArray *)spliteFacialandText:(NSString *)text
 {
@@ -165,6 +175,7 @@
             [contentTextAry addObject:acont1];
         }
     }
+    [contentTextAry addObject:[D2_ChatInputView pushDeviceMark]];
     return contentTextAry;
 }
 @end

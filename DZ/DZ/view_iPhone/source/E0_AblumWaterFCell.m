@@ -67,7 +67,8 @@
 {
     if (!_textView) {
         _textView = [ToolsFunc CreateBeeLabelWithFrame:CGRectZero andTxt:@""];
-        _textView.verticalAlignment = VerticalAlignmentBottom;
+        _textView.verticalAlignment = VerticalAlignmentMiddle;
+        _textView.font = [UIFont systemFontOfSize:18];
         _textView.textAlignment = NSTextAlignmentLeft;
         [self addSubview:_textView];
     }
@@ -139,7 +140,7 @@
 {
     if (!_line) {
         _line = [ToolsFunc CreateLabelWithFrame:CGRectMake(0, self.height-30, self.width, 0.5) andTxt:@""];
-        _line.backgroundColor = [UIColor lightGrayColor];
+        _line.backgroundColor = [UIColor clearColor];
         [self addSubview:_line];
     }
     return _line;

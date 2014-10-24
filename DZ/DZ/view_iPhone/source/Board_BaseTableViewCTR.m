@@ -45,7 +45,8 @@ ON_SIGNAL2(BeeUIBoard, signal)
         _list.dataSource=self;
         _list.delegate=self;
         _list.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
- 
+        _list.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+        
         [self setExtraCellLineHidden:_list];
         [self.view addSubview:_list];
         self.view.backgroundColor = [UIColor whiteColor];

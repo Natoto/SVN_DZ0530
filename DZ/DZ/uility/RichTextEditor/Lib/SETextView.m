@@ -185,7 +185,7 @@ static NSString * const PARAGRAPH_SEPARATOR = @"\u2029";
     };
     
     CTParagraphStyleRef paragraphStyle = CTParagraphStyleCreate(setting, sizeof(setting) / sizeof(CTParagraphStyleSetting));
-    [mutableAttributedString addAttributes:@{(id)kCTParagraphStyleAttributeName: (__bridge id)paragraphStyle} range:NSMakeRange(0, length)];
+    [mutableAttributedString addAttributes:@{(__bridge id)kCTParagraphStyleAttributeName: (__bridge id)paragraphStyle} range:NSMakeRange(0, length)];
     CFRelease(paragraphStyle);
     
     attributedString = mutableAttributedString;
@@ -194,7 +194,7 @@ static NSString * const PARAGRAPH_SEPARATOR = @"\u2029";
         CFStringRef fontName = (__bridge CFStringRef)font.fontName;
         CGFloat fontSize = font.pointSize;
         CTFontRef ctfont = CTFontCreateWithName(fontName, fontSize, NULL);
-        [mutableAttributedString addAttributes:@{(id)kCTFontAttributeName: (__bridge id)ctfont} range:NSMakeRange(0, length)];
+        [mutableAttributedString addAttributes:@{(__bridge id)kCTFontAttributeName: (__bridge id)ctfont} range:NSMakeRange(0, length)];
         CFRelease(ctfont);
         
         attributedString = mutableAttributedString;
@@ -354,7 +354,7 @@ static NSString * const PARAGRAPH_SEPARATOR = @"\u2029";
     CFStringRef fontName = (__bridge CFStringRef)self.font.fontName;
     CGFloat fontSize = self.font.pointSize;
 	CTFontRef ctfont = CTFontCreateWithName(fontName, fontSize, NULL);
-    [self setAttributes:@{(id)kCTFontAttributeName: (__bridge id)ctfont}];
+    [self setAttributes:@{(__bridge id)kCTFontAttributeName: (__bridge id)ctfont}];
 	CFRelease(ctfont);
 }
 
@@ -366,7 +366,7 @@ static NSString * const PARAGRAPH_SEPARATOR = @"\u2029";
     
 #if TARGET_OS_IPHONE
     CGColorRef color = self.textColor.CGColor;
-    [self setAttributes:@{(id)kCTForegroundColorAttributeName: (__bridge id)color}];
+    [self setAttributes:@{(__bridge id)kCTForegroundColorAttributeName: (__bridge id)color}];
 #else
     NSDictionary *attributes = nil;
     
@@ -404,7 +404,7 @@ static NSString * const PARAGRAPH_SEPARATOR = @"\u2029";
             
             CTRunDelegateCallbacks callbacks = attachment.callbacks;
             CTRunDelegateRef runDelegate = CTRunDelegateCreate(&callbacks, (__bridge void *)attachment);
-            [editingAttributedText addAttributes:@{(id)kCTRunDelegateAttributeName: (__bridge id)runDelegate} range:attachment.range];
+            [editingAttributedText addAttributes:@{(__bridge id)kCTRunDelegateAttributeName: (__bridge id)runDelegate} range:attachment.range];
             CFRelease(runDelegate);
             
             self.attributedText = editingAttributedText;
@@ -442,7 +442,7 @@ static NSString * const PARAGRAPH_SEPARATOR = @"\u2029";
     };
     
     CTParagraphStyleRef paragraphStyle = CTParagraphStyleCreate(setting, sizeof(setting) / sizeof(CTParagraphStyleSetting));
-    [self setAttributes:@{(id)kCTParagraphStyleAttributeName: (__bridge id)paragraphStyle}];
+    [self setAttributes:@{(__bridge id)kCTParagraphStyleAttributeName: (__bridge id)paragraphStyle}];
     CFRelease(paragraphStyle);
 }
 
@@ -577,7 +577,7 @@ static NSString * const PARAGRAPH_SEPARATOR = @"\u2029";
 {
     NSMutableSet *attachmentsToLeave = [[NSMutableSet alloc] init];
     
-    [self.attributedText enumerateAttribute:(id)kCTRunDelegateAttributeName inRange:NSMakeRange(0, self.text.length) options:kNilOptions usingBlock:^(id value, NSRange range, BOOL *stop) {
+    [self.attributedText enumerateAttribute:(__bridge id)kCTRunDelegateAttributeName inRange:NSMakeRange(0, self.text.length) options:kNilOptions usingBlock:^(id value, NSRange range, BOOL *stop) {
         if (!value) {
             return;
         }
@@ -1486,7 +1486,7 @@ static NSString * const PARAGRAPH_SEPARATOR = @"\u2029";
     
     if (self.highlighted) {
         CGColorRef color = self.highlighted ? self.highlightedTextColor.CGColor : self.textColor.CGColor;
-        [self setAttributes:@{(id)kCTForegroundColorAttributeName: (__bridge id)color}];
+        [self setAttributes:@{(__bridge id)kCTForegroundColorAttributeName: (__bridge id)color}];
     } else {
         self.attributedText = [self.originalAttributedTextWhenHighlighting copy];
         self.originalAttributedTextWhenHighlighting = nil;
@@ -2234,7 +2234,7 @@ static NSString * const PARAGRAPH_SEPARATOR = @"\u2029";
     id attribute = nil;
     NSUInteger location = range.location; 
     if (location > 0) {
-        attribute = [attributdString attribute:(id)kCTRunDelegateAttributeName atIndex:location - 1 effectiveRange:nil];
+        attribute = [attributdString attribute:(__bridge id)kCTRunDelegateAttributeName atIndex:location - 1 effectiveRange:nil];
     }
     if (attribute) {
         [attributdString replaceCharactersInRange:range withAttributedString:[[NSAttributedString alloc] initWithString:aString]];

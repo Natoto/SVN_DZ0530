@@ -42,7 +42,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor lightGrayColor];
+    self.view.backgroundColor = [UIColor colorWithRed:224/255. green:224/255. blue:224/255. alpha:1];
     self.picwallModel = [PictureWallModel modelWithObserver:self];
     [self.picwallModel firstPage];
     
@@ -175,9 +175,9 @@ ON_SIGNAL3(PictureWallModel, RELOADED, signal)
     float pcimgwidth = apcms.width.floatValue;
     float cellwidth =  [E0_AblumWaterFLayout cellwidth];
     aFloat = cellwidth/pcimgwidth;//image.size.width;
-    float aheight = 40;
+    float aheight = 60;
     if ([NSString unicodeLengthOfString:apcms.subject]>18) {
-         aheight = 60;
+         aheight = 80;
     }
     CGSize size = CGSizeMake(0,0);
     size = CGSizeMake(cellwidth, apcms.height.floatValue * aFloat + aheight+1);

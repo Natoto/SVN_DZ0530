@@ -58,7 +58,7 @@ ON_SIGNAL3(HomeTopicSlideModel, RELOADED, signal)
 
 ON_SIGNAL3(HomeTopicSlideModel, FAILED, signal)
 {
-    [self loadData];
+//    [self loadData];
 }
 
 ON_LOAD_DATAS(signal)

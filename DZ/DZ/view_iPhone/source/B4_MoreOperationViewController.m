@@ -101,26 +101,26 @@
                       margin:0;\
                       text-align:center;\
                       vertical-align:middle;\
-                      height:100%;\
+                      height:100%%;\
                       overflow:hidden;\
                       }\
                       #wrap {\
                       display:table;\
-                      width:300px;\
+                      width:%.2fpx;\
                       height:480px;\
                       _position:relative;\
-                      position:absolute; top:50%; left:50%; margin-left:-45%;margin-right:-45%; margin-top:-50%;\
+                      position:absolute; top:50%%; left:50%%; margin-left:-45%%;margin-right:-45%%; margin-top:-50%%;\
                       overflow:hidden;\
                       }\
                       #subwrap {\
                       vertical-align:middle;\
                       display:table-cell;\
                       _position:absolute;\
-                      _top:50%;\
+                      _top:50%%;\
                       }\
                       #content {\
                       _position:relative;\
-                      _top:-50%;\
+                      _top:-50%%;\
                       }\
                       </style>\
                       </head>\
@@ -131,7 +131,7 @@
                       <div id=\"content\"><font  size=\"5\">%@</font>\
                       </div></div></div></div>%@\
                       </body>\
-                      </html>",message,[self javascript]];
+                      </html>",CGRectGetWidth([UIScreen mainScreen].bounds)*0.9,message,[self javascript]];
     return htmstr;
 }
 

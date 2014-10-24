@@ -71,7 +71,7 @@ ON_SIGNAL2(BeeUIBoard, signal)
         
         self.view.backgroundColor = [UIColor whiteColor];
         self.navigationBarTitle = __TEXT(@"FORUM");//版块
-       
+        self.list.separatorInset = UIEdgeInsetsMake(0, 55, 0, 0);
         [self showNavigationBarAnimated:NO];
         _selectedFiddic=[[NSMutableDictionary alloc] init]; 
         
@@ -109,6 +109,7 @@ ON_SIGNAL3(ForumlistModel, FAILED, signal)
 {
     [self presentMessageTips:[NSString stringWithFormat:@"%@",signal.object]];
     [self FinishedLoadData];
+    [self.list reloadData];
 }
 
 #pragma mark - UITableViewDataSource
@@ -168,7 +169,7 @@ ON_SIGNAL3(ForumlistModel, FAILED, signal)
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 40;
+    return 50;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section

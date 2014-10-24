@@ -26,6 +26,8 @@
 
 @interface B0_FormPlatesCell_iPhone : UITableViewCell
 
+@property (nonatomic, retain) BeeUIImageView * icon;
+@property (nonatomic, retain) UILabel * detailsLabel;
 @property (nonatomic, retain) UILabel *textlabel;
 @property (nonatomic, retain) NSIndexPath *indexPath;
 @property (nonatomic, retain) child *achild;

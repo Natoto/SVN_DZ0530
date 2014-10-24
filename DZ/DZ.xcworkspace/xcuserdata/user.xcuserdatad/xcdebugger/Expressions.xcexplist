@@ -3,41 +3,24 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "-[API_THREADTYPE_SHOTS routine]:threadtype.mm">
-      </ContextState>
-      <ContextState
-         contextName = "-[homeModel loadCache]:homeModel.m">
+         contextName = "-[E2_SubRankViewController tableView:cellForRowAtIndexPath:]:E2_SubRankViewController.m">
       </ContextState>
       <ContextState
          contextName = "+[homeModel readOnff]:homeModel.m">
       </ContextState>
       <ContextState
-         contextName = "__40+[ThreadtypeModel readthreadtype:block:]_block_invoke:ThreadtypeModel.m">
-      </ContextState>
-      <ContextState
-         contextName = "-[C0_ZhuTi_SelectPlates pickerView:didSelectRow:inComponent:]:C0_ZhuTi_SelectPlates.m">
+         contextName = "__37-[C0_HairPost_iphone updatezhutiInfo]_block_invoke:C0_HairPost_iphone.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.locate">
+               value = "self.typedid">
+            </PersistentString>
+            <PersistentString
+               value = "self.selectfid ">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "__22-[homeModel gotoPage:]_block_invoke:homeModel.m">
-      </ContextState>
-      <ContextState
-         contextName = "-[API_HOMETOPICSLIDE_SHOTS routine]:hometopicslide.mm">
-      </ContextState>
-      <ContextState
-         contextName = "-[C0_HairPost_iphone selectPlates:andclickedButtonAtIndex:]:C0_HairPost_iphone.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.selectfid">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[A0_HomePage1_iphone reloadData]:A0_HomePage1_iphone.m">
       </ContextState>
       <ContextState
          contextName = "__40-[C0_HairPost_iphone showzhutiSelector:]_block_invoke:C0_HairPost_iphone.m">
@@ -51,13 +34,44 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "__37-[C0_HairPost_iphone updatezhutiInfo]_block_invoke:C0_HairPost_iphone.m">
+         contextName = "-[homeModel loadCache]:homeModel.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[C0_ZhuTi_SelectPlates pickerView:didSelectRow:inComponent:]:C0_ZhuTi_SelectPlates.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.typedid">
+               value = "self.locate">
             </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[ToptenModel gotoPage:]:ToptenModel.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[A0_HomePage1_iphone reloadData]:A0_HomePage1_iphone.m">
+      </ContextState>
+      <ContextState
+         contextName = "__40+[ThreadtypeModel readthreadtype:block:]_block_invoke:ThreadtypeModel.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[API_THREADTYPE_SHOTS routine]:threadtype.mm">
+      </ContextState>
+      <ContextState
+         contextName = "-[API_HOMETOPICSLIDE_SHOTS routine]:hometopicslide.mm">
+      </ContextState>
+      <ContextState
+         contextName = "-[C0_HairPost_iphone selectPlates:andclickedButtonAtIndex:]:C0_HairPost_iphone.m">
+         <PersistentStrings>
             <PersistentString
-               value = "self.selectfid ">
+               value = "self.selectfid">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[B3_PostViewController handleUISignal_PostlistModel_RELOADED:]:B3_PostViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.postmodel">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

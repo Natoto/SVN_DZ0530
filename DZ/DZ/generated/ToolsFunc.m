@@ -149,6 +149,12 @@ DEF_SINGLETON(ToolsFunc)
     return NO;
 }
 
++(NSString *)websiteArticleUrl:(NSString *)tid
+{
+    //http://www.weichengdx.com/dztoapp/status.php
+    //http://114.215.178.111/amanmanceshi/forum.php?mod=viewthread&tid=460
+    return [NSString stringWithFormat:@"%@?mod=viewthread&tid=%@",[DZ_SystemSetting sharedInstance].forumurl,tid];
+}
 + (NSString *)articletid:(NSString *)url
 {
     NSString *regTags = @"tid=(\\d+)";
@@ -170,6 +176,62 @@ DEF_SINGLETON(ToolsFunc)
         }
     }
     return @"";
+}
+
+
+
+#import <sys/sysctl.h>
+
++ (NSString*)deviceType
+{
+    size_t size;
+    sysctlbyname("hw.machine", NULL, &size, NULL, 0);
+    char *machine = malloc(size);
+    sysctlbyname("hw.machine", machine, &size, NULL, 0);
+    NSString *platform = [NSString stringWithUTF8String:machine];
+    free(machine);
+    
+    if ([platform isEqualToString:@"iPhone1,1"])    return @"iphone 1g";
+    if ([platform isEqualToString:@"iPhone1,2"])    return @"iphone 3g";
+    if ([platform isEqualToString:@"iPhone2,1"])    return @"iphone 3gs";
+    if ([platform isEqualToString:@"iPhone3,1"])    return @"iphone 4";
+    if ([platform isEqualToString:@"iPhone3,2"])    return @"iphone 4";
+    if ([platform isEqualToString:@"iPhone3,3"])    return @"iphone 4";
+    if ([platform isEqualToString:@"iPhone4,1"])    return @"iphone 4s";
+    if ([platform isEqualToString:@"iPhone5,1"])    return @"iphone 5";
+    if ([platform isEqualToString:@"iPhone5,2"])    return @"iphone 5";
+    if ([platform isEqualToString:@"iPhone5,3"])    return @"iphone 5c";
+    if ([platform isEqualToString:@"iPhone5,4"])    return @"iphone 5c";
+    if ([platform isEqualToString:@"iPhone6,1"])    return @"iphone 5s";
+    if ([platform isEqualToString:@"iPhone6,2"])    return @"iphone 5s";
+    if ([platform isEqualToString:@"iPhone7,1"])    return @"iphone 6plus";
+    if ([platform isEqualToString:@"iPhone7,2"])    return @"iphone 6";
+    if ([platform isEqualToString:@"iPod1,1"])      return @"ipod touch 1g";
+    if ([platform isEqualToString:@"iPod2,1"])      return @"ipod touch 2g";
+    if ([platform isEqualToString:@"iPod3,1"])      return @"ipod touch 3g";
+    if ([platform isEqualToString:@"iPod4,1"])      return @"ipod touch 4g";
+    if ([platform isEqualToString:@"iPod5,1"])      return @"ipod touch 5g";
+    if ([platform isEqualToString:@"iPad1,1"])      return @"ipad";
+    if ([platform isEqualToString:@"iPad2,1"])      return @"ipad 2";
+    if ([platform isEqualToString:@"iPad2,2"])      return @"ipad 2";
+    if ([platform isEqualToString:@"iPad2,3"])      return @"ipad 2";
+    if ([platform isEqualToString:@"iPad2,4"])      return @"ipad 2";
+    if ([platform isEqualToString:@"iPad2,5"])      return @"ipad mini";
+    if ([platform isEqualToString:@"iPad2,6"])      return @"ipad mini";
+    if ([platform isEqualToString:@"iPad2,7"])      return @"ipad mini";
+    if ([platform isEqualToString:@"iPad3,1"])      return @"ipad 3";
+    if ([platform isEqualToString:@"iPad3,2"])      return @"ipad 3";
+    if ([platform isEqualToString:@"iPad3,3"])      return @"ipad 3";
+    if ([platform isEqualToString:@"iPad3,4"])      return @"ipad 4";
+    if ([platform isEqualToString:@"iPad3,5"])      return @"ipad 4";
+    if ([platform isEqualToString:@"iPad3,6"])      return @"ipad 4";
+    if ([platform isEqualToString:@"iPad4,1"])      return @"ipad air";
+    if ([platform isEqualToString:@"iPad4,2"])      return @"ipad air";
+    if ([platform isEqualToString:@"iPad4,4"])      return @"ipad mini retina";
+    if ([platform isEqualToString:@"iPad4,5"])      return @"ipad mini retina";
+    if ([platform isEqualToString:@"i386"])         return @"simulator";
+    if ([platform isEqualToString:@"x86_64"])       return @"simulator";
+    return @"new device";
 }
 
 @end

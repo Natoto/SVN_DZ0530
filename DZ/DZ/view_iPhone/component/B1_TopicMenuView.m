@@ -9,6 +9,11 @@
 #import "B1_TopicMenuView.h"
 #import "UIImage+Tint.h"
 #import "DZ_SystemSetting.h"
+@interface B1_TopicMenuView()
+{
+    float BKGWIDTH;
+}
+@end
 @implementation B1_TopicMenuView
 @synthesize items;
 DEF_SINGLETON(B1_TopicMenuView)
@@ -23,6 +28,7 @@ DEF_NOTIFICATION(selectitem)
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        BKGWIDTH =  120.0f;
         self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
         self.backgroundColor =[UIColor clearColor]; //[UIColor colorWithRed:241./255 green:241/255. blue:241/255 alpha:1];//WINDOW_COLOR;
         self.userInteractionEnabled = YES;
@@ -30,7 +36,7 @@ DEF_NOTIFICATION(selectitem)
         [self addGestureRecognizer:tapGesture];
         UIImageView *triangle=[[UIImageView alloc] initWithImage:[UIImage bundleImageNamed:@"jiantou"]];
         triangle.image = [triangle.image imageWithTintColor:BACKGROUNDVIEWCOLOR];
-        triangle.frame = CGRectMake(200+102-20, 64.0f-15.0f, 20, 20);
+        triangle.frame = CGRectMake(CGRectGetWidth([UIScreen mainScreen].bounds) -BKGWIDTH +102-20, 64.0f-15.0f, 20, 20);
         triangle.contentMode=UIViewContentModeScaleAspectFit;
         [self addSubview:triangle];
         [self addSubview:self.backGroundView];
@@ -87,22 +93,28 @@ DEF_NOTIFICATION(selectitem)
     }
     return mtbary;
 }
+
+#define BUTTONHEIGHT 35.0
 -(void)setItems:(NSDictionary *)aitems
 {
     items = aitems;
     NSArray *array = items.allKeys;
     array = [self sortarray:array];
     
-    float HEIGHT=35;
     float WIDTH=self.backGroundView.frame.size.width;
     for (int index=0; index< array.count; index++)
     {
         NSString *key =[array objectAtIndex:index];
         NSString * value=[NSString stringWithFormat:@"%@",[items objectForKey:key]];
+        if ([NSString unicodeLengthOfString:value]>12) {
+            BKGWIDTH = 120.0;
+        }else
+            BKGWIDTH = 102.0;
+        
         UIButton *button=(UIButton *) [self.backGroundView viewWithTag:ITEMSSTARTTAG + value.integerValue];
         if (!button) {
             button = [UIButton buttonWithType:UIButtonTypeSystem];
-            button.frame = CGRectMake(0, HEIGHT * index + 5, WIDTH , HEIGHT);
+            button.frame = CGRectMake(0, BUTTONHEIGHT * index , WIDTH - 10, BUTTONHEIGHT - 10);
             button.tag= ITEMSSTARTTAG + value.integerValue;
             [button setTitleColor:BTNTXTCOLOR forState:UIControlStateNormal];
             button.titleLabel.font = [UIFont systemFontOfSize:15];
@@ -114,11 +126,11 @@ DEF_NOTIFICATION(selectitem)
     }
     [self reSizeBackgroundView:items];
 }
-
 -(UIView *)backGroundView
 {
     if (!_backGroundView) {
-        _backGroundView = [[UIScrollView alloc] initWithFrame:CGRectMake(200, 64.0f , 102, 150)];
+        _backGroundView = [[UIScrollView alloc] initWithFrame:CGRectMake(CGRectGetWidth([UIScreen mainScreen].bounds) - BKGWIDTH -20 , 64.0f , BKGWIDTH, 150)];
+        
         _backGroundView.backgroundColor= BACKGROUNDVIEWCOLOR;
         [self reSizeBackgroundView:items];
     }
@@ -129,12 +141,12 @@ DEF_NOTIFICATION(selectitem)
 {
     int MAXCOUNT = 6;
     if (dic.count < MAXCOUNT) {
-     [self.backGroundView setFrame:CGRectMake(200, 64.0f - bee.ui.config.heightOfStatusBar, 102, (items.count+1) * 30)];
+     [self.backGroundView setFrame:CGRectMake(CGRectGetWidth([UIScreen mainScreen].bounds) - BKGWIDTH - 20, 64.0f - bee.ui.config.heightOfStatusBar, BKGWIDTH, (items.count) * BUTTONHEIGHT)];
     }
     else
     {
-        [self.backGroundView setContentSize:CGSizeMake(102, (items.count+1) * 30)];
-        [self.backGroundView setFrame:CGRectMake(200, 64.0f - bee.ui.config.heightOfStatusBar, 102, (MAXCOUNT +1) * 30)];
+        [self.backGroundView setContentSize:CGSizeMake(BKGWIDTH -5, (items.count) * BUTTONHEIGHT)];
+        [self.backGroundView setFrame:CGRectMake(CGRectGetWidth([UIScreen mainScreen].bounds) - BKGWIDTH - 20, 64.0f - bee.ui.config.heightOfStatusBar, BKGWIDTH, (MAXCOUNT) * BUTTONHEIGHT)];
     }
 }
 
@@ -148,7 +160,7 @@ DEF_NOTIFICATION(selectitem)
 - (void)tappedCancel
 {
     [UIView animateWithDuration:ANIMATE_DURATION animations:^{
-        [self.backGroundView setFrame:CGRectMake(200, CGRectGetMinY(self.backGroundView.frame), CGRectGetWidth(self.backGroundView.frame), 0)];
+        [self.backGroundView setFrame:CGRectMake(CGRectGetWidth([UIScreen mainScreen].bounds) - BKGWIDTH - 20, CGRectGetMinY(self.backGroundView.frame), CGRectGetWidth(self.backGroundView.frame), 0)];
         self.alpha = 0;
     } completion:^(BOOL finished) {
         if (finished) {

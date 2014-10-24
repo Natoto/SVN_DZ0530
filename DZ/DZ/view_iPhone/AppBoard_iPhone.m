@@ -340,7 +340,8 @@ ON_NOTIFICATION3( BeeNetworkReachability, UNREACHABLE, notification )
 		return;
     }
 	[self presentModalStack:[BeeUIStack stackWithFirstBoard:[D1_LoginBoard_iphone board]] animated:YES];
-    [self transitionCube];
+//    [self transitionCube];
+    [self transitionFade];
 }
 
 - (void)hideLogin
@@ -350,7 +351,8 @@ ON_NOTIFICATION3( BeeNetworkReachability, UNREACHABLE, notification )
 		return;
 	}
 	[self dismissModalStackAnimated:YES];
-    [self transitionCube:BeeUITransitionDirectionLeft];
+    [self transitionFade];
+//    [self transitionCube:BeeUITransitionDirectionLeft];
 }
 
 

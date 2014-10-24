@@ -23,6 +23,8 @@ AS_NOTIFICATION(share)
 AS_NOTIFICATION(collect)
 AS_NOTIFICATION(delcollection)
 AS_NOTIFICATION(daoxu)
+AS_NOTIFICATION(copyurl)
+
 @property(nonatomic,strong)UIView * backGroundView;
 @property(nonatomic,strong)NSArray * array;
 @property (nonatomic, strong) NSNumber *isfavorite;

@@ -22,7 +22,7 @@
 //#import "XHBaseNavigationController.h"
 #import "UIImage+Bundle.h"
 #import "MobClick.h"
-
+#import "UncaughtExceptionHandler.h"
 //最大号文字 34 导航
 //30 导航右 文章标题
 //22 灰
@@ -67,15 +67,7 @@ static NSString *const ID_KEY = @"id";
 #pragma mark -
 
 - (void)load
-{
-    
-//    Class cls = NSClassFromString(@"UMANUtil");
-//    SEL deviceIDSelector = @selector(openUDIDString);
-//    NSString *deviceID = nil;
-//    if(cls && [cls respondsToSelector:deviceIDSelector]){
-//        deviceID = [cls performSelector:deviceIDSelector];
-//    }
-//   BeeLog(@"{\"oid\": \"%@\"}", deviceID);
+{ 
     
    BeeLog(@"hello dz");
 	[UIApplication sharedApplication].statusBarHidden = NO;
@@ -144,8 +136,10 @@ static NSString *const ID_KEY = @"id";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [super application:application didFinishLaunchingWithOptions:launchOptions];    
     
+    [super application:application didFinishLaunchingWithOptions:launchOptions];    
+    installUncaughtExceptionHandler();
+    BeeLog(@"---------didFinishLaunchingWithOptions------------");
     if ([launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] != nil) {
         //获取应用程序消息通知标记数（即小红圈中的数字）
         NSInteger badge = [UIApplication sharedApplication].applicationIconBadgeNumber;
