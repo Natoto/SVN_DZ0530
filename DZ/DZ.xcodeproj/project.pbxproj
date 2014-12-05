@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4233B2AAC754359605F65D55 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9B39524B28AE3B366DA0DE1 /* libPods.a */; };
 		CE02DB5419C03489006BBD9E /* dzimages.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CE02DB5319C03489006BBD9E /* dzimages.bundle */; };
 		CE035B4B1980DCE900A44A4D /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CE035B3B1980DCE900A44A4D /* MJRefresh.bundle */; };
 		CE035B4C1980DCE900A44A4D /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE035B3E1980DCE900A44A4D /* MJRefreshBaseView.m */; };
@@ -1236,7 +1235,6 @@
 		CEF918081957DEAC00B91B6C /* AboutUs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AboutUs.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		CEF9180A1957DEC800B91B6C /* AboutUsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsModel.h; sourceTree = "<group>"; };
 		DB05B757B22EDD2635E39EB8 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		F9B39524B28AE3B366DA0DE1 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FEE7BAC181370FD43C066838 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1283,7 +1281,6 @@
 				CEB3268E18E95347004134D4 /* libsqlite3.0.dylib in Frameworks */,
 				CEB3268C18E9533D004134D4 /* libz.dylib in Frameworks */,
 				CEB3210018E952E2004134D4 /* UIKit.framework in Frameworks */,
-				4233B2AAC754359605F65D55 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2109,7 +2106,6 @@
 				CEB3268B18E9533D004134D4 /* libz.dylib */,
 				CEB320FF18E952E2004134D4 /* UIKit.framework */,
 				CEB3211418E952E2004134D4 /* XCTest.framework */,
-				F9B39524B28AE3B366DA0DE1 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -3379,14 +3375,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					/Users/user/Documents/rockmobile/DZ/services/bee.services.siri/vendor,
-					/Users/user/Documents/rockmobile/DZ/DZ/services/bee.services.siri/vendor,
-					/Users/boob/Documents/SVN/ios/DZ,
-					"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks",
-					"$(DEVELOPER_DIR)/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DZ/DZ-Prefix.pch";
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
@@ -3419,14 +3408,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					/Users/user/Documents/rockmobile/DZ/services/bee.services.siri/vendor,
-					/Users/user/Documents/rockmobile/DZ/DZ/services/bee.services.siri/vendor,
-					/Users/boob/Documents/SVN/ios/DZ,
-					"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks",
-					"$(DEVELOPER_DIR)/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DZ/DZ-Prefix.pch";
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;

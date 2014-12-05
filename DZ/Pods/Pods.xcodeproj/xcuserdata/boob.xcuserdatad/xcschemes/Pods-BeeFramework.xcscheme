@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0500"
+   LastUpgradeVersion = "0600"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CEB320F718E952E2004134D4"
-               BuildableName = "DZ.app"
-               BlueprintName = "DZ"
-               ReferencedContainer = "container:DZ.xcodeproj">
+               BlueprintIdentifier = "C1E5E9F046F20D159EF40CA6"
+               BuildableName = "libPods-BeeFramework.a"
+               BlueprintName = "Pods-BeeFramework"
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -28,36 +28,7 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CEB3211218E952E2004134D4"
-               BuildableName = "DZTests.xctest"
-               BlueprintName = "DZTests"
-               ReferencedContainer = "container:DZ.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CE4B184A195BAEDB0042D054"
-               BuildableName = "DZTestsDemo.xctest"
-               BlueprintName = "DZTestsDemo"
-               ReferencedContainer = "container:DZ.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CEB320F718E952E2004134D4"
-            BuildableName = "DZ.app"
-            BlueprintName = "DZ"
-            ReferencedContainer = "container:DZ.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -68,15 +39,15 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable>
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CEB320F718E952E2004134D4"
-            BuildableName = "DZ.app"
-            BlueprintName = "DZ"
-            ReferencedContainer = "container:DZ.xcodeproj">
+            BlueprintIdentifier = "C1E5E9F046F20D159EF40CA6"
+            BuildableName = "libPods-BeeFramework.a"
+            BlueprintName = "Pods-BeeFramework"
+            ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -86,15 +57,15 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable>
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CEB320F718E952E2004134D4"
-            BuildableName = "DZ.app"
-            BlueprintName = "DZ"
-            ReferencedContainer = "container:DZ.xcodeproj">
+            BlueprintIdentifier = "C1E5E9F046F20D159EF40CA6"
+            BuildableName = "libPods-BeeFramework.a"
+            BlueprintName = "Pods-BeeFramework"
+            ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
