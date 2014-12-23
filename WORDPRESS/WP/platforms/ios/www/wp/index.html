@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+    <head>
+        <title>App Framework Kitchen Sink</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+        <link rel="stylesheet" type="text/css" href="css/base.css" />    
+        <link rel="stylesheet" type="text/css" href="css/my.css" />    
+        <link rel="stylesheet" type="text/css" href="css/afui.css"  />
+ 				<link rel="stylesheet" type="text/css" href="css/color_variable.css" />
+        <link rel="stylesheet" type="text/css" href="plugins/css/af.scroller.css"  />           
+   
+</head>
+    <body>
+        <div id="afui" class="xuxubao">
+       	 <div id="content" class="showSide">
+
+            <div title='最新' data-nav="home_nav" id="new_panel" class="panel" selected="true"  data-header="home_headerui" data-footer="none" data-load="load_new_panel" data-unload="unload_new_panel">
+	              <div class="loading" style="display:none;" id="contentLoading"><img src="images/loading.gif" />
+	              </div>
+                <div class="tab_bd aList" id="new_list">
+
+                </div> 
+            </div>
+            
+            <div title='最热' id="hot_panel" class="panel"   data-header="home_headerui" data-footer="none" data-load="load_hot_panel" data-unload="unload_hot_panel">
+	              <div class="loading" style="display:none;" id="contentLoading"><img src="images/loading.gif" />
+	              </div>
+                <div class="tab_bd aList" id="hot_list">
+          
+                </div> 
+            </div>
+                
+                  <!--资讯页面-->
+                <div title='资讯页面' id="portal_panel"  class="panel" data-tab="navbar_portal"  data-footer="none"  data-header="thread_headerui" data-unload="portal_list_uload" data-load="portal_list_load">               	 
+                <div class="cate_top clearfix">
+                    	<ul class=" clearfix" id="portalList">
+                                 
+                        </ul>                   
+                    </div>  
+                    <div id="portal_panelLoading" class="loading" style="display: block;"><img src="images/loading.gif"></div>
+                     
+                   <p><a class="button block" id="portalListButton" style="display:none;" onClick="portalListmore();">点击加载更多</a></p>
+                </div>
+                
+                <div title='文章详情' id="portal_content_panel" data-load='portal_content_load'  data-unload='portal_content_uload' class="panel" data-footer="contentfooter" data-header="none"> 
+                    <div class="loading" style="display:none;" id="portalContentLoading"><img src="images/loading.gif" /></div>
+                    <div id="contentDIV">
+                      <div class="p_content_title articleTitle">
+                        <h2 style="height:auto;" id="p_content_title"></h2>
+                        <p></p>
+                      </div>
+                        <p id="p_content" class="p10"></p>
+                        <div id="punlin">
+                          
+                        </div>
+                    </div>
+               
+                </div>
+                                               
+                <!--评论页面-->
+                <div title='评论页面' id="comment_panel" class="panel" data-header="commentheaderui"  data-footer="none"  data-load="commentList_load" >               	 
+                    <div id="waimai_panelLoading" class="loading" style="display: none;"><img src="images/loading.gif"></div>
+                    <div class="emailtype">
+                      <ul>
+                        <li>qq.com</li>
+                        <li>163.com</li>
+                        <li>sina.com</li>
+                        <li>126.com</li>
+                        <li>hotmail.com</li>
+                      </ul>
+                    </div>
+
+                    <iframe src="about:blank" name="blankFrame" id="blankFrame" style="display: none;"></iframe>
+                    <form action="" method="post" target="blankFrame"  id="comment_form" onsubmit="return check()">
+                      <div class="m10">
+                        <input type="hidden" value="" name="post_id">
+                        <input type="hidden" value="" name="comment_ID">
+                        <input type="text" placeholder="昵称：4-14中英文数字" title="请输入4-14位中英文数字" maxlength="14" class="inputtext" required pattern="([a-zA-Z0-9]|[\u4e00-\u9fa5]){4,14}" name="author2" autofocus> 
+                        <input type="hidden" placeholder="昵称：4-14中英文数字" title="请输入4-14位中英文数字" maxlength="14" class="inputtext" required pattern="([a-zA-Z0-9]|[\u4e00-\u9fa5]){4,14}" name="author" > 
+                        <input type="email" maxlength="28" placeholder="登录邮箱:example@mail.com" class="inputtext mt10" required name="email" > 
+                        <input type="url" placeholder="网址(可选)www.a.com" class="inputtext mt10"  name="url"> 
+                        <textarea  id="textarea" class="mt10" placeholder="请输入评论内容..." name="comment" required maxlength="280" pattern="^\s([a-zA-Z0-9]|[\u4e00-\u9fa5]){1,280}" title="请输入评论内容"></textarea>
+                        <span class="rest">280</span>
+                        <div class="mt10">
+                            <input type="submit" value="提交" class="btnsubmit">
+                        </div>
+                      </div>
+                    </form>
+                     
+                </div>
+
+
+                <!--我的收藏-->
+                <div title='我的收藏' id="myStore_panel" class="panel" data-footer="none" data-header="mystoreheaderui" data-load="mystore_List_load" >                  
+                    <div id="waimai_panelLoading" class="loading" style="display: none;"><img src="images/loading.gif"></div>
+                    <ul id="mystore_ul">
+                      
+                    </ul>
+                </div>
+
+
+                <!--用户昵称-->
+                <div title='用户昵称' id="myname_panel" class="panel" data-footer="none" data-header="mynameheaderui" data-load="myname_load" >                  
+                    <div id="waimai_panelLoading" class="loading" style="display: none;"><img src="images/loading.gif"></div>
+                    <div class="horizental m10">
+                      <input type="hidden" name="type" value="" id="types">
+                      <input type="text" placeholder="昵称：4-14中英文数字" class="inputtext" name="authors">  
+                    </div>
+                </div>
+
+                 <!--邮件-->
+                <div title='邮件' id="myemail_panel" class="panel" data-footer="none" data-header="mynameheaderui" data-load="myname_load" >                  
+                    <div id="waimai_panelLoading" class="loading" style="display: none;"><img src="images/loading.gif"></div>
+
+                    <div class="emailtype">
+                      <ul>
+                        <li>qq.com</li>
+                        <li>163.com</li>
+                        <li>sina.com</li>
+                        <li>126.com</li>
+                        <li>hotmail.com</li>
+                      </ul>
+                    </div>
+
+                    <div class="horizental m10">
+                     <input type="email" placeholder="登录邮箱:example@mail.com" class="email" name="email2">  
+                    </div>
+                </div>
+
+                 <!--网址-->
+                <div title='网址' id="myurl_panel" class="panel" data-footer="none" data-header="mynameheaderui" data-load="myname_load" >                  
+                    <div id="waimai_panelLoading" class="loading" style="display: none;"><img src="images/loading.gif"></div>
+                    <div class="horizental m10">
+                     <input type="url" placeholder="你的新网址" class="email" name="url2">
+                    </div>
+                </div>
+
+
+              <!--我的帐号-->
+              <div title='我的帐号' id="myCount_panel" class="panel" data-footer="none" data-header="myCountheaderui" data-load="myCount_List_load" >                  
+                  <div id="waimai_panelLoading" class="loading" style="display: none;"><img src="images/loading.gif"></div>
+                  <div class="mycount">
+                    <div class="setOption mt10">
+                      <a href="#">
+                        <span class="setOptLeft">头像</span>
+                        <span class="setOptRight" id="headP">
+                          <img src="images/head1.png" alt="" width="35">
+                        </span>
+                      </a>
+                    </div>
+                    <p class="pptip">用户信息</p>
+                    <div class="setOption toggle modify">
+                      <a href="#myname_panel" onclick="changeHeadName(1);">
+                        <span class="setOptLeft">用户昵称</span>
+                        <span class="setOptRight arr" id="usname">未设置 </span>
+                      </a>
+                    </div>
+
+                    <div class="setOption modify">
+                      <a href="#myemail_panel" onclick="changeHeadName(2);">
+                        <span class="setOptLeft">邮箱</span>
+                        <span class="setOptRight arr" id="myemail"> 未设置 </span>
+                      </a>
+                    </div>
+
+                    <div class="setOption modify" style="margin-top: -1px;">
+                      <a href="#myurl_panel" onclick="changeHeadName(3);">
+                        <span class="setOptLeft">网址</span>
+                        <span class="setOptRight arr" id="myurl"> 未设置 </span>
+                      </a>
+                    </div>
+                  </div>
+              </div>
+
+                <!--搜索列表-->
+                <div title='搜索列表' id="searchValue_panel" class="panel" data-footer="none" data-header="searchheaderui" data-load="searchValue_List_load" >                  
+                    <div id="waimai_panelLoading" class="loading" style="display: none;"><img src="images/loading.gif"></div>
+                   <div class="search_result" id="sList">
+                      <p class="resultText" id="resultNum">共<span>0</span>条搜索结果:</p>
+                        
+                      <ul class="retult" id="search_ul">
+                        
+                      </ul>    
+                    </div>
+                </div>
+
+
+                <!--搜索-->
+                <div title='搜索' id="search_panel" class="panel" data-footer="none" data-header="searchheaderui" data-load="search_List_load" data-unload='search_sellerList_uload'>                  
+                    <div id="waimai_panelLoading" class="loading" style="display: none;"><img src="images/loading.gif"></div>
+                    <div class="search_result">
+                      <label for="dateInputs" id="showDate"></label>
+                      <input type="month" id="dateInputs" />
+                      <div class="resultDate mt10">
+                        <p class="resultText">所有归档日期</p>
+                        <div class="retult mt5">
+                          <div class="retult_sign" id="storeDate">
+                            <ul>
+        
+                            </ul>
+                          </div>  
+                        </div>    
+                      </div>
+                      <div class="resultP mt10">
+                        <p class="resultText">所有标签</p>
+                        <div class="retult mt5">
+                          <div class="retult_sign" id="sign">
+                            <ul>
+                              
+                            </ul>
+                          </div>  
+                        </div>    
+                      </div>
+
+                    </div> 
+                </div>
+           
+                <!--header-->
+                  <!--首页头部-->
+                 <header id="home_headerui">
+                   <div class="top_header">
+                    <a onclick="af.ui.toggleSideMenu()" class="menuButton" style="float:left"></a>
+                    <h1>测试</h1>
+                    <a href="#search_panel" class="larger_icon"></a>
+                   </div>
+                   
+                     <div class="cate_top clearfix" id="tab_head">
+                      <ul class="cate_top_ul clearfix" id="top_tab_ul">
+                          <li id="new_tab" onclick ="changTopPanel(1)" class="select"><a href="#" data-transition="slideRight" class="">最新</a></li>
+                            <li id="hot_tab" onclick ="changTopPanel(2)" ><a href="#" class="">最热</a></li>
+                           
+                         
+                        </ul>                   
+                   </div>                       
+                </header>
+                <!--搜索页面头部--> 
+                <header id="searchheaderui">
+                      <div class="overflow searchheader">
+                        <a href="#" class="back" style="width: 18px;height: 18px;top: 10px;" onclick="$.ui.goBack();"></a>
+                        <div class="search_box mt5 fl listsearch ml30">
+                        <input type="search" placeholder="请输入关键字" name="s" class="seaInput" required="" maxlength="20" title="请输入关键字">
+                          <a href="#"  class="btnsearches" onclick="searchData_load()"></a>
+                        </div>
+
+                     </div>
+                </header>                
+
+               <!--修改用户信息-->
+               <header id="mynameheaderui">
+                    <a href="#myCount_panel" class="cancelbtn">取消</a>
+                    <div class="topTitle">用户昵称</div>
+                    <a href="#" class="store" value="保存" >保存</a>
+                  
+              </header>
+              
+                 <!--帖子列表头部-->
+                 <header id="thread_headerui">
+                   <div class="top_header">
+                    <a onclick="af.ui.toggleSideMenu()" class="menuButton" style="float:left"></a>
+                    <h1 id="thead_head">测试</h1>
+                    <a href="#search_panel" class="larger_icon"></a>
+                   </div>
+                </header>
+                
+                  <!--我的帐号头部-->
+                 <header id="myCountheaderui">
+                    <div class="top_header">
+                      <a class="button" id="backButton" style="visibility: visible;" href="#new_panel">返回</a>             
+                      <h1>我的帐号</h1> 
+                     </div>     
+                </header>
+               
+                 <header id="mystoreheaderui">
+                    <div class="top_header">
+                       <a class="button" id="backButton" style="visibility: visible;" onclick="$.ui.goBack();">返回</a>             
+                       <h1>我的收藏</h1>  
+                     </div>                  
+                </header>  
+                                     
+                  <header id="commentheaderui">
+                     <div class="top_header">
+                    <a class="button" id="backButton" style="visibility: visible;" href="#" onclick="$.ui.goBack();">返回</a>             
+                    <h1>匿名评论</h1>  
+                   </div>                  
+                </header>             
+                
+                             
+                 <!--footer-->
+                <footer id='contentfooter'>
+
+                    <div id="bottomMenu">
+                      <ul class="bottomWrap">
+                        <li>
+                         <a href="#" class="backStep"  onclick="$.ui.goBack();">返回</a>
+                        </li>
+                        <li>    
+                          <span class="stars">0</span>
+                        </li>
+                        <li>
+                        <a href="#comment_panel" class="comm inline-block"  >
+                          <span class="comm_after">0</span>
+                        </a>
+                        </li>
+                        <li>
+                          <span class="pmenu"></span>
+                        </li> 
+                      </div> 
+                  </div>   
+
+
+                  <!-- 设置菜单 -->
+                  <div id="setMenu" style="display:none;">
+                   <ul class="settingwrap " id="block2">
+
+                     <li class="clearfix">
+                       <span class="fl">字体大小</span>
+                       <div class="fr f666 mr5 fontsize">
+                         <span class="small on">小</span> 
+                         <span class="mid">中</span>
+                         <span class="large">大</span>
+                       </div>
+                     </li>
+
+                     
+                     <li class="clearfix">
+                       <span class="fl">夜间模式</span>
+                       <div class="radio fr ">
+                         <input type="checkbox">
+                       </div>
+                     </li>
+                   </ul>
+                  </div>
+                </footer>  
+                
+               
+                <!--首页nav-->             
+                 <nav id="home_nav">
+                    <div id="leftMenu" >
+                        <div id="leftMenu_wrap">
+                          <div class="setting"></div>
+                          <dl>
+                            <dt>人气网APP</dt>
+                            <dd>
+                              <ul id="myapp" >
+                                <li class="ii1"><a href="#myCount_panel">我的账号</a></li>
+                                <li class="ii2"><a href="#myStore_panel
+                                  ">我的收藏<b>(0)</b></a></li>
+                                <li class="ii3"><a href="#new_panel">首页</a></li>
+                              </ul>
+                            </dd>
+                          </dl>
+
+                          <dl class="articleDl">
+                            <dt>文章分类</dt>
+                            <dd>
+                              <ul id="sidePortalCate">
+                                
+                              </ul>
+                            </dd>
+                          </dl>
+                        </div>
+                    </div>
+              </nav>             
+       	 </div>
+
+       </div>  
+    <script type="application/javascript" src="appframework.js"></script>
+          
+  <script>
+
+            if (!((window.DocumentTouch && document instanceof DocumentTouch) || 'ontouchstart' in window)) {
+                var script = document.createElement("script");
+                script.src = "plugins/af.desktopBrowsers.js";
+                var tag = $("head").append(script);
+                //$.os.desktop=true;
+            }
+        </script>   
+        <script src="js/appinfo_variable.js"></script>	
+       <script type="text/javascript" charset="utf-8" src="./plugins/af.css3animate.js"></script>
+      
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.scroller.js"></script>
+
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.touchEvents.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.touchLayer.js"></script>
+
+
+        <script type="text/javascript" charset="utf-8" src="./ui/appframework.ui.js"></script>
+        <!-- <script type="text/javascript" charset="utf-8" src="./ui/transitions/all.js"></script> -->
+       <script type="text/javascript" charset="utf-8" src="./ui/transitions/fade.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./ui/transitions/flip.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./ui/transitions/pop.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./ui/transitions/slide.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./ui/transitions/slideDown.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./ui/transitions/slideUp.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.slidemenu.js"></script>
+         
+       <script src="js/common.js"></script>
+       <script src="js/pull2refresh.js"></script>
+       <script src="js/basic.js"></script>
+       <script src="../cordova.js"></script>
+               <script type="text/javascript">
+                    var articlePull2Refresh=columnPull2Refresh='';
+                    function eventBackButton(){
+                    			navigator.notification.confirm("您确定退出应用！！", onExitAppConfirm, "信息提醒", "确认,取消");
+                    }		
+                    function onExitAppConfirm(button) {
+                    		if(button == 1){
+                    			navigator.app.exitApp();
+                    		}
+                    }       
+                    function onDeviceReady() {
+                        //* 响应物理后退按钮
+                    		//document.addEventListener("backbutton", eventBackButton, false);
+                        deviceid = device.uuid;
+                    }
+                    function onEmptyConfirm() {
+
+                    }  
+
+                    var lastOffLineTime=0;
+                    function onOffline(e) {  
+                    	if (lastOffLineTime == 0) {
+                    		var now = getTimestamp();
+                    		if ((now - lastOffLineTime) > 60) { 
+                    	    navigator.notification.alert("网络未连接，请检查网络连接！！", onEmptyConfirm,"信息提醒", "知道了"); 
+                    	    lastOffLineTime = now;
+                    	  }
+                    	}
+                    }  
+             
+                   $(document).ready(function(){                
+                      getItem('hasNewStore',0) 
+                     $.ui.launch();        
+                      if(appName)
+                      {
+                        $('#leftMenu_wrap dt').eq(0).text(appName);
+                        $('#home_headerui h1').html(appName);
+                      }
+                   });
+
+                    if(hy && hy == 1) {
+                      document.addEventListener("deviceready", onDeviceReady, false);
+                      document.addEventListener("offline", onOffline, false); 
+                    }
+                    else {
+                      deviceid = window.location.host;
+                    }
+                    
+                   $.ui.ready(function(){ 
+                     $("#afui").get(0).className='my';
+                   
+                       // 下拉刷新，上拉加载
+
+                       var newPull2Refresh = new R_Pull2Refresh(
+                       "#new_panel", "#new_list",
+                       function(cb) {
+                         getTopListFirst(1,false,"#new_list", cb);
+                       },
+                       function(cb) {
+                         getTopListMore(1,"#new_list>.list_item",cb);
+                       });
+                       //newPull2Refresh.doInit();
+                       var hotPull2Refresh = new R_Pull2Refresh(
+                       "#hot_panel", "#hot_list",
+                       function(cb) {
+                         getTopListFirst(2,false,"#hot_list",  cb);
+                       },
+                       function(cb) {
+                         getTopListMore(2,"#hot_list>.list_item", cb);
+                       });
+                       //hotPull2Refresh.doInit();
+                       
+                       
+											getTopListFirst(1,true, "#new_list", function() {
+									 			newPull2Refresh.doInit();
+									 			}, "#new_panel .loading");
+									 		getTopListFirst(2,true, "#hot_list",function() {
+									 			hotPull2Refresh.doInit();
+									 			}, "#hot_panel .loading");
+									 			
+                       getPortalCate();
+                       
+                       //评论加载更多
+                      articlePull2Refresh = new R_Pull2Refresh(
+                       "#portal_content_panel", "#punlin ul",
+                       function(cb) {
+                         portal_content_load(); 
+                       },
+                       function(cb) {
+                        var page = Math.ceil($('.commentList li').length/10)+1;
+
+                          if(getItem("portal_content_aid"+aid+"_isEnd")=='1')
+                          {
+                            $('#portal_content_panel #infinite1').hide();
+                            return;
+                          }
+                          getComment(page,getItem('portal_content_aid'),1,cb);
+                       });
+
+                       articlePull2Refresh.doInit(1);
+
+                       //搜索加载更多
+                       var searchPull2Refresh = new R_Pull2Refresh(
+                       "#searchValue_panel", "#searchValue_panel",
+                       function(cb) {
+                         //portal_content_load(); 
+                       },
+                       function(cb) {
+                        var page = Math.ceil($('#search_ul li').length/10)+1;
+                        searchValue_List_load(page,1);
+                       });
+
+                       searchPull2Refresh.doInit(1);
+
+                       //子栏目加载更多
+                      columnPull2Refresh = new R_Pull2Refresh(
+                       "#portal_panel", "#portal_panel ul",
+                       function(cb) {
+                         navPortalListGet(getItem('portal_list_catid'),1,1);//navPortalListGet(cat_id,page,loadmore,firstFromCache,onNetResult)
+                       },
+                       function(cb) {
+                        if(getItem("portalList"+getItem('portal_list_catid')+'_isEnd')=="1")
+                        {
+                          $('#portal_panel #infinite1').hide(); 
+                          return;
+                        }
+                        var page = Math.ceil($('#portalList li').length/10)+1;
+
+                        navPortalListGet(getItem('portal_list_catid'),page,1,false,cb); //navPortalListGet(cat_id,page,loadmore,firstFromCache,onNetResult)
+
+                       });
+
+                       columnPull2Refresh.doInit();
+
+                   });     
+                   
+  
+               function load_new_panel(){
+                 tabTopNav('new_tab');
+               }
+               function  unload_new_panel(){       
+               }
+               function load_hot_panel(){
+                 tabTopNav('hot_tab');
+               }
+               function  unload_hot_panel(){
+               
+               }
+               function tabTopNav(e){  
+
+                if(getItem('storeCount')!='null') //读取我的收藏条数
+                {
+                  $('.ii2 b').html('('+getItem('storeCount')+')');
+                }
+
+               var li=document.getElementById('top_tab_ul').getElementsByTagName('li');  
+               for (var i = 0; i <li.length; i++) {
+                 li[i].className = "";
+               }       
+               document.getElementById(e).className = "select";  
+               //$.ui.clearHistory();
+             }
+            	function changTopPanel(type) {
+            			if(type==1) {
+            				$.ui.loadContent("#new_panel", false, true, "slideRight");
+            			}
+            			else if(type==2) {
+            					$.ui.loadContent("#hot_panel", false, true, "slide");
+            			}
+            	} 
+           $.ui.openLinksNewTab = false;
+           $.ui.splitview=false;  
+           $.ui.slideSideMenu = false; 
+           $.ui.animateHeaders = false; 
+          
+                        
+        
+	</script>
+
+	  <script>
+
+      $.ui.useAjaxCacheBuster=true; //开启ajax缓存
+    
+      //左右滑动
+              $('#new_list').bind("swipeLeft", function(e) {  
+                //e.preventDefault();
+                if(!$.ui.isSideMenuOn())
+                {
+                  $.ui.loadContent("#hot_panel", false, true, "slide");
+                }
+                else {
+                	af.ui.toggleSideMenu();
+                }
+              });
+              //榜单
+              $('#hot_list').bind("swipeRight", function(e) {
+                 e.preventDefault();
+                $.ui.loadContent("#new_panel", false, true, "slideRight");
+              })
+              $('#new_list').bind("swipeRight", function() {
+                af.ui.toggleSideMenu();
+              });
+       				$('#new_list').bind("swipeRight", function() {
+                af.ui.toggleSideMenu();
+              });
+
+              //资讯页面 向左滑动 返回上一页
+              $('#portal_content_panel,#myCount_panel,#myname_panel,#myStore_panel').bind('swipeRight',function(e)
+              {
+                $.ui.goBack();
+              })
+
+              
+        </script>
+    </body>
+</html>
