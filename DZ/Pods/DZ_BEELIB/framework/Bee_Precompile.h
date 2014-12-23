@@ -92,10 +92,10 @@
 
 #else	// #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
 
-#import <Foundation/Foundation.h>
-#import <Cocoa/Cocoa.h>
-#import <AppKit/AppKit.h>
-#import <WebKit/WebKit.h>
+//#import <Foundation/Foundation.h>
+//#import <Cocoa/Cocoa.h>
+//#import <AppKit/AppKit.h>
+//#import <WebKit/WebKit.h>
 
 #endif	// #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
 
@@ -231,18 +231,18 @@
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
 
-#define UILineBreakMode					NSLineBreakMode
-#define UILineBreakModeWordWrap			NSLineBreakByWordWrapping
-#define UILineBreakModeCharacterWrap	NSLineBreakByCharWrapping
-#define UILineBreakModeClip				NSLineBreakByClipping
-#define UILineBreakModeHeadTruncation	NSLineBreakByTruncatingHead
-#define UILineBreakModeTailTruncation	NSLineBreakByTruncatingTail
-#define UILineBreakModeMiddleTruncation	NSLineBreakByTruncatingMiddle
-
-#define UITextAlignmentLeft				NSTextAlignmentLeft
-#define UITextAlignmentCenter			NSTextAlignmentCenter
-#define UITextAlignmentRight			NSTextAlignmentRight
-#define	UITextAlignment					NSTextAlignment
+//#define UILineBreakMode					NSLineBreakMode
+//#define UILineBreakModeWordWrap			NSLineBreakByWordWrapping
+//#define UILineBreakModeCharacterWrap	NSLineBreakByCharWrapping
+//#define UILineBreakModeClip				NSLineBreakByClipping
+//#define UILineBreakModeHeadTruncation	NSLineBreakByTruncatingHead
+//#define UILineBreakModeTailTruncation	NSLineBreakByTruncatingTail
+//#define UILineBreakModeMiddleTruncation	NSLineBreakByTruncatingMiddle
+//
+//#define UITextAlignmentLeft				NSTextAlignmentLeft
+//#define UITextAlignmentCenter			NSTextAlignmentCenter
+//#define UITextAlignmentRight			NSTextAlignmentRight
+//#define	UITextAlignment					NSTextAlignment
 
 #endif	// #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
 

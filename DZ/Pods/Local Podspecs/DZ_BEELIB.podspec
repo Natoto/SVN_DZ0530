@@ -27,7 +27,7 @@ Pod::Spec.new do |s|
     sp.dependency 'ZipArchive'
     sp.dependency 'FMDB'
     sp.dependency 'TouchXML'
-    sp.dependency 'BeeFramework/JSONKit'
+    sp.dependency 'JSONKit-NoWarning'
   end
   
 end

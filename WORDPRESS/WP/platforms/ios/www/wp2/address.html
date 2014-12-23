@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" style="background: #f0f0f0;">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-touch-fullscreen" content="yes">
+	<title>邮箱</title>
+	<link rel="stylesheet" href="css/base.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/color_variable.css" />
+</head>
+<body>
+	<div class="wrapper clearfix">
+		<iframe src="about:blank" name="blankFrame" id="blankFrame" style="display: none;"></iframe>
+		<form action="../status.php?action=myaccount&ostype=-1" method="post" target="blankFrame">
+		<div id="content">
+				<div id="home_head">
+					<span class="cancel">取消</span>
+					<div class="topTitle">网址</div>
+						<input type="submit"  class="store" value="保存" style="border:0;">
+
+				</div>
+				<div class="pt40"></div>
+				<div class="horizental m10">
+					<input type="hidden" name="type" value="" id="types">
+					<input type="url" placeholder="你的新网址" class="email" name="url">	
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<script src="js/zepto.min.js"></script>
+	<script src="js/appinfo_variable.js"></script>
+	<script src="js/common.js"></script>
+	<script src="js/modify.js"></script>
+</body>
+</html>

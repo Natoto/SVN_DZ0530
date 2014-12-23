@@ -16,12 +16,13 @@
 @implementation B2_TopicTableViewCell
 @synthesize message;
 
--(void)isOwner:(BOOL)owner
+- (void)isOwner:(BOOL)owner
 {
     UILabel *lzhu=(UILabel *)[self viewWithTag:1410];
     lzhu.hidden=owner;
     _lbllandlord.hidden=owner;
 }
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -107,7 +108,7 @@
         _lbltime = [[UILabel alloc] init];
 //        CGRect lbltimeframe = CGRectMake(290 - 200 - CELLICONWITH + 3, TITLEHEIGHT+MARGINV+LABELHEIGHT, 200, LABELHEIGHT);
         CGRect lbltimeframe = CGRectMake(self.frame.size.width - 150 - 15, TITLEHEIGHT+MARGINV+LABELHEIGHT, 200, LABELHEIGHT);
-        KT_LABELEWIFRAM(_lbltime, lbltimeframe, @"14:47:57", labelFontSize, [UIColor clearColor], KT_HEXCOLOR(0x6e6e6e), NSTextAlignmentLeft, NO)
+        KT_LABELEWIFRAM(_lbltime, lbltimeframe, @"14:47:57", labelFontSize, [UIColor clearColor], KT_HEXCOLOR(0x6e6e6e), NSTextAlignmentRight, NO)
         _lbltime.font = [UIFont systemFontOfSize:labelFontSize];
         [self addSubview:_lbltime];
         [self layoutSubviews:NO];
@@ -115,20 +116,21 @@
     return self;
 } 
 
--(void)layoutSubviews
+- (void)layoutSubviews
 {
     [super layoutSubviews];
     
     if (self.lblreadl.text.integerValue > 999) {
         self.lblreadl.text = @"999+";
     }
-    if (self.lblreadl.text.integerValue > 999) {
-        self.lblreadl.text = @"999+";
+    if (self.lblreply.text.integerValue > 999) {
+        self.lblreply.text = @"999+";
     }
     if ([self.lbllandlord.text isEqualToString:@"(null)"]) {
         self.lbllandlord.text = @"匿名";
     }
 }
+
 - (void)datachanges:(topics *)atopic
 {
     if (atopic.authorname.length) {
@@ -136,7 +138,7 @@
     }
     self.message.text = atopic.message;
     self.lblreadl.text = atopic.views;
-    //        cell.lblreadl.font = [UIFont systemFontOfSize];
+//        cell.lblreadl.font = [UIFont systemFontOfSize];
     self.lblreply.text = atopic.replies;
     atopic.subject = [atopic.subject stringByReplacingOccurrencesOfString:@"&quot;" withString:@""];
     self.lbltitle.text = [NSString stringWithFormat:@"%@",atopic.subject];
@@ -153,8 +155,7 @@
 
 - (void)loadHomeTopicList:(hometopiclist *)ahometopiclist
 {
-    if (ahometopiclist.authorname.length)
-        self.lbllandlord.text = ahometopiclist.authorname;
+    if (ahometopiclist.authorname.length) self.lbllandlord.text = ahometopiclist.authorname;
     self.message.text = ahometopiclist.message;
     self.lblreadl.text = ahometopiclist.views;
     self.lblreply.text = ahometopiclist.replies;
@@ -169,7 +170,43 @@
     }
 }
 
--(void)layoutSubviews:(BOOL)havePhote
+- (void)loadPortalList:(items *)items
+{
+    if (items.author.length) self.lbllandlord.text = items.author;
+    self.message.text = items.message;
+    self.lblreadl.text = items.views;
+    self.lblreply.text = items.recommends;
+    items.title = [items.title stringByReplacingOccurrencesOfString:@"&quot;" withString:@""];
+    self.lbltitle.text = items.title;
+    self.lbltime.text = [NSString stringWithFormat:@"%@", [ToolsFunc datefromstring:items.dateline]];
+    if (items.img.length) {
+        self.cellicon.data = items.img;
+        [self layoutSubviews:items.img.length];
+    } else {
+        [self layoutSubviews:NO];
+    }
+}
+
+- (void)loadBlockDetailList:(NSDictionary *)items
+{
+    self.lbllandlord.text = items[@"author"];
+    self.message.text = items[@"message"];
+    self.lblreadl.text = [NSString stringWithFormat:@"%@", items[@"views"]];
+    self.lblreply.text = [NSString stringWithFormat:@"%@", items[@"recommends"]];
+    NSString *title = items[@"title"];
+    title = [title stringByReplacingOccurrencesOfString:@"&quot;" withString:@""];
+    self.lbltitle.text = items[@"title"];
+    self.lbltime.text = [NSString stringWithFormat:@"%@", [ToolsFunc datefromstring:items[@"dateline"]]];
+    NSString *img = items[@"img"];
+    if (img.length) {
+        [self.cellicon GET:items[@"img"] useCache:YES];// .data = items[@"img"];
+        [self layoutSubviews:img.length];
+    } else {
+        [self layoutSubviews:NO];
+    }
+}
+
+- (void)layoutSubviews:(BOOL)havePhote
 {
     int TITLEHEIGHT = 30;
     float LABELHEIGHT = 20;
@@ -205,12 +242,11 @@
         _lbllandlord.frame = CGRectMake(MARGELEFT, WUTUY, lbllandlordWidth, LABELHEIGHT);
 
 //        _lbltime.frame = CGRectMake(self.frame.size.width - 150 - 15 - 11 - CELLICONWITH , YOUTUY, 150, LABELHEIGHT);
-        _lbltime.frame = CGRectMake(MARGELEFT, YOUTUY, 150, LABELHEIGHT);
-        _lbltime.textAlignment = 0;
-
-#warning the frame was changed
-        chakan.frame = CGRectMake(CGRectGetMaxX(_lbllandlord.frame) - 43 +  30 + 70, WUTUY, 20, LABELHEIGHT);
-        _lblreadl.frame = CGRectMake(CGRectGetMaxX(chakan.frame), WUTUY, CKPLWIDTH, LABELHEIGHT);
+        _lbltime.frame = CGRectMake(CGRectGetMaxX(_lbltitle.frame) - 150 , WUTUY, 150, LABELHEIGHT);
+//        _lbltime.textAlignment = 0;
+ 
+        chakan.frame = CGRectMake(MARGELEFT, YOUTUY, 20, LABELHEIGHT);
+        _lblreadl.frame = CGRectMake(CGRectGetMaxX(chakan.frame), CGRectGetMinY(chakan.frame), CKPLWIDTH, LABELHEIGHT);
 
         reply.frame = CGRectMake(CGRectGetMaxX(_lbllandlord.frame) - 43 + 30 + 70, YOUTUY, 20, LABELHEIGHT);
         _lblreply.frame = CGRectMake(CGRectGetMaxX(reply.frame), YOUTUY, CKPLWIDTH, LABELHEIGHT);
@@ -227,7 +263,7 @@
         _lbllandlord.frame = CGRectMake(MARGELEFT, YOUTUY, 60, LABELHEIGHT);
 
         _lbltime.frame = CGRectMake(self.frame.size.width - 150 - 15, YOUTUY, 150, LABELHEIGHT);
-        _lbltime.textAlignment = 2;
+//        _lbltime.textAlignment = 2;
 
         chakan.frame = CGRectMake(CGRectGetMaxX(_lbllandlord.frame) - 3 + 30, YOUTUY, 20, LABELHEIGHT);
         _lblreadl.frame = CGRectMake(CGRectGetMaxX(chakan.frame), YOUTUY, CKPLWIDTH, LABELHEIGHT);
@@ -239,10 +275,14 @@
      [reply setImageEdgeInsets:UIEdgeInsetsMake(1, 0, 0, 0)];
 }
 
--(void)replybtnTap:(id)sender
+#pragma mark - Events Management
+
+- (void)replybtnTap:(id)sender
 {
     
 }
+
+#pragma mark -
 
 - (void)awakeFromNib
 {

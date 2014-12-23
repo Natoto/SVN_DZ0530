@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" style="background: #f0f0f0;">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-touch-fullscreen" content="yes">
+	<title>设置</title>
+	<link rel="stylesheet" href="css/base.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/color_variable.css" />
+	<script src="js/zepto.min.js"></script>
+	<script>
+		$(function()
+		{
+			$('.radio').click(function()
+			{
+				var _this = $(this);
+				_this.toggleClass('on');
+			})
+		})
+	</script>
+</head>
+<body>
+	<div class="wrapper clearfix">
+		<!-- 正文 -->
+		<div id="content">
+			<div id="home_head">
+				<span class="back">返回</span>
+				<div class="topTitle"> 设置</div>
+			</div>
+			<div class="pt40"></div>
+			
+			<ul class="settingwrap mt10" >
+				<li> 
+					<a href="#" class="arr"><span>提醒设置</span></a></li>
+			</ul>
+			<ul class="settingwrap mt10" id="block2">
+				<li>
+					<a href="#" class="clearfix arr">
+						<span class="fl">图片加载</span>
+						<span class="fr f666 mr5">仅wifi下</span>
+					</a>
+				</li>
+
+				<li class="clearfix">
+					<span class="fl">字体大小</span>
+					<div class="fr f666 mr5 fontsize">
+						<span class="small on">小</span>	
+						<span class="mid">中</span>
+						<span class="large">大</span>
+					</div>
+				</li>
+
+				<li>
+					<a href="#" class="clearfix arr">
+						<span class="fl">清除缓存</span>
+						<span class="fr f666 mr5">5M</span>
+					</a>
+				</li>
+				<li class="clearfix">
+					<span class="fl">夜间模式</span>
+					<div class="radio fr on">
+						<input type="checkbox">
+					</div>
+				</li>
+			</ul>
+				
+			<ul class="settingwrap mt10" id="block3" >
+				<li> <a href="#" class="arr"><span>关于我们</span></a></li>
+				<li> <a href="#" class="arr"><span>意见反馈</span></a></li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>

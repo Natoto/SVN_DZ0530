@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" style="background: #f0f0f0;">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-touch-fullscreen" content="yes">
+	<title>匿名评论</title>
+	<link rel="stylesheet" href="css/base.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/color_variable.css" />
+</head>
+<body>
+	<div class="wrapper clearfix">
+		<div id="content">
+				<div id="home_head">
+					<span class="back">返回</span>
+					<div class="topTitle">匿名评论</div>
+				</div>
+				<div class="pt40"></div>
+				<div class="horizental m10">
+
+					<div class="emailtype">
+						<ul>
+							<li>qq.com</li>
+							<li>163.com</li>
+							<li>sina.com</li>
+							<li>126.com</li>
+							<li>hotmail.com</li>
+						</ul>
+					</div>
+
+					<iframe src="about:blank" name="blankFrame" id="blankFrame" style="display: none;"></iframe>
+					<form action="" method="post" target="blankFrame" onsubmit="return check()">
+						<input type="hidden" value="" name="post_id">
+						<input type="hidden" value="" name="comment_ID">
+						<input type="text" placeholder="昵称：4-14中英文数字" title="请输入4-14位中英文数字" maxlength="14" class="inputtext" required pattern="([a-zA-Z0-9]|[\u4e00-\u9fa5]){4,14}" name="author2" autofocus>	
+						<input type="hidden" placeholder="昵称：4-14中英文数字" title="请输入4-14位中英文数字" maxlength="14" class="inputtext" required pattern="([a-zA-Z0-9]|[\u4e00-\u9fa5]){4,14}" name="author" >	
+						<input type="email" maxlength="28" placeholder="登录邮箱:example@mail.com" class="inputtext mt10" required name="email" >	
+						<input type="url" placeholder="网址(可选)www.a.com" class="inputtext mt10"  name="url">	
+						<textarea  id="textarea" class="mt10" placeholder="请输入评论内容..." name="comment" required maxlength="280" pattern="^\s([a-zA-Z0-9]|[\u4e00-\u9fa5]){1,280}" title="请输入评论内容"></textarea>
+						<span class="rest">280</span>
+						<div class="mt10">
+								<input type="submit" value="提交" class="btnsubmit">
+						</div>
+					</form>
+				</div>
+			</div>
+	</div>
+
+	<script src="js/zepto.min.js"></script>
+	<script src="js/appinfo_variable.js"></script>
+	<script src="js/common.js"></script>
+	<script src="js/comment.js"></script>
+</body>
+</html>

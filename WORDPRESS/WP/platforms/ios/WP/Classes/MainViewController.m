@@ -60,16 +60,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
-    //    if (self.zm_syssetting.navigationbarcolor) {
-    //        self.view.backgroundColor = self.zm_syssetting.navigationbarcolor;
-    //    }
+     self.view.backgroundColor = [UIColor blackColor]; 
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 40)];
 //    label.text = @"由IDO提供技术支持";
     label.font = [UIFont systemFontOfSize:12.0];
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [UIColor grayColor];
-    label.center = CGPointMake(320./2, 20);
+    label.center = CGPointMake(CGRectGetWidth([UIScreen mainScreen].bounds)/2, 20);
     [self.webView insertSubview:label atIndex:0];
     self.webView.backgroundColor = [UIColor colorWithRed:35./255. green:37./255. blue:38./255. alpha:1];
     
@@ -78,7 +75,6 @@
     [swipeGestureRecognizer setNumberOfTouchesRequired:1];
     [swipeGestureRecognizer setDirection:UISwipeGestureRecognizerDirectionRight];
     [self.view addGestureRecognizer:swipeGestureRecognizer];
-    
     // Do any additional setup after loading the view from its nib.
 }
 

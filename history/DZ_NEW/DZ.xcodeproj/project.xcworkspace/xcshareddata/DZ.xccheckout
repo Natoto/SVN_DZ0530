@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>FAEB4250-B47D-4CC6-8006-ED408C0914D8</string>
+	<key>IDESourceControlProjectName</key>
+	<string>DZ</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>d5f7f0f2-b42d-11e3-a475-dfeb0cb6ad18++4004</key>
+		<string>http://192.168.7.43:8080/svn/app</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>history/DZ_NEW/DZ.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>d5f7f0f2-b42d-11e3-a475-dfeb0cb6ad18++4004</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>d5f7f0f2-b42d-11e3-a475-dfeb0cb6ad18++4004</key>
+		<string>http://192.168.7.43:8080/svn/app</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>http://192.168.7.43:8080/svn/app/development/discuz/ios/history/DZ_NEW/DZ.xcodeproj</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>d5f7f0f2-b42d-11e3-a475-dfeb0cb6ad18++4004</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>d5f7f0f2-b42d-11e3-a475-dfeb0cb6ad18++4004</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SVN_DZ0530</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>d5f7f0f2-b42d-11e3-a475-dfeb0cb6ad18++4004</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SVN_DZ0530</string>
+		</dict>
+	</array>
+</dict>
+</plist>

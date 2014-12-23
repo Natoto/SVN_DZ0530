@@ -55,6 +55,21 @@ module.exports = [
         "clobbers": [
             "device"
         ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.network-information/www/network.js",
+        "id": "org.apache.cordova.network-information.network",
+        "clobbers": [
+            "navigator.connection",
+            "navigator.network.connection"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.network-information/www/Connection.js",
+        "id": "org.apache.cordova.network-information.Connection",
+        "clobbers": [
+            "Connection"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -64,7 +79,8 @@ module.exports.metadata =
     "org.apache.cordova.dialogs": "0.2.10",
     "org.apache.cordova.camera": "0.3.2",
     "com.rockmobile.idoapp": "0.0.1",
-    "org.apache.cordova.device": "0.2.12"
+    "org.apache.cordova.device": "0.2.12",
+    "org.apache.cordova.network-information": "0.2.13"
 }
 // BOTTOM OF METADATA
 });

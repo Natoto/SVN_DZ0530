@@ -3,6 +3,6 @@ CLANG_CXX_LANGUAGE_STANDARD = ${PODS_DZ_BEELIB_CLANG_CXX_LANGUAGE_STANDARD}
 CLANG_CXX_LIBRARY = ${PODS_DZ_BEELIB_CLANG_CXX_LIBRARY}
 CLANG_WARN_DIRECT_OBJC_ISA_USAGE = ${PODS_DZ_BEELIB_CLANG_WARN_DIRECT_OBJC_ISA_USAGE}
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Build" "${PODS_ROOT}/Headers/Build/DZ_BEELIB" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/ASIHTTPRequest" "${PODS_ROOT}/Headers/Public/BeeFramework" "${PODS_ROOT}/Headers/Public/DZ_BEELIB" "${PODS_ROOT}/Headers/Public/FMDB" "${PODS_ROOT}/Headers/Public/OpenUDID" "${PODS_ROOT}/Headers/Public/Reachability" "${PODS_ROOT}/Headers/Public/TouchXML" "${PODS_ROOT}/Headers/Public/ZipArchive" ${PODS_DZ_BEELIB_HEADER_SEARCH_PATHS}
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Build" "${PODS_ROOT}/Headers/Build/DZ_BEELIB" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/ASIHTTPRequest" "${PODS_ROOT}/Headers/Public/DZ_BEELIB" "${PODS_ROOT}/Headers/Public/FMDB" "${PODS_ROOT}/Headers/Public/JSONKit-NoWarning" "${PODS_ROOT}/Headers/Public/OpenUDID" "${PODS_ROOT}/Headers/Public/Reachability" "${PODS_ROOT}/Headers/Public/TouchXML" "${PODS_ROOT}/Headers/Public/ZipArchive" ${PODS_DZ_BEELIB_HEADER_SEARCH_PATHS}
 OTHER_LDFLAGS = ${PODS_DZ_BEELIB_OTHER_LDFLAGS} -ObjC
 PODS_ROOT = ${SRCROOT}

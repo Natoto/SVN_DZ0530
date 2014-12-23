@@ -51,7 +51,7 @@
 #endif	// #if TARGET_IPHONE_SIMULATOR
 
 #pragma mark -
-
+#import <AVFoundation/AVFoundation.h>
 @interface BeeUICameraView : UIView
 #if !TARGET_IPHONE_SIMULATOR
 <AVCaptureVideoDataOutputSampleBufferDelegate>

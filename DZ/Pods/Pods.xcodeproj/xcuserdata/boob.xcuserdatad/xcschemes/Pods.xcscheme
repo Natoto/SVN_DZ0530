@@ -20,6 +20,34 @@
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "CE4B184A195BAEDB0042D054"
+               BuildableName = "DZTestsDemo.xctest"
+               BlueprintName = "DZTestsDemo"
+               ReferencedContainer = "container:DZ.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "CEB3211218E952E2004134D4"
+               BuildableName = "DZTests.xctest"
+               BlueprintName = "DZTests"
+               ReferencedContainer = "container:DZ.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -28,6 +56,26 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "CE4B184A195BAEDB0042D054"
+               BuildableName = "DZTestsDemo.xctest"
+               BlueprintName = "DZTestsDemo"
+               ReferencedContainer = "container:DZ.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "CEB3211218E952E2004134D4"
+               BuildableName = "DZTests.xctest"
+               BlueprintName = "DZTests"
+               ReferencedContainer = "container:DZ.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

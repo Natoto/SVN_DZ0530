@@ -20,13 +20,8 @@
 		<key>d5f7f0f2-b42d-11e3-a475-dfeb0cb6ad18++4004</key>
 		<string>../../../../..</string>
 	</dict>
-	<key>IDESourceControlProjectRepositoryRootDictionary</key>
-	<dict>
-		<key>d5f7f0f2-b42d-11e3-a475-dfeb0cb6ad18++4004</key>
-		<string>http://192.168.7.43:8080/svn/app</string>
-	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>http://192.168.7.43:8080/svn/app/development/discuz/ios/ZHIMENG/platforms/ios/ZM.xcodeproj</string>
+	<string>http://192.168.7.43:8080/svn/app</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
@@ -35,7 +30,7 @@
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.subversion</string>
+			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>d5f7f0f2-b42d-11e3-a475-dfeb0cb6ad18++4004</string>
 			<key>IDESourceControlWCCName</key>
@@ -43,7 +38,7 @@
 		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
+			<string>public.vcs.subversion</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>d5f7f0f2-b42d-11e3-a475-dfeb0cb6ad18++4004</string>
 			<key>IDESourceControlWCCName</key>

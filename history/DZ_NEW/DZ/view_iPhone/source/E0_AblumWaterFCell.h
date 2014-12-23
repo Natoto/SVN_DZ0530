@@ -1,0 +1,20 @@
+//
+//  WaterFCell.h
+//  CollectionView
+//
+//  Created by d2space on 14-2-26.
+//  Copyright (c) 2014年 D2space. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "bee.h"
+@interface E0_AblumWaterFCell : UICollectionViewCell
+@property (nonatomic, strong) BeeUIImageView * imageView;
+@property (nonatomic, strong) BeeUILabel * textView;
+@property (nonatomic, strong) UILabel * lbllouzhu;
+@property (nonatomic, strong) UILabel * lblview;
+@property (nonatomic, strong) UILabel * lblreply;
+-(void)layoutSubviews; 
+//- (void)configureCellWithIndexPath:(NSIndexPath *)indexPath;
+
+@end

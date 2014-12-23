@@ -762,14 +762,14 @@
 {
 	return [self sizeWithFont:font
 			constrainedToSize:CGSizeMake(width, 999999.0f)
-				lineBreakMode:UILineBreakModeWordWrap];	
+				lineBreakMode:NSLineBreakByWordWrapping];
 }
 
 - (CGSize)sizeWithFont:(UIFont *)font byHeight:(CGFloat)height
 {
 	return [self sizeWithFont:font
 			constrainedToSize:CGSizeMake(999999.0f, height)
-				lineBreakMode:UILineBreakModeWordWrap];
+				lineBreakMode:NSLineBreakByWordWrapping];
 }
 #endif	// #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
 

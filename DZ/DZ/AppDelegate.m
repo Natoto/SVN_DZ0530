@@ -108,37 +108,54 @@ static NSString *const ID_KEY = @"id";
      imgnavigationbar =[imgnavigationbar imageWithTintColor:[setting navigationBarColor]];
     [BeeUINavigationBar setTitleColor:[UIColor whiteColor]];
     [BeeUINavigationBar setBackgroundImage:imgnavigationbar];
+    
     [[UIBarButtonItem appearance] setTitleTextAttributes: @{ UITextAttributeFont: [UIFont systemFontOfSize:18.0], UITextAttributeTextShadowOffset: [NSValue valueWithUIOffset:UIOffsetZero]} forState:UIControlStateHighlighted];
     
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     //隐藏边框
     /*[[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];*/
+    
     [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
     BeeLog(@": = %@",[[NSBundle mainBundle] resourcePath]);
     [self observeNotification:BeeReachability.CHANGED];
     [self observeNotification:BeeReachability.UNREACHABLE];
     
-   BeeLog(NSLocalizedString(@"NSLocalizedString", @"NSLocalizedString"));
+    BeeLog(NSLocalizedString(@"NSLocalizedString", @"NSLocalizedString"));
     /*
      分享设置
      */
     //微信注册
-    [WXApi registerApp:setting.weixinappid];
-    //新浪微博注册 
+//    [WXApi registerApp:setting.weixinappid withDescription:setting.appname];
+    
+    [WXApi registerApp:setting.weixinappid withDescription:setting.appname];
+    //新浪微博注册
     [WeiboSDK registerApp:setting.sinaweiboappkey];
     self.window.rootViewController = [AppBoard_iPhone sharedInstance];
     
     UMENG_APPKEY = setting.umappkey;
     UMENG_CHANNELID = setting.umchannelid;
     [self umengTrack];
+//    [self rewriteinfoplist];
 }
+
+//-(void)rewriteinfoplist
+//{
+//     NSString *path2 = [[NSBundle mainBundle] pathForResource:@"DefaultConfigure" ofType:@"xml"];
+//    NSString *path = [[NSBundle mainBundle] pathForResource:@"DZ-Info" ofType:@"plist"];
+//    NSLog(@"%@",path);
+//    NSMutableDictionary *dict = [ [ NSMutableDictionary alloc ] initWithContentsOfFile:path];
+//    NSLog(@"%@",dict);
+//    NSArray *str = [dict objectForKey:@"CFBundleURLTypes"];
+//    
+//    NSLog(@"%@",str);
+//}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
     [super application:application didFinishLaunchingWithOptions:launchOptions];    
-    installUncaughtExceptionHandler();
+//    installUncaughtExceptionHandler();
     BeeLog(@"---------didFinishLaunchingWithOptions------------");
     if ([launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] != nil) {
         //获取应用程序消息通知标记数（即小红圈中的数字）
@@ -194,6 +211,7 @@ static NSString *const ID_KEY = @"id";
 	bee.services.wizard.config.splashes[2] = @"wizard_3.xml";
 	bee.services.wizard.config.splashes[3] = @"wizard_4.xml";
 	bee.services.wizard.config.splashes[4] = @"wizard_5.xml";
+    
 // 配置提示框
 //	{
 //		[BeeUITipsCenter setDefaultContainerView:self.window];
@@ -202,6 +220,7 @@ static NSString *const ID_KEY = @"id";
 //		[BeeUITipsCenter setDefaultSuccessIcon:[UIImage imageNamed:@"icon.png"]];
 //		[BeeUITipsCenter setDefaultFailureIcon:[UIImage imageNamed:@"icon.png"]];
 //	}
+    
 }
  
 

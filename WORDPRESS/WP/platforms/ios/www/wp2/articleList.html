@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" style="background: #23282d;">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-touch-fullscreen" content="yes">
+	<title>文章列表</title>
+	<link rel="stylesheet" href="css/base.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/color_variable.css" />
+</head>
+<body id="body">
+	<div class="wrapper clearfix" id="articleList">
+		<!-- 正文 -->
+		<div id="content">
+			<div id="home_head" style="position:absolute;">
+				<span class="menu_icon"></span>
+				<div class="topTitle">
+					人气网APP
+				</div>
+				<a href="search.html" id="iconSearch"><span class="larger_icon"></span></a>
+			</div>
+			<div class="pt40"></div>
+			<div class="home_bd">
+			<div class="tab_wrap" id="homeTab">
+				
+				<div class="scroller">
+					<div class="tab_body clearfix" data-action="topiclist">
+						<div class="tab_bd aList" id="articleList2">
+							<div class="innerScroll">
+								
+							</div>
+						</div>
+
+						
+					</div>
+					<div class="loadingDiv" style="display: none;">
+						<img src="images/loading.gif" alt="">
+						<span>加载后十条...</span>
+					</div>
+					</div>
+			</div>
+			</div>
+		</div>
+
+		<!-- 导航 -->
+		<div id="leftMenu">
+			<div class="aList2">
+				<div id="leftMenu_wrap">
+					<div class="setting"></div>
+					<dl>
+						<dt>人气网APP</dt>
+						<dd>
+							<ul id="myapp">
+								<li class="ii1"><a href="myCount.html">我的账号</a></li>
+								<li class="ii2"><a href="myStore.html">我的收藏<b>(0)</b></a></li>
+								<li class="ii3"><a href="index.html">首页</a></li>
+							</ul>
+						</dd>
+					</dl>
+
+					<dl class="articleDl">
+						<dt>文章分类</dt>
+						<dd>
+							<ul id="catl">
+								
+							</ul>
+						</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 刷新图标 -->
+	<div id="rightMenu">
+		<span class="refreshIcon">刷新</span>
+		<span class="toTopIcon">置顶</span>
+	</div>
+	<script src="js/zepto.min.js"></script>
+	<script src="js/touch.js"></script>
+	<script src="js/appinfo_variable.js"></script>
+	<script src="js/common.js"></script>
+	<script src="js/leftMenu.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/articleList.js"></script>
+	<script src="js/iscroll-probe.js"></script>
+	
+	<script src="js/imove.js"></script>
+</body>
+</html>

@@ -93,6 +93,11 @@
     self.viewController = [[[MainViewController alloc] init] autorelease];
 #endif
     
+    self.window.backgroundColor = [UIColor whiteColor];
+    
+    [application setStatusBarHidden:NO];
+    [application setStatusBarStyle:UIStatusBarStyleLightContent];
+    
     // Set your app's start page by setting the <content src='foo.html' /> tag in config.xml.
     // If necessary, uncomment the line below to override it.
     // self.viewController.startPage = @"index.html";

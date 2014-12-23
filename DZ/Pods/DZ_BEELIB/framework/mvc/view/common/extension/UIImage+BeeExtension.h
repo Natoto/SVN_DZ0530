@@ -40,7 +40,7 @@
 #define __IMAGE( __name )	[UIImage imageNamed:__name]
 
 #pragma mark -
-
+#import <CoreMedia/CoreMedia.h>
 @interface UIImage(Theme)
 
 - (UIImage *)transprent;
